@@ -1713,7 +1713,7 @@ def login():
             item_element = db.session.query(itemMaster).filter_by(project=project_element).first()
             return redirect(url_for('home', proj_id=project_element.id, item_id=item_element.id))
 
-    return render_template("Login.html")
+    return render_template("login.html")
 
 
 @app.route('/logout')
