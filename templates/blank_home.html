@@ -1,0 +1,92 @@
+{% block content %}
+{% include "header_blank.html" %}
+
+                        <div class="projectdetails">
+                            <div class="project shadow">
+                                <div class="row">
+                                    <div class="col-6 mt-2">
+                                        <div class="row" style="margin-left: 1px">
+                                            <div class="col-2">
+                                                <h6 style="font-size: 15px;"><b>Project</b></h6>
+                                            </div>
+                                            <div class="col-1">
+                                                <a
+                                                    href="{{url_for('addProject')}}"
+                                                    data-toggle="tooltip"
+                                                    title="Create"
+                                                    data-placement="bottom"
+                                                >
+                                                    <i class="fa-solid fa-plus"></i
+                                                ></a>
+                                            </div>
+                                            <div class="col-1">
+                                                <a
+                                                    href="#"
+                                                    data-toggle="tooltip"
+                                                    title="Delete"
+                                                    data-placement="bottom"
+                                                >
+                                                    <i class="fa-solid fa-xmark"></i
+                                                ></a>
+                                            </div>
+                                            <div class="col-1">
+                                                <a
+                                                    href="#"
+                                                    data-toggle="tooltip"
+                                                    title="Download"
+                                                    data-placement="bottom"
+                                                >
+                                                    <i class="fa-solid fa-download"></i
+                                                ></a>
+                                            </div>
+                                            <div class="col-1">
+                                                <a
+                                                    href="#"
+                                                    data-toggle="tooltip"
+                                                    title="Upload"
+                                                    data-placement="bottom"
+                                                >
+                                                    <i class="fa-solid fa-upload"></i
+                                                ></a>
+                                            </div>
+                                            <div class="col-1">
+                                                <a
+                                                    href="#"
+                                                    data-toggle="tooltip"
+                                                    title="Copy"
+                                                    data-placement="bottom"
+                                                >
+                                                    <i class="fa-solid fa-copy"></i
+                                                ></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 mt-1">
+                                        <div class="row justify-content-end">
+                                            <div class="col-8">
+                                                <div class="form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="name"
+                                                        placeholder="Search........."
+                                                        class="form-control"
+                                                        id="projectinput"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-primary" id="btn">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                    </div>
+                </div>
+{% include "footer.html" %}
+{% endblock %}

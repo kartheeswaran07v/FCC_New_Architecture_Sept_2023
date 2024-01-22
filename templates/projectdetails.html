@@ -1,0 +1,289 @@
+{% block content %}
+{% include "header.html" %}
+<form action="{{url_for('addProject', proj_id=item.project.id, item_id=item.id)}}" method="post">
+    
+    <div class="container-fulid mt-5 ml-2">
+        <div class="row">
+            <!-- project details form -->
+            <div class="col-4">
+                <div class="projectdetails-form shadow" >
+                    <h6 style="font-size: 15px;"><b>Project Details</b></h6>
+                    <hr>
+                    <div class="row mt-3">
+                        <div class="col-5">
+                            <label for="cname">Customer Name</label>
+                        </div>
+                        <div class="col-6">
+                            <select name="cname" id="company"></select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-5">
+                            <label for="address">Address</label>
+                        </div>
+                        <div class="col-6">
+                            <select name="address" id="address"></select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-5">
+                            <label for="cname">End User</label>
+                        </div>
+                        <div class="col-6">
+                            <select name="cnameE" id="companyE"></select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-5">
+                            <label for="address">End User Address</label>
+                        </div>
+                        <div class="col-6">
+                            <select name="addressE" id="addressE"></select>
+                        </div>
+                    </div>
+                    
+                    <div class="row  mt-2">
+                        <div class="col-5">
+                            <label for="pro">Project Name</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control-sm-sm" name="projectRef"
+                                style="width: 100%;" required>
+                        </div>
+                    </div>
+                    <div class="row  mt-2">
+                        <div class="col-5">
+                            <label for="pro">Enquiry Ref.</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control-sm-sm" name="enquiryRef"
+                                style="width: 100%;" required>
+                        </div>
+                    </div>
+                    <div class="row  mt-2">
+                        <div class="col-5">
+                            <label for="enquiry">Enquiry Date</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="date" class="form-control-sm-sm" name="enquiryReceivedDate"
+                                style="width: 100%;" value="{{metadata['date']}}">
+                        </div>
+                    </div>
+                    <div class="row  mt-2">
+                        <div class="col-5">
+                            <label for="received">Receipt Date</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="date" class="form-control-sm-sm" name="receiptDate"
+                                style="width: 100%;" value="{{metadata['date']}}">
+                        </div>
+                    </div>
+                    <div class="row  mt-2">
+                        <div class="col-5">
+                            <label for="bid due">Bid Due Date</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="date" class="form-control-sm-sm" name="bidDueDate"
+                                style="width: 100%;" value="{{metadata['date']}}">
+                        </div>
+                    </div>
+                    <div class="row  mt-2 ">
+                        <div class="col-5">
+                            <label for="application_eng">Application Engineer</label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control-sm-sm" name="aEng"
+                                id="application_eng" style="width: 100%;">
+                                {% for engineer in metadata['engineers'] %}
+                                    <option value="{{engineer.id}}">{{engineer.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row  mt-2 ">
+                        <div class="col-5">
+                            <label for="purpose">Purpose</label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control-sm-sm" name="purpose" id="purpose"
+                                style="width: 100%;">
+                                {% for purpose in metadata['purpose'] %}
+                                <option value="{{purpose}}">{{purpose}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row  mt-2 ">
+                        <div class="col-5">
+                            <label for="Industry">Industry</label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control-sm-sm" name="industry" id="Industry"
+                                style="width: 100%;">
+                                {% for industry in metadata['industries'] %}
+                                <option value="{{industry.id}}">{{industry.name}}</option>
+                                {% endfor %}
+                                <option value="OEM">OEM</option>
+                                <!-- <option value="Paper & Board">Paper & Board</option>
+                            <option value="Petrochemical">Petrochemical</option>   -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-5">
+                            <label for="project ">Region</label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control-sm-sm" name="region" id="region"
+                                style="width: 100%;">
+                                {% for region in metadata['regions'] %}
+                                    <option value="{{region.id}}">{{region.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="row mt-2 mb-2">
+                        <div class="col-5">
+                            <label for="Project Revision">Project Revision</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control-sm-sm" name="Project Revision" style="width: 100%;">
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+            <!-- order information form -->
+            <div class="col-4">
+                <div class="orderinformation-form shadow">
+                    <h6 style="font-size: 15px;"><b>Order Information</b></h6>
+                    <hr>
+                    <div class="row  mt-2 ">
+                        <div class="col-6">
+                            <label for="Contract Engineer">Contract Engineer</label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control-sm-sm" name="cEng"
+                                id="Contract Engineer">
+                                {% for engineer in metadata['engineers'] %}
+                                    <option value="{{engineer.id}}">{{engineer.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <label for="Customer Po No">Customer PO No</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control-sm-sm" name="custPoNo"
+                                style="width: 100%;">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <label for="Work Order No">Work Order No</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control-sm-sm" name="workOderNo"
+                                style="width: 100%;">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <label for="status">Status</label>
+                        </div>
+                        <div class="col-6">
+                            <select name="status" id="">
+                                {% for stat in metadata['status'] %}
+                                    <option value="{{stat}}">{{stat}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-3">
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+    
+</div>
+</div>
+<div class="row justify-content-end">
+    <div class="col-2">
+            <button type="submit" class="btn " style="background-color: #04AA6D; color: white;font-size: 11px;">Add Project</button>
+    </div>
+</div>
+</form>
+
+
+
+
+<script>
+    // alert('js working')
+    var companyObject = JSON.parse({{metadata['notes_dict']|tojson}});
+
+    window.onload = function() {
+      var notesSelect = document.getElementById("company");
+      var nvaluesSelect = document.getElementById("address");
+      var notesSelectE = document.getElementById("companyE");
+      var nvaluesSelectE = document.getElementById("addressE");
+      firstKey = Object.keys(companyObject)[0]
+      for (var x in companyObject) {
+        notesSelect.options[notesSelect.options.length] = new Option(x, x);
+        notesSelectE.options[notesSelectE.options.length] = new Option(x, x);
+      }
+
+
+      console.log(firstKey)
+
+      if (nvaluesSelect.options.length === 0 || nvaluesSelectE.options.length === 0){
+        
+        console.log(companyObject[`${firstKey}`])
+        for (var y in companyObject[`${firstKey}`]) {
+          nvaluesSelect.options[nvaluesSelect.options.length] = new Option(companyObject[firstKey][y], companyObject[firstKey][y]);
+          nvaluesSelectE.options[nvaluesSelectE.options.length] = new Option(companyObject[firstKey][y], companyObject[firstKey][y]);
+        }
+      }
+
+      
+
+      notesSelect.onchange = function() {
+        //empty Chapters- and Topics- dropdowns
+        nvaluesSelect.length = 0;
+        //display correct values
+        // console.log(companyObject[this.value])
+        for (var y in companyObject[this.value]) {
+        //   console.log(y)
+          nvaluesSelect.options[nvaluesSelect.options.length] = new Option(companyObject[this.value][y], companyObject[this.value][y]);
+        }
+      }
+
+      notesSelectE.onchange = function() {
+        //empty Chapters- and Topics- dropdowns
+        nvaluesSelectE.length = 0;
+        //display correct values
+        // console.log(companyObject[this.value])
+        for (var y in companyObject[this.value]) {
+        //   console.log(y)
+          nvaluesSelectE.options[nvaluesSelectE.options.length] = new Option(companyObject[this.value][y], companyObject[this.value][y]);
+        }
+      }
+      
+    }
+    </script>
+
+
+{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% block content %}
+{% include "header.html" %}
+<form action="{{url_for('addCompany', proj_id=item.project.id, item_id=item.id)}}" method="post">
+    <div class="row div-margin">
+        <div class="col-2 center"><label for="">Company Name: </label></div>
+        <div class="col-2 center"><input type="text" name="name" required></div>
+        <div class="col-2 center"><label for="">Description: </label></div>
+        <div class="col-2 center"><input type="text" name="description" required></div>
+        <div class="col-3 center"><button type="submit">Add Company</button></div>
+    </div>
+    {% for company in companies %}
+        <div class="row">
+            <div class="col-2 center"><p>{{company.id}}</p></div>
+            <div class="col-2 center"><p>{{company.name}}</p></div>
+            <div class="col-2 center"><p>{{company.description}}</p></div>
+            <div class="col-2 center"><a href="{{url_for('companyEdit', company_id=company.id, proj_id=item.project.id, item_id=item.id)}}">Edit</a></div>
+        </div>
+    {% endfor %}
+    <!-- <div class="row">
+        <div class="col-6"><label for="">Address: </label></div>
+        <div class="col-6" id="address">
+            <input type="text" name="address"><br>
+        </div>
+    </div> -->
+</form>
+
+
+
+
+
+
+{% include "footer.html" %}
+{% endblock %}

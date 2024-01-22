@@ -1,0 +1,87 @@
+{% block content %}
+{% include "header.html" %}
+
+                <div class="row mt-2">
+                    <div class="col-3 shadow p-2" >
+                        <h6 class="preference_heading"><b>Preferences</b></h6>
+                        <hr>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label>Pressure unit</label>
+                            </div>
+                            <div class="col-6">
+                                <select id="" class="form-control-sm-sm preference_select">
+                                    <option>bar(a)</option>
+                                    <option>bar(g)</option>
+                                    <option>kpa(a)</option>
+                                    <option>kpa(g)</option>
+                                    <option>Mpa(a)</option>
+                                    <option>Mpa(g)</option>
+                                    <option>Pa(a)</option>
+                                    <option>Pa(g)</option>
+                                    <option>in H2O(a)</option>
+                                    <option>in H2O(g)</option>
+                                    <option>in Hg(a)</option>
+                                    <option>in Hg(g)</option>
+                                    <option>kg/cm2(a)</option>
+                                    <option>kg/cm2(g)</option>
+                                    <option>mbar(a)</option>
+                                    <option>mbar(g)</option>
+                                    <option>mm Hg(a)</option>
+                                    <option>mm Hg(g)</option>
+                                    <option>psi(a)</option>
+                                    <option>psi(g)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label>Flowrate unit</label>
+                            </div>
+                            <div class="col-6">
+                                <select id="" class="form-control-sm-sm preference_select">
+                                    <option>m3/hr</option>
+                                    <option>scfh</option>
+                                    <option>gpm</option>
+                                    <option>lb/hr</option>
+                                    <option>kg/hr</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label>Length unit</label>
+                            </div>
+                            <div class="col-6">
+                                <select id="" class="form-control-sm-sm preference_select">
+                                    <option>inch</option>
+                                    <option>mm</option>
+                                    <option>cm</option>
+                                    <option>m</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label>Temperature unit</label>
+                            </div>
+                            <div class="col-6">
+                                <select id="" class="form-control-sm-sm preference_select">
+                                    <option>°C</option>
+                                    <option>°F</option>
+                                    <option>K</option>
+                                    <option>R</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button type="button" class="btn btn-info preference_btn">Set Preference</button>
+                </div>
+{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% block content %}
+{% include "header.html" %}
+<form action="{{url_for('companyEdit', company_id=company.id, proj_id=item.project.id, item_id=item.id)}}" method="post">
+    <div class="row div-margin">
+        <div class="col-3 center"><label for="">Company Name: </label></div>
+        <div class="col-3 center"><input type="text" name="name" readonly value="{{company.name}}"></div>
+        <div class="col-3 center"><label for="">Description: </label></div>
+        <div class="col-3 center"><input type="text" name="description" required value="{{company.description}}"></div>
+    </div>
+    <div class="row">
+        <div class="col-3 center"><label for="">Address: </label></div>
+        <div class="col-3 center" id="address">
+            <input type="text" name="address" required><br>
+        </div>
+        <div class="col-3 center" id="address">
+            <button type="submit">Add Address</button>
+        </div>
+    </div>
+    
+    {% for address in addresses %}
+        <div class="row">
+        <!-- {% if addresses %} -->
+                <div class="col-3 center"><label for="">{{address.id}} </label></div>
+                <div class="col-3 center" id="address">
+                    <p>{{address.address}}, {{address.customerCode}}</p>
+                </div>
+                <div class="col-3 center">
+                    {% if address.isActive %}
+                        <a href="{{url_for('delAddress', address_id=address.id)}}" class="inactive">Inactivate</a>
+                    {% else %}
+                        <a href="{{url_for('delAddress', address_id=address.id)}}" class="active">Activate</a>
+                    {% endif %}
+                </div>
+        <!-- {% endif %} -->
+        </div>
+    {% endfor %}
+</form>
+</form>
+
+
+
+
+
+
+{% include "footer.html" %}
+{% endblock %}

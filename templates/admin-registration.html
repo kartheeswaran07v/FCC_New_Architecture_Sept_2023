@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles_login.css')}}">
+    <title>Registration</title>
+</head>
+<body>
+    <div class="container" style="margin-top: 60px;">
+        <div class="form-container">
+            <h2>Register</h2>
+            <form action="{{url_for('register')}}" method="POST">
+                <input type="text" name="name" placeholder="Name" required>
+<!--                <div>-->
+                    <input type="email" name="email" placeholder="Email" required >
+<!--                    <button class="btnsubmit" type="submit">Send OTP</button>-->
+<!--                </div>-->
+<!--                <input type="text" name="otp" placeholder="Enter OTP" required>-->
+                <input type="password" name="password" placeholder="Password" required>
+<!--                <input type="password" name="confirm_password" placeholder="Confirm Password" required>-->
+                <input type="text" name="employeeId" placeholder="Employee Id" required>
+                <input type="text" name="mobile" placeholder="Mobile" required>
+                <select name="department" required>
+                    {% for department in departments %}
+                        <option value="{{department.id}}">{{department.name}}</option>
+                    {% endfor %}
+                </select>
+                <select name="designation" required>
+                    {% for designation in designations %}
+                        <option value="{{designation.id}}">{{designation.name}}</option>
+                    {% endfor %}
+                </select>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        
+                            {% for message in messages %}
+                                <p class="flashes">{{ message }}</p>
+                            {% endfor %}
+                        
+                    {% endif %}
+                {% endwith %}
+                {% block body %}{% endblock %}
+                <button type="submit">Register</button>
+                <label for="" style="color: rgb(133, 133, 133);">Already have an account?<a href="{{url_for('login')}}">Login</a></label>
+            </form>
+        </div>
+        
+    </div>
+    
+</body>
+</html>

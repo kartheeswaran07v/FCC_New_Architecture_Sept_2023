@@ -1,0 +1,7 @@
+﻿manufacturer,series,moc,size,drain,filter_size,relive,pressure_range,fluid,model,remarks
+Shavo,11-4SN Series,Al,01-Apr,Manual,5 (SS),Self,10-100 psi / 0-7 barg,None,11-4SN-250M-M5KN-NN,
+Shavo,11-4SN Series,Al,01-Apr,Manual,5 (Sint. Bronze),Self,10-100 psi / 0-7 barg,None,11-4SN-250M-M6KN-NN,
+Control Air,350 Series,SS,01-Apr,Manual,5 (SS),Self,0-150 psi / 0-10 barg,None,350-BDF,"Air, inert gas, sweet (natural) and sour gases"
+Control Air,350 Series,SS,01-Apr,Manual,5 (SS),Self,0-100 psi / 0-7 barg,None,350-BCF,"Air, inert gas, sweet (natural) and sour gases"
+Rotork/Bifold,SH Series,316L,01-Apr,Manual,5 (SS),Self,3.6-116 psi / 0.25-8 barg,None,SH06-FR-SR-MD-08-X1,
+Rotork/Midland,3550 Series,316L,01-Apr,Manual,5 (SS),Self,7.2-174 psi / 0.5-12 barg,None,2FRMSV082A05,"Air, inert gas, sweet (natural) and sour gases, ATEX"

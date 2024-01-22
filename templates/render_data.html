@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+
+<head>
+  <meta charset="utf-8">
+  <title>{{title}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Crimson+Text&family=EB+Garamond&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a18974e73a.js" crossorigin="anonymous"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  <style>
+      table, th, td {
+          border: 1px solid #DDDDDD;
+        }
+      thead input {
+            width: 100%;
+        }
+      #example_filter {
+            margin-bottom: 20px;
+            margin-top: 10px;
+      }
+  </style>
+
+
+
+
+</head>
+
+<body>
+
+  <div class="row" style="margin-top:3px;">
+    <div class="col-2 nav-items" style="height:700px;">
+      <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="" style="width: 80%; text-align: left;margin-bottom: 10px;">
+      <p><a href="#"> DashBoard</a></p>
+      <p><a href="#">Project Details</a></p>
+      <p><a href="#" >Valve Selection</a></p>
+      <p><a href="#" >Valve Sizing</a></p>
+      <!-- <p><a href="D:\FCC Sizing UI\Sizing UI\Materials.html">Materials</a></p> -->
+      <p><a href="#">Actuator Sizing</a></p>
+      <p><a href="#">Accessories, Order Processing</a></p>
+      <p><a href="#">Item Notes</a></p>
+      <p><a href="#">Project Notes</a></p>
+      <p><a href="{{url_for('viewData')}}">View Data</a></p>
+      <button style="font-size:18px;border:1px groove;"><a href="{{url_for('logout')}}">Logout </a><i class="fa fa-sign-out"></i></button>
+    </div>
+
+
+
+
+
+    <div class="col-6" style="margin-left:40px;margin-top:40px;">
+
+        <div class="row">
+          {% if topic == '58' %}
+            <div>
+
+            <h3>Table Name : {{name}} / {{topic}}</h3>
+
+                <table style="border-bottom: 1px groove #2C3333;border-right:  1px groove #2C3333;" id="example" class="display">
+                    <thead>
+                        <tr>
+                          <th>Series</th>
+                          <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                          <tr>
+                              <td>{{i.name[:2]}}</td>
+                              <td>{{i.name[3:]}}</td>
+                          </tr>
+                        {% endfor %}
+                    </tbody>
+
+
+                </table>
+            </div>
+        {% elif topic == '32' %}
+            <div>
+
+            <h3>Table Name : {{name}} / {{topic}}</h3>
+
+                <table style="border-bottom: 1px groove #2C3333;border-right:  1px groove #2C3333;" id="example" class="display">
+                    <thead>
+                        <tr>
+                          <th>Series</th>
+                          <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                          <tr>
+                              <td>{{i.id}}</td>
+                              <td>{{i.acSize}}</td>
+                          </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        {% elif topic == '25' %}
+            <div>
+
+            <h3>Table Name : {{name}} / {{topic}}</h3>
+
+                <table style="border-bottom: 1px groove #2C3333;border-right:  1px groove #2C3333;" id="example" class="display">
+                    <thead>
+                        <tr>
+                          <th>S. No.</th>
+                          <th>Max Temp</th>
+                          <th>Min Temp</th>
+                          <th>Pressure</th>
+                          <th>Material</th>
+                          <th>Rating</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                          <tr>
+                              <td>{{i.id}}</td>
+                              <td>{{i.maxTemp}}</td>
+                              <td>{{i.minTemp}}</td>
+                              <td>{{i.pressure}}</td>
+                              <td>{{i.material.name}}</td>
+                              <td>{{i.rating.name}}</td>
+                          </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        {% else %}
+          <div>
+
+          <h3>Table Name : {{name}} / {{topic}}</h3>
+
+            <table style="border-bottom: 1px groove #2C3333;border-right:  1px groove #2C3333;" id="example" class="display">
+                <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                      <tr>
+                          <td>{{i.id}}</td>
+                          <td>{{i.name}}{{i.size}}</td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        {% endif %}
+
+        </div>
+
+<!--        {% for i in data %}-->
+<!--            <div class="col-1 tab" style="width:5%;margin-left:40px;border-left: 1px groove;border-bottom: 1px groove;border-right:  1px groove;">{{i.id}}</div>-->
+<!--            <div class="col-11" style="width:80%;margin-right:40px;border-Bottom: 1px groove;border-right:  1px groove;">{{i.name}}{{i.size}}</div>-->
+<!--        {% endfor %}-->
+
+
+    </div>
+
+    <div class="col-3" style="margin-top: 20px;">
+        <div class="row">
+          <div class="col-2" style="margin-left:80px;margin-top:20px">
+              <button style="font-size:18px;border:1px groove;" ><a
+                      href="{{url_for('downloadData', topic=topic)}}">Download</a></button>
+        </div>
+          <div class="col-6" style="margin-left:80px;margin-top:20px">
+<!--            <button style="font-size:18px;border:1px groove;"><a href="#">Upload</a><i class="fa fa-sign-upload"></i></button>-->
+            <form method = "POST" enctype="multipart/form-data" action = "{{url_for('uploadData', topic=topic)}}">
+                <input type="file" name="file" accept=".csv" style="height: 35px;">
+                <input type = "submit" value="Upload" style="height: 35px;">
+            </form>
+          </div>
+      </div>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+    // Setup - add a text input to each footer cell
+    $('#example thead tr')
+        .clone(true)
+        .addClass('filters')
+        .appendTo('#example thead');
+
+    var table = $('#example').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+            var api = this.api();
+
+            // For each column
+            api
+                .columns()
+                .eq(0)
+                .each(function (colIdx) {
+                    // Set the header cell to contain the input element
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+                            // Get the search value
+                            $(this).attr('title', $(this).val());
+                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                            var cursorPosition = this.selectionStart;
+                            // Search the column for that value
+                            api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+
+                            $(this).trigger('change');
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+        },
+    });
+});
+</script>
+
+</html>

@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fffefe;
+    /* background-color: #f1f1f1; */
+}
+
+.container {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+
+.form-container {
+    background-color: #f1f1f1;
+    /* background-color: #fffefe; */
+    padding: 20px;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    margin: 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    font-size: 16px;
+    border: #ccc;
+    border-bottom: 1px solid #ccc;
+
+}
+input:focus {outline:none;}
+input:focus {
+    /* border-bottom: 1px solid #17a2b8; */
+    /* border-bottom: 1px solid #500002; */
+    border-bottom: 1px solid #478cb5;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+  }
+
+select {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    font-size: 16px;
+    border: #ccc;
+    border-bottom: 1px solid #ccc;
+
+}
+select:focus {outline:none;}
+select:focus {
+    /* border-bottom: 1px solid #17a2b8; */
+    /* border-bottom: 1px solid #500002; */
+    border-bottom: 1px solid #478cb5;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+  }
+
+.login1 {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #478cb5;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.login1:hover {
+    background-color: #a30204;
+}
+
+button {
+    padding: 10px;
+    background-color: #478cb5;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #478cb5;
+}
+
+button:hover {
+    border: 1px solid #478cb5;
+    background-color: #fff;
+    color: #478cb5;
+}
+
+a {
+    font-size: 16px;
+    padding: 3px;
+    color: #0174BE;
+}
+
+label {
+    font-size: 16px;
+    padding: 10px;
+}
+
+
+.company{
+    text-align: center;
+}
+
+.flashes {
+    color: rgb(165, 65, 65);
+    margin: 0;
+    padding-bottom: 7px;
+    max-width: 250;
+    padding-left: 7px;
+    text-align: center;
+    font-size: 0.8rem;
+}

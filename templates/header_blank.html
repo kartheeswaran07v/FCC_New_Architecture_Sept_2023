@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		/>
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+			integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
+		<!-- <link rel="stylesheet" href="css/table.css"> -->
+		<script src="js/fcc.js"></script>
+        <script>
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $(".flashes").fadeOut('slow');
+                }, 2000); // <-- time in milliseconds
+            });
+        </script>
+    <title>FCC</title>
+</head>
+<body>
+    <div class="container-fulid">
+        <div class="row">
+            <div class="col-2">
+                <div class="sidenav">
+                    <img src="https://fccommune.com/assets/Logo/background%20remove%20white.png"  alt="fcc">
+                    <ul class="nav flex-column vh-100">
+                        <!-- <li class="nav-item mt-4">
+                            <p><a class="nav-link" href="#">Dashboard</a></p>
+                        </li> -->
+                        <li  class="nav-item mt-4" style="margin-top: 0;">
+                            <p><a class="nav-link" href="{{url_for('blank_home')}}">
+                                <!-- <img src="icon/Dashboard.png" alt="dash" style="width: 15%;"> -->
+                            Dashboard</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="#">
+                                <!-- <img src="icon/Project Details.png" alt="projectdetail" style="width: 15%;"> -->
+                                Project Details</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="#">	
+                                <!-- <i class="fa-solid fa-memo"></i> -->
+                                Valve Data</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p>
+                                <a class="nav-link" href="#">
+                                    <!-- <img src="icon/Valve Sizing.png" alt="valve" style="width: 15%;"> -->
+                                     Valve Sizing</a>
+                            </p>
+                        </li>
+                        <li class="nav-item">
+                                <!-- <img src="icon/Actuator Sizing.png" alt="valve" style="width: 15%;">  -->
+                                Actuator Sizing</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="#">
+                                <!-- <img src="photo/Accessories.png" alt="valve" style="width: 10%; border-radius: 10px;">  -->
+                                Accessories</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="#">
+                                <!-- <i class="fa-solid fa-ballot-check"></i>  -->
+                               Orders, Item Notes</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="#">
+                                <!-- <i class="fa-solid fa-ballot-check" style="color: white;"> -->
+                                </i> Project Notes</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="#">
+                                <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                                Reference Table
+                            </a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="#"> 
+                                <!-- <i class="fa-solid fa-users" style="color: white;"></i>   -->
+                                Customer Master</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="{{url_for('addCompany')}}">
+                                <!-- <img src="icon/Actuator Sizing.png" alt="valve" style="width: 15%;">  -->
+                                Company Master</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a class="nav-link" href="{{url_for('logout')}}">
+                                <!-- <i class="fa-solid fa-arrow-right-from-bracket" style="color: white;"></i> -->
+                                 Logout</a></p>
+                        </li>
+                        <li class="nav-item" style="margin-top: 10px;">
+                            <p><a class="nav-link" href="#"> <i class="fa-solid fa-circle-user pr-2" style="color: white;"></i>  {{user.name}}</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-10 vh-100">
+                <div class="row">
+                        <div class="col-12">
+                            <div class="topicons">
+                                <div class="row" style="margin-left: 3px;"> 
+                                    <div class="icon mt-2 ml-3">
+                                        <i class="fa-solid fa-backward-step" data-toggle="tooltip" title="first"></i>
+                                        <i class="fa-solid fa-angle-left ml-3" data-toggle="tooltip" title="Previous"></i>
+                                        <input type="text" class="form-control-sm ml-3" name="name" value="#">
+                                        <i class="fa-solid fa-angle-right ml-3" data-toggle="tooltip" title="next"></i>
+                                        <i class="fa-solid fa-forward-step ml-3" data-toggle="tooltip" title="last"></i>                                    
+                                        <i class="fa-solid fa-file ml-3" data-toggle="tooltip" title="file"></i>
+                                        <!-- <i class="fa-solid fa-file"></i> -->
+                                        <i class="fa-solid fa-floppy-disk  ml-3 fa-lg" data-toggle="tooltip" title="save"></i>
+                                        <a href="#"><i class="fa-solid fa-sliders fa-1x ml-3" data-toggle="tooltip" title="Preference"></i></a>
+                                        <i class="fa-solid fa-question ml-3" data-toggle="tooltip" title="help"></i>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                                
+                        </div>
+                
+                
+                </div>
+                <div class="row flash">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            
+                                {% for message in messages %}
+                                    <p class="flashes">{{ message }}</p>
+                                {% endfor %}
+                            
+                        {% endif %}
+                    {% endwith %}
+                    {% block body %}{% endblock %}
+
+                </div>
+                
+                <!-- WRITE YOUR CODE HERE USING NEW ROW -->

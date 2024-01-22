@@ -1,0 +1,771 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+
+                <div class="row">
+                        <div class="col-7 ml-3">
+                                <div class="row">
+                                        <div class="col-4">
+                                                <div class="row">
+                                                        <!--------------PARAMETER COLUMN-------------->
+                                                        <div class="col-sm-8 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp">Parameters</p></div>
+                                                        </div>
+                                                        <div class="col-4 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp">Unit</p></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-8">
+                                                <div class="row">
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp ml-1">Case 1</p>
+                                                                        <i class="fa-solid fa-rotate-right clear " data-toggle="tooltip" title="Clear Case 1"></i>
+                                                                        <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case 1"></i>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp ml-1">Case 2</p>
+                                                                        <i class="fa-solid fa-rotate-right clear" data-toggle="tooltip" title="Clear Case 1"></i>
+                                                                        <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case 1"></i>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp ml-1">Case 3</p>
+                                                                        <i class="fa-solid fa-rotate-right clear" data-toggle="tooltip" title="Clear Case 1"></i>
+                                                                        <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case 1"></i>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp ml-1">Case 4</p>
+                                                                        <i class="fa-solid fa-rotate-right clear" data-toggle="tooltip" title="Clear Case 1"></i>
+                                                                        <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case 1"></i>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp ml-1">Case 5</p>
+                                                                        <i class="fa-solid fa-rotate-right clear" data-toggle="tooltip" title="Clear Case 1"></i>
+                                                                        <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case 1"></i>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp ml-1">Case 6</p>
+                                                                        <i class="fa-solid fa-rotate-right clear" data-toggle="tooltip" title="Clear Case 1"></i>
+                                                                        <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case 1"></i>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-4">
+                                                <div class="row">
+                                                        <div class="col-sm-8 colborder_bottom">
+                                                                <div class="row sizingtableleft_warning"><p class="sizingp"><strong>Warning</strong></p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Flowrate</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">InletPressure</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Outlet Pressure</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Inlet Temperature</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Vapor Pressure</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Specific Gravity</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Viscosity</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Fl</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Fd</p></div>
+                                                                <div class="row sizingtableleft_warning"><p class="sizingp"><strong>Output</strong></p></div>
+                                                        </div>
+                                                        <div class="col-4 colborder_bottom">
+                                                                <div class="row sizingtable_header"></div>
+                                                                <div class="row sizingtable">
+                                                                        <select id="#"
+                                                                                class="sizingtable_inputs">
+                                                                                ">
+                                                                                <option>bar(a)
+                                                                                </option>
+                                                                                <option>bar(g)
+                                                                                </option>
+                                                                                <option>kpa(a)
+                                                                                </option>
+                                                                                <option>kpa(g)
+                                                                                </option>
+                                                                                <option>Mpa(a)
+                                                                                </option>
+                                                                                <option>Mpa(g)
+                                                                                </option>
+                                                                                <option>Pa(a)
+                                                                                </option>
+                                                                                <option>Pa(g)
+                                                                                </option>
+                                                                                <option>in
+                                                                                        H2O(a)
+                                                                                </option>
+                                                                                <option>in
+                                                                                        H2O(g)
+                                                                                </option>
+                                                                                <option>in Hg(a)
+                                                                                </option>
+                                                                                <option>in Hg(g)
+                                                                                </option>
+                                                                                <option>kg/cm2(a)
+                                                                                </option>
+                                                                                <option>kg/cm2(g)
+                                                                                </option>
+                                                                                <option>mbar(a)
+                                                                                </option>
+                                                                                <option>mbar(g)
+                                                                                </option>
+                                                                                <option>mm Hg(a)
+                                                                                </option>
+                                                                                <option>mm Hg(g)
+                                                                                </option>
+                                                                                <option>psi(a)
+                                                                                </option>
+                                                                                <option>psi(g)
+                                                                                </option>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="row sizingtable">
+                                                                        <select id="#"
+                                                                                class="sizingtable_inputs">
+                                                                                <option>bar(a)
+                                                                                </option>
+                                                                                <option>bar(g)
+                                                                                </option>
+                                                                                <option>kpa(a)
+                                                                                </option>
+                                                                                <option>kpa(g)
+                                                                                </option>
+                                                                                <option>Mpa(a)
+                                                                                </option>
+                                                                                <option>Mpa(g)
+                                                                                </option>
+                                                                                <option>Pa(a)
+                                                                                </option>
+                                                                                <option>Pa(g)
+                                                                                </option>
+                                                                                <option>in
+                                                                                        H2O(a)
+                                                                                </option>
+                                                                                <option>in
+                                                                                        H2O(g)
+                                                                                </option>
+                                                                                <option>in Hg(a)
+                                                                                </option>
+                                                                                <option>in Hg(g)
+                                                                                </option>
+                                                                                <option>kg/cm2(a)
+                                                                                </option>
+                                                                                <option>kg/cm2(g)
+                                                                                </option>
+                                                                                <option>mbar(a)
+                                                                                </option>
+                                                                                <option>mbar(g)
+                                                                                </option>
+                                                                                <option>mm Hg(a)
+                                                                                </option>
+                                                                                <option>mm Hg(g)
+                                                                                </option>
+                                                                                <option>psi(a)
+                                                                                </option>
+                                                                                <option>psi(g)
+                                                                                </option>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="row sizingtable">
+                                                                        <select id="#"
+                                                                                class="sizingtable_inputs">
+                                                                                <option>°C
+                                                                                </option>
+                                                                                <option>°F
+                                                                                </option>
+                                                                                <option>K
+                                                                                </option>
+                                                                                <option>R
+                                                                                </option>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="row sizingtable">
+                                                                        <select id="#"
+                                                                                class="sizingtable_inputs">
+                                                                                <option>bar(a)
+                                                                                </option>
+                                                                                <option>bar(g)
+                                                                                </option>
+                                                                                <option>kpa(a)
+                                                                                </option>
+                                                                                <option>kpa(g)
+                                                                                </option>
+                                                                                <option>Mpa(a)
+                                                                                </option>
+                                                                                <option>Mpa(g)
+                                                                                </option>
+                                                                                <option>Pa(a)
+                                                                                </option>
+                                                                                <option>Pa(g)
+                                                                                </option>
+                                                                                <option>in
+                                                                                        H2O(a)
+                                                                                </option>
+                                                                                <option>in
+                                                                                        H2O(g)
+                                                                                </option>
+                                                                                <option>in Hg(a)
+                                                                                </option>
+                                                                                <option>in Hg(g)
+                                                                                </option>
+                                                                                <option>kg/cm2(a)
+                                                                                </option>
+                                                                                <option>kg/cm2(g)
+                                                                                </option>
+                                                                                <option>mbar(a)
+                                                                                </option>
+                                                                                <option>mbar(g)
+                                                                                </option>
+                                                                                <option>mm Hg(a)
+                                                                                </option>
+                                                                                <option>mm Hg(g)
+                                                                                </option>
+                                                                                <option>psi(a)
+                                                                                </option>
+                                                                                <option>psi(g)
+                                                                                </option>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-8">
+                                                <div class="row">
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable_header"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable_header"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable_header"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable_header"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable_header"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                
+                                <div class="row">
+                                        <div class="col-4">
+                                                <div class="row">
+                                                        <div class="col-8 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp">Calculated CV</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Open percentage</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Choked pressure drop</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Ff</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Fp</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">FLp</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Kc</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Ar</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Re</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Valve SPL</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Valve Dia</p></div>
+                                                                <div class="row sizingtableleft_warning"><p class="sizingp"> <strong>Velocity</strong></p></div>                      
+                                                        </div>
+                                                        <div class="col-4 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-8">
+                                                <div class="row">
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="calculatedcv_row"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="calculatedcv_row"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="calculatedcv_row"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="calculatedcv_row"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="calculatedcv_row"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable_header"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="calculatedcv_row"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-4">
+                                                <div class="row">
+                                                        <div class="col-8 colborder_bottom">
+                                                                <div class="row sizingtableleft"><p class="sizingp">Pipe In Vel</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Pipeout Vel</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Valve Velocity</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Trim Exit vel</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Power Lvl(kw)</p></div>
+                                                                <div class="row sizingtableleft"><p class="sizingp">Require Stages</p></div>
+                                                        </div>
+                                                        <div class="col-4 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-8">
+                                                <div class="row">
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        </div>
+                                                        <div class="col-2 colborder_bottom">
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                                <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="col-4 ml-5">
+                                <div class="pipedate shadow p-3">
+                                        <div class="row">
+                                                <div class="col-4">
+                                                        <label>Fluid State</label>
+                                                </div>
+                                                <div class="col-7">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+                                                                <option>Liquid</option>
+                                                                <option>Gas</option>
+                                                                <option>Two Phase</option>
+                                                                <!-- <option>inch</option> -->
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                     <label>Solve For</label>
+                                                </div>
+                                                <div class="col-7">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+
+                                                                <option>Cv</option>
+                                                                <option>ΔP</option>
+                                                                <option>Flowrate</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                      <label> Fluid Properties</label> 
+                                                </div>
+                                                <div class="col-3 form-check form-check-inline ml-3">
+                                                        <input type="radio" name="fulidstate" class="form-control-sm-sm valvesizing_radio">
+                                                        <label class="ml-1 mt-2">Standard</label>
+                                                </div>
+
+                                                <div class="col-3 form-check form-check-inline">
+                                                        <input type="radio" name="fulidstate"
+                                                                class="form-control-sm-sm valvesizing_radio">
+                                                        <label class="ml-1 mt-2">Custom</label>
+
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                      <label>Pipe Data</label>  
+                                                </div>
+                                                <div class="col-3 form-check form-check-inline ml-3">
+                                                        <input type="radio" name="fulidstate"
+                                                                class="form-control-sm-sm valvesizing_radio">
+                                                        <label class="ml-1 mt-2">Standard</label>
+                                                </div>
+                                                <div class="col-3 form-check form-check-inline">
+                                                        <input type="radio" name="fulidstate"
+                                                                class="form-control-sm-sm valvesizing_radio">
+                                                        <label class="ml-1 mt-2">Custom</label>
+
+                                                </div>
+                                        </div>
+
+                                        <h6 class="valvesizing_heading"><b>Fluid Data</b></h6>
+
+                                        <div class="row">
+                                                <div class="col-4">
+                                                      <label>Fluid Name</label>
+                                                </div>
+                                                <div class="col-7">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+                                                                <option>Acetic Acid</option>
+                                                                <option>Acetone</option>
+                                                                <option>Water</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4 pr-0">
+                                                       <label>Critical Pressure</label> 
+                                                </div>
+                                                <div class="col-4">
+                                                        <input type="text" name="fulidstate"
+                                                                class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
+
+                                                </div>
+                                                <div class="col-3">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+                                                                <option>bar(g)</option>
+                                                                <option>bar(a)</option>
+                                                                <option>kpa(a)</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+
+                                        <h6 class="valvesizing_heading"><b>Pipe Data</b></h6>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                      <label>Inlet Pipe Size</label>  
+                                                </div>
+                                                <div class="col-4">
+                                                        <input type="text" name="fulidstate" class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
+
+                                                </div>
+                                                <div class="col-3">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+                                                                <option>mm</option>
+                                                                <option>m</option>
+                                                                <option>cm</option>
+                                                                <option>inch</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                      <label>In. Pipe Sch.</label>  
+                                                </div>
+                                                <div class="col-4">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+
+                                                                <option>std</option>
+                                                                <option>40</option>
+                                                                <option>20</option>
+                                                        </select>
+                                                </div>
+                                                <div class="col-3">
+                                                        <input type="text" class="form-control-sm-sm valvesizing_inputbox">
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4 pr-0">
+                                                      <label>Outlet Pipe Size</label> 
+                                                </div>
+                                                <div class="col-4">
+                                                        <input type="text"
+                                                                name="fulidstate"
+                                                                class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
+
+                                                </div>
+                                                <div class="col-3">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+                                                                <option>mm</option>
+                                                                <option>m</option>
+                                                                <option>cm</option>
+                                                                <option>inch</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                      <label>Out. Pipe Sch.</label>  
+                                                </div>
+                                                <div class="col-4">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+
+                                                                <option>std</option>
+                                                                <option>40</option>
+                                                                <option>20</option>
+                                                        </select>
+                                                </div>
+                                                <div class="col-3">
+                                                        <input type="text" class="form-control-sm-sm valvesizing_inputbox">
+                                                </div>
+                                        </div>
+
+                                        <h6 class="valvesizing_heading"><b>Valve Data</b></h6>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                      <label>Valve Size</label>  
+                                                </div>
+                                                <div class="col-4">
+                                                        <input type="text"
+                                                                name="fulidstate"
+                                                                class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
+
+                                                </div>
+                                                <div class="col-3">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+
+                                                                <option>mm
+                                                                </option>
+                                                                <option>m
+                                                                </option>
+                                                                <option>cm
+                                                                </option>
+                                                                <option>inch
+                                                                </option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                     <label>Rated CV</label>   
+                                                </div>
+                                                <div class="col-4">
+                                                        <input type="text"
+                                                                name="fulidstate"
+                                                                class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
+
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                       <label>Valve Type</label> 
+                                                </div>
+                                                <div class="col-4">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+
+                                                                <option>Globe
+                                                                </option>
+                                                                <option>Butterfly
+                                                                </option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-4">
+                                                      <label>Trim Type</label>  
+                                                </div>
+                                                <div class="col-4">
+                                                        <select id="#"
+                                                                class="form-control-sm-sm valvesizing_select">
+                                                                <option>Contour
+                                                                </option>
+                                                                <option>Ported
+                                                                        cage
+                                                                </option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <button type="button" class="btn btn-info btn-sm valve_btn mt-2">Calculate</button>
+                                        <a href="{{url_for('selectValve', proj_id=item.project.id, item_id=item.id)}}">
+                                                <button type="button" class="btn btn-success btn-sm valve_btn2 mt-2">Select Valve</button></a>
+                                </div>
+                        </div>
+                </div>
+
+{% include "footer.html" %}
+{% endblock %}
