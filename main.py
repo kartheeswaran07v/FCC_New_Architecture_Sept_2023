@@ -1,6 +1,7 @@
 import codecs
 import datetime
 import json
+import os
 from flask_sqlalchemy import SQLAlchemy  # Create DB with Flask
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, send_file  # Package for Routing
 from sqlalchemy import Column, Integer, ForeignKey, String, Boolean, DateTime, Float, or_, \
@@ -30,7 +31,8 @@ app.config['SECRET_KEY'] = "kkkkk"
 Bootstrap(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v3-1.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v3-1.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v3-1.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -2127,4 +2129,4 @@ def uploadData(topic):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5050)
+    app.run(debug=False)
