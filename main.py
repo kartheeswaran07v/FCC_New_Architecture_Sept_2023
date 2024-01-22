@@ -1207,8 +1207,8 @@ class OTP(db.Model):
     time = Column(DateTime)
 
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 # TODO Other DAta
 table_data_render = [
