@@ -2139,7 +2139,7 @@ def uploadData(topic):
 # -----------^^^^^^^^^^^^^^----------------- DATA UPLOAD -----------------^^^^^^^^^^^^^------------ #
 
 def UPLOAD_ALL_META_DATA():
-
+    print("UPLOAD PROCESS BEGINS")
     industry_list = ['Oil & Gas - Onshore', 'Oil & Gas - Offshore', 'Refinery & Petrochemical',
                     'Oil & Gas - Transportation & Distribution', 'Chem & Pharma', 'Food & Beverages', 'OEM',
                     'Pulp & Paper', 'Mining & Metal', 'Thermal Power & Nuclear Power', 'Defence, Nuclear & Aerospace',
@@ -2303,7 +2303,7 @@ def UPLOAD_ALL_META_DATA():
         data_upload_disc_seat_packing([trim_type_list_butterfly, trim_type_list_butterfly, trim_type_list_globe, trim_type_list_globe], v_style_list, trimType)
         data_upload(department_list, departmentMaster)
         data_upload(designation_list, designationMaster)
-        data_upload_shaft(getRowsFromCsvFile("csv/shaft.csv"), v_style_list)
+        # data_upload_shaft(getRowsFromCsvFile("csv/shaft.csv"), v_style_list)
         data_upload(end_connection_list, endConnection)
         data_upload(end_finish_list, endFinish)
         data_upload(seat_leakage_class_list, seatLeakageClass)
@@ -2313,6 +2313,7 @@ def UPLOAD_ALL_META_DATA():
         data_upload(cage_clamp_material_list, cageClamp)
         data_upload(packing_type_list, packingType)
         pass
+    print("DATA UPLOAD COMPLETED")
 
 
 UPLOAD_ALL_META_DATA()
