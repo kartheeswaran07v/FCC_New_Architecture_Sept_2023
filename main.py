@@ -5390,6 +5390,6 @@ def nextItem(control, page, item_id, proj_id):
 #         data_upload(packing_type_list, packingType)
 
 # DATA_UPLOAD_BULK()
-cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+# cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 if __name__ == "__main__":
     app.run(debug=False)
