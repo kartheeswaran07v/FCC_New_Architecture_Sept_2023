@@ -21,10 +21,29 @@ from functions import FR, N1, N2, N4, N5_in, N6_lbhr_psi_lbft3, N7_60_scfh_psi_F
 from gas_noise_formulae import lpae_1m
 from gas_velocity_iec import getGasVelocities
 from liquid_noise_formulae import Lpe1m
-from upload_data import getRowsFromCsvFile
 
 # -----------^^^^^^^^^^^^^^----------------- IMPORT STATEMENTS -----------------^^^^^^^^^^^^^------------ #
+def getRowsFromCsvFile(file_path):
+    filename = file_path
+    fields_afr = []
+    rows_afr = []
 
+    # reading csv file
+    with open(filename, 'r', encoding='utf-8-sig') as csvfile:
+        # creating a csv reader object
+        csvreader = csv.reader(csvfile)
+
+        # extracting field names through first row
+        fields_afr = next(csvreader)
+
+        # extracting each data row one by one
+        for row in csvreader:
+            dict_add = {}
+            for i in range(len(fields_afr)):
+                dict_add[fields_afr[i]] = row[i]
+            rows_afr.append(dict_add)
+
+    return rows_afr
 
 ### --------------------------------- APP CONFIGURATION -----------------------------------------------------###
 
