@@ -1261,11 +1261,15 @@ def next_alpha(s):
 # Data upload function
 def data_upload(data_list, table_name):
     # with app.app_context():
+    print(f"data delete starts: {table_name.__tablename__}")
     data_delete(table_name)
+    print("data delete ends")
+    print('dataupload starts')
     for data_ in data_list:
         new_data = table_name(name=data_)
         db.session.add(new_data)
         db.session.commit()
+    print('data upload ends')
 
 
 def pressure_temp_upload(data_set):
