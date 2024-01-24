@@ -21,6 +21,7 @@ from functions import FR, N1, N2, N4, N5_in, N6_lbhr_psi_lbft3, N7_60_scfh_psi_F
 from gas_noise_formulae import lpae_1m
 from gas_velocity_iec import getGasVelocities
 from liquid_noise_formulae import Lpe1m
+from upload_data import getRowsFromCsvFile
 
 # -----------^^^^^^^^^^^^^^----------------- IMPORT STATEMENTS -----------------^^^^^^^^^^^^^------------ #
 
@@ -5369,7 +5370,7 @@ def DATA_UPLOAD_BULK():
         data_upload(cage_clamp_material_list, cageClamp)
         data_upload(packing_type_list, packingType)
 
-DATA_UPLOAD_BULK()
-# cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+# DATA_UPLOAD_BULK()
+cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 if __name__ == "__main__":
     app.run(debug=False)
