@@ -109,15 +109,22 @@
                             <div class="topicons">
                                 <div class="row" style="margin-left: 3px;"> 
                                     <div class="icon mt-2 ml-3">
-                                        <i class="fa-solid fa-backward-step" data-toggle="tooltip" title="first"></i>
-                                        <i class="fa-solid fa-angle-left ml-3" data-toggle="tooltip" title="Previous"></i>
+                                        <a href="{{url_for('nextItem', control='first', page=page, proj_id=item.project.id, item_id=item.id)}}">
+                                            <i class="fa-solid fa-backward-step" data-toggle="tooltip" title="first"></i>
+                                        </a>
+                                        <a href="{{url_for('nextItem', control='prev', page=page, proj_id=item.project.id, item_id=item.id)}}">
+                                            <i class="fa-solid fa-angle-left ml-3" data-toggle="tooltip" title="Previous"></i>
+                                        </a>
                                         <input type="text" style="text-align: center;" class="form-control-sm ml-3" name="name" readonly value="Q240000{{item.project.id}}-00{{item.itemNumber}}-{{item.alternate}}">
-                                        <i class="fa-solid fa-angle-right ml-3" data-toggle="tooltip" title="next"></i>
-                                        <i class="fa-solid fa-forward-step ml-3" data-toggle="tooltip" title="last"></i>                                    
+                                        <a href="{{url_for('nextItem', control='next', page=page, proj_id=item.project.id, item_id=item.id)}}">
+                                            <i class="fa-solid fa-angle-right ml-3" data-toggle="tooltip" title="next"></i>
+                                        </a><a href="{{url_for('nextItem', control='last', page=page, proj_id=item.project.id, item_id=item.id)}}">
+                                            <i class="fa-solid fa-forward-step ml-3" data-toggle="tooltip" title="last"></i>  
+                                        </a>                              
                                         <i class="fa-solid fa-file ml-3" data-toggle="tooltip" title="file"></i>
                                         <!-- <i class="fa-solid fa-file"></i> -->
                                         <i class="fa-solid fa-floppy-disk  ml-3 fa-lg" data-toggle="tooltip" title="save"></i>
-                                        <a href="Preference.html"><i class="fa-solid fa-sliders fa-1x ml-3" data-toggle="tooltip" title="Preference"></i></a>
+                                        <a href="{{url_for('preferences', proj_id=item.project.id, item_id=item.id, page=page)}}"><i class="fa-solid fa-sliders fa-1x ml-3" data-toggle="tooltip" title="Preference"></i></a>
                                         <i class="fa-solid fa-question ml-3" data-toggle="tooltip" title="help"></i>
                                     </div>
                                 </div>

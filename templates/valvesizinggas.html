@@ -43,9 +43,10 @@
                                                         <div class="row sizingtableleft"><p class="sizingp">InletPressure</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Outlet Pressure</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Inlet Temperature</p></div>
-                                                        <div class="row sizingtableleft"><p class="sizingp">Vapor Pressure</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Specific Heat Ratio</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Specific Gravity</p></div>
-                                                        <div class="row sizingtableleft"><p class="sizingp">Viscosity</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">MW/SG</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Compressibility Factor</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Fl</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Fd</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Xt</p></div>
@@ -102,24 +103,17 @@
                                                                         {% endfor %}
                                                                 </select>
                                                         </div>
-                                                        <div class="row sizingtable">
-                                                                <select id="#"
-                                                                        class="sizingtable_inputs">
-                                                                        {% for presunit in metadata['units_dict']['pressure'] %}
-                                                                                {% if presunit.name == item.project.pressureUnit %}
-                                                                                <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
-                                                                                {% else %}
-                                                                                <option value="{{presunit.id}}">{{presunit.name}}</option>
-                                                                                {% endif %}
-                                                                        {% endfor %}
-                                                                </select>
-                                                        </div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable">
-                                                                <select name="" id="" class="sizingtable_inputs">
-                                                                        <option value="centipose">Centipose</option>
-                                                                </select>
+                                                            
+                                                            <select name="mw_sg" id="" class="sizingtable_inputs">
+                                                                    <option value="mw">Molecular Weight</option>
+                                                                    <option value="sg">Specific Gravity</option>
+                                                            </select>
                                                         </div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
@@ -137,9 +131,10 @@
                                                         <div class="row sizingtable"><input type="text" name="inletPressure" class="sizingtable_inputs" value="{{cases[i].inletPressure}}"></div>
                                                         <div class="row sizingtable"><input type="text" name="outletPressure" class="sizingtable_inputs" value="{{cases[i].outletPressure}}"></div>
                                                         <div class="row sizingtable"><input type="text" name="inletTemp" class="sizingtable_inputs" value="{{cases[i].inletTemp}}"></div>
-                                                        <div class="row sizingtable "><input type="text" name="vaporPressure" class="sizingtable_inputs" value="{{cases[i].vaporPressure}}"></div>
-                                                        <div class="row sizingtable"><input type="text" name="specificGravity" class="sizingtable_inputs" value="{{cases[i].specificGravity}}"></div>
-                                                        <div class="row sizingtable"><input type="text" name="kinematicViscosity" class="sizingtable_inputs" value="{{cases[i].kinematicViscosity}}"></div>
+                                                        <div class="row sizingtable "><input type="text" name="specificHeatRatio" class="sizingtable_inputs" value="{{cases[i].specificHeatRatio}}"></div>
+                                                        <div class="row sizingtable "><input type="text" name="specificGravity" class="sizingtable_inputs" value="{{cases[i].specificHeatRatio}}"></div>
+                                                        <div class="row sizingtable"><input type="text" name="molecularWeight" class="sizingtable_inputs" value="{{cases[i].molecularWeight}}"></div>
+                                                        <div class="row sizingtable"><input type="text" name="compressibility" class="sizingtable_inputs" value="{{cases[i].compressibility}}"></div>
                                                         <div class="row sizingtable"><input type="text" name="fl" class="sizingtable_inputs" value="{{cases[i].fl}}"></div>
                                                         <div class="row sizingtable"><input type="text" name="fd" class="sizingtable_inputs" value="{{cases[i].fd}}"></div>
                                                         <div class="row sizingtable"><input type="text" name="xt" class="sizingtable_inputs" value="{{cases[i].xt}}"></div>
@@ -152,9 +147,10 @@
                                                         <div class="row sizingtable"><input type="text" name="inletPressure" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" name="outletPressure" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" name="inletTemp" class="sizingtable_inputs"></div>
-                                                        <div class="row sizingtable "><input type="text" name="vaporPressure" class="sizingtable_inputs"></div>
-                                                        <div class="row sizingtable"><input type="text" name="specificGravity" class="sizingtable_inputs"></div>
-                                                        <div class="row sizingtable"><input type="text" name="kinematicViscosity" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable "><input type="text" name="specificHeatRatio" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable "><input type="text" name="specificGravity" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" name="molecularWeight" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" name="compressibility" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" name="fl" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" name="fd" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" name="xt" class="sizingtable_inputs"></div>
@@ -173,7 +169,11 @@
                                                 <div class="col-8 colborder_bottom">
                                                         <div class="row sizingtableleft"><p class="sizingp">Calculated CV</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Open percentage</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">x (delP/P)</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Choked pressure drop</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Y</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Xtp</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Fk</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Ff</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Fp</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">FLp</p></div>
@@ -198,6 +198,10 @@
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable">
                                                                 <select name="" id="" class="sizingtable_inputs">
                                                                         <option value="dBA">dBA</option>
@@ -215,7 +219,11 @@
                                                 <div class="col-2 colborder_bottom case{{i+1}}">
                                                         <div class="row sizingtable"><input type="text" class="calculatedcv_row" value="{{cases[i].calculatedCv}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].openingPercentage}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{(cases[i].inletPressure - cases[i].outletPressure)/cases[i].inletPressure}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].chokedDrop}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].y_expansion}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].xtp}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].fk}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].Ff}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].Fp}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].Flp}}"></div>
@@ -229,6 +237,10 @@
                                                 {% else %}
                                                 <div class="col-2 colborder_bottom case{{i+1}}">
                                                         <div class="row sizingtable"><input type="text" class="calculatedcv_row"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
@@ -254,6 +266,13 @@
                                                         <div class="row sizingtableleft"><p class="sizingp">Pipe In Vel</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Pipeout Vel</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Valve Velocity</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Mach No. Up</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Mach No. Down</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Mach No. Valve</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Sonic Vel Up</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Sonic Vel Down</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Sonic Vel Valve</p></div>
+                                                        <div class="row sizingtableleft"><p class="sizingp">Outlet Density</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Trim Exit vel</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Power Lvl(kw)</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Require Stages</p></div>
@@ -279,6 +298,37 @@
                                                                         <option value="m/s">m/s</option>
                                                                 </select>
                                                         </div>
+                                                        <div class="row sizingtable">
+                                                            <select name="" id="" class="sizingtable_inputs">
+                                                                    <option value="m/s">m/s</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="row sizingtable">
+                                                                <select name="" id="" class="sizingtable_inputs">
+                                                                        <option value="m/s">m/s</option>
+                                                                </select>
+                                                        </div>
+                                                        <div class="row sizingtable">
+                                                                <select name="" id="" class="sizingtable_inputs">
+                                                                        <option value="m/s">m/s</option>
+                                                                </select>
+                                                        </div>
+                                                        <div class="row sizingtable">
+                                                            <select name="" id="" class="sizingtable_inputs">
+                                                                    <option value="m/s">m/s</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="row sizingtable">
+                                                                <select name="" id="" class="sizingtable_inputs">
+                                                                        <option value="m/s">m/s</option>
+                                                                </select>
+                                                        </div>
+                                                        <div class="row sizingtable">
+                                                                <select name="" id="" class="sizingtable_inputs">
+                                                                        <option value="m/s">m/s</option>
+                                                                </select>
+                                                        </div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                 </div>
@@ -292,12 +342,26 @@
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].pipeInVel}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].pipeOutVel}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].valveVel}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].machNoUp}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].machNoDown}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].machNoValve}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].sonicVelUp}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].sonicVelDown}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].sonicVelValve}}"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].outletDensity}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].tex}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].powerLevel}}"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs" value="{{cases[i].requiredStages}}"></div>
                                                 </div>
                                                 {% else %}
                                                 <div class="col-2 colborder_bottom case{{i+1}}">
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
@@ -592,7 +656,7 @@
                                                 </select>
                                         </div>
                                 </div>
-                                <button type="submit" class="btn btn-info btn-sm  mt-2">Calculate</button>
+                                <button type="submit" class="btn btn-info btn-sm mt-2">Calculate</button>
                                 <a href="{{url_for('selectValve', proj_id=item.project.id, item_id=item.id)}}">
                                         <button type="button" class="btn btn-success btn-sm valve_btn2 mt-2">Select Valve</button></a>
                         </div>
@@ -629,10 +693,45 @@
                         
                 </script>
                 <script>
-                        $('#fluidState').on('change', function(){
-                                window.location = $(this).val();
-                        });
+                        // alert('js working')
+                        window.onload = function() {
+                          var notesSelect = document.getElementById("fluidState");
+                          var fluid_state_start = $("#fluidState :selected").val()
+
+                          if (fluid_state_start == 1){
+                                $("#vaporPressure").show();
+                                $(".").show();
+                          } else {
+                                $("#vaporPressure").hide();
+                                $(".").hide();
+                          }
+                          
+                          notesSelect.onchange = function() {
+                                var fluid_state = $("#fluidState :selected").val()
+                                alert('js working')
+                                if (fluid_state_start== 1){
+                                        $("#vaporPressure").show();
+                                        $(".").show();
+
+                                } else {
+                                        $("#vaporPressure").hide();
+                                        $(".").hide();
+                                };
+                          };
+                        };
+
+                        
+
+
+
+
+                          
                 </script>
+                <script>
+                    $('#fluidState').on('change', function(){
+                            window.location = $(this).val();
+                    });
+            </script>
 
 {% include "footer.html" %}
 {% endblock %}

@@ -1,87 +1,86 @@
 {% block content %}
 {% include "header.html" %}
-
+<br><br>
+    <form action="{{url_for('updatePreferences', proj_id=item.project.id, item_id=item.id, page=page)}}" method="post">
+        <div class="row mt-2">
+            <div class="col-3 shadow p-2" >
+                <h6 class="preference_heading"><b>Preferences</b></h6>
+                <hr>
                 <div class="row mt-2">
-                    <div class="col-3 shadow p-2" >
-                        <h6 class="preference_heading"><b>Preferences</b></h6>
-                        <hr>
-                        <div class="row mt-2">
-                            <div class="col-6">
-                                <label>Pressure unit</label>
-                            </div>
-                            <div class="col-6">
-                                <select id="" class="form-control-sm-sm preference_select">
-                                    <option>bar(a)</option>
-                                    <option>bar(g)</option>
-                                    <option>kpa(a)</option>
-                                    <option>kpa(g)</option>
-                                    <option>Mpa(a)</option>
-                                    <option>Mpa(g)</option>
-                                    <option>Pa(a)</option>
-                                    <option>Pa(g)</option>
-                                    <option>in H2O(a)</option>
-                                    <option>in H2O(g)</option>
-                                    <option>in Hg(a)</option>
-                                    <option>in Hg(g)</option>
-                                    <option>kg/cm2(a)</option>
-                                    <option>kg/cm2(g)</option>
-                                    <option>mbar(a)</option>
-                                    <option>mbar(g)</option>
-                                    <option>mm Hg(a)</option>
-                                    <option>mm Hg(g)</option>
-                                    <option>psi(a)</option>
-                                    <option>psi(g)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-6">
-                                <label>Flowrate unit</label>
-                            </div>
-                            <div class="col-6">
-                                <select id="" class="form-control-sm-sm preference_select">
-                                    <option>m3/hr</option>
-                                    <option>scfh</option>
-                                    <option>gpm</option>
-                                    <option>lb/hr</option>
-                                    <option>kg/hr</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-6">
-                                <label>Length unit</label>
-                            </div>
-                            <div class="col-6">
-                                <select id="" class="form-control-sm-sm preference_select">
-                                    <option>inch</option>
-                                    <option>mm</option>
-                                    <option>cm</option>
-                                    <option>m</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-6">
-                                <label>Temperature unit</label>
-                            </div>
-                            <div class="col-6">
-                                <select id="" class="form-control-sm-sm preference_select">
-                                    <option>°C</option>
-                                    <option>°F</option>
-                                    <option>K</option>
-                                    <option>R</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="col-6">
+                        <label>Pressure unit</label>
+                    </div>
+                    <div class="col-6">
+                        <select id="" class="form-control-sm-sm preference_select" name="pressureUnit">
+                            {% for presunit in metadata['units_dict']['pressure'] %}
+                                {% if presunit.name == item.project.pressureUnit %}
+                                <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
+                                {% else %}
+                                <option value="{{presunit.id}}">{{presunit.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
 
-                <div class="row">
-                    <button type="button" class="btn btn-info preference_btn">Set Preference</button>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label>Flowrate unit</label>
+                    </div>
+                    <div class="col-6">
+                        <select id="" class="form-control-sm-sm preference_select"  name="flowrateUnit">
+                            {% for flowrate in metadata['units_dict']['flowrate'] %}
+                                {% if flowrate.name == item.project.flowrateUnit %}
+                                <option value="{{flowrate.id}}" selected>{{flowrate.name}}</option>
+                                {% else %}
+                                <option value="{{flowrate.id}}">{{flowrate.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
+
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label>Length unit</label>
+                    </div>
+                    <div class="col-6">
+                        <select id="" class="form-control-sm-sm preference_select"  name="lengthUnit">
+                            {% for length in metadata['units_dict']['length'] %}
+                                {% if length.name == item.project.lengthUnit %}
+                                <option value="{{length.id}}" selected>{{length.name}}</option>
+                                {% else %}
+                                <option value="{{length.id}}">{{length.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label>Temperature unit</label>
+                    </div>
+                    <div class="col-6">
+                        <select id="" class="form-control-sm-sm preference_select"  name="temperatureUnit">
+                            {% for temperature in metadata['units_dict']['temperature'] %}
+                                {% if temperature.name == item.project.temperatureUnit %}
+                                <option value="{{temperature.id}}" selected>{{temperature.name}}</option>
+                                {% else %}
+                                <option value="{{temperature.id}}">{{temperature.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <button type="submit" class="btn btn-info preference_btn">Set Preference</button>
+        </div>
+    </form>
+                
 {% include "footer.html" %}
 {% endblock %}

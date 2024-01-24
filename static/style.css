@@ -1,10 +1,15 @@
 /* ----------------------------------------------------------------------style.css file-------------------------------------------------------- */
-.nav-pills .nav-link.active
-{
+
+body {
+    background-color: #fffefe;
+}
+
+.nav-pills .nav-link.active {
     background-color: white;
     color: black;
     border-radius: 0%;
 }
+
 img {
     width: 80%;
     margin-top: 9%;
@@ -50,10 +55,10 @@ label {
     border-radius: 0%;
     /* border-radius: -20px; */
 }
-.fa-circle-user
- {
+
+.fa-circle-user {
     font-size: 25px;
-    
+
     /* background-color:white */
 
 }
@@ -135,6 +140,7 @@ label {
     -moz-box-shadow: 2px 7px 15px 1px rgba(148, 183, 212, 1);
     box-shadow: 2px 7px 15px 1px #cbd0d7; */
 }
+
 .projectdetail_heading {
     font-size: 15px;
 }
@@ -157,6 +163,7 @@ label {
     background-color: #dedbdb;
     color: black;
     font-size: 14px;
+    border: none;
 }
 
 /* ---------------------------------------------------------------valve data page-------------------------------------------------------- */
@@ -214,8 +221,7 @@ label {
     height: 98%;
 }
 
-.warnings
-{
+.warnings {
     height: 183%;
 }
 
@@ -223,6 +229,7 @@ label {
     background-color: #dedbdb;
     font-size: 14px;
     color: black;
+    border: none;
 }
 
 /* -------------------------------------valvesizing page------------------------------------------------------------------------ */
@@ -245,20 +252,20 @@ label {
     /* border:1px solid #607274; */
 }
 
-.sizingtableleft_warning{
+.sizingtableleft_warning {
     height: 25px;
     border-top: 1px solid #607274;
     border-right: white;
     border-left: 1px solid #607274;
     background-color: #ffffff;
     /* border:1px solid #607274; */
-    
+
 }
 
-.sizingtable_header{
+.sizingtable_header {
     height: 25px;
     border-top: 1px solid #607274;
-    border-right:white;
+    border-right: white;
 
 }
 
@@ -293,23 +300,27 @@ label {
 
 .clear {
     margin-left: 5%;
-    margin-top: 10%;
+    margin-top: 13%;
     text-align: right;
     color: rgb(28, 28, 28);
-    font-size: 12px;
+    font-size: 9px;
+}
+
+
+
+.closeicon {
+    margin-left: 5%;
+    margin-top: 10%;
+    text-align: right;
+    color: rgb(95, 95, 95);
+    font-size: 14px;
+
 }
 
 .calculatedcv_row {
     width: 100%;
     border: 0px solid;
     background-color: #ddebf7
-}
-
-.closeicon {
-    margin-left: 5%;
-    margin-top: 7%;
-    text-align: right;
-    color: rgb(95, 95, 95);
 }
 
 .valvesizing_fluid_data {
@@ -345,15 +356,7 @@ select {
     margin-left: 48%;
     background-color: #dedbdb;
     color: black;
-
-}
-
-.valve_btn_select{
-    font-size: 14px;
-    font-family: Verdana sans-serif;
-    margin-left: 5%;
-    background-color: #dedbdb;
-    color: black;
+    border: none;
 
 }
 
@@ -364,43 +367,82 @@ select {
     margin: 0;
     background-color: #dedbdb;
     color: black;
+    border: none;
 }
-.valvesizing_select
-{
+
+.valvesizing_select {
     width: 100%;
     height: 70%;
     background-color: white;
     border: 1px solid #607274;
     font-size: 11px;
 }
-.valvesizing_radio
-{
+
+.valvesizing_radio {
     font-size: 11px;
 }
-.valvesizing_inputbox
-{
+
+.valvesizing_inputbox {
     width: 100%;
     height: 70%;
     font-size: 11px;
 }
-.valvesizing_heading
-{
+
+.valvesizing_heading {
     font-size: 15px;
 }
+
 /* --------------------------Select Valve------------------------ */
-.selectvalve_borderbottom{
-    border-bottom:  1px solid #607274;
+.selectvalve_borderbottom {
+    border-bottom: 1px solid #607274;
 }
 
-.selectvalve_borderleft{
+.selectvalve_borderleft {
     border-left: 1px solid #607274;
 
 }
 
-.outline{
-    border-left: groove 1px black; 
+.outline {
+    border-left: groove 1px black;
     border-right: groove 1px black;
 }
+
+.valve_btn {
+    width: 100%;
+}
+
+.selectvalve_select {
+    background-color: white;
+    font-size: 11px;
+    border: 1px solid #607274;
+}
+
+.select_radio {
+    margin-left: 30%;
+
+}
+
+.valvebtn {
+    background-color: #dedbdb;
+    color: black;
+    border: none;
+}
+
+.selectvalve_table {
+    width: 100%;
+    overflow-y: scroll;
+    display: block;
+    height: 80%;
+    font-size: 11px;
+}
+
+.selecthead th {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    width: 1%;
+}
+
 /* -------------------------------------------------------------------------------------------------- */
 
 /* .actuator
@@ -470,6 +512,7 @@ a:link {
     color: black;
     width: 100%;
     font-size: 14px;
+    border: none;
 }
 
 .actuator_button2 {
@@ -477,6 +520,7 @@ a:link {
     color: black;
     width: 100%;
     font-size: 14px;
+    border: none;
 }
 
 .actuator_button3 {
@@ -484,6 +528,7 @@ a:link {
     color: black;
     width: 100%;
     font-size: 14px;
+    border: none;
 }
 
 /* -----------------------------------------------RotaryActuator page css---------------------------------------------------------- */
@@ -493,6 +538,7 @@ a:link {
     color: black;
     width: 100%;
     font-size: 14px;
+    border: none;
 }
 
 .Rotaryactuator_button2 {
@@ -500,6 +546,7 @@ a:link {
     color: black;
     width: 100%;
     font-size: 14px;
+    border: none;
 }
 
 .Rotaryactuator_button3 {
@@ -507,6 +554,7 @@ a:link {
     color: black;
     width: 100%;
     font-size: 14px;
+    border: none;
 }
 
 .Rotary_heading {
@@ -518,6 +566,7 @@ a:link {
     font-size: 14px;
     background-color: #dedbdb;
     color: black;
+    border: none;
 }
 
 .input_btn2 {
@@ -525,6 +574,7 @@ a:link {
     background-color: #dedbdb;
     color: black;
     font-size: 14px;
+    border: none;
 }
 
 /* .input_btn3
@@ -595,388 +645,15 @@ a:link {
     border: 0px solid;
 }
 
-/* ----------------------------------------------Accessories page css------------------------------------------------------------------ */
-
-.Accessories_heading {
-    font-size: 15px;
-}
-.arow_icon
-{
-    color: black;
-}
-.accesories_input
-{
-    width: 120%;
-    height: 70%;
-    font-size: 11px;
-}
-.accesories_select
-{
-    width: 120%;
-    height: 70%;
-    background-color: white;
-    border: 1px solid #607274;
-    font-size: 11px;
-}
-.accesories_btn
-{
-    background-color: #dedbdb;
-    color: black;
-}
-
-/* -------------------------------------limit switch(accessories)------------------------------------------------------------- */
-
-.limitswitch_table
-{
-    width: 100%;
-    overflow-y: scroll;
-    display: block;
-    height: 80%;
-    font-size: 11px;
-}
-
-.limithead th{
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-}
-
-.accesories_radio
-{
-    margin-left: 30%;
-}
-.limitswitch_btn
-{
-    background-color: #dedbdb;
-    color: black;
-    margin-left: 74%;
-    margin-top: 3%;
-    font-size: 14px;
-}
-
-/* ----------------------------------------------solenoid(accessories)------------------------------------------------------------ */
-
-.solenoid_table
-{
-    width: 100%;
-    overflow-y: scroll;
-    display: block;
-    height: 80%;
-    font-size: 11px;
-}
-
-.solenoidhead{
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-
-}
-/* -----------------------------------------------afr(accessories)----------------------------------------------------------------- */
-
-.afr_table
-{
-    width: 100%;
-    overflow-y: scroll;
-    display: block;
-    height: 80%;
-    font-size: 11px;
-}
-.afr_btn
-{
-    background-color: #dedbdb;
-    color: black;
-    margin-left: 82%;
-    margin-top: 3%;
-    font-size: 14px;
-}
-
-.afrhead th
-{
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-}
-
-/* -----------------------------------------------positioner(accessories)---------------------------------------------------------- */
-
-.tablepositioner{
-    width: 100%;
-    overflow-y: scroll;
-    display: block;
-    height: 78%;
-    font-size: 11px;
-
-}
-.positionerhead th {
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-
-}
-
-/* ratio column  */
-.table_ratio{
-    width: 1%;
-    font-size: 11px;
-    text-align: left;
-}
-
-/* manufactures,series,moc,enclosure,spool,type techno,action,haz columns */
-.table_manu
-{
-    width: 2%;
-    font-size: 11px;
-}
-
-/* comm,cert/model */
-.table_comm
-{
-    width: 4%;
-    font-size: 11px;
-}
-
-
-.positioner_button{
-    font-size: 11px;
-}
-.positioner_btn
-{
-    background-color: #dedbdb;
-    color: black;
-    /* margin-top: 4%; */
-    margin-left: 75%;
-    /* margin-top: 2%; */
-    font-size: 14px;
-}
-.back-btn
-{
-    background-color: #dedbdb;
-    color: black;
-    /* margin-top: 2%; */
-    /* margin-bottom: 2%; */
-    font-size: 14px;
-}
-/* ----------------------------------------------order and item notes page css----------------------------------------------------- */
-.Itemnotes_heading
-{
-    font-size: 15px;
-}
-.item_input
-{
-    width: 100%;
-    height: 70%;
-    font-size: 11px;
-}
-.item_select
-{
-    width: 100%;
-    height: 70%;
-    font-size: 11px;
-    background-color: white;
-    border: 1px solid #607274;
-}
-.item_btn
-{
-    background-color: #dedede; 
-    color: black;
-    font-size: 14px;
-   
-}
-.item_btn1
-{
-    background-color: #dedbdb;
-    color: black;
-    font-size: 14px;
-}
-.item_cancle_icon
-{
-    margin-left: 45%;
-}
-.tableitem
-{
-    width: 98%;
-    overflow-y: scroll;
-    display: block;
-    height: 35%;
-}
-.itemhead th
-{
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-}
-.table_notes
-{
-    width: 6%;
-    font-size: 11px;
-}
-.table_content
-{
-    width: 50%;
-    font-size: 11px;
-}
-.table_remove
-{
-    width: 1%;
-    font-size: 11px;
-}
-.body_content
-{
-    font-size: 11px;
-}
-
-/* -------------------------------------------project notes page css--------------------------------------------------------------- */
-
-.projectnotes_input
-{
-    width: 100%;
-    height: 75%;
-}
-.tableproject
-{
-    width: 64%;
-    overflow-y: scroll;
-    display: block;
-    height: 73%;
-}
-
-/* ----------------------------------------------View Data CSS---------------------------------------------------------------------- */
-.viewbtn {
-    background-color: #dedbdb;
-    color: #000000;
-    font-size: 61%;
-    text-align: left;
-}
-.viewdata_heading
-{
-    font-size: 15px;
-}
-
-/* --------------------------------------------reference table 2 page css------------------------------------------------------------ */
-.heading
-{
-    font-size: 15px;
-}
-.refernce_selectfile
-{
-    width: 40%;
-    height: 100%;
-    margin-left: 10%;
-    /* border: 1px solid #333; */
-}
-.refernce_btn
-{
-    width: 20%;
-    margin-left: 3%;
-    background-color: #dedede;
-    color: black;
-}
-.refernce_btns
-{
-    width: 20%;
-    margin-left: 1%;
-    background-color: #dedede;
-    color: black;
-}
-.show-entry
-{
-    width: 10%;
-    background-color: white;
-    border:  1px solid #607274;
-    font-size: 12px;
-}
-.show 
-{
-    font-size: 14px;
-}
-.refernce_table2
-{
-    width: 100%;
-    overflow-y: scroll;
-    display: block;
-    height: 400px;
-    font-size: 11px;
-}
-/* -----------------------------------reference table 1 page css---------------------------------------------------------- */
-
-.refernce_table1
-{
-    width: 50%;
-    font-size: 11px;
-    overflow-y: scroll;
-    display: block;
-    height: 400px;
-}
-.reference_thead th
-{
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-}
-/* .reference_input
-{
-    width: 100%;
-    height: 50%;
-} */
-/* -----------------------------------preference page css------------------------------------------------------------------------- */
-
-.preference_heading
-{
-    font-size: 15px;
-}
-.preference_select
-{
-    width: 100%;
-    height: 70%;
-    background-color: white;
-    border: 1px solid #607274;
-}
-.preference_btn
-{
-    background-color: #dedbdb;
-    color: black;
+.speedrow {
     margin-top: 3%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/* ----------------------------------------Accessories Positioner Table ----------------------*/
-
-/* ------------------------------------------------------------ */
-
-/* ----------------------------------------Accessories AFR Table ----------------------*/
-.table_afrmanu{
-    width: 3%;
-    font-size: 11px;
-
-}
-
-.table_afrmodel{
-    width: 15%;
-    font-size: 11px;
-
-}
-
-.table_afrfilter{
-    width: 12%;
-    font-size: 11px;
-
-
-}
-
-
 
 /* ------------------------------------Stroke Time Calculation -spring Diaphragam------------------------------ */
 
+.speedrow2 {
+    margin-top: 1%;
+}
 
 .spring_input {
     width: 100%;
@@ -1006,11 +683,21 @@ a:link {
 
 
 
+.piston_btn1 {
+    background-color: #dedbdb;
+    /* margin-top: 2%; */
+    /* margin-right:60%; */
+    width: 50%;
+    color: black;
+    font-size: 14px;
+
+}
+
 .piston_btn {
     background-color: #dedbdb;
     margin-top: 3%;
     /* margin-right:60%; */
-    width: 100px;
+    width: 150%;
     color: black;
     font-size: 14px;
 
@@ -1022,7 +709,7 @@ a:link {
 }
 
 .cal_result_row {
-    margin-left: -1%;
+    margin-left: -7%;
 }
 
 .piston_borderbottom {
@@ -1030,17 +717,441 @@ a:link {
 }
 
 .piston_savebtn {
-    margin-left: 77%;
+    margin-left: 60%;
     margin-top: 27%;
 }
 
 
+
+
 .piston_calbtn {
-    margin-left: 77%;
+    margin-left: 55%;
     margin-top: 2%;
 }
 
-.close_icon{
-color: #000000;
-    margin-left:1%;
+.close_icon {
+    color: #000000;
+    margin-left: 57%;
+}
+
+
+.inputsborder {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.calculatedborder {
+
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+
+}
+
+/* ----------------------------------------------Accessories page css------------------------------------------------------------------ */
+
+.Accessories_heading {
+    font-size: 15px;
+}
+
+.arow_icon {
+    color: black;
+}
+
+.accesories_input {
+    width: 120%;
+    height: 70%;
+    font-size: 11px;
+}
+
+.accesories_select {
+    width: 120%;
+    height: 70%;
+    background-color: white;
+    border: 1px solid #607274;
+    font-size: 11px;
+}
+
+.accesories_btn {
+    background-color: #dedbdb;
+    color: black;
+    border: none;
+}
+
+/* -------------------------------------limit switch(accessories)------------------------------------------------------------- */
+
+.limitswitch_table {
+    width: 100%;
+    overflow-y: scroll;
+    display: block;
+    height: 80%;
+    font-size: 11px;
+}
+
+.limithead th {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+}
+
+.accesories_radio {
+    margin-left: 30%;
+}
+
+.limitswitch_btn {
+    background-color: #dedbdb;
+    color: black;
+    margin-left: 74%;
+    margin-top: 3%;
+    font-size: 14px;
+    border: none;
+}
+
+/* ----------------------------------------------solenoid(accessories)------------------------------------------------------------ */
+
+.solenoid_table {
+    width: 100%;
+    overflow-y: scroll;
+    display: block;
+    height: 80%;
+    font-size: 11px;
+}
+
+.solenoidhead {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+
+}
+
+/* -----------------------------------------------afr(accessories)----------------------------------------------------------------- */
+
+.afr_table {
+    width: 100%;
+    overflow-y: scroll;
+    display: block;
+    height: 80%;
+    font-size: 11px;
+}
+
+.afr_btn {
+    background-color: #dedbdb;
+    color: black;
+    margin-left: 82%;
+    margin-top: 3%;
+    font-size: 14px;
+    border: none;
+}
+
+.afrhead th {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+}
+
+/* -----------------------------------------------positioner(accessories)---------------------------------------------------------- */
+
+.tablepositioner {
+    width: 100%;
+    overflow-y: scroll;
+    display: block;
+    height: 78%;
+    font-size: 11px;
+
+}
+
+.positionerhead th {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+
+}
+
+/* ratio column  */
+.table_ratio {
+    width: 1%;
+    font-size: 11px;
+    text-align: left;
+}
+
+/* manufactures,series,moc,enclosure,spool,type techno,action,haz columns */
+.table_manu {
+    width: 2%;
+    font-size: 11px;
+}
+
+/* comm,cert/model */
+.table_comm {
+    width: 4%;
+    font-size: 11px;
+}
+
+
+.positioner_button {
+    font-size: 11px;
+}
+
+.positioner_btn {
+    background-color: #dedbdb;
+    color: black;
+    /* margin-top: 4%; */
+    margin-left: 75%;
+    /* margin-top: 2%; */
+    font-size: 14px;
+    border: none;
+}
+
+.back-btn {
+    background-color: #dedbdb;
+    color: black;
+    /* margin-top: 2%; */
+    /* margin-bottom: 2%; */
+    font-size: 14px;
+    border: none;
+}
+
+/* ----------------------------------------------order and item notes page css----------------------------------------------------- */
+.Itemnotes_heading {
+    font-size: 15px;
+}
+
+.item_input {
+    width: 100%;
+    height: 70%;
+    font-size: 11px;
+}
+
+.item_select {
+    width: 100%;
+    height: 70%;
+    font-size: 11px;
+    background-color: white;
+    border: 1px solid #607274;
+}
+
+.item_btn {
+    background-color: #dedede;
+    color: black;
+    font-size: 14px;
+    border: none;
+
+}
+
+.item_btn1 {
+    background-color: #dedbdb;
+    color: black;
+    font-size: 14px;
+    border: none;
+}
+
+.item_cancle_icon {
+    margin-left: 45%;
+}
+
+.tableitem {
+    width: 98%;
+    overflow-y: scroll;
+    display: block;
+    height: 35%;
+}
+
+.itemhead th {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+}
+
+.table_notes {
+    width: 6%;
+    font-size: 11px;
+}
+
+.table_content {
+    width: 50%;
+    font-size: 11px;
+}
+
+.table_remove {
+    width: 1%;
+    font-size: 11px;
+}
+
+.body_content {
+    font-size: 11px;
+}
+
+/* -------------------------------------------project notes page css--------------------------------------------------------------- */
+
+.projectnotes_input {
+    width: 100%;
+    height: 75%;
+}
+
+.tableproject {
+    width: 64%;
+    overflow-y: scroll;
+    display: block;
+    height: 73%;
+}
+
+/* ----------------------------------------------View Data CSS---------------------------------------------------------------------- */
+.viewbtn {
+    background-color: #dedbdb;
+    color: #000000;
+    font-size: 61%;
+    text-align: left;
+    border: none;
+}
+
+.viewdata_heading {
+    font-size: 15px;
+}
+
+/* --------------------------------------------reference table 2 page css------------------------------------------------------------ */
+.heading {
+    font-size: 15px;
+}
+
+.refernce_selectfile {
+    width: 40%;
+    height: 100%;
+    margin-left: 10%;
+    /* border: 1px solid #333; */
+}
+
+.refernce_btn {
+    width: 20%;
+    margin-left: 3%;
+    background-color: #dedede;
+    color: black;
+    border: none;
+}
+
+.refernce_btns {
+    width: 20%;
+    margin-left: 1%;
+    background-color: #dedede;
+    color: black;
+    border: none;
+}
+
+.show-entry {
+    width: 10%;
+    background-color: white;
+    border: 1px solid #607274;
+    font-size: 12px;
+}
+
+.show {
+    font-size: 14px;
+}
+
+.refernce_table2 {
+    width: 100%;
+    overflow-y: scroll;
+    display: block;
+    height: 400px;
+    font-size: 11px;
+}
+
+/* -----------------------------------reference table 1 page css---------------------------------------------------------- */
+
+.refernce_table1 {
+    width: 38%;
+    font-size: 11px;
+    overflow-y: scroll;
+    display: block;
+    height: 400px;
+}
+
+.reference_thead th {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    width: 5%;
+}
+
+/* .reference_input
+{
+    width: 100%;
+    height: 50%;
+} */
+/* -----------------------------------preference page css------------------------------------------------------------------------- */
+
+.preference_heading {
+    font-size: 15px;
+}
+
+.preference_select {
+    width: 100%;
+    height: 70%;
+    background-color: white;
+    border: 1px solid #607274;
+}
+
+.preference_btn {
+    background-color: #dedbdb;
+    color: black;
+    margin-top: 3%;
+    border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----------------------------------------Accessories Positioner Table ----------------------*/
+
+/* ------------------------------------------------------------ */
+
+/* ----------------------------------------Accessories AFR Table ----------------------*/
+.table_afrmanu {
+    width: 3%;
+    font-size: 11px;
+
+}
+
+.table_afrmodel {
+    width: 15%;
+    font-size: 11px;
+
+}
+
+.table_afrfilter {
+    width: 12%;
+    font-size: 11px;
+
+
+}
+
+
+
+/* .topinput {
+    width: 40%;
+    height: 90%;
+} */
+
+/* #topinput {
+    width: 40%;
+    height: 50%;
+} */
+
+
+
+
+/* --------------------Customer Master------------------------- */
+
+.cus_input {
+    width: 100%;
+    height: 70%;
+    font-size: 11px;
 }
