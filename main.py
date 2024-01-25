@@ -2644,9 +2644,11 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     flow_character = v_det_element.flowCharacter__.name.lower()
     # new trim exit velocity
     # for port area, travel filter not implemented
-
-    port_area_ = db.session.query(portArea).filter_by(v_size=vSize_v, seat_bore=seatDia, trim_type=trimtype,
+    try:
+        port_area_ = db.session.query(portArea).filter_by(v_size=vSize_v, seat_bore=seatDia, trim_type=trimtype,
                                                       flow_char=flow_character).first()
+    except:
+        port_area_ = None
 
     if port_area_:
         port_area = float(port_area_.area)
@@ -3434,9 +3436,13 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
     flow_character = getFlowCharacter(valve_det_element.flowCharacter__.name)
         # new trim exit velocity
         # for port area, travel filter not implemented
-    port_area_ = db.session.query(portArea).filter_by(v_size=size_in_in, seat_bore=seatDia,
-                                                      trim_type=trimtype,
-                                                      flow_char=flow_character).first()
+    try:
+        port_area_ = db.session.query(portArea).filter_by(v_size=size_in_in, seat_bore=seatDia,
+                                                        trim_type=trimtype,
+                                                        flow_char=flow_character).first()
+    except:
+        port_area_ = None
+
     if port_area_:
         port_area = float(port_area_.area)
     else:
@@ -3749,8 +3755,11 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
         seatDia = int(seatDia)
     else:
         seatDia = float(seatDia)
-    port_area_ = db.session.query(portArea).filter_by(v_size=vSize_v, seat_bore=seatDia, trim_type=trimtype,
-                                                      flow_char=flow_character, travel=travel).first()
+    try:
+        port_area_ = db.session.query(portArea).filter_by(v_size=vSize_v, seat_bore=seatDia, trim_type=trimtype,
+                                                        flow_char=flow_character, travel=travel).first()
+    except:
+        port_area_ = None
     print(f"port area table inputs: {vSize_v}, {seatDia}, {trimtype}, {flow_character}, {travel}")
     if port_area_:
         port_area = float(port_area_.area)
@@ -4322,9 +4331,11 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
         seatDia = int(seatDia)
     else:
         seatDia = float(seatDia)
-
-    port_area_ = db.session.query(portArea).filter_by(v_size=size_in_in, seat_bore=seatDia, trim_type=trimtype,
-                                                      flow_char=flow_character, travel=travel).first()
+    try:
+        port_area_ = db.session.query(portArea).filter_by(v_size=size_in_in, seat_bore=seatDia, trim_type=trimtype,
+                                                        flow_char=flow_character, travel=travel).first()
+    except:
+        port_area_ = None
     print(f'port area inputs: {size_in_in}, {seatDia}, {trimtype}, {flow_character}, {travel}')
 
     if port_area_:
