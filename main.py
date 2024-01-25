@@ -2701,7 +2701,7 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
         oVelocity = 1
     
 
-    valve_element_current = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
+    valve_element_current = db.session.query(valveDetailsMaster).filter_by(itemId=item_selected.id).first()
     rating_current = valve_element_current.rating
     valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
                                                               nominalPipeSize=vSize_v).first()
