@@ -1277,7 +1277,7 @@ def data_delete(table_name):
             db.session.delete(data_)
             db.session.commit()
         except:
-            pass
+            db.session.rollback()
 
 
 def next_alpha(s):
