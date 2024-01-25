@@ -1847,7 +1847,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
 
-            if department_element.id == 5:
+            if department_element.name == "Application Engineering, Sales & Contracts":
                 addUserAsEng(request.form['name'], designation_element.name)
 
             # Add Project and Item
