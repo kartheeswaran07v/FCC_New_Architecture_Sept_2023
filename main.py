@@ -2421,9 +2421,13 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     # 1. flowrate
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(inletPipeDia_v),
-                                                              schedule=iSch).first()
-    thickness_pipe = float(i_pipearea_element.thickness)
+    
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v)).first()
+    
+    try:
+        thickness_pipe = float(i_pipearea_element.thickness)
+    except:
+        thickness_pipe = None
     print(f"thickness: {thickness_pipe}")
     if fl_unit_form not in ['m3/hr', 'gpm']:
         flowrate_liq = meta_convert_P_T_FR_L('FR', flowrate_form, fl_unit_form,
@@ -2557,11 +2561,17 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
                                             1000)
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(inletPipeDia_v),
-                                                              schedule=iSch).first()
+  
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                            schedule=iSch).first()
+    if i_pipearea_element:
+        iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(i_pipearea_element.thickness),
+                                        'mm', 'm', 1000)
+    else:
+        iPipeSch_lnoise = 0.001
 
-    iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(i_pipearea_element.thickness),
-                                            'mm', 'm', 1000)
+
+    
     flowrate_lnoise = meta_convert_P_T_FR_L('FR', flowrate_form, fl_unit_form, 'kg/hr',
                                             specificGravity * 1000) / 3600
     outletPressure_lnoise = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form,
@@ -2669,13 +2679,13 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     # print(flowrate_v, (inletPipeDia_v - ipipeSch_v),
     #       (outletPipeDia_v - opipeSch_v),
     #       vSize_v)
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(inletPipeDia_v),
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
                                                               schedule=iSch).first()
     area_in2 = float(i_pipearea_element.area)
     a_i = 0.00064516 * area_in2
     iVelocity = flowrate_v / (3600 * a_i)
 
-    o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(outletPipeDia_v),
+    o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
                                                               schedule=oSch).first()
     print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
     area_in22 = float(o_pipearea_element.area)
@@ -3060,7 +3070,7 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
 
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(inletPipeDia_v),
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
                                                               schedule=iSch).first()
     thickness_pipe = float(i_pipearea_element.thickness)
     thickness_in = meta_convert_P_T_FR_L('L', thickness_pipe, 'mm', 'inch', 1000)
@@ -3525,7 +3535,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     # check whether flowrate, pres and l are in correct units
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(inletPipeDia_v),
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
                                                               schedule=iSch).first()
     thickness_pipe = float(i_pipearea_element.thickness)
     print(f"thickness: {thickness_pipe}")
@@ -3667,7 +3677,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
 
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(inletPipeDia_v),
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
                                                               schedule=iSch).first()
     print(f"pipe dia: {inletPipeDia_v}, sch: {iSch}")
 
@@ -3782,13 +3792,13 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     # print(flowrate_v, (inletPipeDia_v - ipipeSch_v),
     #       (outletPipeDia_v - opipeSch_v),
     #       vSize_v)
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(inletPipeDia_v),
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
                                                               schedule=iSch).first()
     area_in2 = float(i_pipearea_element.area)
     a_i = 0.00064516 * area_in2
     iVelocity = flowrate_v / (3600 * a_i)
 
-    o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(outletPipeDia_v),
+    o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
                                                               schedule=oSch).first()
     area_in22 = float(o_pipearea_element.area)
     a_o = 0.00064516 * area_in22
@@ -3934,7 +3944,7 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     # logic to choose which formula to use - using units of flowrate and sg
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=str(inletPipeDia_v),
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
                                                               schedule=iSch).first()
     thickness_pipe = float(i_pipearea_element.thickness)
     thickness_in = meta_convert_P_T_FR_L('L', thickness_pipe, 'mm', 'inch', 1000)
