@@ -1273,9 +1273,11 @@ def data_delete(table_name):
     # with app.app_context():
     data_list = table_name.query.all()
     for data_ in data_list:
-        if data_:
+        try:
             db.session.delete(data_)
             db.session.commit()
+        except:
+            pass
 
 
 def next_alpha(s):
