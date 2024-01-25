@@ -1273,11 +1273,8 @@ def data_delete(table_name):
     # with app.app_context():
     data_list = table_name.query.all()
     for data_ in data_list:
-        try:
-            db.session.delete(data_)
-            db.session.commit()
-        except:
-            db.session.rollback()
+        db.session.delete(data_)
+        db.session.commit()
 
 
 def next_alpha(s):
@@ -5393,6 +5390,6 @@ def nextItem(control, page, item_id, proj_id):
 #         data_upload(packing_type_list, packingType)
 
 # DATA_UPLOAD_BULK()
-cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+# cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 if __name__ == "__main__":
     app.run(debug=False)
