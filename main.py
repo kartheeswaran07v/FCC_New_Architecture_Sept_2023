@@ -2407,7 +2407,7 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
                cPresUnit_form,
                inletPipeDia_form, iPipeUnit_form, iSch, outletPipeDia_form, oPipeUnit_form, oSch, densityPipe, sosPipe,
                valveSize_form, vSizeUnit_form,
-               seatDia, seatDiaUnit, ratedCV, rw_noise, item_selected, fluidName):
+               seatDia, seatDiaUnit, ratedCV, rw_noise, item_selected, fluidName, valve_element):
     # change into float/ num
     flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, outletPressure_form, oPresUnit_form, inletTemp_form, iTempUnit_form, vaporPressure, vPresUnit_form, specificGravity, viscosity, xt_fl, criticalPressure_form, cPresUnit_form, inletPipeDia_form, iPipeUnit_form, iSch, outletPipeDia_form, oPipeUnit_form, oSch, densityPipe, sosPipe, valveSize_form, vSizeUnit_form, seatDia, seatDiaUnit, ratedCV, rw_noise, item_selected = float(
         flowrate_form), fl_unit_form, float(inletPressure_form), iPresUnit_form, float(
@@ -2701,7 +2701,7 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
         oVelocity = 1
     
 
-    valve_element_current = db.session.query(valveDetailsMaster).filter_by(itemId=item_selected.id).first()
+    valve_element_current = valve_element
     rating_current = valve_element_current.rating
     valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
                                                               nominalPipeSize=vSize_v).first()
@@ -4746,7 +4746,7 @@ def valveSizing(proj_id, item_id):
                                             a['outletPipeSize'][0], item_selected.project.lengthUnit, a['oSch'][0], 7800,
                                             5000, a['vSize'][0],
                                             item_selected.project.lengthUnit, a['vSize'][0], item_selected.project.lengthUnit, a['ratedCV'][0],
-                                            rw_noise, item_selected, fluid_element.fluidName)
+                                            rw_noise, item_selected, fluid_element.fluidName, valve_element)
                         
 
                         new_case = caseMaster(flowrate=output['flowrate'], inletPressure=output['inletPressure'],
