@@ -1,0 +1,151 @@
+{% block content %}
+{% include "header.html" %}
+<br>
+
+                        <!-- <div class="container-fluid "> -->
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <!-- <div class="col-6"></div> -->
+                                        <div class="col-3">
+                                            <div class="actuator shadow p-2">
+                                                <h6 class="actuator_heading"><b>Actuator Selection</b></h6>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <label for="actType" >Actuator Type</label>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <select class="actuator_select"  name="actType" >
+                                                            {% for act_type in metadata['actuatorData']['actType'] %}
+                                                            <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 pr-0">
+                                                        <!-- Spring Action / Fail Mode -->
+                                                        <label for="failAction">Spring/Air Fail Action</label>
+    
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <select class="Spring Action actuator_select"  name="failAction"
+                                                        >
+                                                        {% for act_type in metadata['actuatorData']['failAction'] %}
+                                                        <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                                        {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <!-- Hand Wheel -->
+                                                        <label for="mount">Hand Wheel</label>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <select class=" actuator_select" name="mount">
+                                                            {% for act_type in metadata['actuatorData']['handwheel'] %}
+                                                            <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <!-- Hand Wheel -->
+                                                        <label for="mount">Adj. Travel Stop</label>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <select class=" actuator_select" name="travel">
+                                                            {% for act_type in metadata['actuatorData']['travel'] %}
+                                                        <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                                        {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <!-- Orientation -->
+                                                        <label for="orientation">Orientation</label>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <select class=" Orientation actuator_select" name="  orientation "
+                                                            id=" orientation">
+                                                            {% for act_type in metadata['actuatorData']['orientation'] %}
+                                                            <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 pr-0">
+                                                        <!-- Available Air Supply -->
+                                                        <label for="airUnit">Air Supply Pressure</label>
+    
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <input type="number" class="form-control-sm-sm actuator_input1" name="airUnit">
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <select class="form-control-sm-sm actuator_select1" name="airUnit">
+                                                            {% for presunit in metadata['units_dict']['pressure'] %}
+                                                                    {% if presunit.name == item.project.pressureUnit %}
+                                                                    <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
+                                                                    {% else %}
+                                                                    <option value="{{presunit.name}}">{{presunit.name}}</option>
+                                                                    {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <!-- Available Air Supply -->
+                                                        <label for="setpressure">Set Pressure</label>
+    
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <input type="number" class="form-control-sm-sm actuator_input1" name="setpressure">
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <select class="actuator_select1 form-control-sm-sm" name="set pressure">
+                                                            {% for presunit in metadata['units_dict']['pressure'] %}
+                                                                    {% if presunit.name == item.project.pressureUnit %}
+                                                                    <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
+                                                                    {% else %}
+                                                                    <option value="{{presunit.name}}">{{presunit.name}}</option>
+                                                                    {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <!-- Shut Off Pressure -->
+                                                        <label for="shutoffDelP">Shut Off Pressure</label>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <input type="text" value="{{valve.shutOffDelP}}"  class="form-control-sm-sm actuator_input1" name="shutoffDelP">
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <input type="text" value="{{valve.shutOffDelPUnit}}" readonly class="form-control-sm-sm actuator_input" name="shutoffDelP">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a href="{{url_for('slidingStem', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info actuator_button1" name="sliding" value="sliding Stem Actuator Sizing">Sliding Stem Actuator Sizing</button></a><br>
+                                                <a href="{{url_for('rotaryActuator', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn  btn-info actuator_button2 mt-2"  name="rotary" value="Rotary Actuator Sizing">Rotary Actuator Sizing</button></a>
+                                                <a href="{{url_for('strokeTime', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info actuator_button3 mt-2"  name="stroketime" value="stroketime">Stroke Time Calculation</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- </div> -->
+                   
+
+{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,84 @@
+﻿std,manufacturer,series,moc,enclosure,spool_valve,type,technology,communication,action,actions,certificate,model_no,haz_class
+Std,Neles,ND9100,Al & Polymer composite,Weather Proof,3mm,Smart Positioner,Analog,HART 6 or HART 7,Single,"Single, Double","ATEX, IECEx",ND-9-1-03-H-X,Ex ia
+Std,Neles,ND9100,Al & Polymer composite,Weather Proof,3mm,Smart Positioner,Analog,HART 6 or HART 7,Double,"Single, Double","ATEX, IECEx",ND-9-1-03-H-X,Ex ia
+Std,Neles,ND9100,Al & Polymer composite,Weather Proof,3mm,Smart Positioner,Analog,HART 6 or HART 7,Double,Double,"ATEX, IECEx",ND-9-1-03-H-X,Ex ia
+Std,Neles,ND9100,Al & Polymer composite,Weather Proof,6mm,Smart Positioner,Analog,HART 6 or HART 7,Single,"Single, Double","ATEX, IECEx",ND-9-1-06-H-X,Ex ia
+Std,Neles,ND9100,Al & Polymer composite,Weather Proof,6mm,Smart Positioner,Analog,HART 6 or HART 7,Double,"Single, Double","ATEX, IECEx",ND-9-1-06-H-X,Ex ia
+Std,Neles,ND9100,Al & Polymer composite,Weather Proof,3mm,Smart Positioner,Digital,FF,Single,Single,"ATEX,IECEx",ND-9-1-03-F-X,Ex ia
+Std,Neles,ND9100,Al & Polymer composite,Weather Proof,6mm,Smart Positioner,Digital,FF,Single,Single,"ATEX,IECEx",ND-9-1-06-F-X,Ex ia
+Std,Neles,ND9200,Al & Tempered glass,Flame Proof,3mm,Smart Positioner,Digital,HART 6 or HART 7,Single,"Single, Double","ATEX, IECEx",ND-9-2-03-H-X,Ex d
+Std,Neles,ND9200,Al & Tempered glass,Flame Proof,3mm,Smart Positioner,Digital,HART 6 or HART 7,Double,"Single, Double","ATEX, IECEx",ND-9-2-03-H-X,Ex d
+Std,Neles,ND9200,Al & Tempered glass,Flame Proof,6mm,Smart Positioner,Digital,HART 6 or HART 7,Single,"Single, Double","ATEX, IECEx",ND-9-2-06-H-X,Ex d
+Std,Neles,ND9200,Al & Tempered glass,Flame Proof,6mm,Smart Positioner,Digital,HART 6 or HART 7,Double,"Single, Double","ATEX, IECEx",ND-9-2-06-H-X,Ex d
+Std,Neles,ND9200,Al & Tempered glass,Flame Proof,3mm,Smart Positioner,Digital,FF,Single,Single,"ATEX, IECEx",ND-9-2-03-F-X,Ex d
+Std,Neles,ND9200,Al & Tempered glass,Flame Proof,6mm,Smart Positioner,Digital,FF,Single,Single,"ATEX, IECEx",ND-9-2-06-F-X,Ex d
+Std,Neles,ND9300,Stainless Steel,Flame Proof,3mm,Smart Positioner,Digital,HART 6 or HART 7,Single,"Single, Double","ATEX, IECEx",ND-9-3-03-H-X,Ex d
+Std,Neles,ND9300,Stainless Steel,Flame Proof,3mm,Smart Positioner,Digital,HART 6 or HART 7,Double,"Single, Double","ATEX, IECEx",ND-9-3-03-H-X,Ex d
+Std,Neles,ND9300,Stainless Steel,Flame Proof,6mm,Smart Positioner,Digital,HART 6 or HART 7,Single,"Single, Double","ATEX, IECEx",ND-9-3-06-H-X,Ex d
+Std,Neles,ND9300,Stainless Steel,Flame Proof,6mm,Smart Positioner,Digital,HART 6 or HART 7,Double,"Single, Double","ATEX, IECEx",ND-9-3-06-H-X,Ex d
+Std,Neles,ND9300,Stainless Steel,Flame Proof,3mm,Smart Positioner,Digital,FF,Single,Single,"ATEX, IECEx",ND-9-3-03-F-X,Ex d
+Std,Neles,ND9300,Stainless Steel,Flame Proof,6mm,Smart Positioner,Digital,FF,Single,Single,"ATEX, IECEx",ND-9-3-06-F-X,Ex d
+Std,Tissin,TS600L,Al die Cast,Flame Proof,3mm,Electro-Pneumatic,Analog,-,Single,Single,"ATEX, IECEx",,Ex ia
+Std,Tissin,TS600R,Al die Cast,Flame Proof,3mm,Electro-Pneumatic,Analog,-,Single,Single,"ATEX, IECEx",,Ex ia
+Std,Tissin,TS700L,Al die Cast,Flame Proof,3mm,Smart Positioner,Digital,HART 7,Single,Single,"ATEX, IECEx",,Ex ia
+Std,Tissin,TS700L,Al die Cast,Flame Proof,3mm,Smart Positioner,Digital,HART 7,Single,Single,CCC & NEPSI,,Ex ia
+Std,Tissin,TS700R,Al die Cast,Flame Proof,3mm,Smart Positioner,Digital,HART 7,Double,Double,"ATEX, IECEx",,Ex ia
+Std,Tissin,TS700R,Al die Cast,Flame Proof,3mm,Smart Positioner,Digital,HART 7,Double,Double,CCC & NEPSI,,Ex ia
+Std,Tissin,TS800,Al die Cast,Flame Proof,3mm,Smart Positioner,Digital,HART 7,Single,Single,"ATEX, IECEx",,Ex ia
+Std,Tissin,TS800,Al die Cast,Flame Proof,3mm,Smart Positioner,Digital,HART 7,Single,Single,"ATEX, IECEx",,Ex ia
+Std,Tissin,TS900,Al die Cast,Flame Proof,3mm,Smart Positioner,Digital,HART 7,Single,Single,"ATEX, IECEx",,Ex d
+Std,Tissin,TS900,Al die Cast,Flame Proof,3mm,Smart Positioner,Digital,HART 7,Single,Single,"ATEX, IECEx",,Ex d
+Std,Fisher,DVC2000,Aluminum,weather proof,3mm,Electro-Pneumatic,digital,HART,Single,Single,"ATEX, IECEx",DVC2000/AC,Exia
+Std,Fisher,DVC2000,Aluminum,weather proof,3mm,Electro-Pneumatic,digital,HART,Single,Single,"ATEX, IECEx",DVC2000/HC,Exia
+Std,Fisher,DVC2000,Aluminum,weather proof,3mm,Electro-Pneumatic,digital,HART,Single,Single,"ATEX, IECEx",DVC2000/AD,Exia
+Std,Fisher,DVC2000,Aluminum,weather proof,3mm,Electro-Pneumatic,digital,HART,Single,Single,"ATEX, IECEx",DVC2000/PD,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6000/AC,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6000/HC,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6000/AD,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6000/PD,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6000/AC,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6000/HC,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6000/AD,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6000/PD,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6000/AC,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6000/HC,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6000/AD,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6000/PD,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single , Double","ATEX, IECEx",DVC6000/ESD,Exia
+Std,Fisher,DVC6000,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single , Double","ATEX, IECEx",DVC6000/ESD,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/AC,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/HC,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/AD,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/PD,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/AD,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/HC,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/AC,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/PD,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/AD,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/HC,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/AC,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Single,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/PD,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/AC,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/HC,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/AD,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/PD,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/AD,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/HC,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/AC,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/PD,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/AD,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/HC,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/AC,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART, Reverse,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/PD,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/AC,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/HC,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/AD,Exia
+Std,Fisher,DVC6000S,Stainless Steel,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6000S/PD,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/AD,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/HC,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/AC,Exia
+Std,Fisher,DVC6200,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6200(N/A)/PD,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/AD,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/HC,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/AC,Exia
+Std,Fisher,DVC6200f,Aluminum,Flame Proof,3mm,Electro-Pneumatic,digital,HART,Double,"Single, Reverse, Double","ATEX, IECEx",DVC6200f(NA)/PD,Exia

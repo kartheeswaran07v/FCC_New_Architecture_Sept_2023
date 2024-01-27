@@ -17,7 +17,7 @@ from flask import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import *
 import random
-from functions import FR, N1, N2, N4, N5_in, N6_lbhr_psi_lbft3, N7_60_scfh_psi_F, N8_kghr_bar_K, N9_O_m3hr_kPa_C, REv, conver_FR_noise, full_format, getFlowCharacter, getValveType, meta_convert_P_T_FR_L, project_status_list, notes_dict_reorder, purpose_list, units_dict
+from functions import FR, N1, N2, N4, N5_in, N6_lbhr_psi_lbft3, N7_60_scfh_psi_F, N8_kghr_bar_K, N9_O_m3hr_kPa_C, REv, conver_FR_noise, full_format, getFlowCharacter, getValveType, meta_convert_P_T_FR_L, project_status_list, notes_dict_reorder, purpose_list, units_dict, actuator_data_dict
 from gas_noise_formulae import lpae_1m
 from gas_velocity_iec import getGasVelocities
 from liquid_noise_formulae import Lpe1m
@@ -54,9 +54,9 @@ app.config['SECRET_KEY'] = "kkkkk"
 Bootstrap(app)
 
 # # CONNECT TO DB
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v5-1.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v5-3.db"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v5-1.db")
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v5-1.db")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -279,12 +279,31 @@ class projectMaster(db.Model):
 class projectNotes(db.Model):
     __tablename__ = "projectNotes"
     id = Column(Integer, primary_key=True)
+    notesNumber = Column(String(300))
     notes = Column(String(300))
     date = Column(DateTime)
 
     # relationship as child
     projectId = Column(Integer, ForeignKey("projectMaster.id"))
     project = relationship("projectMaster", back_populates="projectnotes")
+
+
+class itemNotesData(db.Model):
+    __tablename__ = "itemNotesData"
+    id = Column(Integer, primary_key=True)
+    content = Column(String(300))
+    notesNumber = Column(String(300))
+
+    # rel as child to item
+    itemId = Column(Integer, ForeignKey("itemMaster.id"))
+    item = relationship('itemMaster', back_populates='notes')
+
+
+class notesMaster(db.Model):
+    __tablename__ = "notesMaster"
+    id = Column(Integer, primary_key=True)
+    notesNumber = Column(String(10))
+    content = Column(String(300))
 
 
 class itemMaster(db.Model):
@@ -300,6 +319,7 @@ class itemMaster(db.Model):
     valve = relationship("valveDetailsMaster", back_populates="item")
     actuator = relationship("actuatorMaster", back_populates="item")
     accessories = relationship("accessoriesData", back_populates="item")
+    notes = relationship("itemNotesData", back_populates="item")
 
     # relationship as child
     projectID = Column(Integer, ForeignKey("projectMaster.id"))
@@ -858,6 +878,7 @@ class actuatorMaster(db.Model):
     actuatorType = Column(String(100))
     springAction = Column(String(100))  # Fail Action
     handWheel = Column(String(100))
+    adjustableTravelStop = Column(String(100))
     orientation = Column(String(100))
     availableAirSupplyMin = Column(Float)
     availableAirSupplyMax = Column(Float)
@@ -878,7 +899,7 @@ class slidingActuatorData(db.Model):
     failAction = Column(String(100))
     stemDia = Column(Float)
     yokeBossDia = Column(Float)
-    actSize = Column(Float)
+    actSize = Column(String(100))
     effectiveArea = Column(Float)
     travel = Column(Float)
     sMin = Column(Float)
@@ -1175,6 +1196,19 @@ class accessoriesData(db.Model):
     itemId = Column(Integer, ForeignKey("itemMaster.id"))
     item = relationship('itemMaster', back_populates='accessories')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = accessoriesData.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class valveArea(db.Model):
     __tablename__ = "valveArea"
@@ -1262,7 +1296,8 @@ table_data_render = [
     {'name': 'Paint Certs', 'db': paintCerts, 'id': 22},
     {'name': 'Pipe Area', 'db': pipeArea, 'id': 23},
     {'name': 'Valve Area', 'db': valveArea, 'id': 24},
-    {'name': 'Pressure Temperature', 'db': pressureTempRating, 'id': 25}
+    {'name': 'Pressure Temperature', 'db': pressureTempRating, 'id': 25},
+    {'name': 'Design Standard', 'db': designStandard, 'id': 26}
 ]
 
 
@@ -1284,7 +1319,7 @@ def next_alpha(s):
 # Data upload function
 def data_upload(data_list, table_name):
     # with app.app_context():
-    print(f"data delete starts: {table_name.__tablename__}")
+    # print(f"data delete starts: {table_name.__tablename__}")
     data_delete(table_name)
     print("data delete ends")
     print('dataupload starts')
@@ -1533,7 +1568,9 @@ def newUserProjectItem(user):
                                 bidDueDate=datetime.datetime.today())
     new_item = itemMaster(project=new_project, itemNumber=1, alternate='A')
     new_valve = valveDetailsMaster(item=new_item, state=fluid_state)
-    db.session.add_all([new_project, new_item, new_valve])
+    new_actuator = actuatorMaster(item=new_item)
+    new_accessories = accessoriesData(item=new_item)
+    db.session.add_all([new_project, new_item, new_valve, new_actuator, new_accessories])
     db.session.commit()
 
 
@@ -1544,6 +1581,12 @@ def newProjectItem(project):
     db.session.commit()
     new_valve_det = valveDetailsMaster(item=new_item, state=fluid_state)
     db.session.add(new_valve_det)
+    db.session.commit()
+    new_actuator = actuatorMaster(item=new_item)
+    db.session.add(new_actuator)
+    db.session.commit()
+    new_accessories = accessoriesData(item=new_item)
+    db.session.add(new_accessories)
     db.session.commit()
     return new_item
 
@@ -1557,7 +1600,12 @@ def addNewItem(project, itemNumber, alternate):
     new_valve_det = valveDetailsMaster(item=new_item, state=fluid_state)
     db.session.add(new_valve_det)
     db.session.commit()
-    
+    new_actuator = actuatorMaster(item=new_item)
+    db.session.add(new_actuator)
+    db.session.commit()
+    new_accessories = accessoriesData(item=new_item)
+    db.session.add(new_accessories)
+    db.session.commit()
     return new_item
 
 
@@ -1676,8 +1724,49 @@ def metadata():
         "units_dict": units_dict,
         "fluids": fluids,
         "fluidState": fluid_state,
-        "flowCharacter": flowCharacter_
+        "flowCharacter": flowCharacter_,
+        "actuatorData": actuator_data_dict
     }
+
+    positioner_manufacturer = []
+    for notes_ in db.session.query(positioner.manufacturer).distinct():
+        positioner_manufacturer.append(notes_.manufacturer)
+
+    positioner_model = []
+    for notes_ in db.session.query(positioner.series).distinct():
+        positioner_model.append(notes_.series)
+
+    positioner_action = []
+    for notes_ in db.session.query(positioner.action).distinct():
+        positioner_action.append(notes_.action)
+    
+    solenoid_make = []
+    for notes_ in db.session.query(solenoid.make).distinct():
+        solenoid_make.append(notes_.make)
+
+    solenoid_model = []
+    for notes_ in db.session.query(solenoid.model).distinct():
+        solenoid_model.append(notes_.model)
+
+    solenoid_type = []
+    for notes_ in db.session.query(solenoid.type).distinct():
+        solenoid_type.append(notes_.type)
+
+    all_afr = afr.query.all()
+    afr_ = [f"{pos.manufacturer}/{pos.model}" for pos in all_afr]
+
+    all_limit_switch = limitSwitch.query.all()
+    limit_switch_ = [l.model for l in all_limit_switch]
+    
+    data_dict['positioner_manufacturer'] = positioner_manufacturer
+    data_dict['positioner_model'] = positioner_model
+    data_dict['positioner_action'] = positioner_action
+    data_dict['afr_'] = afr_
+    data_dict['limit_switch_'] = limit_switch_
+    data_dict['solenoid_make'] = solenoid_make
+    data_dict['solenoid_model'] = solenoid_model
+    data_dict['solenoid_type'] = solenoid_type
+    data_dict['boosters'] = ['I-BP1A', 'W20359']
     return data_dict
 
 
@@ -1976,7 +2065,7 @@ def addCompany(proj_id, item_id):
 
             flash(f"Company: {name} added successfully.")
             return redirect(url_for('companyEdit', company_id=new_company.id, item_id=item_id, proj_id=proj_id))
-    return render_template('company.html', companies=all_company, user=current_user,
+    return render_template('customer_master.html', companies=all_company, user=current_user,
                            item=getDBElementWithId(itemMaster, item_id), page='addCompany')
 
 
@@ -1996,12 +2085,12 @@ def companyEdit(company_id, proj_id, item_id):
         db.session.commit()
         flash('Address added successfully')
         return redirect(url_for('companyEdit', company_id=company_element.id, item_id=item_id, proj_id=proj_id))
-    return render_template('company-edit.html', user=current_user, company=company_element, addresses=addresses,
+    return render_template('customer_master_edit.html', user=current_user, company=company_element, addresses=addresses,
                            addresses_len=range(len_addr), item=getDBElementWithId(itemMaster, item_id), page='companyEdit')
 
 
-@app.route('/del-address/<address_id>', methods=['GET', 'POST'])
-def delAddress(address_id):
+@app.route('/del-address/<address_id>/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def delAddress(address_id, item_id, proj_id):
     addresss_element = addressMaster.query.get(address_id)
     company_id = addresss_element.company.id
     if addresss_element.isActive:
@@ -2011,7 +2100,7 @@ def delAddress(address_id):
     db.session.commit()
     # db.session.delete(addresss_element)
     # db.session.commit()
-    return redirect(url_for('companyEdit', company_id=company_id))
+    return redirect(url_for('companyEdit', company_id=company_id, item_id=item_id, proj_id=proj_id))
 
 
 # TODO Project Module
@@ -3543,7 +3632,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
               xt_fl, viscosity, seatDia, seatDiaUnit, sosPipe, densityPipe, rw_noise, item_selected, fl_unit_form,
               iPresUnit_form, oPresUnit_form, vPresUnit_form, cPresUnit_form, iPipeUnit_form, oPipeUnit_form,
               vSizeUnit_form,
-              iSch, iPipeSchUnit_form, oSch, oPipeSchUnit_form, iTempUnit_form, open_percent, fd, travel, rated_cv_tex, fluidName):
+              iSch, iPipeSchUnit_form, oSch, oPipeSchUnit_form, iTempUnit_form, open_percent, fd, travel, rated_cv_tex, fluidName, cv_table):
     # check whether flowrate, pres and l are in correct units
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
@@ -3730,14 +3819,19 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
                      'fi': 8000}
 
     sc_1 = sc_liq_sizing
-    summation = Lpe1m(sc_1['fi'], sc_1['FD'], sc_1['reqCV'], sc_1['iPressure'], sc_1['oPressure'],
-                      sc_1['vPressure'],
-                      sc_1['densityLiq'], sc_1['speedSoundLiq'], sc_1['massFlowRate'], sc_1['rw'],
-                      sc_1['FL'],
-                      sc_1['seatDia'], sc_1['valveDia'], sc_1['densityPipe'], sc_1['pipeWallThickness'],
-                      sc_1['speedSoundPipe'],
-                      sc_1['densityAir'], sc_1['internalPipeDia'], sc_1['speedSoundAir'],
-                      sc_1['speedSoundPipe'])
+    try:
+        summation = Lpe1m(sc_1['fi'], sc_1['FD'], sc_1['reqCV'], sc_1['iPressure'], sc_1['oPressure'],
+                        sc_1['vPressure'],
+                        sc_1['densityLiq'], sc_1['speedSoundLiq'], sc_1['massFlowRate'], sc_1['rw'],
+                        sc_1['FL'],
+                        sc_1['seatDia'], sc_1['valveDia'], sc_1['densityPipe'], sc_1['pipeWallThickness'],
+                        sc_1['speedSoundPipe'],
+                        sc_1['densityAir'], sc_1['internalPipeDia'], sc_1['speedSoundAir'],
+                        sc_1['speedSoundPipe'])
+    except ZeroDivisionError:
+        summation = 10
+    except ValueError:
+        summation = 10
     # summation = 56
 
     # Power Level
@@ -3944,7 +4038,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
                         chokedDrop=output['chokedDrop'],
                         fl=output['fl'], tex=output['tex'], powerLevel=output['powerLevel'],
                         criticalPressure=output['criticalPressure'], inletPipeSize=output['inletPipeSize'],
-                        outletPipeSize=output['outletPipeSize'], item=item_selected)
+                        outletPipeSize=output['outletPipeSize'], item=item_selected, cv=cv_table)
 
     db.session.add(new_case)
     db.session.commit()
@@ -3959,7 +4053,7 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
               sosPipe, densityPipe, criticalPressure_form, viscosity, item_selected, fl_unit_form, iPresUnit_form,
               oPresUnit_form, vPresUnit_form, iPipeUnit_form, oPipeUnit_form, vSizeUnit_form, iSch,
               iPipeSchUnit_form, oSch, oPipeSchUnit_form, iTempUnit_form, xt_fl, sg_vale, sg_choice,
-              open_percent, fd, travel, rated_cv_tex, fluidName):
+              open_percent, fd, travel, rated_cv_tex, fluidName, cv_table):
     # Unit Conversion
     # 1. Flowrate
 
@@ -4435,7 +4529,8 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
                          fd=result_dict['fd'], Fp=result_dict['Fp'], ar=result_dict['ar'], kc=result_dict['kc'], reNumber=result_dict['reNumber'],
                          machNoUp=result_dict['machNoUp'], machNoDown=result_dict['machNoDown'], machNoValve=result_dict['machNoVel'],
                          sonicVelUp=result_dict['sonicVelUp'], sonicVelDown=result_dict['sonicVelDown'],
-                         sonicVelValve=result_dict['sonicVelValve'], outletDensity=result_dict['outletDensity'],x_delp=result_dict['x_delp'])
+                         sonicVelValve=result_dict['sonicVelValve'], outletDensity=result_dict['outletDensity'],x_delp=result_dict['x_delp'],
+                         cv=cv_table)
     db.session.add(new_case)
     db.session.commit()
 
@@ -5040,7 +5135,8 @@ def selectValve(proj_id, item_id):
                     # Adding valve id in new table
                     last_case.cv = valve_d_id.cv
                     db.session.commit()
-
+                    
+                    # print(last_case.cv.balancing_.name)
                     valve_style = getValveType(valve_element.style.name)
                     # RW Noise
                     if valve_style == 'globe':
@@ -5132,7 +5228,7 @@ def selectValve(proj_id, item_id):
                                   item_selected,
                                   fl_unit, iPresUnit, oPresUnit, vPresUnit, cPresUnit, iPipeUnit, oPipeUnit, 'inch',
                                   'std', iPipeSchUnit, 'std', oPipeSchUnit, iTempUnit,
-                                  o_percent, fd, travel, rated_cv_tex, fluidName_)
+                                  o_percent, fd, travel, rated_cv_tex, fluidName_, valve_d_id.cv)
                         db.session.delete(last_case)
                         db.session.commit()
                     else:
@@ -5147,7 +5243,7 @@ def selectValve(proj_id, item_id):
                                   oPresUnit, vPresUnit, iPipeUnit, oPipeUnit, 'inch',
                                   'std',
                                   iPipeSchUnit, 'std', oPipeSchUnit, iTempUnit, xt, last_case.molecularWeight,
-                                  sg_choice, o_percent, fd, travel, rated_cv_tex,fluidName_)
+                                  sg_choice, o_percent, fd, travel, rated_cv_tex,fluidName_, valve_d_id.cv)
 
                         db.session.delete(last_case)
                         db.session.commit()
@@ -5157,27 +5253,245 @@ def selectValve(proj_id, item_id):
                            metadata=metadata_, page='selectValve', valve=valve_element, valve_data=[])
 
 
+# Actuator Sizing
+@app.route('/actuator-sizing/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def actuatorSizing(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    metadata_ = metadata()
+    return render_template('actuatorSizing.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                           metadata=metadata_, page='actuatorSizing', valve=valve_element)
+
+@app.route('/sliding-stem/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def slidingStem(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    cases = db.session.query(caseMaster).filter_by(item=item_element).all()
+    print(len(cases))
+    selected_sized_valve_element = cases[0].cv
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    metadata_ = metadata()
+    print(selected_sized_valve_element.balancing_.name)
+    return render_template('slidingstem.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                           metadata=metadata_, page='slidingStem', valve=valve_element, cv=selected_sized_valve_element)
+
+
+@app.route('/rotary-actuator/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def rotaryActuator(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    metadata_ = metadata()
+    return render_template('RotaryActuatorSizing.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                           metadata=metadata_, page='rotaryActuator', valve=valve_element)
+
+
+@app.route('/stroke-time/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def strokeTime(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    actuator_element = db.session.query(actuatorMaster).filter_by(item=item_element).first()
+    metadata_ = metadata()
+    if actuator_element.actuatorType == 'Piston without Spring':
+        html_page = 'stroke_time_piston.html'
+    else:
+        html_page = 'stroke_time_spring.html'
+    return render_template(html_page, item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                           metadata=metadata_, page='strokeTime', valve=valve_element)
+
+
+# Accessories
+@app.route('/accessories/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def accessories(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    accessories_element = db.session.query(accessoriesData).filter_by(item=item_element).first()
+    metadata_ = metadata()
+    if request.method == 'POST':
+        data = request.form.to_dict(flat=False)
+        a = jsonify(data).json
+        accessories_element.update(a, accessories_element.id)
+        return redirect(url_for('accessories', item_id=item_id, proj_id=proj_id))
+
+    return render_template("accessories.html", item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                           metadata=metadata_, page='accessories', valve=valve_element, acc=accessories_element)
+
+# Accessories Positioner
+@app.route('/positioner/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
+def positionerRender(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    positioner_ = positioner.query.all()
+    metadata_ = metadata()
+    metadata_['positioner'] = positioner_
+    return render_template("positioner.html", item=getDBElementWithId(itemMaster, int(item_id)),
+                            page='positionerRender', valve=valve_element, metadata=metadata_, user=current_user)
+
+
+@app.route('/select-positioner/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
+def selectPositioner(proj_id, item_id):
+    pos_id = request.form.get('positioner')
+    pos_element = getDBElementWithId(positioner, pos_id)
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    accessories_element = db.session.query(accessoriesData).filter_by(item=item_element).first()
+    accessories_element.manufacturer = pos_element.manufacturer
+    accessories_element.model = pos_element.series
+    accessories_element.action = pos_element.action
+    db.session.commit()
+    return redirect(url_for('accessories', item_id=item_id, proj_id=proj_id))
+
+
+# Accessories AFR
+@app.route('/afr/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
+def afrRender(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    afr_ = afr.query.all()
+    metadata_ = metadata()
+    metadata_['afr_'] = afr_
+    return render_template("afr.html", item=getDBElementWithId(itemMaster, int(item_id)),
+                            page='positionerRender', valve=valve_element, metadata=metadata_, user=current_user)
+
+
+@app.route('/select-afr/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
+def selectAfr(proj_id, item_id):
+    afr_id = request.form.get('afr')
+    afr_element = getDBElementWithId(afr, afr_id)
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    accessories_element = db.session.query(accessoriesData).filter_by(item=item_element).first()
+    accessories_element.afr = f"{afr_element.manufacturer}"
+    db.session.commit()
+    return redirect(url_for('accessories', item_id=item_id, proj_id=proj_id))
+
+
+
+# Accessories Limit Switch
+@app.route('/limit/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
+def limitRender(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    metadata_ = metadata()
+    return render_template("limitSwitch.html", item=getDBElementWithId(itemMaster, int(item_id)),
+                            page='limitRender', valve=valve_element, metadata=metadata_, user=current_user)
+
+
+@app.route('/select-limit/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
+def selectlimit(proj_id, item_id):
+    return redirect(url_for('accessories', item_id=item_id, proj_id=proj_id))
+
+
+# Accessories Solenoid
+@app.route('/solenoid/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
+def solenoidRender(proj_id, item_id):
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    metadata_ = metadata()
+    return render_template("solenoid.html", item=getDBElementWithId(itemMaster, int(item_id)),
+                            page='limitRender', valve=valve_element, metadata=metadata_, user=current_user)
+
+
+@app.route('/select-solenoid/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
+def selectSolenoid(proj_id, item_id):
+    return redirect(url_for('accessories', item_id=item_id, proj_id=proj_id))
+
+# Item Notes
+@app.route('/item-notes/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def itemNotes(proj_id, item_id):
+    MAX_NOTE_LENGTH = 7
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    item_notes_list = db.session.query(itemNotesData).filter_by(item=item_element).order_by('notesNumber').all()
+    accessories_element = db.session.query(accessoriesData).filter_by(item=item_element).first()
+
+    uniqueNotes = []
+    for notes_ in db.session.query(notesMaster.notesNumber).distinct():
+        uniqueNotes.append(notes_.notesNumber)
+    
+    notes_dict = {}
+    for nnn in uniqueNotes:
+        contents = db.session.query(notesMaster).filter_by(notesNumber=nnn).all()
+        content_list = [cont.content for cont in contents]
+        notes_dict[nnn] = content_list
+    # print("len of notes comparison")
+    # print(len(item_notes_list))
+    # print(MAX_NOTE_LENGTH)
+    if request.method == 'POST':
+        item_notes_list_2 = db.session.query(itemNotesData).filter_by(item=item_element).order_by('notesNumber').all()
+        if len(item_notes_list_2) <= MAX_NOTE_LENGTH:
+            note_number = request.form.get('note')
+            note_content = request.form.get('nvalues')
+            content_list = [abc.content for abc in item_notes_list_2]
+            if note_content in content_list:
+                flash(f'Note: "{note_content}" already exists', "error")
+            else:
+                print(note_number, note_content)
+                new_item_note = itemNotesData(item=item_element, content=note_content, notesNumber=note_number)
+                db.session.add(new_item_note)
+                db.session.commit()
+                flash("Note Added Successfully", "success")
+        else:
+            flash(f"Max Length ({MAX_NOTE_LENGTH}) of Notes reached", "error")
+        return redirect(url_for('itemNotes', item_id=item_id, proj_id=proj_id))
+
+    return render_template("itemNotes.html", item=getDBElementWithId(itemMaster, int(item_id)), page='itemNotes',
+                         user=current_user, dropdown=json.dumps(notes_dict),
+                        notes_list=item_notes_list)
+
+
+# Project Notes
+@app.route('/project-notes/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def project_notes(proj_id, item_id):
+    project_element = getDBElementWithId(projectMaster, proj_id)
+    notes_ = db.session.query(projectNotes).filter_by(project=project_element).all()
+    print(len(notes_))
+    if request.method == 'POST':
+        new_note = projectNotes(notesNumber=request.form.get('notesNumber'), notes=request.form.get('notes'), project=project_element)
+        db.session.add(new_note)
+        db.session.commit()
+        return redirect(url_for('project_notes', item_id=item_id, proj_id=proj_id))
+
+    return render_template("projectNotes.html", item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                            page='projectNotes', notes=notes_)
+
+
+
+@app.route('/del-project-notes/<note_id>/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def delProjectNotes(note_id, item_id, proj_id):
+    note_element = projectNotes.query.get(note_id)
+    db.session.delete(note_element)
+    db.session.commit()
+    # db.session.delete(addresss_element)
+    # db.session.commit()
+    return redirect(url_for('project_notes',item_id=item_id, proj_id=proj_id))
+
+@app.route('/del-item-notes/<note_id>/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def delItemNotes(note_id, item_id, proj_id):
+    note_element = itemNotesData.query.get(note_id)
+    db.session.delete(note_element)
+    db.session.commit()
+    # db.session.delete(addresss_element)
+    # db.session.commit()
+    return redirect(url_for('itemNotes',item_id=item_id, proj_id=proj_id))
+
 # Data View Module
 
-@app.route('/view-data', methods=['GET', 'POST'])
-def viewData():
+@app.route('/view-data/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def viewData(item_id, proj_id):
     data2 = table_data_render
-    return render_template('view_data.html', data=data2, page='viewData', user=current_user)
+    metadata_ = metadata()
+    return render_template('view_data.html', item=getDBElementWithId(itemMaster, int(item_id)), metadata=metadata_, data=data2, page='viewData', user=current_user)
 
 
-@app.route('/render-data/<topic>', methods=['GET'])
-def renderData(topic):
+@app.route('/render-data/proj-<proj_id>/item-<item_id>/<topic>', methods=['GET'])
+def renderData(topic, item_id, proj_id):
     table_ = table_data_render[int(topic) - 1]['db']
     name = table_data_render[int(topic) - 1]['name']
     table_data = table_.query.all()
     print(table_.__tablename__)
     print(len(table_data))
     return render_template("render_data.html", data=table_data, topic=topic, page='renderData', name=name,
-                           user=current_user)
+                           item=getDBElementWithId(itemMaster, int(item_id)), user=current_user)
 
 
-@app.route('/download-data/<topic>', methods=['GET'])
-def downloadData(topic):
+@app.route('/download-data/proj-<proj_id>/item-<item_id>/<topic>', methods=['GET'])
+def downloadData(topic, item_id, proj_id):
     table_ = table_data_render[int(topic) - 1]['db']
     name = table_data_render[int(topic) - 1]['name']
     table_data = table_.query.all()
@@ -5204,8 +5518,8 @@ def downloadData(topic):
     return send_file(path, as_attachment=True, download_name=f"{table_.__tablename__}.csv")
 
 
-@app.route('/upload-data/<topic>', methods=['GET', 'POST'])
-def uploadData(topic):
+@app.route('/upload-data/proj-<proj_id>/item-<item_id>/<topic>', methods=['GET', 'POST'])
+def uploadData(topic, item_id, proj_id):
     table_ = table_data_render[int(topic) - 1]['db']
     name = table_data_render[int(topic) - 1]['name']
     table_data = table_.query.all()
@@ -5228,7 +5542,7 @@ def uploadData(topic):
 
             pressure_temp_upload(pt_list)
 
-    return redirect(url_for('renderData', topic=topic))
+    return redirect(url_for('renderData', topic=topic, item_id=item_id, proj_id=proj_id))
 
 
 
@@ -5439,5 +5753,7 @@ def nextItem(control, page, item_id, proj_id):
 
 # DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    
+
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

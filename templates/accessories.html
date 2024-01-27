@@ -1,0 +1,320 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+                        <form action="{{url_for('accessories', proj_id=item.project.id, item_id=item.id)}}" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- <div class="row"> -->
+                                        <div class="col-7 shadow mt-2 p-2">
+                                            <h5 class="Accessories_heading"><b>Accessories</b></h5>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="manufacturer">Positioner Mfg</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select  class="tableicons form-control-sm-sm accesories_select" name="manufacturer">
+                                                                {% for man in metadata['positioner_manufacturer'] %}
+                                                                {% if acc.manufacturer == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <a href="{{url_for('positionerRender', proj_id=item.project.id, item_id=item.id)}}">
+                                                                <i class="acess_icons fa-regular fa-circle-right arow_icon"
+                                                                    data-toggle="tooltip" data-placement="top"
+                                                                    title="Positioner"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="model">Positioner Model</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select  class=" tableicons form-control-sm-sm accesories_select"  name="model">
+                                                                {% for man in metadata['positioner_model'] %}
+                                                                {% if acc.model == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="action">Signal Action</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select  class="tableicons form-control-sm-sm accesories_select" name="action">
+                                                                {% for man in metadata['positioner_action'] %}
+                                                                {% if acc.action == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="afr">AFR Make/Model</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select  class="tableicons form-control-sm-sm accesories_select"  name="afr">
+                                                                {% for man in metadata['afr_'] %}
+                                                                {% if acc.afr == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <a href="{{url_for('afrRender', proj_id=item.project.id, item_id=item.id)}}">
+                                                                <i class=" acess_icons  fa-regular fa-circle-right arow_icon"
+                                                                    data-toggle="tooltip" data-placement="top"
+                                                                    title="AFR"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="transmitter">Position Transmitter</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.transmitter}}" class="tableicons form-control-sm-sm accesories_input"  name="transmitter">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label for="limit">Limit Switch</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select class=" tableicons form-control-sm-sm accesories_select" name="limit">
+                                                                {% for man in metadata['limit_switch_'] %}
+                                                                {% if acc.limit == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <a href="{{url_for('limitRender', proj_id=item.project.id, item_id=item.id)}}">
+                                                                <i class=" acess_icons fa-regular fa-circle-right arow_icon"
+                                                                    data-toggle="tooltip" data-placement="top"
+                                                                    title="Limit Switch"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="proximity">Proximity Switch</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.proximity}}" class=" tableicons form-control-sm-sm accesories_input" name="proximity">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="booster">Boosters</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select class=" tableicons form-control-sm-sm accesories_select" name="booster">
+                                                                {% for man in metadata['boosters'] %}
+                                                                {% if acc.booster == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <!-- <i class=" acess_icons fa-regular fa-circle-right arow_icon"
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                title="Boosters"></i> -->
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="pilot_valve">Pilot Valves</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.pilot_valve}}" class="tableicons form-control-sm-sm accesories_input"  name="pilot_valve">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="air_lock">Air Lock Relay</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.air_lock}}" class="tableicons form-control-sm-sm accesories_input" name="air_lock">
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="ip_make">I/P Converter Make</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.ip_make}}" class="tableicons2 form-control-sm-sm accesories_input"  name="ip_make">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="ip_make">I/P Converter Model</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.ip_model}}" class="tableicons2 form-control-sm-sm accesories_input"  name="ip_model">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="solenoid_make">Solenoid Valve Make</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select  class=" tableicons2 form-control-sm-sm accesories_select" name="solenoid_make">
+                                                                {% for man in metadata['solenoid_make'] %}
+                                                                {% if acc.solenoid_make == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="solenoid_model">Solenoid Valve Model</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select id="" class="tableicons2 form-control-sm-sm accesories_select" name="solenoid_model">
+                                                                {% for man in metadata['solenoid_model'] %}
+                                                                {% if acc.solenoid_model == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <a href="{{url_for('solenoidRender', proj_id=item.project.id, item_id=item.id)}}">
+                                                                <i class=" acess_icons fa-regular fa-circle-right arow_icon"
+                                                                    data-toggle="tooltip" data-placement="top"
+                                                                    title="Solenoid Table"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="solenoid_action">Solenoid Action</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <select id="" class="tableicons2 form-control-sm-sm accesories_select" name="solenoid_action">
+                                                                {% for man in metadata['solenoid_type'] %}
+                                                                {% if acc.solenoid_action == man %}
+                                                                <option value="{{man}}" selected>{{man}}</option>
+                                                                {% else %}
+                                                                <option value="{{man}}">{{man}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="volume_tank">Volume Tank</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.volume_tank}}" class="tableicons2 form-control-sm-sm accesories_input" name="volume_tank">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="ip_converter">IP Converter</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.ip_converter}}" class="tableicons2 form-control-sm-sm accesories_input" name="ip_converter">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="air_receiver">Air Receiver</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.air_receiver}}" class="tableicons2 form-control-sm-sm accesories_input" name="air_receiver">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="tubing">Tubing</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.tubing}}" class="tableicons2 form-control-sm-sm accesories_input" name="tubing">
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="row">
+                                                        <div class="col-6 pr-0">
+                                                            <label for="fittings">Fittings</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" value="{{acc.fittings}}" class="tableicons2 form-control-sm-sm accesories_input" name="fittings">
+                                                        </div>
+                                                    </div>
+    
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <div class="row">
+                                            <div class="col-12 fixed-bottom d-flex justify-content-end mb-3">
+                                                <button type="submit" class="btn btn-info accesories_btn btn-sm">Save Data</button>
+                                            </div>
+                                            
+                                        </div>
+    
+                                    <!-- </div> -->
+                                </div>
+    
+                            </div>
+                        </form>
+
+                        
+                 
+{% include "footer.html" %}
+{% endblock %}

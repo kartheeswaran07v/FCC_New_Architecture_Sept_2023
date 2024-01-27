@@ -187,7 +187,11 @@ def overallInternalSound(Fd, C, inletPressure, outletPressure, vaporPressure, de
                          internalPipeDia, Fl):
     sound_power = soundPower(C, inletPressure, outletPressure, vaporPressure, density, speedS, massFlowRate, rW, Fl, Fd)
     a_ = ((3.2 * (10 ** 9)) * sound_power * density * speedS) / (internalPipeDia * internalPipeDia)
-    a = 10 * math.log10(a_)
+    print(f"Overall Internal Sound: {a_}")
+    try:
+        a = 10 * math.log10(a_)
+    except ValueError:
+        a = 10
     # print(f"Overall Internal Sound: {a}")
     return round(a, 3)
 

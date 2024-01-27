@@ -1,0 +1,61 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+                <form action="{{url_for('selectAfr', proj_id=item.project.id, item_id=item.id)}}" method="post">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                           
+                            <table class="table table-striped table-bordered  afr_table">
+                                <thead class="table-sm afrhead">
+                                    <tr>
+                                        <th class=""></th>
+                                        <th class="table_afrmanu">Manufacturer</th>
+                                        <th >Series</th>
+                                        <th>MOC</th>
+                                        <th>Size</th>
+                                        <th>Drain</th>
+                                        <th class="table_afrfilter">Filter Size(Elemental)</th>
+                                        <th>Relieving</th>
+                                        <th class="table_afrmodel"> Pressure Range</th>
+                                        <th>Fluid</th>
+                                       <th> Model No</th>
+                                        <!-- <th class="table_remove">Remove</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="table-sm ">
+                                    {% for afr_ in metadata['afr_'] %}
+                                    <tr>
+                                        <td><input type="radio" name="afr" value="{{afr_.id}}" class="form-control-sm-sm accesories_radio"></td>
+                                        <td>{{afr_.manufacturer}}</td>
+                                        <td>{{afr_.series}}</td>
+                                        <td>{{afr_.moc}}</td>
+                                        <td>{{afr_.size}}</td>
+                                        <td>{{afr_.drain}}</td>
+                                        <td>{{afr_.filter_size}}</td>
+                                        <td>{{afr_.relive}}</td>
+                                        <td>{{afr_.pressure_range}}</td>
+                                        <td>{{afr_.fluid}}</td>
+                                        <td>{{afr_.model}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                           </table>
+                        </div>
+                    
+                
+                    </div>
+                    <div class="row">
+                        <!-- <button type="button" class="btn back-btn">Back</button>
+                        <button type="button" class="btn btn-info">Select Positioner</button> -->
+                        <div class="col-6">
+                            <a href="{{url_for('accessories', proj_id=item.project.id, item_id=item.id)}}"><button type="button" class="btn btn-info back-btn">Back</button></a>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-info afr_btn">Select AFR</button>
+                        </div>
+                    </div>
+                </form>
+                
+ 
+{% include "footer.html" %}
+{% endblock %}

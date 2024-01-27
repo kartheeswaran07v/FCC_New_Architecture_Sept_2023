@@ -1,0 +1,840 @@
+﻿actType,failAction,stemDia,yokeBossDia,actSize,effectiveArea,travel,sMin,sMax,springRate,VO,VM
+Spring & Diaphragm,AFO,0.375,2.125,30,46,0.75,6,30,1470,33,72
+Spring & Diaphragm,AFO,0.375,2.125,30,46,0.75,6,26,1260,33,72
+Spring & Diaphragm,AFO,0.375,2.125,30,46,0.75,6,22,1000,33,72
+Spring & Diaphragm,AFO,0.375,2.125,30,46,0.75,6,20,830,33,72
+Spring & Diaphragm,AFO,0.375,2.125,30,46,0.75,6,18,735,33,72
+Spring & Diaphragm,AFO,0.375,2.125,30,46,0.75,6,16,612,33,72
+Spring & Diaphragm,AFO,0.375,2.125,30,46,0.75,6,14,490,33,72
+Spring & Diaphragm,AFO,0.375,2.125,34,69,0.75,6,30,2210,57,113
+Spring & Diaphragm,AFO,0.375,2.125,34,69,0.75,6,26,1840,57,113
+Spring & Diaphragm,AFO,0.375,2.125,34,69,0.75,6,22,1470,57,113
+Spring & Diaphragm,AFO,0.375,2.125,34,69,0.75,6,20,1327,57,113
+Spring & Diaphragm,AFO,0.375,2.125,34,69,0.75,6,19,1230,57,113
+Spring & Diaphragm,AFO,0.375,2.125,34,69,0.75,6,18,1100,57,113
+Spring & Diaphragm,AFO,0.375,2.125,34,69,0.75,6,16,924,57,113
+Spring & Diaphragm,AFO,0.375,2.125,34,69,0.75,6,11,736,57,113
+Spring & Diaphragm,AFO,0.375,2.125,34,69,1.125,6,30,1470,57,142
+Spring & Diaphragm,AFO,0.375,2.125,34,69,1.125,6,28,1327,57,142
+Spring & Diaphragm,AFO,0.375,2.125,34,69,1.125,6,26,1230,57,142
+Spring & Diaphragm,AFO,0.375,2.125,34,69,1.125,6,24,1100,57,142
+Spring & Diaphragm,AFO,0.375,2.125,34,69,1.125,6,22,924,57,142
+Spring & Diaphragm,AFO,0.375,2.125,34,69,1.125,6,18,736,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,0.75,6,30,2210,57,113
+Spring & Diaphragm,AFO,0.5,2.825,40,69,0.75,6,26,1840,57,113
+Spring & Diaphragm,AFO,0.5,2.825,40,69,0.75,6,22,1470,57,113
+Spring & Diaphragm,AFO,0.5,2.825,40,69,0.75,6,20,1327,57,113
+Spring & Diaphragm,AFO,0.5,2.825,40,69,0.75,6,19,1230,57,113
+Spring & Diaphragm,AFO,0.5,2.825,40,69,0.75,6,18,1100,57,113
+Spring & Diaphragm,AFO,0.5,2.825,40,69,0.75,6,16,920,57,113
+Spring & Diaphragm,AFO,0.5,2.825,40,69,0.75,6,14,736,57,113
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,30,1470,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,28,1327,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,26,1230,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,24,1100,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,22,920,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,18,736,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,15,550,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,30,1100,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,26,920,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,16,460,57,142
+Spring & Diaphragm,AFO,0.5,2.825,40,69,1.125,6,14,370,57,142
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,30,3320,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,26,2770,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,24,2500,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,22,2240,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,20,2080,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,19,1870,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,18,1670,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,17,1560,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,16,1400,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,15,1260,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,0.75,6,14,1120,95,183
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,30,2240,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,28,2080,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,26,1870,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,24,1670,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,22,1560,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,21,1400,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,19,1260,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,18,1120,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,17,1050,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,16,935,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.125,6,15,840,95,227
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,30,1670,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,28,1560,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,26,1400,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,24,1260,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,22,1120,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,21,1050,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,19,935,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,18,840,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,1.5,6,15,630,95,270
+Spring & Diaphragm,AFO,0.5,2.825,45,105,2,6,30,1260,95,330
+Spring & Diaphragm,AFO,0.5,2.825,45,105,2,6,27,1120,95,330
+Spring & Diaphragm,AFO,0.5,2.825,45,105,2,6,26,1050,95,330
+Spring & Diaphragm,AFO,0.5,2.825,45,105,2,6,24,935,95,330
+Spring & Diaphragm,AFO,0.5,2.825,45,105,2,6,22,840,95,330
+Spring & Diaphragm,AFO,0.5,2.825,45,105,2,6,18,630,95,330
+Spring & Diaphragm,AFO,0.5,2.825,45,105,2,6,15,472,95,330
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,30,5000,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,26,4160,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,22,3320,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,19,2770,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,18,2500,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,17,2240,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,16,2080,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,15,1870,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,0.75,6,14,1670,133,257
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,30,3320,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,26,2770,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,24,2500,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,22,2240,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,21,2080,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,19,1870,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,18,1670,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,17,1560,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,16,1400,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,15,1260,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.125,6,14,1120,133,322
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,30,2500,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,26,2080,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,24,1870,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,22,1670,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,21,1560,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,19,1400,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,18,1260,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,17,1120,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,16,1050,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,15,935,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,1.5,6,14,840,133,387
+Spring & Diaphragm,AFO,0.5,2.825,46,156,2,6,30,1870,133,472
+Spring & Diaphragm,AFO,0.5,2.825,46,156,2,6,26,1560,133,472
+Spring & Diaphragm,AFO,0.5,2.825,46,156,2,6,22,1260,133,472
+Spring & Diaphragm,AFO,0.5,2.825,46,156,2,6,20,1120,133,472
+Spring & Diaphragm,AFO,0.5,2.825,46,156,2,6,19,1050,133,472
+Spring & Diaphragm,AFO,0.5,2.825,46,156,2,6,18,935,133,472
+Spring & Diaphragm,AFO,0.5,2.825,46,156,2,6,17,840,133,472
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,30,3320,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,26,2770,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,24,2500,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,22,2240,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,20,2080,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,19,1870,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,18,1670,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,17,1560,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,16,1400,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,15,1260,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,0.75,6,14,1120,95,183
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,30,2240,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,28,2080,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,26,1870,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,24,1670,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,23,1560,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,21,1400,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,19,1260,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,18,1120,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,17,1050,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,16,935,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.125,6,15,840,95,227
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,30,1670,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,29,1560,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,26,1400,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,24,1260,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,22,1120,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,21,1050,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,19,935,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,18,840,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,1.5,6,15,630,95,270
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,2,6,30,1260,95,330
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,2,6,27,1120,95,330
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,2,6,26,1050,95,330
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,2,6,24,935,95,330
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,2,6,22,840,95,330
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,2,6,18,630,95,330
+Spring & Diaphragm,AFO,0.75,3.5625,50,105,2,6,15,472,95,330
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,30,5000,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,26,4160,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,22,3320,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,19,2770,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,18,2500,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,17,2240,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,16,2080,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,15,1870,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,0.75,6,14,1670,133,257
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,30,3320,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,26,2770,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,24,2500,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,22,2240,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,21,2080,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,19,1870,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,18,1670,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,17,1560,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,16,1400,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,15,1260,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,14,1120,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.125,6,14,1050,133,322
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,30,2500,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,26,2080,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,24,1870,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,22,1670,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,21,1560,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,19,1400,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,18,1260,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,17,1120,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,16,1050,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,15,935,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,1.5,6,14,840,133,387
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,2,6,30,1870,133,472
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,2,6,26,1560,133,472
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,2,6,22,1260,133,472
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,2,6,20,1120,133,472
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,2,6,19,1050,133,472
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,2,6,18,935,133,472
+Spring & Diaphragm,AFO,0.75,3.5625,60,156,2,6,17,840,133,472
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,0.75,6,21,4475,213,392
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,0.75,6,17,3360,213,392
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,0.75,6,15,2520,213,392
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,0.75,6,14,2240,213,392
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.125,6,29,4475,213,478
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.125,6,23,3360,213,478
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.125,6,19,2520,213,478
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.125,6,17,2240,213,478
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.125,6,15,1680,213,478
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.5,6,29,3360,213,564
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.5,6,23,2520,213,564
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.5,6,21,2240,213,564
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.5,6,17,1680,213,564
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,1.5,6,15,1260,213,564
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,2,6,29,2520,213,678
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,2,6,26,2240,213,678
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,2,6,21,1680,213,678
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,2,6,17,1260,213,678
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,2,6,14,840,213,678
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,2.5,6,25,1680,213,829
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,2.5,6,20,1260,213,829
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,2.5,6,16,840,213,829
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,3,6,29,1680,213,980
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,3,6,23,1260,213,980
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,3,6,18,860,213,980
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,3,6,17,840,213,980
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,4,6,22,860,213,1133
+Spring & Diaphragm,AFO,0.75,3.5625,70,220,4,6,17,840,213,1133
+Spring & Diaphragm,AFC,0.375,2.125,30,46,0.75,6,30,1470,33,72
+Spring & Diaphragm,AFC,0.375,2.125,30,46,0.75,10,30,1260,33,72
+Spring & Diaphragm,AFC,0.375,2.125,30,46,0.75,14,30,1000,33,72
+Spring & Diaphragm,AFC,0.375,2.125,30,46,0.75,16,30,830,33,72
+Spring & Diaphragm,AFC,0.375,2.125,34,69,0.75,6,30,2210,57,113
+Spring & Diaphragm,AFC,0.375,2.125,34,69,0.75,10,30,1840,57,113
+Spring & Diaphragm,AFC,0.375,2.125,34,69,0.75,14,30,1470,57,113
+Spring & Diaphragm,AFC,0.375,2.125,34,69,0.75,16,30,1327,57,113
+Spring & Diaphragm,AFC,0.375,2.125,34,69,0.75,17,30,1230,57,113
+Spring & Diaphragm,AFC,0.375,2.125,34,69,0.75,18,30,1100,57,113
+Spring & Diaphragm,AFC,0.375,2.125,34,69,1.125,6,30,2210,57,142
+Spring & Diaphragm,AFC,0.375,2.125,34,69,1.125,8,30,1840,57,142
+Spring & Diaphragm,AFC,0.375,2.125,34,69,1.125,10,30,1470,57,142
+Spring & Diaphragm,AFC,0.375,2.125,34,69,1.125,12,30,1327,57,142
+Spring & Diaphragm,AFC,0.5,2.825,40,69,0.75,6,30,1230,57,113
+Spring & Diaphragm,AFC,0.5,2.825,40,69,0.75,10,30,1100,57,113
+Spring & Diaphragm,AFC,0.5,2.825,40,69,0.75,14,30,1470,57,113
+Spring & Diaphragm,AFC,0.5,2.825,40,69,0.75,16,30,1327,57,113
+Spring & Diaphragm,AFC,0.5,2.825,40,69,0.75,17,30,1230,57,113
+Spring & Diaphragm,AFC,0.5,2.825,40,69,0.75,18,30,1100,57,113
+Spring & Diaphragm,AFC,0.5,2.825,40,69,1.125,6,30,1470,57,142
+Spring & Diaphragm,AFC,0.5,2.825,40,69,1.125,8,30,1327,57,142
+Spring & Diaphragm,AFC,0.5,2.825,40,69,1.125,10,30,1230,57,142
+Spring & Diaphragm,AFC,0.5,2.825,40,69,1.125,12,30,1100,57,142
+Spring & Diaphragm,AFC,0.5,2.825,40,69,1.125,12,30,1100,57,142
+Spring & Diaphragm,AFC,0.5,2.825,40,69,1.5,6,30,1470,57,170
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,6,30,3320,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,10,30,2770,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,12,30,2500,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,14,30,2240,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,16,30,2080,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,17,30,1870,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,18,30,1670,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,19,30,1560,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,20,30,1400,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,21,30,1260,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,0.75,22,30,1120,95,183
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,6,30,2240,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,8,30,2080,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,10,30,1870,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,12,30,1670,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,14,30,1560,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,15,30,1400,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,17,30,1260,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,18,30,1120,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.125,19,30,1050,95,227
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.5,6,30,1670,95,270
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.5,8,30,1560,95,270
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.5,10,30,1400,95,270
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.5,12,30,1260,95,270
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.5,14,30,1120,95,270
+Spring & Diaphragm,AFC,0.5,2.825,45,105,1.5,16,30,1050,95,270
+Spring & Diaphragm,AFC,0.5,2.825,45,105,2,6,30,1260,95,330
+Spring & Diaphragm,AFC,0.5,2.825,45,105,2,9,30,1120,95,330
+Spring & Diaphragm,AFC,0.5,2.825,45,105,2,10,30,1050,95,330
+Spring & Diaphragm,AFC,0.5,2.825,46,156,0.75,6,30,5000,133,257
+Spring & Diaphragm,AFC,0.5,2.825,46,156,0.75,10,30,4160,133,257
+Spring & Diaphragm,AFC,0.5,2.825,46,156,0.75,14,30,3320,133,257
+Spring & Diaphragm,AFC,0.5,2.825,46,156,0.75,17,30,2770,133,257
+Spring & Diaphragm,AFC,0.5,2.825,46,156,0.75,18,30,2500,133,257
+Spring & Diaphragm,AFC,0.5,2.825,46,156,0.75,20,30,2080,133,257
+Spring & Diaphragm,AFC,0.5,2.825,46,156,0.75,21,30,1870,133,257
+Spring & Diaphragm,AFC,0.5,2.825,46,156,1.125,6,30,3320,133,322
+Spring & Diaphragm,AFC,0.5,2.825,46,156,1.125,10,30,2770,133,322
+Spring & Diaphragm,AFC,0.5,2.825,46,156,1.125,12,30,2500,133,322
+Spring & Diaphragm,AFC,0.5,2.825,46,156,1.125,15,30,2080,133,322
+Spring & Diaphragm,AFC,0.5,2.825,46,156,1.125,17,30,1870,133,322
+Spring & Diaphragm,AFC,0.5,2.825,46,156,1.5,6,30,2500,133,387
+Spring & Diaphragm,AFC,0.5,2.825,46,156,1.5,10,30,2080,133,387
+Spring & Diaphragm,AFC,0.5,2.825,46,156,1.5,12,30,1870,133,387
+Spring & Diaphragm,AFC,0.5,2.825,46,156,2,6,30,1870,133,472
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,6,30,3320,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,10,30,2770,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,12,30,2500,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,14,30,2240,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,16,30,2020,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,17,30,1870,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,18,30,1670,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,19,30,1560,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,20,30,1400,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,21,30,1260,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,0.75,22,30,1120,95,183
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,6,30,2240,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,8,30,2020,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,10,30,1870,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,12,30,1670,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,13,30,1560,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,15,30,1400,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,17,30,1260,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,18,30,1120,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.125,19,30,1050,95,227
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.5,6,30,1670,95,270
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.5,8,30,1560,95,270
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.5,10,30,1400,95,270
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.5,12,30,1260,95,270
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.5,14,30,1120,95,270
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,1.5,15,30,1050,95,270
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,2,6,30,1260,95,330
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,2,9,30,1120,95,330
+Spring & Diaphragm,AFC,0.75,3.5625,50,105,2,10,30,1050,95,330
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,0.75,6,30,5000,133,257
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,0.75,10,30,4160,133,257
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,0.75,14,30,3320,133,257
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,0.75,17,30,2770,133,257
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,0.75,18,30,2500,133,257
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,0.75,20,30,2080,133,257
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,0.75,21,30,1870,133,257
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,1.125,6,30,3320,133,322
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,1.125,10,30,2770,133,322
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,1.125,12,30,2500,133,322
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,1.125,15,30,2080,133,322
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,1.125,17,30,1870,133,322
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,1.5,6,30,2500,133,387
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,1.5,10,30,2080,133,387
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,1.5,12,30,1870,133,387
+Spring & Diaphragm,AFC,0.75,3.5625,60,156,2,6,30,1870,133,472
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,0.75,15,30,4475,213,392
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,0.75,19,30,3360,213,392
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,0.75,21,30,2520,213,392
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,0.75,22,30,2240,213,392
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.125,6,30,4475,213,478
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.125,13,30,3360,213,478
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.125,17,30,2520,213,478
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.125,19,30,2240,213,478
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.125,21,30,1680,213,478
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.5,6,30,3360,213,564
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.5,13,30,2520,213,564
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.5,14,30,2240,213,564
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,1.5,19,30,1680,213,564
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,2,6,30,2520,213,678
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,2,10,30,2240,213,678
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,2,14,30,1680,213,678
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,3,6,30,1680,213,980
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,3,14,26,860,213,980
+Spring & Diaphragm,AFC,0.75,3.5625,70,220,4,10,26,860,213,1133
+Spring & Diaphragm,AFC,0.75,3.5625,76,156,1.125,18,30,1680,133,322
+Spring & Diaphragm,AFC,0.75,3.5625,76,156,1.125,21,30,1260,133,322
+Spring & Diaphragm,AFC,0.75,3.5625,76,156,1.5,14,30,1680,133,387
+Spring & Diaphragm,AFC,0.75,3.5625,76,156,1.5,18,30,1260,133,387
+Spring & Diaphragm,AFC,0.75,3.5625,76,156,2,9,30,1680,133,472
+Spring & Diaphragm,AFC,0.75,3.5625,76,156,2,14,30,1260,133,472
+Spring & Diaphragm,AFO,0.375,2.125,38,38,0.75,3,15,608,32,61
+Spring & Diaphragm,AFO,0.375,2.125,38,38,0.75,6,30,1216,32,61
+Spring & Diaphragm,AFO,0.375,2.125,75,75,0.75,3,15,1200,32,88
+Spring & Diaphragm,AFO,0.375,2.125,75,75,0.75,6,30,2400,32,88
+Spring & Diaphragm,AFO,0.375,2.125,150,150,0.75,3,15,2400,92,205
+Spring & Diaphragm,AFO,0.375,2.125,150,150,0.75,6,30,4800,92,205
+Spring & Diaphragm,AFO,0.375,2.125,38,38,1.125,3,15,405,32,75
+Spring & Diaphragm,AFO,0.375,2.125,38,38,1.125,6,30,811,32,75
+Spring & Diaphragm,AFO,0.375,2.125,75,75,1.125,3,15,800,32,116
+Spring & Diaphragm,AFO,0.375,2.125,75,75,1.125,6,30,1600,32,116
+Spring & Diaphragm,AFO,0.375,2.125,150,150,1.125,3,15,1600,92,261
+Spring & Diaphragm,AFO,0.375,2.125,150,150,1.125,6,30,3200,92,261
+Spring & Diaphragm,AFO,0.5,2.8125,75,75,1.5,3,15,600,32,145
+Spring & Diaphragm,AFO,0.5,2.8125,75,75,1.5,6,30,1200,32,145
+Spring & Diaphragm,AFO,0.5,2.8125,150,150,1.5,3,15,1200,92,317
+Spring & Diaphragm,AFO,0.5,2.8125,150,150,1.5,6,30,2400,92,317
+Spring & Diaphragm,AFO,0.5,2.8125,300,300,1.5,3,15,2400,255,705
+Spring & Diaphragm,AFO,0.5,2.8125,300,300,1.5,6,30,4800,255,705
+Spring & Diaphragm,AFO,0.75,3.5625,150,150,2.25,3,15,800,92,430
+Spring & Diaphragm,AFO,0.75,3.5625,150,150,2.25,6,30,1600,92,430
+Spring & Diaphragm,AFO,0.75,3.5625,300,300,2.25,3,15,1600,255,930
+Spring & Diaphragm,AFO,0.75,3.5625,300,300,2.25,6,30,3200,255,930
+Spring & Diaphragm,AFO,0.75,3.5625,300,300,2.5,3,15,1440,255,1005
+Spring & Diaphragm,AFO,0.75,3.5625,300,300,2.5,6,30,2880,255,1005
+Spring & Diaphragm,AFO,0.75,3.5625,150,150,3.5,3,15,514,92,617
+Spring & Diaphragm,AFO,0.75,3.5625,300,300,3.5,3,15,1029,255,1305
+Spring & Diaphragm,AFO,0.75,3.5625,300,300,3.5,6,30,2057,255,1305
+Spring & Diaphragm,AFO,0.75,3.5625,300,300,4,3,15,900,255,1455
+Spring & Diaphragm,AFO,0.75,3.5625,300,300,4,6,30,1800,255,1455
+Spring & Diaphragm,AFC,0.375,2.125,38,38,0.75,6,18,608,32,61
+Spring & Diaphragm,AFC,0.375,2.125,38,38,0.75,8,32,1216,32,61
+Spring & Diaphragm,AFC,0.375,2.125,38,38,0.75,12,24,608,32,61
+Spring & Diaphragm,AFC,0.375,2.125,75,75,0.75,6,18,1200,32,88
+Spring & Diaphragm,AFC,0.375,2.125,75,75,0.75,8,32,2400,32,88
+Spring & Diaphragm,AFC,0.375,2.125,75,75,0.75,16,32,1600,32,88
+Spring & Diaphragm,AFC,0.375,2.125,150,150,0.75,6,18,2400,92,205
+Spring & Diaphragm,AFC,0.375,2.125,150,150,0.75,8,32,4800,92,205
+Spring & Diaphragm,AFC,0.375,2.125,150,150,0.75,12,24,2400,92,205
+Spring & Diaphragm,AFC,0.375,2.125,38,38,1.125,6,18,405,32,75
+Spring & Diaphragm,AFC,0.375,2.125,38,38,1.125,8,32,811,32,75
+Spring & Diaphragm,AFC,0.375,2.125,38,38,1.125,12,30,608,32,75
+Spring & Diaphragm,AFC,0.375,2.125,75,75,1.125,6,18,800,32,116
+Spring & Diaphragm,AFC,0.375,2.125,75,75,1.125,8,32,1600,32,116
+Spring & Diaphragm,AFC,0.375,2.125,75,75,1.125,16,32,1067,32,116
+Spring & Diaphragm,AFC,0.375,2.125,150,150,1.125,6,18,1600,92,261
+Spring & Diaphragm,AFC,0.375,2.125,150,150,1.125,8,32,3200,92,261
+Spring & Diaphragm,AFC,0.375,2.125,150,150,1.125,14,32,2400,92,261
+Spring & Diaphragm,AFC,0.5,2.8125,75,75,1.5,6,18,600,32,145
+Spring & Diaphragm,AFC,0.5,2.8125,75,75,1.5,8,32,1200,32,145
+Spring & Diaphragm,AFC,0.5,2.8125,75,75,1.5,16,32,800,32,145
+Spring & Diaphragm,AFC,0.5,2.8125,150,150,1.5,6,18,1200,92,317
+Spring & Diaphragm,AFC,0.5,2.8125,150,150,1.5,8,32,2400,92,317
+Spring & Diaphragm,AFC,0.5,2.8125,150,150,1.5,16,32,1600,92,317
+Spring & Diaphragm,AFC,0.5,2.8125,300,300,1.5,6,18,2400,255,705
+Spring & Diaphragm,AFC,0.5,2.8125,300,300,1.5,8,32,4800,255,705
+Spring & Diaphragm,AFC,0.5,2.8125,300,300,1.5,16,32,3200,255,705
+Spring & Diaphragm,AFC,0.5,2.8125,310,300,1.5,20,40,4000,255,705
+Spring & Diaphragm,AFC,0.5,2.8125,310,300,1.5,30,40,2000,255,705
+Spring & Diaphragm,AFC,0.75,3.5625,150,150,2.25,6,18,800,92,430
+Spring & Diaphragm,AFC,0.75,3.5625,150,150,2.25,8,32,1600,92,430
+Spring & Diaphragm,AFC,0.75,3.5625,150,150,2.25,16,32,1067,92,430
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,2.25,6,18,1600,255,930
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,2.25,8,32,3200,255,930
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,2.25,16,32,2133,255,930
+Spring & Diaphragm,AFC,0.75,3.5625,310,300,2.25,27,40,1733,255,930
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,2.5,6,18,1440,255,1005
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,2.5,8,32,2880,255,1005
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,2.5,16,32,1920,255,1005
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,3.5,6,18,1029,255,1305
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,3.5,8,32,2057,255,1305
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,3.5,11,32,1800,255,1305
+Spring & Diaphragm,AFC,0.75,3.5625,310,300,3.5,20,40,1714,255,1305
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,4,6,18,900,255,1455
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,4,8,32,1800,255,1455
+Spring & Diaphragm,AFC,0.75,3.5625,300,300,4,11,32,1575,255,1455
+Spring & Diaphragm,AFC,0.75,3.5625,310,300,4,20,40,1500,255,1455
+Multi Spring & Diaphragm,AFO,0.5,2.8125,6,60,0.75,3,15,960,30,75
+Multi Spring & Diaphragm,AFO,0.5,2.8125,6,60,0.75,6,30,1920,30,75
+Multi Spring & Diaphragm,AFO,0.5,2.8125,6,60,0.75,11,23,960,30,75
+Multi Spring & Diaphragm,AFO,0.5,2.8125,6,60,0.75,21,45,1920,30,75
+Multi Spring & Diaphragm,AFO,0.5,2.8125,10,100,0.75,3,15,1600,50,125
+Multi Spring & Diaphragm,AFO,0.5,2.8125,10,100,0.75,6,30,3200,50,125
+Multi Spring & Diaphragm,AFO,0.5,2.8125,10,100,0.75,11,23,1600,50,125
+Multi Spring & Diaphragm,AFO,0.5,2.8125,10,100,0.75,21,45,3200,50,125
+Multi Spring & Diaphragm,AFO,0.5,2.8125,10,100,1.125,3,15,1067,50,163
+Multi Spring & Diaphragm,AFO,0.5,2.8125,10,100,1.125,6,30,2133,50,163
+Multi Spring & Diaphragm,AFO,0.5,2.8125,10,100,1.125,11,23,1067,50,163
+Multi Spring & Diaphragm,AFO,0.5,2.8125,10,100,1.125,21,45,2133,50,163
+Multi Spring & Diaphragm,AFO,0.75,3.5625,10,100,1.125,3,15,1067,50,163
+Multi Spring & Diaphragm,AFO,0.75,3.5625,10,100,1.125,6,30,2133,50,163
+Multi Spring & Diaphragm,AFO,0.75,3.5625,10,100,1.125,11,23,1067,50,163
+Multi Spring & Diaphragm,AFO,0.75,3.5625,10,100,1.125,21,45,2133,50,163
+Multi Spring & Diaphragm,AFO,0.75,3.5625,10,100,1.5,3,15,800,50,200
+Multi Spring & Diaphragm,AFO,0.75,3.5625,10,100,1.5,6,30,1600,50,200
+Multi Spring & Diaphragm,AFO,0.75,3.5625,10,100,1.5,11,23,800,50,200
+Multi Spring & Diaphragm,AFO,0.75,3.5625,10,100,1.5,21,45,1600,50,200
+Multi Spring & Diaphragm,AFO,0.5,2.8125,16,160,0.75,3,15,2560,80,200
+Multi Spring & Diaphragm,AFO,0.5,2.8125,16,160,0.75,6,30,5120,80,200
+Multi Spring & Diaphragm,AFO,0.5,2.8125,16,160,0.75,11,23,2560,80,200
+Multi Spring & Diaphragm,AFO,0.5,2.8125,16,160,0.75,21,45,5120,80,200
+Multi Spring & Diaphragm,AFO,0.5,2.8125,16,160,1.125,3,15,1707,80,260
+Multi Spring & Diaphragm,AFO,0.5,2.8125,16,160,1.125,6,30,3413,80,260
+Multi Spring & Diaphragm,AFO,0.5,2.8125,16,160,1.125,11,23,1707,80,260
+Multi Spring & Diaphragm,AFO,0.5,2.8125,16,160,1.125,21,45,3413,80,260
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,1.125,3,15,1707,80,260
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,1.125,6,30,3413,80,260
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,1.125,11,23,1707,80,260
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,1.125,21,45,3413,80,260
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,1.5,3,15,1280,80,320
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,1.5,6,30,2560,80,320
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,1.5,11,23,1280,80,320
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,1.5,21,45,2560,80,320
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,2,3,15,960,80,400
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,2,6,30,1920,80,400
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,2,11,23,960,80,400
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,2,21,45,1920,80,400
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,2.5,3,15,768,80,480
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,2.5,6,30,1536,80,480
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,2.5,11,23,768,80,480
+Multi Spring & Diaphragm,AFO,0.75,3.5625,16,160,2.5,21,45,1536,80,480
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,0.75,3,15,3680,115,288
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,0.75,6,30,7360,115,288
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,0.75,11,23,3680,115,288
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,0.75,21,45,7360,115,288
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,1.5,3,15,1840,115,460
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,1.5,6,30,3680,115,460
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,1.5,11,23,1840,115,460
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,1.5,21,45,3680,115,460
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,2,3,15,1380,115,575
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,2,6,30,2760,115,575
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,2,11,23,1380,115,575
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,2,21,45,2760,115,575
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,2.5,3,15,1104,115,690
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,2.5,6,30,2208,115,690
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,2.5,11,23,1104,115,690
+Multi Spring & Diaphragm,AFO,0.75,3.5625,23,230,2.5,21,45,2208,115,690
+Multi Spring & Diaphragm,AFO,0.75,3.5625,25,230,3,6,24,1380,138,828
+Multi Spring & Diaphragm,AFO,0.75,3.5625,25,230,3.5,6,27,1380,138,943
+Multi Spring & Diaphragm,AFO,0.75,3.5625,25,230,4,3,15,690,138,1058
+Multi Spring & Diaphragm,AFO,0.75,3.5625,25,230,4,6,30,1380,138,1058
+Multi Spring & Diaphragm,AFO,0.75,3.5625,25,230,4,11,23,690,138,1058
+Multi Spring & Diaphragm,AFO,0.75,3.5625,25,230,4,23,45,1265,138,1058
+Multi Spring & Diaphragm,AFC,0.5,2.8125,6,60,0.75,3,15,960,30,75
+Multi Spring & Diaphragm,AFC,0.5,2.8125,6,60,0.75,6,30,1920,30,75
+Multi Spring & Diaphragm,AFC,0.5,2.8125,6,60,0.75,11,23,960,30,75
+Multi Spring & Diaphragm,AFC,0.5,2.8125,6,60,0.75,21,45,1920,30,75
+Multi Spring & Diaphragm,AFC,0.5,2.8125,10,100,0.75,3,15,1600,50,125
+Multi Spring & Diaphragm,AFC,0.5,2.8125,10,100,0.75,6,30,3200,50,125
+Multi Spring & Diaphragm,AFC,0.5,2.8125,10,100,0.75,11,23,1600,50,125
+Multi Spring & Diaphragm,AFC,0.5,2.8125,10,100,0.75,21,45,3200,50,125
+Multi Spring & Diaphragm,AFC,0.5,2.8125,10,100,1.125,3,15,1067,50,163
+Multi Spring & Diaphragm,AFC,0.5,2.8125,10,100,1.125,6,30,2133,50,163
+Multi Spring & Diaphragm,AFC,0.5,2.8125,10,100,1.125,11,23,1067,50,163
+Multi Spring & Diaphragm,AFC,0.5,2.8125,10,100,1.125,21,45,2133,50,163
+Multi Spring & Diaphragm,AFC,0.75,3.5625,10,100,1.125,3,15,1067,50,163
+Multi Spring & Diaphragm,AFC,0.75,3.5625,10,100,1.125,6,30,2133,50,163
+Multi Spring & Diaphragm,AFC,0.75,3.5625,10,100,1.125,11,23,1067,50,163
+Multi Spring & Diaphragm,AFC,0.75,3.5625,10,100,1.125,21,45,2133,50,163
+Multi Spring & Diaphragm,AFC,0.75,3.5625,10,100,1.5,3,15,800,50,200
+Multi Spring & Diaphragm,AFC,0.75,3.5625,10,100,1.5,6,30,1600,50,200
+Multi Spring & Diaphragm,AFC,0.75,3.5625,10,100,1.5,11,23,800,50,200
+Multi Spring & Diaphragm,AFC,0.75,3.5625,10,100,1.5,21,45,1600,50,200
+Multi Spring & Diaphragm,AFC,0.5,2.8125,16,160,0.75,3,15,2560,80,200
+Multi Spring & Diaphragm,AFC,0.5,2.8125,16,160,0.75,6,30,5120,80,200
+Multi Spring & Diaphragm,AFC,0.5,2.8125,16,160,0.75,11,23,2560,80,200
+Multi Spring & Diaphragm,AFC,0.5,2.8125,16,160,0.75,21,45,5120,80,200
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,0.75,3,15,2560,80,200
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,0.75,6,30,5120,80,200
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,0.75,11,23,2560,80,200
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,0.75,21,45,5120,80,200
+Multi Spring & Diaphragm,AFC,0.5,2.8125,16,160,1.125,3,15,1707,80,260
+Multi Spring & Diaphragm,AFC,0.5,2.8125,16,160,1.125,6,30,3413,80,260
+Multi Spring & Diaphragm,AFC,0.5,2.8125,16,160,1.125,11,23,1707,80,260
+Multi Spring & Diaphragm,AFC,0.5,2.8125,16,160,1.125,21,45,3413,80,260
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,1.125,3,15,1707,80,260
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,1.125,6,30,3413,80,260
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,1.125,11,23,1707,80,260
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,1.125,21,45,3413,80,260
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,1.5,3,15,1280,80,320
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,1.5,6,30,2560,80,320
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,1.5,11,23,1280,80,320
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,1.5,21,45,2560,80,320
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,2,3,15,960,80,400
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,2,6,30,1920,80,400
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,2,11,23,960,80,400
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,2,21,45,1920,80,400
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,2.5,3,15,768,80,480
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,2.5,6,30,1536,80,480
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,2.5,11,23,768,80,480
+Multi Spring & Diaphragm,AFC,0.75,3.5625,16,160,2.5,21,45,1536,80,480
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,0.75,3,15,3680,115,287
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,0.75,6,30,7360,115,287
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,0.75,11,23,3680,115,287
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,0.75,21,45,7360,115,287
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,1.5,3,15,1840,115,460
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,1.5,6,30,3680,115,460
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,1.5,11,23,1840,115,460
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,1.5,21,45,3680,115,460
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,2,3,15,1380,115,575
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,2,6,30,2760,115,575
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,2,11,23,1380,115,575
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,2,21,45,2760,115,575
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,2.5,3,15,1104,115,690
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,2.5,6,30,2208,115,690
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,2.5,11,23,1104,115,690
+Multi Spring & Diaphragm,AFC,0.75,3.5625,23,230,2.5,21,45,2208,115,690
+Multi Spring & Diaphragm,AFC,0.75,3.5625,25,230,3,12,30,1380,138,828
+Multi Spring & Diaphragm,AFC,0.75,3.5625,25,230,3,27,45,1380,138,828
+Multi Spring & Diaphragm,AFC,0.75,3.5625,25,230,3.5,9,30,1380,138,943
+Multi Spring & Diaphragm,AFC,0.75,3.5625,25,230,3.5,24,45,1380,138,943
+Multi Spring & Diaphragm,AFC,0.75,3.5625,25,230,4,3,15,690,138,1058
+Multi Spring & Diaphragm,AFC,0.75,3.5625,25,230,4,6,30,1380,138,1058
+Multi Spring & Diaphragm,AFC,0.75,3.5625,25,230,4,11,23,690,138,1058
+Multi Spring & Diaphragm,AFC,0.75,3.5625,25,230,4,21,45,1380,138,1058
+Piston with Spring,AFO,0.375,2.125,30,28.9,0.5,7.5,9.2,100,6.3,107
+Piston with Spring,AFO,0.375,2.125,30,28.9,0.5,13.4,16.6,178,6.3,107
+Piston with Spring,AFO,0.375,2.125,30,28.9,0.5,33.5,41.5,450,6.3,107
+Piston with Spring,AFO,0.5,2.8125,30,28.9,0.5,7.5,9.2,100,6.3,107
+Piston with Spring,AFO,0.5,2.8125,30,28.9,0.5,13.4,16.6,178,6.3,107
+Piston with Spring,AFO,0.5,2.8125,30,28.9,0.5,33.5,41.5,450,6.3,107
+Piston with Spring,AFO,0.5,2.8125,30,28.9,0.75,6.6,9.2,100,6.3,107
+Piston with Spring,AFO,0.5,2.8125,30,28.9,0.75,11.8,16.6,178,6.3,107
+Piston with Spring,AFO,0.5,2.8125,30,28.9,0.75,29.5,41.5,450,6.3,107
+Piston with Spring,AFO,0.375,2.125,50,50,0.5,9.3,10.9,164,20,320
+Piston with Spring,AFO,0.375,2.125,50,50,0.5,22.7,26.7,398,20,320
+Piston with Spring,AFO,0.375,2.125,50,50,0.5,31.2,36.6,550,20,320
+Piston with Spring,AFO,0.5,2.8125,50,50,0.75,8.5,10.9,164,20,320
+Piston with Spring,AFO,0.5,2.8125,50,50,0.75,20.7,26.7,398,20,320
+Piston with Spring,AFO,0.5,2.8125,50,50,0.75,28.4,36.6,546,20,320
+Piston with Spring,AFO,0.5,2.8125,50,50,1.125,5.1,8.8,164,20,320
+Piston with Spring,AFO,0.5,2.8125,50,50,1.125,15.94,24.9,398,20,320
+Piston with Spring,AFO,0.5,2.8125,50,50,1.125,20.3,36.58,546,20,320
+Piston with Spring,AFO,0.75,3.5625,50,50,1.125,5.1,8.8,164,20,320
+Piston with Spring,AFO,0.75,3.5625,50,50,1.125,15.94,24.9,398,20,320
+Piston with Spring,AFO,0.75,3.5625,50,50,1.125,20.3,36.58,546,20,320
+Piston with Spring,AFO,0.75,3.5625,50,50,1.5,6.1,10.9,164,20,320
+Piston with Spring,AFO,0.75,3.5625,50,50,1.5,14.8,26.7,398,20,320
+Piston with Spring,AFO,0.75,3.5625,50,50,1.5,20.3,36.6,546,20,320
+Piston with Spring,AFO,0.75,3.5625,110,111.8,1.5,9.9,14.8,373,104,271
+Piston with Spring,AFO,0.75,3.5625,110,111.8,1.5,14.6,21.9,550,104,271
+Piston with Spring,AFO,0.75,3.5625,110,111.8,1.5,18.6,27.9,700,104,271
+Piston with Spring,AFO,0.75,3.5625,110,111.8,1.5,21.4,30.6,692,104,271
+Piston with Spring,AFO,0.75,3.5625,110,111.8,1.5,34.6,44.2,720,104,271
+Piston with Spring,AFO,0.75,3.5625,110,111.8,1.5,6.6,9.9,247.2,104,271
+Piston with Spring,AFO,0.75,3.5625,110,111.8,2.5,6.6,14.8,373,104,383
+Piston with Spring,AFO,0.75,3.5625,110,111.8,2.5,9.7,21.9,550,104,383
+Piston with Spring,AFO,0.75,3.5625,110,111.8,2.5,12.4,27.9,700,104,383
+Piston with Spring,AFO,0.75,3.5625,110,111.8,2.5,15.3,30.6,692,104,383
+Piston with Spring,AFO,0.75,3.5625,110,111.8,2.5,28.3,44.2,720,104,383
+Piston with Spring,AFO,1,5,110,111.8,2.5,6.6,14.8,373,104,383
+Piston with Spring,AFO,1,5,110,111.8,2.5,9.7,21.9,550,104,383
+Piston with Spring,AFO,1,5,110,111.8,2.5,12.4,27.9,700,104,383
+Piston with Spring,AFO,1,5,110,111.8,2.5,15.3,30.6,692,104,383
+Piston with Spring,AFO,1,5,110,111.8,2.5,28.3,44.2,720,104,383
+Piston with Spring,AFO,0.75,3.5625,110L,111.8,4,9.1,10.9,50,104,650
+Piston with Spring,AFO,0.75,3.5625,110L,111.8,4,16.5,19.7,90.6,104,650
+Piston with Spring,AFO,0.75,3.5625,110L,111.8,4,23.7,27.3,101,104,650
+Piston with Spring,AFO,0.75,3.5625,110L,111.8,4,40.1,46.9,191.6,104,650
+Piston with Spring,AFO,1.125,5,110L,111.8,4,9.1,10.9,50,104,650
+Piston with Spring,AFO,1.125,5,110L,111.8,4,16.5,19.7,90.6,104,650
+Piston with Spring,AFO,1.125,5,110L,111.8,4,23.7,27.3,101,104,650
+Piston with Spring,AFO,1.125,5,110L,111.8,4,40.1,46.9,191.6,104,650
+Piston with Spring,AFO,1.125,5,110L,111.8,5,8.7,10.9,50,104,760
+Piston with Spring,AFO,1.125,5,110L,111.8,5,15.7,19.7,90.6,104,760
+Piston with Spring,AFO,1.125,5,110L,111.8,5,22.8,27.3,101,104,760
+Piston with Spring,AFO,1.125,5,110L,111.8,5,38.4,46.9,191.6,104,760
+Piston with Spring,AFO,1.125,5,110L,111.8,6,8.2,10.9,50,104,870
+Piston with Spring,AFO,1.125,5,110L,111.8,6,14.9,19.7,90.6,104,870
+Piston with Spring,AFO,1.125,5,110L,111.8,6,21.9,27.3,101,104,870
+Piston with Spring,AFO,1.125,5,110L,111.8,6,36.7,46.9,191.6,104,870
+Piston with Spring,AFO,1.125,5,110X,111.8,8,13.2,19.7,90.6,104,1170
+Piston with Spring,AFO,1.125,5,110X,111.8,8,20.1,27.2,101,104,1170
+Piston with Spring,AFO,1.125,5,110X,111.8,8,33.4,46.9,191.6,104,1170
+Piston with Spring,AFO,1.125,5,110X,111.8,9,6.9,10.9,50,104,1300
+Piston with Spring,AFO,1.125,5,110X,111.8,9,12.4,19.7,90.6,104,1300
+Piston with Spring,AFO,1.125,5,110X,111.8,9,19.2,27.2,101,104,1300
+Piston with Spring,AFO,1.125,5,110X,111.8,9,31.7,46.9,191.6,104,1300
+Piston with Spring,AFO,1.125,5,110X,111.8,12,5.6,10.9,49.4,104,1690
+Piston with Spring,AFO,1.125,5,110X,111.8,12,10,19.7,90.6,104,1690
+Piston with Spring,AFO,1.125,5,110X,111.8,12,16.5,27.2,101,104,1690
+Piston with Spring,AFO,1.125,5,110X,111.8,12,26.6,46.9,191.6,104,1690
+Piston with Spring,AFO,1.125,5,220,223.6,4,3.2,5.2,101,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,2.9,4.7,91.5,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,2.2,3.6,70,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,6,9.8,210,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,12.9,24.8,600,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,25.1,41,800,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,6,25.4,1085,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,6,9.9,192.5,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,5.4,8.8,171,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,8.2,13.5,263,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,4,5.1,8.3,161.5,280,1130
+Piston with Spring,AFO,1.125,5,220,223.6,5,2.7,5.2,101,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,2.4,4.7,91.5,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,1.9,3.6,70,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,15.1,19.8,210,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,9.9,24.8,600,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,21.1,41,800,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,5.1,9.9,1085,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,4.5,8.8,192.5,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,6.9,13.5,171,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,5,4.3,8.3,161.5,280,1397
+Piston with Spring,AFO,1.125,5,220,223.6,6,2.2,5.2,101,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,2,4.7,91.5,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,1.5,3.6,70,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,15.2,20.8,210,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,6.9,24.8,600,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,17.1,41,800,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,6,35.1,1085,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,4.1,9.9,192.5,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,3.7,8.8,171,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,5.6,13.5,263,280,1621
+Piston with Spring,AFO,1.125,5,220,223.6,6,3.5,8.3,161.5,280,1621
+Piston with Spring,AFO,1.125,5,220X,223.6,8,3.21,6,77.9,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,8,4.7,7.94,90.6,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,8,9.4,13.02,101,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,8,20.75,28.7,222.2,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,8,8.6,14.62,168.5,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,8,12,18.4,178.9,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,8,16,22.85,191.6,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,8,18,27.63,269.3,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,8,12,25.97,390.7,280,2000
+Piston with Spring,AFO,1.125,5,220X,223.6,9,2.8,6.3,77.9,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,5.8,9.9,90.6,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,9.5,14,101,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,20.8,30.7,222.2,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,8.6,16.2,168.5,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,12.3,20.3,178.9,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,15.3,23.9,191.6,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,18.1,30.2,269.3,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,29.4,46.9,390.7,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,23.6,37,333.5,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,9,26.7,40.7,312.8,280,2290
+Piston with Spring,AFO,1.125,5,220X,223.6,12,1.7,6.3,77.9,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,4.5,9.9,90.6,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,8,14,101,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,17.5,30.7,222.2,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,6.1,16.2,168.5,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,9.6,20.3,178.9,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,12.4,23.9,191.6,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,14.1,30.2,269.3,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,23.6,46.9,390.7,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,19.7,33.2,252.6892,280,2960
+Piston with Spring,AFO,1.125,5,220X,223.6,12,22.1,40.7,312.8,280,2960
+Piston with Spring,AFC,0.375,2.125,30,28.6,0.5,6.7,8.5,100,6,105
+Piston with Spring,AFC,0.375,2.125,30,28.6,0.5,12.1,15.3,178,6,105
+Piston with Spring,AFC,0.375,2.125,30,28.6,0.5,30.1,38.2,450,6,105
+Piston with Spring,AFC,0.5,2.8125,30,28.6,0.5,6.7,8.5,100,6,105
+Piston with Spring,AFC,0.5,2.8125,30,28.6,0.5,12.1,15.3,178,6,105
+Piston with Spring,AFC,0.5,2.8125,30,28.6,0.5,30.1,38.2,450,6,105
+Piston with Spring,AFC,0.5,2.8125,30,28.6,0.75,6.7,9.4,100,6,105
+Piston with Spring,AFC,0.5,2.8125,30,28.6,0.75,12.1,16.9,178,6,105
+Piston with Spring,AFC,0.5,2.8125,30,28.6,0.75,30.1,42.2,450,6,105
+Piston with Spring,AFC,0.375,2.125,50,49.2,0.5,6.2,7.9,164,22,295
+Piston with Spring,AFC,0.375,2.125,50,49.2,0.5,15.2,19.2,398,22,295
+Piston with Spring,AFC,0.375,2.125,50,49.2,0.5,20.8,26.4,550,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,0.5,6.2,7.9,164,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,0.5,15.2,19.2,398,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,0.5,20.8,26.4,550,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,0.75,6.2,8.7,164,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,0.75,15.2,21.3,398,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,0.75,20.8,29.2,546,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,1.125,5.1,8.8,164,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,1.125,15.94,24.9,398,22,295
+Piston with Spring,AFC,0.5,2.8125,50,49.2,1.125,20.3,36.58,546,22,295
+Piston with Spring,AFC,0.75,3.5625,50,49.2,1.125,5.1,8.8,164,22,295
+Piston with Spring,AFC,0.75,3.5625,50,49.2,1.125,15.94,24.9,398,22,295
+Piston with Spring,AFC,0.75,3.5625,50,49.2,1.125,20.3,36.58,546,22,295
+Piston with Spring,AFC,0.75,3.5625,50,49.2,1.5,6.2,11.2,164,22,295
+Piston with Spring,AFC,0.75,3.5625,50,49.2,1.5,15.2,27.4,398,22,295
+Piston with Spring,AFC,0.75,3.5625,50,49.2,1.5,20.8,37.6,546,22,295
+Piston with Spring,AFC,0.75,3.5625,110,110.1,1.5,6.7,11.7,373,104,271
+Piston with Spring,AFC,0.75,3.5625,110,110.1,1.5,9.9,17.3,550,104,271
+Piston with Spring,AFC,0.75,3.5625,110,110.1,1.5,12.6,22,700,104,271
+Piston with Spring,AFC,0.75,3.5625,110,110.1,1.5,15.5,24.9,692,104,271
+Piston with Spring,AFC,0.75,3.5625,110,110.1,1.5,28.7,38.4,720,104,271
+Piston with Spring,AFC,0.75,3.5625,110,110.1,1.5,4.5,7.9,247.2,104,271
+Piston with Spring,AFC,0.75,3.5625,110,110.1,2.5,6.7,15,373,104,383
+Piston with Spring,AFC,0.75,3.5625,110,110.1,2.5,9.9,22.2,550,104,383
+Piston with Spring,AFC,0.75,3.5625,110,110.1,2.5,12.6,28.3,700,104,383
+Piston with Spring,AFC,0.75,3.5625,110,110.1,2.5,15.5,31.1,692,104,383
+Piston with Spring,AFC,0.75,3.5625,110,110.1,2.5,28.7,44.9,720,104,383
+Piston with Spring,AFC,0.75,3.5625,110,110.1,2.5,4.492,10.108,247.2,104,383
+Piston with Spring,AFC,1,5,110,110.1,2.5,6.7,15,373,104,383
+Piston with Spring,AFC,1,5,110,110.1,2.5,9.9,22.2,550,104,383
+Piston with Spring,AFC,1,5,110,110.1,2.5,12.6,28.3,700,104,383
+Piston with Spring,AFC,1,5,110,110.1,2.5,15.5,31.1,692,104,383
+Piston with Spring,AFC,1,5,110,110.1,2.5,28.7,44.9,720,104,383
+Piston with Spring,AFC,1,5,110,110.1,2.5,4.492,10.108,247.2,104,383
+Piston with Spring,AFC,1.125,5,110L,110.1,4,8.3,10.1,50,104,650
+Piston with Spring,AFC,1.125,5,110L,110.1,4,15.1,18.4,90.6,104,650
+Piston with Spring,AFC,1.125,5,110L,110.1,4,22.2,25.9,101,104,650
+Piston with Spring,AFC,1.125,5,110L,110.1,4,37.3,44.2,191.6,104,650
+Piston with Spring,AFC,1.125,5,110L,110.1,5,8.3,10.6,50,104,760
+Piston with Spring,AFC,1.125,5,110L,110.1,5,15.1,19.2,90.6,104,760
+Piston with Spring,AFC,1.125,5,110L,110.1,5,22.2,26.8,101,104,760
+Piston with Spring,AFC,1.125,5,110L,110.1,5,37.3,46,191.6,104,760
+Piston with Spring,AFC,1.125,5,110L,110.1,6,8.3,11,50,104,870
+Piston with Spring,AFC,1.125,5,110L,110.1,6,8.3,11,90.6,104,870
+Piston with Spring,AFC,1.125,5,110L,110.1,6,22.2,27.7,101,104,870
+Piston with Spring,AFC,1.125,5,110L,110.1,6,37.3,47.7,191.6,104,870
+Piston with Spring,AFC,1.125,5,110X,110.1,8,5.7,9.2,90.6,104,1170
+Piston with Spring,AFC,1.125,5,110X,110.1,8,10.2,16.7,90.6,104,1170
+Piston with Spring,AFC,1.125,5,110X,110.1,8,16.8,24.1,101,104,1170
+Piston with Spring,AFC,1.125,5,110X,110.1,8,27,40.8,191.6,104,1170
+Piston with Spring,AFC,1.125,5,110X,110.1,9,5.7,9.7,50,104,1300
+Piston with Spring,AFC,1.125,5,110X,110.1,9,10.2,17.5,90.6,104,1300
+Piston with Spring,AFC,1.125,5,110X,110.1,9,16.8,25,101,104,1300
+Piston with Spring,AFC,1.125,5,110X,110.1,9,27,42.5,191.6,104,1300
+Piston with Spring,AFC,1.125,5,110X,110.1,12,5.7,11,49.4,104,1690
+Piston with Spring,AFC,1.125,5,110X,110.1,12,10.2,20,90.6,104,1690
+Piston with Spring,AFC,1.125,5,110X,110.1,12,16.8,27.7,101,104,1690
+Piston with Spring,AFC,1.125,5,110X,110.1,12,27,47.7,191.6,104,1690
+Piston with Spring,AFC,1.125,5,220,220.4,4,2.2,4.3,101,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,2,3.9,91.5,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,1.5,3,70,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,14.1,17.9,210,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,7,19.2,600,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,17.5,33.7,800,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,16,35.7,1085,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,4.2,8.1,192.5,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,3.7,7.2,171,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,5.7,11.1,263,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,4,3.5,6.8,161.5,280,1130
+Piston with Spring,AFC,1.125,5,220,220.4,5,2.2,4.8,101,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,2,4.3,91.5,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,1.5,3.3,70,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,8,32.6,210,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,7,22.3,600,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,17.5,37.8,800,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,0,0,1085,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,4.2,9.1,192.5,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,3.7,8.1,171,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,5.7,12.4,263,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,5,3.5,7.6,161.5,280,1397
+Piston with Spring,AFC,1.125,5,220,220.4,6,2.2,5.3,101,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,2,4.8,91.5,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,1.5,3.7,70,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,20,25.7,210,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,7,25.3,600,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,17.5,41.9,800,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,0,0,1085,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,4.2,10.1,192.5,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,3.7,8.9,171,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,5.7,13.8,263,280,1621
+Piston with Spring,AFC,1.125,5,220,220.4,6,3.5,8.5,161.5,280,1621
+Piston with Spring,AFC,1.125,5,220X,220.4,8,6,8.8,77.9,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,8,8,11.3,90.6,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,8,12,15.7,101,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,8,20.8,28.8,222.2,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,8,8.6,14.7,168.5,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,8,12,18.5,178.9,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,8,16,23,191.6,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,8,18,27.8,269.3,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,8,12,26.2,390.7,280,2000
+Piston with Spring,AFC,1.125,5,220X,220.4,9,1.7,5.3,77.9,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,4.6,8.7,90.6,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,8.1,12.7,101,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,17.8,28,222.2,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,6.3,14,168.5,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,9.8,18,178.9,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,12.7,21.5,191.6,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,14.4,26.7,269.3,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,24.1,41.9,390.7,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,19.5,33.2,335.6917,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,9,22.4,36.7,312.8,280,2290
+Piston with Spring,AFC,1.125,5,220X,220.4,12,1.7,6.5,77.9,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,4.6,10.1,90.6,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,8.1,14.3,101,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,17.8,31.3,222.2,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,6.3,16.5,168.5,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,9.8,20.7,178.9,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,12.7,24.4,191.6,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,14.4,30.8,269.3,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,24.1,47.9,390.7,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,19.52,37.8,335.6917,280,2960
+Piston with Spring,AFC,1.125,5,220X,220.4,12,22.4,41.4,312.8,280,2960

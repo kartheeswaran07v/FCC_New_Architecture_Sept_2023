@@ -1,0 +1,61 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+            <form action="{{url_for('selectPositioner', proj_id=item.project.id, item_id=item.id)}}" method="post">
+                <div class="row mt-3">
+                    <div class="col-12">  
+
+                        <table class="table table-striped table-bordered tablepositioner" style="height: 70vh; overflow-y: scroll;">
+                            <thead class="table-sm positionerhead active">
+                                <tr>
+                                    <th class="table_ratio"></th>
+                                    <th class="table_manu">Manufacturer</th>
+                                    <th class="table_manu">Series</th>
+                                    <th class="table_manu">MOC</th>
+                                    <th class="table_manu">Enclosure</th>
+                                    <th class="table_manu">Spool Valve</th>
+                                    <th class="table_manu">Type-Technology</th>
+                                    <th class="table_comm">Comm.</th>
+                                    <th class="table_manu">Action</th>
+                                    <th class="table_comm">Cert/Model</th>
+                                    <th class="table_manu">Haz Class</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-sm ">
+                                {% for pos in metadata['positioner'] %}
+                                <tr>
+                                    <td class=""><input type="radio" name='positioner' value="{{pos.id}}" class="ml-2"></td>
+                                    <td class="">{{pos.manufacturer}}</td>
+                                    <td class="">{{pos.series}}</td>
+                                    <td class="">{{pos.moc}}</td>
+                                    <td class="">{{pos.enclosure}}</td>
+                                    <td class="">{{pos.spool_valve}}</td>
+                                    <td class="">{{pos.type}}</td>
+                                    <td class="">{{pos.communication}}</td>
+                                    <td class="">{{pos.action}}</td>
+                                    <td class="">{{pos.certificate}}</td>
+                                    <td class="">{{pos.haz_class}}</td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                       </table>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                 
+                    <div class="col-6">
+                        <a href="{{url_for('accessories', proj_id=item.project.id, item_id=item.id)}}"><button type="button" class="btn btn-info back-btn">Back</button></a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-info positioner_btn">Select Positioner</button>
+                    </div>
+                </div>
+            </form>
+
+                
+               
+
+{% include "footer.html" %}
+{% endblock %}

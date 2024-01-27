@@ -1,0 +1,502 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+
+
+
+				<div class="row mt-0">
+                    <div class="col-3">
+						<div class="actuator shadow p-2">
+							<h6 class="actuator_heading"><b>Actuator Selection</b></h6>
+							<hr>
+							<div class="row">
+								<div class="col-6">
+									<label for="actType" >Actuator Type</label>
+								</div>
+								<div class="col-6">
+									<select class="actuator_select"  name="actType" >
+										{% for act_type in metadata['actuatorData']['actType'] %}
+										<option value="{{act_type.id}}">{{act_type.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6 pr-0">
+									<!-- Spring Action / Fail Mode -->
+									<label for="failAction">Spring/Air Fail Action</label>
+
+								</div>
+								<div class="col-6">
+									<select class="Spring Action actuator_select"  name="failAction"
+									>
+									{% for act_type in metadata['actuatorData']['failAction'] %}
+									<option value="{{act_type.id}}">{{act_type.name}}</option>
+									{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<!-- Hand Wheel -->
+									<label for="mount">Hand Wheel</label>
+								</div>
+								<div class="col-6">
+									<select class=" actuator_select" name="mount">
+										{% for act_type in metadata['actuatorData']['handwheel'] %}
+										<option value="{{act_type.id}}">{{act_type.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<!-- Hand Wheel -->
+									<label for="mount">Adj. Travel Stop</label>
+								</div>
+								<div class="col-6">
+									<select class=" actuator_select" name="travel">
+										{% for act_type in metadata['actuatorData']['travel'] %}
+									<option value="{{act_type.id}}">{{act_type.name}}</option>
+									{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<!-- Orientation -->
+									<label for="orientation">Orientation</label>
+								</div>
+								<div class="col-6">
+									<select class=" Orientation actuator_select" name="  orientation "
+										id=" orientation">
+										{% for act_type in metadata['actuatorData']['orientation'] %}
+										<option value="{{act_type.id}}">{{act_type.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6 pr-0">
+									<!-- Available Air Supply -->
+									<label for="airUnit">Air Supply Pressure</label>
+
+								</div>
+								<div class="col-3">
+									<input type="number" class="form-control-sm-sm actuator_input1" name="airUnit">
+								</div>
+								<div class="col-3">
+									<select class="form-control-sm-sm actuator_select1" name="airUnit">
+										{% for presunit in metadata['units_dict']['pressure'] %}
+												{% if presunit.name == item.project.pressureUnit %}
+												<option value="{{presunit.id}}" selected>{{presunit.name}}</option>
+												{% else %}
+												<option value="{{presunit.name}}">{{presunit.name}}</option>
+												{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-6">
+									<!-- Available Air Supply -->
+									<label for="setpressure">Set Pressure</label>
+
+								</div>
+								<div class="col-3">
+									<input type="number" class="form-control-sm-sm actuator_input1" name="setpressure">
+								</div>
+								<div class="col-3">
+									<select class="actuator_select1 form-control-sm-sm" name="set pressure">
+										{% for presunit in metadata['units_dict']['pressure'] %}
+												{% if presunit.name == item.project.pressureUnit %}
+												<option value="{{presunit.id}}" selected>{{presunit.name}}</option>
+												{% else %}
+												<option value="{{presunit.name}}">{{presunit.name}}</option>
+												{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-6">
+									<!-- Shut Off Pressure -->
+									<label for="shutoffDelP">Shut Off Pressure</label>
+								</div>
+								<div class="col-3">
+									<input type="text" value="{{valve.shutOffDelP}}"  class="form-control-sm-sm actuator_input1" name="shutoffDelP">
+								</div>
+								<div class="col-3">
+									<input type="text" value="{{valve.shutOffDelPUnit}}" readonly class="form-control-sm-sm actuator_input" name="shutoffDelP">
+								</div>
+							</div>
+						</div>
+						<div class="mt-3">
+							<a href="{{url_for('slidingStem', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info  actuator_button1" name="sliding" value="sliding Stem Actuator Sizing">Sliding Stem Actuator Sizing</button></a><br>
+							<a href="{{url_for('rotaryActuator', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn  btn-info  actuator_button2 mt-2"  name="rotary" value="Rotary Actuator Sizing">Rotary Actuator Sizing</button></a>
+							<a href="{{url_for('strokeTime', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info active actuator_button3 mt-2"  name="stroketime" value="stroketime">Stroke Time Calculation</button></a>
+						</div>
+					</div>
+                    <div class="col-9 mt-0">
+                     
+
+                        <div class="row ">
+							<div class="col-4">
+
+								<h6><b>Input</b></h6>
+		
+								<div class="row ml-1">
+									<div class="col-6 spring_borderbottom" >
+										<div class="row sizingtableleft">
+											<p class="sizingp">Description</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp"> Air Fail Action</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Actuator size</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Effective Area</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Stroke</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Operating Temperature</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Operating Pressure</p>
+										</div>
+		
+										<div class="row sizingtableleft">
+											<p class="sizingp">Lower Bench set</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Upper Bench Set</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Spring Rate</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Packing Friction</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Clearance Vol</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Swept Volume</p>
+										</div>
+		
+									</div>
+									<div class="col-3 spring_borderbottom" >
+										<div class="row sizingtableleft">
+											<p class="sizingp">Values</p>
+										</div>
+										<div class="row sizingtable "><input type="text"
+												class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable">
+											<input type="text" class="form-control-sm-sm spring_input">
+										</div>
+		
+		
+		
+		
+									</div>
+									<div class="col-3 spring_borderbottom">
+										<div class="row sizingtableleft">
+											<p class="sizingp">Unit</p>
+										</div>
+										<div class="row sizingtable">
+											<input type="text" class="form-control-sm-sm spring_input">
+		
+										</div>
+										<div class="row sizingtable">
+											<input type="text" class="form-control-sm-sm spring_input">
+		
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>in²</option>
+												<option>inch</option>
+		
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>in</option>
+												<option>mm</option>
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input" >
+												<option value="bar">°C</option>
+												<option value="bar">in</option>
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option value="bar">psig</option>
+												<option value="bar">in²</option>
+											</select>
+										</div>
+		
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option value="bar">psig</option>
+												<option value="bar">in²</option>
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>psig</option>
+												<option>mm</option>
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option value="bar">lbf</option>
+												<option value="bar">in²</option>
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>lbf</option>
+												<option>psig</option>
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>in3</option>
+												<option>psig</option>
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>in3</option>
+												<option>psig</option>
+											</select>
+										</div>
+		
+		
+									</div>
+		
+								</div>
+		
+							</div>
+							<div class="col-4 ">
+
+								<h6><b>Intermediate Results</b></h6>
+								<div class="row ml-1">
+									<div class="col-6 spring_borderbottom" >
+										<div class="row sizingtableleft">
+											<p class="sizingp">Description</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Pi Exhaust</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Pf Exhaust</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Pi Fill</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Pf Fill</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Combined Cv Fill</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Combined Cv Exhaust</p>
+										</div>
+		
+		
+									</div>
+									<div class="col-3 spring_borderbottom">
+										<div class="row sizingtableleft">
+											<p class="sizingp">Values</p>
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+		
+		
+		
+		
+		
+									</div>
+									<div class="col-3 spring_borderbottom" >
+										<div class="row sizingtableleft">
+											<p class="sizingp">Unit</p>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>psig</option>
+												<option>inch</option>
+		
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>psig</option>
+												<option>inch</option>
+		
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>psig</option>
+												<option>inch</option>
+		
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>psig</option>
+												<option>mm</option>
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<a href="Combined_CV calculate.html">
+												<i class=" acess_icons fa-regular fa-circle-left arow_icon ml-4 mt-1"></i>
+											</a>
+										</div>
+										<div class="row sizingtable">
+											<a href="">
+												<i class=" acess_icons fa-regular fa-circle-left arow_icon ml-4 mt-1"></i>
+											</a>
+										</div>
+		
+									</div>
+		
+		
+								</div>
+		
+		
+							</div>
+
+							<div class="col-4  ">
+
+								<h6><b>Results</b></h6>
+								<div class="row ml-1">
+									<div class="col-6 spring_borderbottom" >
+										<div class="row sizingtableleft">
+											<p class="sizingp">Description</p>
+										</div>
+		
+		
+										<div class="row sizingtableleft">
+											<p class="sizingp">Pre fill Time (sec)</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Total Fill Time (sec)</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Pre Exhaust Time (sec)</p>
+										</div>
+										<div class="row sizingtableleft">
+											<p class="sizingp">Total Exhaust Time (sec)</p>
+										</div>
+		
+									</div>
+									<div class="col-2 spring_borderbottom" >
+										<div class="row sizingtableleft">
+											<p class="sizingp">Values</p>
+										</div>
+		
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+										<div class="row sizingtable"><input type="text" class="form-control-sm-sm spring_input">
+										</div>
+		
+		
+		
+									</div>
+									<div class="col-2 spring_borderbottom" >
+										<div class="row sizingtableleft">
+											<p class="sizingp">Unit</p>
+										</div>
+		
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>Sec</option>
+												<option>inch</option>
+		
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>Sec</option>
+												<option>inch</option>
+		
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>Sec</option>
+												<option>inch</option>
+		
+											</select>
+										</div>
+										<div class="row sizingtable">
+											<select id="" class="form-control-sm-sm spring_input">
+												<option>Sec</option>
+												<option>mm</option>
+											</select>
+										</div>
+		
+									</div>
+		
+								</div>
+		
+							</div>
+                        </div>
+                    </div>
+					<div class="row savebtnspr">
+						<button type="button" class="btn btn-info  mt-2 
+						spring_btn">Save</button>
+					</div>
+
+                </div>
+
+			
+			
+{% include "footer.html" %}
+{% endblock %}

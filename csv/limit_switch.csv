@@ -1,0 +1,11 @@
+﻿make,explosion,moc,sensor,display,model,remark,pressure_range
+Sanyata,N/A,Al,Mechanical - SPDT,"Green Open, Red Close",SB-WP-A-A-MHW1-2-2-S,IP 66 / IP 68,0
+Sanyata,N/A,Al,Proximity-Inductive NJ2V3N,"Green Open, Red Close",SB-WP-A-A-FPF1-2-2-S,IP 66 / IP 68,0
+Sanyata,N/A,Al,Proximity-Inductive NBB3-V3-Z4,"Green Open, Red Close",SB-WP-A-A-FPF2-2-2-S,IP 66 / IP 68,0
+Sanyata,Exd,Al,Mechanical - SPDT,"Green Open, Red Close",SB-EX-A-A-MHW1-2-2-S,IP 66 / IP 68,0
+Sanyata,Exd,Al,Proximity-Inductive NJ2V3N,"Green Open, Red Close",SB-EX-A-A-FPF1-2-2-S,IP 66 / IP 68,0
+Sanyata,Exd,Al,Proximity-Inductive NBB3-V3-Z4,"Green Open, Red Close",SB-EX-A-A-FPF2-2-2-S,IP 66 / IP 68,0
+Topworx,Exia,Al,Mechanical,Flat Top,TVL-M20FLMM,IP 66 / IP 68,0
+Topworx,Exia,Al,Proximity-Inductive NJ2V3N,Flat Top,TVL-E20FLMM,IP 66 / IP 68,0
+Topworx,Exia,Al,Proximity-Inductive NJ2V3N,"Green Open, Red Close",TVL-E20GLMM,IP 66 / IP 68,0
+Topworx,Exia,Al,Proximity-Switches,Flat Top,TVL-P20FLMM,IP 66 / IP 68,0

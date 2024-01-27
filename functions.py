@@ -213,3 +213,50 @@ N9_60_scfh_psi_F = 7320  # input in R
 def getFlowCharacter(flowcharacter):
     flowcharact_dict = {'Equal %': 'equal', 'Linear': 'linear', 'Modified Equal %': 'equal'}
     return flowcharact_dict[flowcharacter]
+
+
+actuator_type_dict = [
+      {'id': 'Manual Gearbox', 'name': 'Manual Gearbox'},
+      {'id': 'Spring & Diaphragam', 'name': 'Spring & Diaphragam'},
+      {'id': 'Multi Spring & Diaphragam', 'name': 'Multi Spring & Diaphragam'},
+      {'id': 'Piston with Spring', 'name': 'Piston with Spring'},
+      {'id': 'Piston without Spring', 'name': 'Piston without Spring'},
+      {'id': 'SY', 'name': 'Scotch Yoke'},
+      {'id': 'SYC', 'name': 'Scotch Yoke-Canted'},
+      {'id': 'SYCDA', 'name': 'Scotch Yoke-Canted Double Acting'},
+      ]
+
+fail_action_dict = [
+      {'id': 'DA', 'name': 'Stay Put'},
+      {'id': 'AFO', 'name': 'Fail Open'},
+      {'id': 'AFC', 'name': 'Fail Close'}
+      ]
+
+
+hand_wheel_dict = [
+      {'id': 'None', 'name': 'N/A'},
+      {'id': 'Side Mounted', 'name': 'Side Mounted'},
+      {'id': 'Top Mounted', 'name': 'Top Mounted'}
+      ]
+
+
+orientaton_dict = [
+      {'id': 'None', 'name': 'N/A'},
+      {'id': 'Horizontal', 'name': 'Horizontal'},
+      {'id': 'Vertical', 'name': 'Vertical'}
+      ]
+
+adjustable_travel_stops_dict = [
+      {'id': 'None', 'name': 'N/A'},
+      {'id': 'Limit Open', 'name': 'Limit Open'},
+      {'id': 'Limit Close', 'name': 'Limit Close'}
+      ]
+
+
+actuator_data_dict = {'actType': actuator_type_dict,
+                      'failAction': fail_action_dict,
+                      'handwheel': hand_wheel_dict, 
+                      'orientation': orientaton_dict,
+                      'travel': adjustable_travel_stops_dict
+                      }
+

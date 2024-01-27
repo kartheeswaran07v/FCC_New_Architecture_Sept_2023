@@ -1,0 +1,49 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+                    <form action="{{url_for('project_notes', proj_id=item.project.id, item_id=item.id)}}" method="post">
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h6 class="Itemnotes_heading"><b>Project Notes</b></h6>
+                                <div class="row">
+                                    <div class="col-1 mt-1">
+                                        <input type="text" name="notesNumber" class="form-control-sm-sm cus_input">
+                                    </div>
+                                    <div class="col-6 mt-1">
+                                        <input type="text" name="notes" class="form-control-sm-sm projectnotes_input">
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="submit" class="btn btn-info btn-sm item_btn1">ADD</button>
+                                        <!-- <button type="button" class="btn item_btn">Save Data</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3 Item_notes">
+                            <div class="col-12">
+                               <table class="table table-striped table-bordered tableproject">
+                                    <thead class="table-sm itemhead">
+                                        <tr>
+                                            <th class="table_notes">Notes</th>
+                                            <th class="table_content">Content</th>
+                                            <th class="table_remove">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-sm itembody_table">
+                                        {% for note_ in notes %}
+                                        <tr>
+                                            <td class="body_content">{{note_.notesNumber}}</td>
+                                            <td class="body_content">{{note_.notes}}</td>
+                                            <td class="body_content"><a href="{{url_for('delProjectNotes', note_id=note_.id, item_id=item.id, proj_id=item.project.id)}}"><i class="fa-solid fa-close fa-1x closeicon item_cancle_icon"></i></a></td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        
+                                    </tbody>
+                               </table>
+                            </div>
+                        </div>
+                    </form>
+                           
+{% include "footer.html" %}
+{% endblock %}

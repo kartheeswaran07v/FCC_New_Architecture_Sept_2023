@@ -1,0 +1,17 @@
+﻿notesNumber,content
+N1,MPI - Body / Bonnet as per ASME B16.34 at Foundry
+N1,DPI - Body / Bonnet as per ASME B16.34 at Foundry
+N2,RT for Body / Bonnet on Critical Area as per ASME B16.34
+N2,UT for Body / Bonnet as per ASME B16.34
+N3,Acutator
+N4,Positioner
+N5,AFR
+N6,Proximity Switch
+N7,Solenoid Valve
+N8,Hydrostatic Test on Body and Bonnet shall be as per ASME B16.34 / ANSI ISA 75.19.01
+N9,Seat Leakage test shall be done as per FCI 70-2; Functional Test on the assembled valve shall be as per FCC Standard
+General,Material inspection and certification requirement in accordance with EN 10204 3.1 for wetted parts
+General,Dimension Inspection on the assembled valve shall be as per Approved General Assembly Drawing
+General,316SS name plate shall be offered for Valve
+General,IBR Requirement for Valve
+General,"NACE ISO 15156, Wetted Parts Body/Bonnet, Trim, Certs 3.1"
