@@ -188,7 +188,7 @@ with app.app_context():
     # add_many(getRowsFromCsvFile("csv/notesMaster.csv"), notesMaster)
     # add_many(getRowsFromCsvFile("csv/positioner.csv"), positioner)
     # add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
-    add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
+    # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
     pass
 
 
