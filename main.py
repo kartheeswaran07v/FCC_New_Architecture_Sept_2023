@@ -54,9 +54,9 @@ app.config['SECRET_KEY'] = "kkkkk"
 Bootstrap(app)
 
 # # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v5-3.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v5-3.db"
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v5-1.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v5-1.db")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -1281,8 +1281,8 @@ class OTP(db.Model):
     time = Column(DateTime)
 
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 # TODO Other DAta
 table_data_render = [
@@ -5779,20 +5779,20 @@ def DATA_UPLOAD_BULK():
 
 
     with app.app_context():
-        # data_upload(valve_style_list, valveStyle)
-        # butterfly_element_1 = db.session.query(valveStyle).filter_by(name="Butterfly Lugged Wafer").first()
-        # butterfly_element_2 = db.session.query(valveStyle).filter_by(name="Butterfly Double Flanged").first()
-        # globe_element_1 = db.session.query(valveStyle).filter_by(name="Globe Straight").first()
-        # globe_element_2 = db.session.query(valveStyle).filter_by(name="Globe Angle").first()
-        # v_style_list = [butterfly_element_1, butterfly_element_2, globe_element_1, globe_element_2]   
-        # data_upload(industry_list, industryMaster)
-        # data_upload(region_list, regionMaster)
-        # data_upload(f_state_list, fluidState)
-        # data_upload(design_std_list, designStandard)
-        # data_upload(application_list, applicationMaster)
-        # data_upload(rating_list, ratingMaster)
-        # data_upload(material_list, materialMaster)
-        # data_upload(bonnet_list, bonnet)
+        data_upload(valve_style_list, valveStyle)
+        butterfly_element_1 = db.session.query(valveStyle).filter_by(name="Butterfly Lugged Wafer").first()
+        butterfly_element_2 = db.session.query(valveStyle).filter_by(name="Butterfly Double Flanged").first()
+        globe_element_1 = db.session.query(valveStyle).filter_by(name="Globe Straight").first()
+        globe_element_2 = db.session.query(valveStyle).filter_by(name="Globe Angle").first()
+        v_style_list = [butterfly_element_1, butterfly_element_2, globe_element_1, globe_element_2]   
+        data_upload(industry_list, industryMaster)
+        data_upload(region_list, regionMaster)
+        data_upload(f_state_list, fluidState)
+        data_upload(design_std_list, designStandard)
+        data_upload(application_list, applicationMaster)
+        data_upload(rating_list, ratingMaster)
+        data_upload(material_list, materialMaster)
+        data_upload(bonnet_list, bonnet)
         # add_many(getRowsFromCsvFile("csv/afr.csv"), afr)
         # add_many(getRowsFromCsvFile("csv/fluidProperties.csv"), fluidProperties)
         # add_many(getRowsFromCsvFile("csv/pipearea.csv"), pipeArea)
