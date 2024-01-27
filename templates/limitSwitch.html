@@ -19,170 +19,18 @@
                                 </thead>
     
                                 <tbody class="table-sm">
+                                    {% for lim in metadata['limits'] %}
                                     <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
+                                        <td><input type="radio" value="{{lim.id}}" name="limit" class="form-control-sm-sm accesories_radio"></td>
+                                        <td>{{lim.make}}</td>
+                                        <td>{{lim.explosion}}</td>
+                                        <td>{{lim.moc}}</td>
+                                        <td>{{lim.sensor}}</td>
+                                        <td>{{lim.display}}</td>
+                                        <td>{{lim.model}}</td>
+                                        <td>{{lim.remark}}</td>
                                     </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Sanyata</td>
-                                        <td>N/A</td>
-                                        <td>AI</td>
-                                        <td>Mechanical-SPDT</td>
-                                        <td>Green open red close</td>
-                                        <td>SB-WP-A-A-MHW1-2-2-S</td>
-                                        <td>IP 66/ IP 68</td>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

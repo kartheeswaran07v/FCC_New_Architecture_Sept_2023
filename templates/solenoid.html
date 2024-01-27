@@ -20,185 +20,19 @@
                                 </thead>
 
                                 <tbody class="table-sm">
+                                    {% for sol in metadata['solenoid_'] %}
                                     <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
+                                        <td><input type="radio" value="{{sol.id}}" name="solenoid" class="form-control-sm-sm accesories_radio"></td>
+                                        <td>{{sol.standard}}</td>
+                                        <td>{{sol.make}}</td>
+                                        <td>{{sol.series}}</td>
+                                        <td>{{sol.size}}</td>
+                                        <td>{{sol.type}}</td>
+                                        <td>{{sol.orifice}}</td>
+                                        <td>{{sol.cv}}</td>
+                                        <td>{{sol.model}}</td>
                                     </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><input type="radio" class="form-control-sm-sm accesories_radio"></td>
-                                        <td>Std</td>
-                                        <td>Rotex</td>
-                                        <td>30308</td>
-                                        <td>1/4</td>
-                                        <td>3/2 way</td>
-                                        <td>5</td>
-                                        <td>0.7</td>
-                                        <td>30308-SL-5-2R-S2G+111-24DC-39-CO-H-SL</td>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

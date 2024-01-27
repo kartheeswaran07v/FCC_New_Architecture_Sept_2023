@@ -401,10 +401,10 @@
                                         </div>
                                         <div class="col-4">
                                                 {% if cases[0] %}
-                                                <input type="text" name="criticalPressure" value="{{cases[0].criticalPressure}}"
+                                                <input type="text" name="criticalPressure" required value="{{cases[0].criticalPressure}}"
                                                         class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% else %}
-                                                <input type="text" name="criticalPressure" value=""
+                                                <input type="text" name="criticalPressure" required value=""
                                                         class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% endif %}
                                         </div>
@@ -429,9 +429,9 @@
                                         </div>
                                         <div class="col-4">
                                                 {% if cases[0] %}
-                                                <input type="text" name="inletPipeSize"  value="{{cases[0].inletPipeSize}}" class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
+                                                <input type="text" name="inletPipeSize" required value="{{cases[0].inletPipeSize}}" class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% else %}
-                                                <input type="text" name="inletPipeSize"  value="" class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
+                                                <input type="text" name="inletPipeSize" required value="" class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% endif %}
                                         </div>
                                         <div class="col-3">
@@ -470,11 +470,11 @@
                                         <div class="col-4">
                                                 {% if cases[0] %}
                                                 <input type="text"
-                                                        name="outletPipeSize" value="{{cases[0].outletPipeSize}}"
+                                                        name="outletPipeSize" required value="{{cases[0].outletPipeSize}}"
                                                         class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% else %}
                                                 <input type="text"
-                                                        name="outletPipeSize" value=""
+                                                        name="outletPipeSize" required value=""
                                                         class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% endif %}
                                                 
@@ -518,11 +518,11 @@
                                         <div class="col-4">
                                                 {% if cases[0] %}
                                                 <input type="text"
-                                                name="vSize" value="{{cases[0].valveSize}}"
+                                                name="vSize" value="{{cases[0].valveSize}}" required
                                                 class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% else %}
                                                 <input type="text"
-                                                name="vSize" value=""
+                                                name="vSize" value="" required
                                                 class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% endif %}
                                                 
@@ -547,11 +547,11 @@
                                         <div class="col-4">
                                                 {% if cases[0] %}
                                                 <input type="text"
-                                                        name="ratedCV" value="{{cases[0].ratedCv}}"
+                                                        name="ratedCV" value="{{cases[0].ratedCv}}" required
                                                         class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% else %}
                                                 <input type="text"
-                                                        name="ratedCV" value=""
+                                                        name="ratedCV" value="" required
                                                         class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% endif %}
                                         </div>

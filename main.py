@@ -2012,7 +2012,9 @@ def selectItem(item_id):
 def addItem(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, item_id)
     project_element = getDBElementWithId(projectMaster, item_element.project.id)
-    itemNumberCurrent = int(item_element.itemNumber) + 1
+    all_items = db.session.query(itemMaster).filter_by(project=project_element).all()
+    last_item = all_items[-1]
+    itemNumberCurrent = int(last_item.itemNumber) + 1
     addNewItem(project=project_element, itemNumber=itemNumberCurrent, alternate='A')
     return redirect(url_for('home', proj_id=proj_id, item_id=item_id))
 
@@ -2021,8 +2023,10 @@ def addItem(proj_id, item_id):
 def addAlternate(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, item_id)
     project_element = getDBElementWithId(projectMaster, item_element.project.id)
-    itemNumberCurrent = int(item_element.itemNumber)
-    alternateCurrent = next_alpha(item_element.alternate)
+    all_items = db.session.query(itemMaster).filter_by(project=project_element).all()
+    last_item = all_items[-1]
+    itemNumberCurrent = int(last_item.itemNumber)
+    alternateCurrent = next_alpha(last_item.alternate)
     addNewItem(project=project_element, itemNumber=itemNumberCurrent, alternate=alternateCurrent)
     return redirect(url_for('home', proj_id=proj_id, item_id=item_id))
 
@@ -5041,94 +5045,95 @@ def selectValve(proj_id, item_id):
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     cases = db.session.query(caseMaster).filter_by(item=item_selected).all()
     if request.method == "POST":
-        if request.form.get('getv'):
-            print('post')
-            data = request.form.to_dict(flat=False)
-            a = jsonify(data).json
-            print(a)
+        if len(cases) > 0:
+            if request.form.get('getv'):
+                print('post')
+                data = request.form.to_dict(flat=False)
+                a = jsonify(data).json
+                print(a)
 
-            vType = getDBElementWithId(valveStyle, a['style'][0]) 
-            trimType_ = getDBElementWithId(trimType, a['trimType'][0])  
-            flowChara = getDBElementWithId(flowCharacter, a['flowcharacter'][0])
-            flowDirec = getDBElementWithId(flowDirection, a['flowdirection'][0])
-            rating_v = getDBElementWithId(ratingMaster, a['rating'][0])
+                vType = getDBElementWithId(valveStyle, a['style'][0]) 
+                trimType_ = getDBElementWithId(trimType, a['trimType'][0])  
+                flowChara = getDBElementWithId(flowCharacter, a['flowcharacter'][0])
+                flowDirec = getDBElementWithId(flowDirection, a['flowdirection'][0])
+                rating_v = getDBElementWithId(ratingMaster, a['rating'][0])
 
-            cv_values = []
-            for i in cases:
-                cv_value = i.calculatedCv
-                cv_values.append(cv_value)
-            min_cv = min(cv_values)
-            max_cv = max(cv_values)
+                cv_values = []
+                for i in cases:
+                    cv_value = i.calculatedCv
+                    cv_values.append(cv_value)
+                min_cv = min(cv_values)
+                max_cv = max(cv_values)
 
-            # update changes in valve details
-            valve_element.trimType__ = trimType_
-            valve_element.flowCharater__ = flowChara
-            valve_element.flowDirection__ = flowDirec
-            valve_element.rating = rating_v
-            valve_element.style = vType
-            db.session.commit()
-            return_globe_data = []
-            cv__lists = db.session.query(cvTable).filter_by(trimType_=trimType_, flowCharacter_=flowChara, flowDirection_=flowDirec, rating_c=rating_v, style=vType).all()
-            
-            cv_id_lists = [cv_.id for cv_ in cv__lists]
-            cv_lists = cvValues.query.filter(cvValues.cvId.in_(cv_id_lists)).all()
-            for i in cv_lists:
-                seat_bore = i.seatBore
-                travel = i.travel
-                i_list = [i.one, i.two, i.three, i.four, i.five, i.six, i.seven,
-                            i.eight,
-                            i.nine, i.ten, 0.89, travel, seat_bore, i.id, i.cv.valveSize]
-                return_globe_data.append(i_list)
-            print(return_globe_data)
-            # cv_dummy = last_case.CV
-            # print(cv_dummy)
-            index_to_remove = []
-            for i in return_globe_data:
-                if i[0] < min_cv < i[9]:
-                    a = 0
-                    while True:
-                        if i[a] == min_cv:
-                            break
-                        elif i[a] > min_cv:
-                            break
-                        else:
-                            a += 1
-                    i.append(a)
-                    # print(a)
-                    # print('CV in Range')
-                    # print(i)
-                if i[0] < max_cv < i[9]:
-                    b = 0
-                    while True:
-                        if i[b] == max_cv:
-                            break
-                        elif i[b] > max_cv:
-                            break
-                        else:
-                            b += 1
-                    i.append(b)
-                    # print(a)
-                    # print('CV in Range')
-                    # print(i)
-                else:
-                    i.append(10)
-                    i.append(10)
-                    index_to_remove.append(return_globe_data.index(i))
-                    # print(f"Index to remove: {index_to_remove}")
-                    # print('CV not in range')
-            for i in return_globe_data:
-                if len(i) == 16:
-                    index_to_remove.append(return_globe_data.index(i))
-            print(f"Index to remove final: {index_to_remove}")
-            for ele in sorted(index_to_remove, reverse=True):
-                del return_globe_data[ele]
+                # update changes in valve details
+                valve_element.trimType__ = trimType_
+                valve_element.flowCharater__ = flowChara
+                valve_element.flowDirection__ = flowDirec
+                valve_element.rating = rating_v
+                valve_element.style = vType
+                db.session.commit()
+                return_globe_data = []
+                cv__lists = db.session.query(cvTable).filter_by(trimType_=trimType_, flowCharacter_=flowChara, flowDirection_=flowDirec, rating_c=rating_v, style=vType).all()
+                
+                cv_id_lists = [cv_.id for cv_ in cv__lists]
+                cv_lists = cvValues.query.filter(cvValues.cvId.in_(cv_id_lists)).all()
+                for i in cv_lists:
+                    seat_bore = i.seatBore
+                    travel = i.travel
+                    i_list = [i.one, i.two, i.three, i.four, i.five, i.six, i.seven,
+                                i.eight,
+                                i.nine, i.ten, 0.89, travel, seat_bore, i.id, i.cv.valveSize]
+                    return_globe_data.append(i_list)
+                print(return_globe_data)
+                # cv_dummy = last_case.CV
+                # print(cv_dummy)
+                index_to_remove = []
+                for i in return_globe_data:
+                    if i[0] < min_cv < i[9]:
+                        a = 0
+                        while True:
+                            if i[a] == min_cv:
+                                break
+                            elif i[a] > min_cv:
+                                break
+                            else:
+                                a += 1
+                        i.append(a)
+                        # print(a)
+                        # print('CV in Range')
+                        # print(i)
+                    if i[0] < max_cv < i[9]:
+                        b = 0
+                        while True:
+                            if i[b] == max_cv:
+                                break
+                            elif i[b] > max_cv:
+                                break
+                            else:
+                                b += 1
+                        i.append(b)
+                        # print(a)
+                        # print('CV in Range')
+                        # print(i)
+                    else:
+                        i.append(10)
+                        i.append(10)
+                        index_to_remove.append(return_globe_data.index(i))
+                        # print(f"Index to remove: {index_to_remove}")
+                        # print('CV not in range')
+                for i in return_globe_data:
+                    if len(i) == 16:
+                        index_to_remove.append(return_globe_data.index(i))
+                print(f"Index to remove final: {index_to_remove}")
+                for ele in sorted(index_to_remove, reverse=True):
+                    del return_globe_data[ele]
 
-            print(f'The final return globe is: {return_globe_data}')
+                print(f'The final return globe is: {return_globe_data}')
 
-            return render_template('selectvalve.html', item=getDBElementWithId(itemMaster, int(item_id)), valve_data=return_globe_data,
-                                    page='selectValve',metadata=metadata_, user=current_user, valve=valve_element)
-            
-        elif request.form.get('select'):
+                return render_template('selectvalve.html', item=getDBElementWithId(itemMaster, int(item_id)), valve_data=return_globe_data,
+                                        page='selectValve',metadata=metadata_, user=current_user, valve=valve_element)
+                
+            elif request.form.get('select'):
                 for last_case in cases:
                     valve_d_id = getDBElementWithId(cvValues, request.form.get('valve'))
                     cv_element = valve_d_id.cv
@@ -5249,6 +5254,9 @@ def selectValve(proj_id, item_id):
                         db.session.commit()
 
                 return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
+        else:
+            flash('Add Case to select valve')
+            return redirect(url_for('selectValve', item_id=item_id, proj_id=proj_id))
     return render_template('selectvalve.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
                            metadata=metadata_, page='selectValve', valve=valve_element, valve_data=[])
 
@@ -5357,7 +5365,7 @@ def selectAfr(proj_id, item_id):
     afr_element = getDBElementWithId(afr, afr_id)
     item_element = getDBElementWithId(itemMaster, int(item_id))
     accessories_element = db.session.query(accessoriesData).filter_by(item=item_element).first()
-    accessories_element.afr = f"{afr_element.manufacturer}"
+    accessories_element.afr = f"{afr_element.manufacturer}/{afr_element.model}"
     db.session.commit()
     return redirect(url_for('accessories', item_id=item_id, proj_id=proj_id))
 
@@ -5368,13 +5376,21 @@ def selectAfr(proj_id, item_id):
 def limitRender(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, int(item_id))
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    limits = limitSwitch.query.all()
     metadata_ = metadata()
+    metadata_['limits'] = limits
     return render_template("limitSwitch.html", item=getDBElementWithId(itemMaster, int(item_id)),
                             page='limitRender', valve=valve_element, metadata=metadata_, user=current_user)
 
 
 @app.route('/select-limit/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
 def selectlimit(proj_id, item_id):
+    limit_id = request.form.get('limit')
+    limit_element = getDBElementWithId(limitSwitch, limit_id)
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    accessories_element = db.session.query(accessoriesData).filter_by(item=item_element).first()
+    accessories_element.limit = limit_element.model
+    db.session.commit()
     return redirect(url_for('accessories', item_id=item_id, proj_id=proj_id))
 
 
@@ -5383,13 +5399,23 @@ def selectlimit(proj_id, item_id):
 def solenoidRender(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, int(item_id))
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    solenoid_ = solenoid.query.all()
     metadata_ = metadata()
+    metadata_['solenoid_'] = solenoid_
     return render_template("solenoid.html", item=getDBElementWithId(itemMaster, int(item_id)),
                             page='limitRender', valve=valve_element, metadata=metadata_, user=current_user)
 
 
 @app.route('/select-solenoid/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
 def selectSolenoid(proj_id, item_id):
+    limit_id = request.form.get('solenoid')
+    limit_element = getDBElementWithId(solenoid, limit_id)
+    item_element = getDBElementWithId(itemMaster, int(item_id))
+    accessories_element = db.session.query(accessoriesData).filter_by(item=item_element).first()
+    accessories_element.solenoid_make = limit_element.make
+    accessories_element.solenoid_modle = limit_element.model
+    accessories_element.solenoid_action = limit_element.type
+    db.session.commit()
     return redirect(url_for('accessories', item_id=item_id, proj_id=proj_id))
 
 # Item Notes
@@ -5413,26 +5439,34 @@ def itemNotes(proj_id, item_id):
     # print(len(item_notes_list))
     # print(MAX_NOTE_LENGTH)
     if request.method == 'POST':
-        item_notes_list_2 = db.session.query(itemNotesData).filter_by(item=item_element).order_by('notesNumber').all()
-        if len(item_notes_list_2) <= MAX_NOTE_LENGTH:
-            note_number = request.form.get('note')
-            note_content = request.form.get('nvalues')
-            content_list = [abc.content for abc in item_notes_list_2]
-            if note_content in content_list:
-                flash(f'Note: "{note_content}" already exists', "error")
-            else:
-                print(note_number, note_content)
-                new_item_note = itemNotesData(item=item_element, content=note_content, notesNumber=note_number)
-                db.session.add(new_item_note)
-                db.session.commit()
-                flash("Note Added Successfully", "success")
+        if request.form.get('accessories'):
+            
+            data = request.form.to_dict(flat=False)
+            a = jsonify(data).json
+            a.pop('note')
+            a.pop('nvalues')
+            accessories_element.update(a, accessories_element.id)
         else:
-            flash(f"Max Length ({MAX_NOTE_LENGTH}) of Notes reached", "error")
+            item_notes_list_2 = db.session.query(itemNotesData).filter_by(item=item_element).order_by('notesNumber').all()
+            if len(item_notes_list_2) <= MAX_NOTE_LENGTH:
+                note_number = request.form.get('note')
+                note_content = request.form.get('nvalues')
+                content_list = [abc.content for abc in item_notes_list_2]
+                if note_content in content_list:
+                    flash(f'Note: "{note_content}" already exists', "error")
+                else:
+                    print(note_number, note_content)
+                    new_item_note = itemNotesData(item=item_element, content=note_content, notesNumber=note_number)
+                    db.session.add(new_item_note)
+                    db.session.commit()
+                    flash("Note Added Successfully", "success")
+            else:
+                flash(f"Max Length ({MAX_NOTE_LENGTH}) of Notes reached", "error")
         return redirect(url_for('itemNotes', item_id=item_id, proj_id=proj_id))
 
     return render_template("itemNotes.html", item=getDBElementWithId(itemMaster, int(item_id)), page='itemNotes',
                          user=current_user, dropdown=json.dumps(notes_dict),
-                        notes_list=item_notes_list)
+                        notes_list=item_notes_list, acc=accessories_element)
 
 
 # Project Notes
