@@ -5828,8 +5828,8 @@ def DATA_UPLOAD_BULK():
         add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
         add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
 
-DATA_UPLOAD_BULK()
-# cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+# DATA_UPLOAD_BULK()
+cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
 if __name__ == "__main__":
