@@ -5829,7 +5829,7 @@ def DATA_UPLOAD_BULK():
         add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
 
 # DATA_UPLOAD_BULK()
-cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+# cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
 if __name__ == "__main__":
