@@ -5810,7 +5810,7 @@ def DATA_UPLOAD_BULK():
         # data_upload_disc_seat_packing([disc_material_list_butterfly, disc_material_list_butterfly, plug_material_list_globe, plug_material_list_globe], v_style_list, disc)
         # data_upload_disc_seat_packing([seat_material_list_butterfly, seat_material_list_butterfly, seat_material_list_globe, seat_material_list_globe], v_style_list, seat)
         # data_upload_disc_seat_packing([trim_type_list_butterfly, trim_type_list_butterfly, trim_type_list_globe, trim_type_list_globe], v_style_list, trimType)
-        data_upload(department_list, departmentMaster)
+        # data_upload(department_list, departmentMaster)
         # data_upload(designation_list, designationMaster)
         # data_upload_shaft(getRowsFromCsvFile("csv/shaft.csv"), v_style_list)
         # data_upload(end_connection_list, endConnection)
@@ -5828,7 +5828,7 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
 
-DATA_UPLOAD_BULK()
+# DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
