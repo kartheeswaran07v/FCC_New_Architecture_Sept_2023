@@ -2023,10 +2023,9 @@ def addItem(proj_id, item_id):
 def addAlternate(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, item_id)
     project_element = getDBElementWithId(projectMaster, item_element.project.id)
-    all_items = db.session.query(itemMaster).filter_by(project=project_element).all()
-    last_item = all_items[-1]
-    itemNumberCurrent = int(last_item.itemNumber)
-    alternateCurrent = next_alpha(last_item.alternate)
+    n_items = db.session.query(itemMaster).filter_by(project=project_element, itemNumber=item_element.itemNumber).all()
+    itemNumberCurrent = int(item_element.itemNumber)
+    alternateCurrent = next_alpha(n_items[-1].alternate)
     addNewItem(project=project_element, itemNumber=itemNumberCurrent, alternate=alternateCurrent)
     return redirect(url_for('home', proj_id=proj_id, item_id=item_id))
 
