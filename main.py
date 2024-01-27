@@ -1281,8 +1281,8 @@ class OTP(db.Model):
     time = Column(DateTime)
 
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 # TODO Other DAta
 table_data_render = [
@@ -5828,7 +5828,7 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
 
-DATA_UPLOAD_BULK()
+# DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
