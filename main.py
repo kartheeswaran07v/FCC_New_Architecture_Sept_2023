@@ -54,9 +54,9 @@ app.config['SECRET_KEY'] = "kkkkk"
 Bootstrap(app)
 
 # # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v5-4.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v5-4.db"
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v5-4.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v5-4.db")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
