@@ -2221,6 +2221,14 @@ def CV(flowrate, C, valveDia, inletDia, outletDia, N2_value, inletPressure, outl
 def register():
     designations = designationMaster.query.all()
     departments = departmentMaster.query.all()
+    
+    designations_ = []
+    for notes_ in db.session.query(designations.name).distinct():
+        designations_.append(notes_)
+    
+    departments_ = []
+    for notes_ in db.session.query(departments.name).distinct():
+        departments_.append(notes_)
     # form = RegisterForm()
     if request.method == "POST":
 
@@ -2253,7 +2261,7 @@ def register():
             # flash('Logged in successfully.')
             return redirect(url_for('login'))
 
-    return render_template("admin-registration.html", designations=designations, departments=departments)
+    return render_template("admin-registration.html", designations=designations_, departments=departments_)
 
 
 @app.route('/', methods=["GET", "POST"])
