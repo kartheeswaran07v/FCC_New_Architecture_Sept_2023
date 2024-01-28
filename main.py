@@ -98,6 +98,13 @@ def load_user(user_id):
 
 class userMaster(UserMixin, db.Model):
     __tablename__ = "userMaster"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'user',
+        'confirm_deleted_rows': False
+    }
+
     id = Column(Integer, primary_key=True)
     name = Column(String(1000))
     password = Column(String(100))
@@ -120,6 +127,12 @@ class userMaster(UserMixin, db.Model):
 
 class companyMaster(db.Model):
     __tablename__ = "companyMaster"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'company',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
     description = Column(String(300))
@@ -130,6 +143,12 @@ class companyMaster(db.Model):
 
 class departmentMaster(db.Model):
     __tablename__ = "departmentMaster"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'department',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -138,6 +157,12 @@ class departmentMaster(db.Model):
 
 class designationMaster(db.Model):
     __tablename__ = "designationMaster"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'deisgnation',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -147,6 +172,12 @@ class designationMaster(db.Model):
 # data upload done
 class industryMaster(db.Model):
     __tablename__ = "industryMaster"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'industry',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -157,6 +188,12 @@ class industryMaster(db.Model):
 # data upload done
 class regionMaster(db.Model):
     __tablename__ = "regionMaster"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'region',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -166,6 +203,12 @@ class regionMaster(db.Model):
 
 class addressMaster(db.Model):
     __tablename__ = "addressMaster"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'address',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     address = Column(String(300))
     customerCode = Column(String(15))  # to add as A001 to A999 and B001 to B999 and so on.
@@ -183,6 +226,12 @@ class addressMaster(db.Model):
 
 class addressProject(db.Model):
     __tablename__ = "addressProject"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'addressP',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     isCompany = Column(Boolean)
 
@@ -197,6 +246,12 @@ class addressProject(db.Model):
 
 class engineerProject(db.Model):
     __tablename__ = "engineerProject"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'engineerP',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     isApplication = Column(Boolean)
 
@@ -211,6 +266,11 @@ class engineerProject(db.Model):
 
 class engineerMaster(db.Model):
     __tablename__ = "engineerMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'engineer',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
     designation = Column(String(300))
@@ -223,6 +283,12 @@ class engineerMaster(db.Model):
 
 class projectMaster(db.Model):
     __tablename__ = "projectMaster"
+
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'project',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     projectId = Column(String(100))
     projectRef = Column(String(100))
@@ -278,6 +344,11 @@ class projectMaster(db.Model):
 
 class projectNotes(db.Model):
     __tablename__ = "projectNotes"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'projectNote',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     notesNumber = Column(String(300))
     notes = Column(String(300))
@@ -290,6 +361,11 @@ class projectNotes(db.Model):
 
 class itemNotesData(db.Model):
     __tablename__ = "itemNotesData"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'itemNote',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     content = Column(String(300))
     notesNumber = Column(String(300))
@@ -301,6 +377,11 @@ class itemNotesData(db.Model):
 
 class notesMaster(db.Model):
     __tablename__ = "notesMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'note',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     notesNumber = Column(String(10))
     content = Column(String(300))
@@ -308,6 +389,11 @@ class notesMaster(db.Model):
 
 class itemMaster(db.Model):
     __tablename__ = "itemMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'item',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     itemNumber = Column(Integer)
     alternate = Column(String(50))
@@ -329,6 +415,11 @@ class itemMaster(db.Model):
 # data upload done
 class fluidState(db.Model):
     __tablename__ = "fluidState"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'state',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -339,6 +430,11 @@ class fluidState(db.Model):
 # data upload done
 class designStandard(db.Model):
     __tablename__ = "designStandard"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'standard',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -349,6 +445,11 @@ class designStandard(db.Model):
 # data upload done
 class valveStyle(db.Model):
     __tablename__ = "valveStyle"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'style',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -365,6 +466,11 @@ class valveStyle(db.Model):
 # data upload done
 class applicationMaster(db.Model):
     __tablename__ = "applicationMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'application',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -372,6 +478,11 @@ class applicationMaster(db.Model):
 # data upload done
 class ratingMaster(db.Model):
     __tablename__ = "ratingMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'rating',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -386,6 +497,11 @@ class ratingMaster(db.Model):
 # data upload done
 class materialMaster(db.Model):
     __tablename__ = "materialMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'material',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -397,6 +513,11 @@ class materialMaster(db.Model):
 # data upload done
 class pressureTempRating(db.Model):
     __tablename__ = "pressureTempRating"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'pressureTemp',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     maxTemp = Column(Float)
     minTemp = Column(Float)
@@ -415,6 +536,11 @@ class pressureTempRating(db.Model):
 
 class endConnection(db.Model):
     __tablename__ = "endConnection"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'endC',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -424,6 +550,11 @@ class endConnection(db.Model):
 # 19
 class endFinish(db.Model):
     __tablename__ = "endFinish"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'endF',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -433,6 +564,11 @@ class endFinish(db.Model):
 # 20
 class bonnetType(db.Model):
     __tablename__ = "bonnetType"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'bonnetTyp',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -442,6 +578,11 @@ class bonnetType(db.Model):
 # 21
 class packingType(db.Model):
     __tablename__ = "packingType"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'packingTyp',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -450,6 +591,11 @@ class packingType(db.Model):
 
 class trimType(db.Model):
     __tablename__ = "trimType"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'trim',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -464,6 +610,11 @@ class trimType(db.Model):
 
 class flowCharacter(db.Model):  # TODO - Paandi  ............Done
     __tablename__ = "flowCharacter"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'flowC',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -475,6 +626,11 @@ class flowCharacter(db.Model):  # TODO - Paandi  ............Done
 # 23
 class flowDirection(db.Model):  # TODO - Paandi  ............Done
     __tablename__ = "flowDirection"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'flowD',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -486,6 +642,11 @@ class flowDirection(db.Model):  # TODO - Paandi  ............Done
 # 24
 class seatLeakageClass(db.Model):  # TODO - Paandi    ..........Done
     __tablename__ = "seatLeakageClass"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'leakage',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -496,6 +657,11 @@ class seatLeakageClass(db.Model):  # TODO - Paandi    ..........Done
 # 25
 class bonnet(db.Model):
     __tablename__ = "bonnet"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'bonne',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -504,6 +670,11 @@ class bonnet(db.Model):
 
 class nde1(db.Model):
     __tablename__ = "nde1"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'nde',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -520,6 +691,11 @@ class nde2(db.Model):
 
 class shaft(db.Model):  # Stem in globe
     __tablename__ = "shaft"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'shaf',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
     yield_strength = Column(Float)
@@ -532,6 +708,11 @@ class shaft(db.Model):  # Stem in globe
 
 class disc(db.Model):  # plug in globe
     __tablename__ = "disc"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'dis',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -543,6 +724,11 @@ class disc(db.Model):  # plug in globe
 
 class seat(db.Model):  # both seat
     __tablename__ = "seat"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'sea',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -554,6 +740,11 @@ class seat(db.Model):  # both seat
 
 class packing(db.Model):
     __tablename__ = "packing"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'pack',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
@@ -566,6 +757,11 @@ class packing(db.Model):
 
 class balanceSeal(db.Model):  # NDE  # TODO - Paandi
     __tablename__ = "balanceSeal"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'balanceSel',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -574,6 +770,11 @@ class balanceSeal(db.Model):  # NDE  # TODO - Paandi
 
 class studNut(db.Model):  # NDE  # TODO - Paandi
     __tablename__ = "studNut"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'stud',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -582,6 +783,11 @@ class studNut(db.Model):  # NDE  # TODO - Paandi
 
 class gasket(db.Model):
     __tablename__ = "gasket"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'gas',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -590,6 +796,11 @@ class gasket(db.Model):
 
 class cageClamp(db.Model):
     __tablename__ = "cageClamp"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'cage',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -599,6 +810,11 @@ class cageClamp(db.Model):
 # To cv table
 class balancing(db.Model):
     __tablename__ = "balancing"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'balance',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
@@ -609,6 +825,11 @@ class balancing(db.Model):
 
 class valveDetailsMaster(db.Model):
     __tablename__ = "valveDetailsMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'valveData',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     quantity = Column(Integer)
     tagNumber = Column(String(50))
@@ -718,6 +939,11 @@ class valveDetailsMaster(db.Model):
 
 class pipeArea(db.Model):
     __tablename__ = "pipeArea"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'pipeAre',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     nominalDia = Column(Float)
     nominalPipeSize = Column(Float)
@@ -733,6 +959,11 @@ class pipeArea(db.Model):
 
 class cvTable(db.Model):
     __tablename__ = "cvTable"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'cvT',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     # valveStyleId = Column(Integer)
     valveSize = Column(Float)
@@ -766,6 +997,11 @@ class cvTable(db.Model):
 
 class cvValues(db.Model):
     __tablename__ = "cvValues"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'cvV',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     coeff = Column(String(50))
     one = Column(Float)
@@ -789,6 +1025,11 @@ class cvValues(db.Model):
 
 class fluidProperties(db.Model):
     __tablename__ = "fluidProperties"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'fluidP',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     fluidState = Column(String(100))
     fluidName = Column(String(100))
@@ -806,6 +1047,11 @@ class fluidProperties(db.Model):
 
 class caseMaster(db.Model):
     __tablename__ = "caseMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'case',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     flowrate = Column(Float)
     inletPressure = Column(Float)
@@ -874,6 +1120,11 @@ class caseMaster(db.Model):
 
 class actuatorMaster(db.Model):
     __tablename__ = "actuatorMaster"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'actuator',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     actuatorType = Column(String(100))
     springAction = Column(String(100))  # Fail Action
@@ -907,6 +1158,11 @@ class actuatorMaster(db.Model):
 
 
 class slidingActuatorData(db.Model):
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'slidingAct',
+        'confirm_deleted_rows': False
+    }
     __tablename__ = "slidingActuatorData"
     id = Column(Integer, primary_key=True)
     actType = Column(String(100))
@@ -928,6 +1184,11 @@ class slidingActuatorData(db.Model):
 
 class rotaryActuatorData(db.Model):
     __tablename__ = "rotaryActuatorData"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'rotAct',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     actType = Column(String(100))
     failAction = Column(String(100))
@@ -947,6 +1208,11 @@ class rotaryActuatorData(db.Model):
 
 class actuatorCaseData(db.Model):
     __tablename__ = "actuatorCaseData"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'actCase',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     # sliding
     balancing = Column(String(100))
@@ -1013,6 +1279,11 @@ class actuatorCaseData(db.Model):
 
 class packingFriction(db.Model):
     __tablename__ = "packingFriction"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'packingF',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     stemDia = Column(Float)
     value = Column(Float)
@@ -1030,6 +1301,11 @@ class packingFriction(db.Model):
 
 class packingTorque(db.Model):
     __tablename__ = "packingTorque"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'packingT',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     shaftDia = Column(Float)
 
@@ -1046,6 +1322,11 @@ class packingTorque(db.Model):
 
 class seatLoadForce(db.Model):
     __tablename__ = "seatLoadForce"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'seatLoad',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     seatBore = Column(Float)
     value = Column(Float)
@@ -1063,6 +1344,11 @@ class seatLoadForce(db.Model):
 
 class seatingTorque(db.Model):
     __tablename__ = "seatingTorque"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'seatTorq',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     discDia = Column(Float)
     valveSize = Column(Float)
@@ -1074,6 +1360,11 @@ class seatingTorque(db.Model):
 
 class positioner(db.Model):
     __tablename__ = "positioner"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'pos',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     std = Column(String(200))
     manufacturer = Column(String(200))
@@ -1093,6 +1384,11 @@ class positioner(db.Model):
 
 class afr(db.Model):
     __tablename__ = "afr"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'afr_',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     manufacturer = Column(String(200))
     series = Column(String(200))
@@ -1113,6 +1409,11 @@ class afr(db.Model):
 
 class limitSwitch(db.Model):
     __tablename__ = "limitSwitch"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'limitS',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     make = Column(String(200))
     explosion = Column(String(200))
@@ -1126,6 +1427,11 @@ class limitSwitch(db.Model):
 
 class solenoid(db.Model):
     __tablename__ = "solenoid"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'solen',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     standard = Column(String(200))
     make = Column(String(200))
@@ -1139,36 +1445,67 @@ class solenoid(db.Model):
 
 class cleaning(db.Model):
     __tablename__ = "cleaning"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'clean',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
 
 class paintCerts(db.Model):
     __tablename__ = "paintCerts"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'paintC',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
 
 class paintFinish(db.Model):
     __tablename__ = "paintFinish"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'paintF',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
 
 class certification(db.Model):
     __tablename__ = "certification"
+    
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'cert',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
 
 class positionerSignal(db.Model):
     __tablename__ = "positionerSignal"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'posSignal',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
 
 class accessoriesData(db.Model):
     __tablename__ = "accessoriesData"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'accData',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
 
     manufacturer = Column(String(200))
@@ -1226,6 +1563,11 @@ class accessoriesData(db.Model):
 
 class valveArea(db.Model):
     __tablename__ = "valveArea"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'vArea',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     rating = Column(String(300))
     nominalPipeSize = Column(String(300))
@@ -1236,6 +1578,11 @@ class valveArea(db.Model):
 
 class portArea(db.Model):
     __tablename__ = "portArea"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'pArea',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     model = Column(String(20))
     v_size = Column(String(20))
@@ -1248,6 +1595,11 @@ class portArea(db.Model):
 
 class hwThrust(db.Model):
     __tablename__ = "hwThrust"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'hw',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     failAction = Column(String(20))
     mount = Column(String(20))
@@ -1258,6 +1610,11 @@ class hwThrust(db.Model):
 
 class knValue(db.Model):
     __tablename__ = "knValue"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'kn',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     portDia = Column(Float)
     value = Column(Float)
@@ -1275,14 +1632,19 @@ class knValue(db.Model):
 
 class OTP(db.Model):
     __tablename__ = "OTP"
+    __mapper_args__ = {
+        'polymorphic_on': type,
+        'polymorphic_identity': 'otp',
+        'confirm_deleted_rows': False
+    }
     id = Column(Integer, primary_key=True)
     username = Column(String(100))
     otp = Column(BigInteger)
     time = Column(DateTime)
 
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 # TODO Other DAta
 table_data_render = [
@@ -5808,7 +6170,7 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-DATA_UPLOAD_BULK()
+# DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
