@@ -1281,8 +1281,8 @@ class OTP(db.Model):
     time = Column(DateTime)
 
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 # TODO Other DAta
 table_data_render = [
@@ -1333,7 +1333,7 @@ def next_alpha(s):
 # Data upload function
 def data_upload(data_list, table_name):
     # with app.app_context():
-    # print(f"data delete starts: {table_name.__tablename__}")
+    print(f"data delete starts: {table_name.__tablename__}")
     data_delete(table_name)
     print("data delete ends")
     print('dataupload starts')
@@ -5810,8 +5810,8 @@ def DATA_UPLOAD_BULK():
         # data_upload_disc_seat_packing([disc_material_list_butterfly, disc_material_list_butterfly, plug_material_list_globe, plug_material_list_globe], v_style_list, disc)
         # data_upload_disc_seat_packing([seat_material_list_butterfly, seat_material_list_butterfly, seat_material_list_globe, seat_material_list_globe], v_style_list, seat)
         # data_upload_disc_seat_packing([trim_type_list_butterfly, trim_type_list_butterfly, trim_type_list_globe, trim_type_list_globe], v_style_list, trimType)
-        # data_upload(department_list, departmentMaster)
-        # data_upload(designation_list, designationMaster)
+        data_upload(department_list, departmentMaster)
+        data_upload(designation_list, designationMaster)
         # data_upload_shaft(getRowsFromCsvFile("csv/shaft.csv"), v_style_list)
         # data_upload(end_connection_list, endConnection)
         # data_upload(end_finish_list, endFinish)
@@ -5829,7 +5829,7 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-# DATA_UPLOAD_BULK()
+DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
