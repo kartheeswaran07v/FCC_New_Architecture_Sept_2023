@@ -54,9 +54,9 @@ app.config['SECRET_KEY'] = "kkkkk"
 Bootstrap(app)
 
 # # CONNECT TO DB
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v5-3.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fcc-db-v5-4.db"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v5-1.db")
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL1", "sqlite:///fcc-db-v5-4.db")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -108,7 +108,7 @@ class userMaster(UserMixin, db.Model):
 
     # relationships
     # TODO 1 - Project Master
-    project = relationship("projectMaster", back_populates="user")
+    project = relationship("projectMaster", cascade="all,delete", back_populates="user")
 
     # relationship as child
     departmentId = Column(Integer, ForeignKey("departmentMaster.id"))
@@ -125,7 +125,7 @@ class companyMaster(db.Model):
     description = Column(String(300))
 
     # relationship as parent
-    address = relationship('addressMaster', back_populates='company')
+    address = relationship('addressMaster', cascade="all,delete",  back_populates='company')
 
 
 class departmentMaster(db.Model):
@@ -133,7 +133,7 @@ class departmentMaster(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    user = relationship("userMaster", back_populates="department")
+    user = relationship("userMaster", cascade="all,delete", back_populates="department")
 
 
 class designationMaster(db.Model):
@@ -141,7 +141,7 @@ class designationMaster(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    user = relationship("userMaster", back_populates="designation")
+    user = relationship("userMaster", cascade="all,delete", back_populates="designation")
 
 
 # data upload done
@@ -151,7 +151,7 @@ class industryMaster(db.Model):
     name = Column(String(300))
 
     # relationship as parent
-    project = relationship("projectMaster", back_populates="industry")
+    project = relationship("projectMaster", cascade="all,delete", back_populates="industry")
 
 
 # data upload done
@@ -161,7 +161,7 @@ class regionMaster(db.Model):
     name = Column(String(300))
 
     # relationship as parent
-    project = relationship("projectMaster", back_populates="region")
+    project = relationship("projectMaster", cascade="all,delete", back_populates="region")
 
 
 class addressMaster(db.Model):
@@ -174,7 +174,7 @@ class addressMaster(db.Model):
     # relationship as parent
     # projectCompany = relationship('projectMaster',uselist=False, backref='address_company')
     # projectEnduser = relationship('projectMaster',uselist=False, backref='address_enduser')
-    address_project = relationship('addressProject', back_populates='address')
+    address_project = relationship('addressProject', cascade="all,delete", back_populates='address')
 
     # relationship as child
     companyId = Column(Integer, ForeignKey("companyMaster.id"))
@@ -216,7 +216,7 @@ class engineerMaster(db.Model):
     designation = Column(String(300))
 
     # relationship as parent
-    engineer_project = relationship('engineerProject', back_populates='engineer')
+    engineer_project = relationship('engineerProject', cascade="all,delete", back_populates='engineer')
     # projectContract = relationship("projectMaster",uselist=False, backref="engineer_contract")
     # projectApplicaton = relationship("projectMaster",uselist=False, backref="engineer_application")
 
@@ -241,9 +241,9 @@ class projectMaster(db.Model):
     lengthUnit = Column(String(50))
     # relationship as parent
     item = relationship("itemMaster", cascade="all,delete", back_populates="project")
-    projectnotes = relationship('projectNotes', back_populates='project')
-    project_address = relationship('addressProject', back_populates='project')
-    project_engineer = relationship('engineerProject', back_populates='project')
+    projectnotes = relationship('projectNotes', cascade="all,delete", back_populates='project')
+    project_address = relationship('addressProject', cascade="all,delete", back_populates='project')
+    project_engineer = relationship('engineerProject', cascade="all,delete", back_populates='project')
 
     # relationship as child
     # TODO - User
@@ -313,13 +313,13 @@ class itemMaster(db.Model):
     alternate = Column(String(50))
 
     # rel as parent
-    case = relationship("caseMaster", back_populates="item")
+    case = relationship("caseMaster", cascade="all,delete", back_populates="item")
 
     # one-to-one relationship with valve, actuator and accessories, as parent
-    valve = relationship("valveDetailsMaster", back_populates="item")
-    actuator = relationship("actuatorMaster", back_populates="item")
-    accessories = relationship("accessoriesData", back_populates="item")
-    notes = relationship("itemNotesData", back_populates="item")
+    valve = relationship("valveDetailsMaster", cascade="all,delete", back_populates="item")
+    actuator = relationship("actuatorMaster", cascade="all,delete", back_populates="item")
+    accessories = relationship("accessoriesData", cascade="all,delete", back_populates="item")
+    notes = relationship("itemNotesData", cascade="all,delete", back_populates="item")
 
     # relationship as child
     projectID = Column(Integer, ForeignKey("projectMaster.id"))
@@ -333,7 +333,7 @@ class fluidState(db.Model):
     name = Column(String(100))
 
     # relationship as parent
-    valve = relationship('valveDetailsMaster', back_populates='state')
+    valve = relationship('valveDetailsMaster', cascade="all,delete", back_populates='state')
 
 
 # data upload done
@@ -343,7 +343,7 @@ class designStandard(db.Model):
     name = Column(String(100))
 
     # relationship as parent
-    valve = relationship('valveDetailsMaster', back_populates='design')
+    valve = relationship('valveDetailsMaster', cascade="all,delete", back_populates='design')
 
 
 # data upload done
@@ -353,13 +353,13 @@ class valveStyle(db.Model):
     name = Column(String(100))
 
     # relationship as parent
-    valve = relationship('valveDetailsMaster', back_populates='style')
-    cv = relationship('cvTable', back_populates='style')
-    shaft_ = relationship('shaft', back_populates='style')
-    disc_ = relationship('disc', back_populates='style')
-    seat_ = relationship('seat', back_populates='style')
-    packing_ = relationship('packing', back_populates='style')
-    trimtype_ = relationship('trimType', back_populates='style')
+    valve = relationship('valveDetailsMaster', cascade="all,delete", back_populates='style')
+    cv = relationship('cvTable', cascade="all,delete", back_populates='style')
+    shaft_ = relationship('shaft', cascade="all,delete", back_populates='style')
+    disc_ = relationship('disc', cascade="all,delete", back_populates='style')
+    seat_ = relationship('seat', cascade="all,delete", back_populates='style')
+    packing_ = relationship('packing', cascade="all,delete", back_populates='style')
+    trimtype_ = relationship('trimType', cascade="all,delete", back_populates='style')
 
 
 # data upload done
@@ -376,11 +376,11 @@ class ratingMaster(db.Model):
     name = Column(String(100))
 
     # relationship as parent
-    valve = relationship('valveDetailsMaster', back_populates='rating')
-    pt = relationship('pressureTempRating', back_populates='rating')
-    cv = relationship('cvTable', back_populates='rating_c')
-    packingF = relationship('packingFriction', back_populates='rating')
-    torque = relationship("packingTorque", back_populates='rating')
+    valve = relationship('valveDetailsMaster', cascade="all,delete", back_populates='rating')
+    pt = relationship('pressureTempRating', cascade="all,delete", back_populates='rating')
+    cv = relationship('cvTable', cascade="all,delete", back_populates='rating_c')
+    packingF = relationship('packingFriction', cascade="all,delete", back_populates='rating')
+    torque = relationship("packingTorque", cascade="all,delete", back_populates='rating')
 
 
 # data upload done
@@ -390,8 +390,8 @@ class materialMaster(db.Model):
     name = Column(String(100))
 
     # relationship as parent
-    valve = relationship('valveDetailsMaster', back_populates='material')
-    pt = relationship('pressureTempRating', back_populates='material')
+    valve = relationship('valveDetailsMaster', cascade="all,delete", back_populates='material')
+    pt = relationship('pressureTempRating', cascade="all,delete", back_populates='material')
 
 
 # data upload done
@@ -418,7 +418,7 @@ class endConnection(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    endConnection_ = relationship('valveDetailsMaster', back_populates='endConnection__')
+    endConnection_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='endConnection__')
 
 
 # 19
@@ -427,7 +427,7 @@ class endFinish(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    endFinish_ = relationship('valveDetailsMaster', back_populates='endFinish__')
+    endFinish_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='endFinish__')
 
 
 # 20
@@ -436,7 +436,7 @@ class bonnetType(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    bonnetType_ = relationship('valveDetailsMaster', back_populates='bonnetType__')
+    bonnetType_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='bonnetType__')
 
 
 # 21
@@ -445,7 +445,7 @@ class packingType(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    packingType_ = relationship('valveDetailsMaster', back_populates='packingType__')
+    packingType_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='packingType__')
 
 
 class trimType(db.Model):
@@ -453,10 +453,10 @@ class trimType(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    trimType_ = relationship('valveDetailsMaster', back_populates='trimType__')
-    trimType_c = relationship('cvTable', back_populates='trimType_')
-    seatLoad = relationship('seatLoadForce', back_populates='trimType_')
-    kn = relationship("knValue", back_populates="trimType_")
+    trimType_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='trimType__')
+    trimType_c = relationship('cvTable', cascade="all,delete", back_populates='trimType_')
+    seatLoad = relationship('seatLoadForce', cascade="all,delete", back_populates='trimType_')
+    kn = relationship("knValue", cascade="all,delete", back_populates="trimType_")
 
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='trimtype_')
@@ -467,9 +467,9 @@ class flowCharacter(db.Model):  # TODO - Paandi  ............Done
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    flowCharacter_ = relationship('valveDetailsMaster', back_populates='flowCharacter__')
-    flowCharacter_c = relationship('cvTable', back_populates='flowCharacter_')
-    kn = relationship('knValue', back_populates='flowCharacter_')
+    flowCharacter_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='flowCharacter__')
+    flowCharacter_c = relationship('cvTable', cascade="all,delete", back_populates='flowCharacter_')
+    kn = relationship('knValue', cascade="all,delete", back_populates='flowCharacter_')
 
 
 # 23
@@ -478,9 +478,9 @@ class flowDirection(db.Model):  # TODO - Paandi  ............Done
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    flowDirection_ = relationship('valveDetailsMaster', back_populates='flowDirection__')
-    flowDirection_c = relationship('cvTable', back_populates='flowDirection_')
-    kn = relationship('knValue', back_populates='flowDirection_')
+    flowDirection_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='flowDirection__')
+    flowDirection_c = relationship('cvTable', cascade="all,delete", back_populates='flowDirection_')
+    kn = relationship('knValue', cascade="all,delete", back_populates='flowDirection_')
 
 
 # 24
@@ -489,8 +489,8 @@ class seatLeakageClass(db.Model):  # TODO - Paandi    ..........Done
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    seatLeakageClass_ = relationship('valveDetailsMaster', back_populates='seatLeakageClass__')
-    seatLoad = relationship('seatLoadForce', back_populates='leakage')
+    seatLeakageClass_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='seatLeakageClass__')
+    seatLoad = relationship('seatLoadForce', cascade="all,delete", back_populates='leakage')
 
 
 # 25
@@ -499,7 +499,7 @@ class bonnet(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    bonnet_ = relationship('valveDetailsMaster', back_populates='bonnet__')
+    bonnet_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='bonnet__')
 
 
 class nde1(db.Model):
@@ -507,7 +507,7 @@ class nde1(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    nde1_ = relationship('valveDetailsMaster', back_populates='nde1__')
+    nde1_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='nde1__')
 
 
 class nde2(db.Model):
@@ -515,7 +515,7 @@ class nde2(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    nde2_ = relationship('valveDetailsMaster', back_populates='nde2__')
+    nde2_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='nde2__')
 
 
 class shaft(db.Model):  # Stem in globe
@@ -524,7 +524,7 @@ class shaft(db.Model):  # Stem in globe
     name = Column(String(100))
     yield_strength = Column(Float)
 
-    shaft_ = relationship('valveDetailsMaster', back_populates='shaft__')
+    shaft_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='shaft__')
 
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='shaft_')
@@ -535,7 +535,7 @@ class disc(db.Model):  # plug in globe
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
-    disc_ = relationship('valveDetailsMaster', back_populates='disc__')
+    disc_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='disc__')
 
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='disc_')
@@ -546,7 +546,7 @@ class seat(db.Model):  # both seat
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
-    seat_ = relationship('valveDetailsMaster', back_populates='seat__')
+    seat_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='seat__')
 
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='seat_')
@@ -557,8 +557,8 @@ class packing(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
-    packing_ = relationship('valveDetailsMaster', back_populates='packing__')
-    packingF = relationship('packingFriction', back_populates='packing_')
+    packing_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='packing__')
+    packingF = relationship('packingFriction', cascade="all,delete", back_populates='packing_')
 
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='packing_')
@@ -569,7 +569,7 @@ class balanceSeal(db.Model):  # NDE  # TODO - Paandi
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    balanceSeal_ = relationship('valveDetailsMaster', back_populates='balanceSeal__')
+    balanceSeal_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='balanceSeal__')
 
 
 class studNut(db.Model):  # NDE  # TODO - Paandi
@@ -577,7 +577,7 @@ class studNut(db.Model):  # NDE  # TODO - Paandi
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    studNut_ = relationship('valveDetailsMaster', back_populates='studNut__')
+    studNut_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='studNut__')
 
 
 class gasket(db.Model):
@@ -585,7 +585,7 @@ class gasket(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    gasket_ = relationship('valveDetailsMaster', back_populates='gasket__')
+    gasket_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='gasket__')
 
 
 class cageClamp(db.Model):
@@ -593,7 +593,7 @@ class cageClamp(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    cage_ = relationship('valveDetailsMaster', back_populates='cage__')
+    cage_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='cage__')
 
 
 # To cv table
@@ -602,7 +602,7 @@ class balancing(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(300))
 
-    balancing_c = relationship('cvTable', back_populates='balancing_')
+    balancing_c = relationship('cvTable', cascade="all,delete", back_populates='balancing_')
 
 
 # TODO dropdowns end
@@ -727,7 +727,7 @@ class pipeArea(db.Model):
     schedule = Column(String(50))
 
     # rel as parent
-    caseI = relationship("caseMaster", back_populates="iPipe")
+    caseI = relationship("caseMaster", cascade="all,delete", back_populates="iPipe")
     # caseO = relationship("caseMaster", back_populates="oPipe")
 
 
@@ -739,9 +739,9 @@ class cvTable(db.Model):
     series = Column(String(50))
 
     # rel as parent
-    value = relationship("cvValues", back_populates="cv")
-    case = relationship("caseMaster", back_populates="cv")
-    torque = relationship("packingTorque", back_populates="cv")
+    value = relationship("cvValues", cascade="all,delete", back_populates="cv")
+    case = relationship("caseMaster", cascade="all,delete", back_populates="cv")
+    torque = relationship("packingTorque", cascade="all,delete", back_populates="cv")
 
     # rel as child
 
@@ -801,7 +801,7 @@ class fluidProperties(db.Model):
     compressibilityFactor = Column(Float)
 
     # rel as parent
-    case = relationship("caseMaster", back_populates="fluid")
+    case = relationship("caseMaster", cascade="all,delete", back_populates="fluid")
 
 
 class caseMaster(db.Model):
@@ -885,7 +885,7 @@ class actuatorMaster(db.Model):
     travelStops = Column(String(100))
 
     # rel as parent
-    actCase = relationship('actuatorCaseData', back_populates='actuator_')
+    actCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='actuator_')
 
     # rel as child to item
     itemId = Column(Integer, ForeignKey("itemMaster.id"))
@@ -923,7 +923,7 @@ class slidingActuatorData(db.Model):
     VM = Column(Float)
 
     # rel as parent
-    actuatorCase = relationship('actuatorCaseData', back_populates='slidingActuator')
+    actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='slidingActuator')
 
 
 class rotaryActuatorData(db.Model):
@@ -942,7 +942,7 @@ class rotaryActuatorData(db.Model):
     end = Column(Float)
 
     # rel as parent
-    actuatorCase = relationship('actuatorCaseData', back_populates='rotaryActuator')
+    actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='rotaryActuator')
 
 
 class actuatorCaseData(db.Model):
@@ -1025,7 +1025,7 @@ class packingFriction(db.Model):
     packing_ = relationship('packing', back_populates='packingF')
 
     # rel as parent
-    actuatorCase = relationship('actuatorCaseData', back_populates='packingF')
+    actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='packingF')
 
 
 class packingTorque(db.Model):
@@ -1041,7 +1041,7 @@ class packingTorque(db.Model):
     cv = relationship('cvTable', back_populates='torque')
 
     # rel as parent
-    actuatorCase = relationship('actuatorCaseData', back_populates='packingT')
+    actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='packingT')
 
 
 class seatLoadForce(db.Model):
@@ -1051,7 +1051,7 @@ class seatLoadForce(db.Model):
     value = Column(Float)
 
     # rel as parent
-    actuatorCase = relationship('actuatorCaseData', back_populates='seatLoad')
+    actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='seatLoad')
 
     # rel as child
     trimTypeId = Column(Integer, ForeignKey("trimType.id"))
@@ -1069,7 +1069,7 @@ class seatingTorque(db.Model):
     cusc = Column(Float)
     cusp = Column(Float)
 
-    actuatorCase = relationship('actuatorCaseData', back_populates='seatT')
+    actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='seatT')
 
 
 class positioner(db.Model):
@@ -1281,8 +1281,8 @@ class OTP(db.Model):
     time = Column(DateTime)
 
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 # TODO Other DAta
 table_data_render = [
@@ -1376,7 +1376,7 @@ def add_many(list_many, table_name):
 def cv_upload(data_list):
     with app.app_context():
         print("delete begin")
-        data_delete(cvValues)
+        # data_delete(cvValues)
         data_delete(cvTable)
         print("delete done")
         new_data_list = data_list[::4]  # Get every fourth element from the list
@@ -5829,7 +5829,7 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-DATA_UPLOAD_BULK()
+# DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
