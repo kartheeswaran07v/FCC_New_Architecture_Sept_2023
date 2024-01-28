@@ -168,7 +168,7 @@ with app.app_context():
     # data_upload(flow_charac_list, flowCharacter)
     # data_upload(balancing_list, balancing)
     # # cv_upload(getRowsFromCsvFile("csv/cvtable_small.csv"))
-    # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     # data_upload_disc_seat_packing([disc_material_list_butterfly, disc_material_list_butterfly, plug_material_list_globe, plug_material_list_globe], v_style_list, disc)
     # data_upload_disc_seat_packing([seat_material_list_butterfly, seat_material_list_butterfly, seat_material_list_globe, seat_material_list_globe], v_style_list, seat)
     # data_upload_disc_seat_packing([trim_type_list_butterfly, trim_type_list_butterfly, trim_type_list_globe, trim_type_list_globe], v_style_list, trimType)
