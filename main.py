@@ -2214,18 +2214,20 @@ def CV(flowrate, C, valveDia, inletDia, outletDia, N2_value, inletPressure, outl
 
 ### --------------------------------- Routes -----------------------------------------------------###
 
+def getUniqueValues(table_name):
+    empty_list = []
+    for notes_ in db.session.query(table_name.name).distinct():
+        empty_list.append({"id": notes_.id, "name": notes_.name})
+    return empty_list
+
 
 # TODO Login Module
 
 @app.route('/admin-register', methods=["GET", "POST"])
 def register():
-    designations_ = []
-    for notes_ in db.session.query(designationMaster.name).distinct():
-        designations_.append(notes_)
+    designations_ = getUniqueValues(designationMaster)
     
-    departments_ = []
-    for notes_ in db.session.query(departmentMaster.name).distinct():
-        departments_.append(notes_)
+    departments_ = getUniqueValues(departmentMaster)
     # form = RegisterForm()
     if request.method == "POST":
 
