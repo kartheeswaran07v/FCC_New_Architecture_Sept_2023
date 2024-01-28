@@ -1330,7 +1330,7 @@ def next_alpha(s):
     return chr((ord(s.upper()) + 1 - 65) % 26 + 65)
 
 
-# Data upload function
+# Data upload function   lllll
 def data_upload(data_list, table_name):
     # with app.app_context():
     print(f"data delete starts: {table_name.__tablename__}")
