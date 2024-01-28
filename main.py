@@ -95,7 +95,7 @@ def load_user(user_id):
 
 # CREATE TABLES
 
-
+#
 class userMaster(UserMixin, db.Model):
     __tablename__ = "userMaster"
 
