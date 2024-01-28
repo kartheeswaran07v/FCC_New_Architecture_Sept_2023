@@ -1338,9 +1338,11 @@ def data_upload(data_list, table_name):
     print("data delete ends")
     print('dataupload starts')
     for data_ in data_list:
-        new_data = table_name(name=data_)
-        db.session.add(new_data)
-        db.session.commit()
+        data_element = db.session.query(table_name).filter_by(name=data_).all()
+        if len(data_element) == 0:
+            new_data = table_name(name=data_)
+            db.session.add(new_data)
+            db.session.commit()
     print('data upload ends')
 
 
@@ -5747,29 +5749,6 @@ def DATA_UPLOAD_BULK():
 
 
     packing_type_list = ['Single', 'Double', 'Inverted']
-
-    def getRowsFromCsvFile(file_path):
-        filename = file_path
-        fields_afr = []
-        rows_afr = []
-
-        # reading csv file
-        with open(filename, 'r', encoding='utf-8-sig') as csvfile:
-            # creating a csv reader object
-            csvreader = csv.reader(csvfile)
-
-            # extracting field names through first row
-            fields_afr = next(csvreader)
-
-            # extracting each data row one by one
-            for row in csvreader:
-                dict_add = {}
-                for i in range(len(fields_afr)):
-                    dict_add[fields_afr[i]] = row[i]
-                rows_afr.append(dict_add)
-
-        return rows_afr
-
 
 
 
