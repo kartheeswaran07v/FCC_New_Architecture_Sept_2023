@@ -5785,8 +5785,8 @@ def DATA_UPLOAD_BULK():
         # globe_element_1 = db.session.query(valveStyle).filter_by(name="Globe Straight").first()
         # globe_element_2 = db.session.query(valveStyle).filter_by(name="Globe Angle").first()
         # v_style_list = [butterfly_element_1, butterfly_element_2, globe_element_1, globe_element_2]   
-        # data_upload(industry_list, industryMaster)
-        # data_upload(region_list, regionMaster)
+        data_upload(industry_list, industryMaster)
+        data_upload(region_list, regionMaster)
         # data_upload(f_state_list, fluidState)
         # data_upload(design_std_list, designStandard)
         # data_upload(application_list, applicationMaster)
