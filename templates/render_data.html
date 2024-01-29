@@ -60,17 +60,21 @@
                                         <table class="table table-striped table-bordered refernce_table1">
                                             <thead class="table-sm reference_thead">
                                                 <tr class="table-sm">
-                                                    <th>SI.No</th>
-                                                    <th>Descriptions</th>
+                                                    <th>S .No.</th>
+                                                    {% for key in all_keys_[1:] %}
+                                                    <th>{{key}}</th>
+                                                    {% endfor %}
                                                 </tr>
                                                     
                                             </thead>
 
                                             <tbody class="table-sm" id="projectlist">
-                                                {% for data_ in data %}
+
+                                                {% for data_ in all_data %}
                                                 <tr>
-                                                    <td >{{data_.id}}</td>
-                                                    <td >{{data_.name}}</td>
+                                                    {% for key in all_keys %}
+                                                    <td >{{data_[key]}}</td>
+                                                    {% endfor %}
                                                 </tr>
                                                 {% endfor %}
 

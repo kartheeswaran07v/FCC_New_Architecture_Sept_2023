@@ -32,19 +32,19 @@
 
             <div class="row ">
                 <div class="col-6 ">
-                    <a href=""><button type="button" class="btn btn-info btn-block viewbtn">Afr</button></a>
+                    <a href="{{url_for('renderData', topic=39, item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info btn-block viewbtn">Afr</button></a>
                 </div>
                 <div class="col-6">
-                    <a href=""><button type="button" class="btn btn-info btn-block viewbtn">Positioner</button></a>
+                    <a href="{{url_for('renderData', topic=42, item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info btn-block viewbtn">Positioner</button></a>
                 </div>
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href=""><button type="button" class="btn btn-info btn-block viewbtn">Positioner
+                    <a href="{{url_for('renderData', topic=43, item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info btn-block viewbtn">Positioner
                             Signal</button></a>
                 </div>
                 <div class="col-6">
-                    <a href=""><button type="button" class="btn btn-info btn-block viewbtn">Solenoid</button></a>
+                    <a href="{{url_for('renderData', topic=54, item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info btn-block viewbtn">Solenoid</button></a>
                 </div>
 
             </div>
@@ -56,13 +56,13 @@
             <h6 class="viewdata_heading"><b>Process Data</b></h6>
             <div class="row">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=11, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">ApplicationMaster</button>
 
                     </a>
                 </div>
                 <div class="col-6 mt-1">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=41, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Fluid
                             Properties</button>
 
@@ -70,7 +70,7 @@
                     </a>
                 </div>
                 <div class="col-6 mt-1">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=33, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Fluid
                             state</button>
 
@@ -90,14 +90,14 @@
             <h6 class="viewdata_heading"><b>Valve Data</b></h6>
             <div class="row">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=29, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Bonnet</button>
 
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=14, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Bonnet
                             Type</button>
 
@@ -106,14 +106,14 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=27, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Balance
                             Seal</button>
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=28, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Balancing</button>
 
                     </a>
@@ -122,14 +122,14 @@
             <div class="row mt-1">
 
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=17, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Flow
                             Direction</button>
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=34, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Gasket</button>
 
                     </a>
@@ -137,14 +137,14 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=6, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">ValveStyle</button>
 
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=35, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Packing
                             Type</button>
 
@@ -153,14 +153,14 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=44, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Packing
                             Friction</button>
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=45, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Packing
                             Torque</button>
 
@@ -169,23 +169,16 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=46, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Port
                             Area</button>
-
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a href="">
-                        <button type="button" class="btn btn-info btn-block viewbtn">Packing
-                            Type</button>
 
                     </a>
                 </div>
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=7, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Rating
                             Master</button>
 
@@ -195,7 +188,7 @@
 
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=16, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Trim
                             Type</button>
 
@@ -205,14 +198,14 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=47, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Seat</button>
 
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=18, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">SeatleakageClass</button>
 
 
@@ -221,13 +214,13 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=48, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">SeatLoadForce</button>
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=49, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Seating
                             Torque</button>
 
@@ -237,13 +230,13 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=50, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Shaft</button>
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=8, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Material
                             Master</button>
 
@@ -253,16 +246,29 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=51, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Packing</button>
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
-                        <button type="button" class="btn btn-info btn-block viewbtn">Material
-                            Master</button>
+                    <a href="{{url_for('renderData', topic=32, item_id=item.id, proj_id=item.project.id)}}">
+                        <button type="button" class="btn btn-info btn-block viewbtn">Flow Character</button>
 
+                    </a>
+                </div>
+
+            </div>
+            <div class="row mt-1">
+                <div class="col-6">
+                    <a href="{{url_for('renderData', topic=30, item_id=item.id, proj_id=item.project.id)}}">
+                        <button type="button" class="btn btn-info btn-block viewbtn">End Connection</button>
+
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="{{url_for('renderData', topic=31, item_id=item.id, proj_id=item.project.id)}}">
+                        <button type="button" class="btn btn-info btn-block viewbtn">End Finish</button>
                     </a>
                 </div>
 
@@ -276,14 +282,14 @@
             <h6 class="viewdata_heading"><b>Miscellaneous</b></h6>
             <div class="row">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=20, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Certification</button>
 
 
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=19, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Cleaning</button>
 
 
@@ -292,7 +298,7 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=40, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Engineer
                             Master</button>
 
@@ -300,7 +306,7 @@
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=2, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Industry
                             Master</button>
 
@@ -310,7 +316,7 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=37, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Paint
                             Finish</button>
 
@@ -318,7 +324,7 @@
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=36, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Paint
                             Certs</button>
 
@@ -326,7 +332,7 @@
                 </div>
             </div>
 
-            <div class="row mt-1">
+            <!-- <div class="row mt-1">
                 <div class="col-6">
                     <a href="">
                         <button type="button" class="btn btn-info btn-block viewbtn">nde1</button>
@@ -341,10 +347,10 @@
 
                     </a>
                 </div>
-            </div>
+            </div> -->
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=3, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Region
                             Master</button>
 
@@ -352,27 +358,7 @@
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
-                        <button type="button" class="btn btn-info btn-block viewbtn">CvValues
-                        </button>
-
-
-                    </a>
-                </div>
-
-            </div>
-
-            <div class="row mt-1">
-                <div class="col-6">
-                    <a href="">
-                        <button type="button" class="btn btn-info btn-block viewbtn">Kn
-                            Values</button>
-
-
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=38, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Limit
                             Switch
                         </button>
@@ -380,20 +366,38 @@
 
                     </a>
                 </div>
+                <!-- <div class="col-6">
+                    <a href="">
+                        <button type="button" class="btn btn-info btn-block viewbtn">CvValues
+                        </button>
+
+
+                    </a>
+                </div> -->
 
             </div>
+
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
-                        <button type="button" class="btn btn-info btn-block viewbtn">User
-                            Master</button>
+                    <a href="{{url_for('renderData', topic=52, item_id=item.id, proj_id=item.project.id)}}">
+                        <button type="button" class="btn btn-info btn-block viewbtn">Kn
+                            Values</button>
 
 
                     </a>
                 </div>
 
-
             </div>
+            <!-- <div class="row mt-1">
+                <div class="col-6">
+                    <a href="">
+                        <button type="button" class="btn btn-info btn-block viewbtn">User
+                            Master</button>
+                    </a>
+                </div>
+
+
+            </div> -->
         </div>
     </div>
     <div class="col-4">
@@ -409,7 +413,7 @@
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=23, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Pipe
                             Arae</button>
 
@@ -419,7 +423,7 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=25, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Pressure
                             Temp Rating</button>
 
@@ -427,7 +431,7 @@
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=24, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Valve
                             Area</button>
 
@@ -446,15 +450,15 @@
             <h6 class="viewdata_heading"><b>Actuator Data</b></h6>
             <div class="row">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=53, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">hw
                             Thrust</button>
 
 
                     </a>
                 </div>
-                <div class="col-6">
-                    <a href="">
+                <!-- <div class="col-6">
+                    <a href="{{url_for('renderData', topic=26, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Sliding
                             Actuator Data</button>
 
@@ -464,12 +468,12 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
-                    <a href="">
+                    <a href="{{url_for('renderData', topic=26, item_id=item.id, proj_id=item.project.id)}}">
                         <button type="button" class="btn btn-info btn-block viewbtn">Rotary
                             Acuator Data</button>
 
                     </a>
-                </div>
+                </div> -->
 
             </div>
         </div>
