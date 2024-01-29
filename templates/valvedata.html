@@ -710,9 +710,9 @@
 					  var notesSelect = document.getElementById("valvestyle");
 					  var trimType = document.getElementById("trimtype_onselect");
 					//   alert(trimType);
-					  var valve_style_text_start = $("#valvestyle :selected").val()
-					  var trim_type_start = $('#trimtype_onselect :selected').val()
-					//   alert(trim_type_start)
+					  var valve_style_text_start = $("#valvestyle :selected").text()
+					  var trim_type_start = $('#trimtype_onselect :selected').text()
+					  alert(valve_style_text_start)
 					//   alert($('#cage-clamp').text())
 
 					  if (trim_type_start == 5 || trim_type_start == 6){
@@ -722,7 +722,7 @@
 					  }
 
 
-					  if (valve_style_text_start== 1 || valve_style_text_start == 2){
+					  if (valve_style_text_start == "Globe Straight" || valve_style_text_start == "Globe Angle"){
 							// alert('Conditon working')
 							$("#bonnet").show();
 							$("#stem").show();
@@ -739,7 +739,7 @@
 							$("#gasket").text("Gasket");
 							// console.log('Globe')
 
-						} else if (valve_style_text_start == 3 || valve_style_text_start ==  4) {
+						} else if (valve_style_text_start == "Butterfly Lugged Wafer" || valve_style_text_start ==  "Butterfly Double Flanged") {
 							// console.log('Butterfly')
 							$("#bonnet").hide();
 							$("#stem").hide();
@@ -759,8 +759,8 @@
 					  }
 					  
 					  notesSelect.onchange = function() {
-						var valve_style_text = $("#valvestyle :selected").val()
-						if (valve_style_text== 1 || valve_style_text == 2){
+						var valve_style_text = $("#valvestyle :selected").text()
+						if (valve_style_text== "Globe Straight" || valve_style_text == "Globe Angle"){
 							// alert('Conditon working')
 							$("#bonnet").show();
 							$("#stem").show();
@@ -776,7 +776,7 @@
 							$("#trimTypeButtefly").hide();
 							$("#gasket").text("Gasket");
 
-						} else if (valve_style_text == 3 || valve_style_text ==  4) {
+						} else if (valve_style_text == "Butterfly Lugged Wafer" || valve_style_text ==  "Butterfly Double Flanged") {
 							// console.log('Butterfly')
 							$("#bonnet").hide();
 							$("#stem").hide();
