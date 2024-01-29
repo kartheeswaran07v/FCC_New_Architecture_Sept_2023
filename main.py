@@ -2740,6 +2740,7 @@ def valveData(proj_id, item_id):
         a['seatLeakageClass__'] = [getDBElementWithId(seatLeakageClass, seatLeakageClass__)]
         material = a['material'][0]
         a['material'] = [getDBElementWithId(materialMaster, material)]
+        a['state'] = [db.session.query(fluidState).filter_by(name='Liquid').first()]
 
         # Data Type conversion
         try:
@@ -6545,16 +6546,16 @@ def DATA_UPLOAD_BULK():
 
     with app.app_context():
     #     data_upload(valve_style_list, valveStyle)
-        butterfly_element_1 = db.session.query(valveStyle).filter_by(name="Butterfly Lugged Wafer").first()
-        butterfly_element_2 = db.session.query(valveStyle).filter_by(name="Butterfly Double Flanged").first()
-        globe_element_1 = db.session.query(valveStyle).filter_by(name="Globe Straight").first()
-        globe_element_2 = db.session.query(valveStyle).filter_by(name="Globe Angle").first()
-        v_style_list = [butterfly_element_1, butterfly_element_2, globe_element_1, globe_element_2]   
+        # butterfly_element_1 = db.session.query(valveStyle).filter_by(name="Butterfly Lugged Wafer").first()
+        # butterfly_element_2 = db.session.query(valveStyle).filter_by(name="Butterfly Double Flanged").first()
+        # globe_element_1 = db.session.query(valveStyle).filter_by(name="Globe Straight").first()
+        # globe_element_2 = db.session.query(valveStyle).filter_by(name="Globe Angle").first()
+        # v_style_list = [butterfly_element_1, butterfly_element_2, globe_element_1, globe_element_2]   
         # data_upload(industry_list, industryMaster)
         # data_upload(region_list, regionMaster)
-        # data_upload(f_state_list, fluidState)
-        data_upload(design_std_list, designStandard)
-        data_upload(application_list, applicationMaster)
+        data_upload(f_state_list, fluidState)
+        # data_upload(design_std_list, designStandard)
+        # data_upload(application_list, applicationMaster)
         # data_upload(rating_list, ratingMaster)
         # data_upload(material_list, materialMaster)
         # data_upload(bonnet_list, bonnet)
@@ -6572,8 +6573,8 @@ def DATA_UPLOAD_BULK():
         # data_upload(balancing_list, balancing)
         # # cv_upload(getRowsFromCsvFile("csv/cvtable_small.csv"))
         # # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
-        data_upload_disc_seat_packing([disc_material_list_butterfly, disc_material_list_butterfly, plug_material_list_globe, plug_material_list_globe], v_style_list, disc)
-        data_upload_disc_seat_packing([seat_material_list_butterfly, seat_material_list_butterfly, seat_material_list_globe, seat_material_list_globe], v_style_list, seat)
+        # data_upload_disc_seat_packing([disc_material_list_butterfly, disc_material_list_butterfly, plug_material_list_globe, plug_material_list_globe], v_style_list, disc)
+        # data_upload_disc_seat_packing([seat_material_list_butterfly, seat_material_list_butterfly, seat_material_list_globe, seat_material_list_globe], v_style_list, seat)
         # data_upload_disc_seat_packing([trim_type_list_butterfly, trim_type_list_butterfly, trim_type_list_globe, trim_type_list_globe], v_style_list, trimType)
         # data_upload(department_list, departmentMaster)
         # data_upload(designation_list, designationMaster)
