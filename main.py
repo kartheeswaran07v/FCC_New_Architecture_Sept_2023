@@ -3308,9 +3308,9 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     units_string = f"{seatDia}+{seatDiaUnit}+{sosPipe}+{densityPipe}+{rw_noise}+{fl_unit_form}+{iPresUnit_form}+{oPresUnit_form}+{vPresUnit_form}+{cPresUnit_form}+{iPipeUnit_form}+{oPipeUnit_form}+{vSizeUnit_form}+mm+mm+{iTempUnit_form}+sg"
     # update valve size in item
     size_in_in = int(round(meta_convert_P_T_FR_L('L', valveSize_form, vSizeUnit_form, 'inch', 1000)))
-    size_id = db.session.query(cvTable).filter_by(valveSize=size_in_in).first()
-    print(size_id)
-    item_selected.size = size_id
+    # size_id = db.session.query(cvTable).filter_by(valveSize=size_in_in).first()
+    # print(size_id)
+    # item_selected.size = size_id
     # load case data with item ID
     # get valvetype - kc requirements
     v_det_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
@@ -3995,9 +3995,9 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
     units_string = f"{seatDia}+{seatDiaUnit}+{sosPipe}+{densityPipe}+{z_factor}+{fl_unit_form}+{iPresUnit_form}+{oPresUnit_form}+{oPresUnit_form}+{oPresUnit_form}+{iPipeUnit_form}+{oPipeUnit_form}+{vSizeUnit_form}+mm+mm+{iTempUnit_form}+{sg_choice}"
     # update valve size in item
     size_in_in = int(round(meta_convert_P_T_FR_L('L', valveSize_form, vSizeUnit_form, 'inch', 1000)))
-    size_id = db.session.query(cvTable).filter_by(valveSize=size_in_in).first()
+    # size_id = db.session.query(cvTable).filter_by(valveSize=size_in_in).first()
     # print(size_id)
-    item_selected.size = size_id
+    # item_selected.size = size_id
     # load case data with item ID
     # get valvetype - kc requirements
     v_det_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
