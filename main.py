@@ -1851,10 +1851,10 @@ def add_many(list_many, table_name):
 
 def cv_upload(data_list):
     with app.app_context():
-        print("delete begin")
-        # data_delete(cvValues)
-        data_delete(cvTable)
-        print("delete done")
+        # print("delete begin")
+        # # data_delete(cvValues)
+        # data_delete(cvTable)
+        # print("delete done")
         new_data_list = data_list[::4]  # Get every fourth element from the list
         len_data = len(new_data_list)
 
@@ -1873,21 +1873,25 @@ def cv_upload(data_list):
             v_style_element = db.session.query(valveStyle).filter_by(name=new_data_list[data_index]['style']).first()
             valve_size = float(new_data_list[data_index]['valveSize'])
             series = new_data_list[data_index]['series']
+            
+            cv__lists = db.session.query(cvTable).filter_by(trimType_=trim_type_element, flowCharacter_=flow_charac_element, flowDirection_=flow_direction_element, rating_c=rating_element, style=v_style_element, balancing=balancing_element, valveSize=valve_size).all()
+                
 
             # Add CV Table Data
             # print(new_data_list[data_index]['no'], trim_type_element.name, flow_charac_element.name, flow_direction_element.name, balancing_element.name, rating_element.name, v_style_element.name)
-            new_cv_table_entry = cvTable(
-                valveSize=valve_size,
-                series=series,
-                trimType_=trim_type_element,
-                flowCharacter_=flow_charac_element,
-                flowDirection_=flow_direction_element,
-                balancing_=balancing_element,
-                rating_c=rating_element,
-                style=v_style_element
-            )
-            db.session.add(new_cv_table_entry)
-            db.session.commit()
+            if len(cv__lists) == 0:
+                new_cv_table_entry = cvTable(
+                    valveSize=valve_size,
+                    series=series,
+                    trimType_=trim_type_element,
+                    flowCharacter_=flow_charac_element,
+                    flowDirection_=flow_direction_element,
+                    balancing_=balancing_element,
+                    rating_c=rating_element,
+                    style=v_style_element
+                )
+                db.session.add(new_cv_table_entry)
+                db.session.commit()
 
         # Once data added, input all cv values
         all_cvs = cvTable.query.all()
