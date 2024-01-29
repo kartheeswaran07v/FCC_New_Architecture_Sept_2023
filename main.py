@@ -5327,7 +5327,7 @@ def valveSizing(proj_id, item_id):
                     db.session.commit()
                 try:
                     for k in range(len_cases_input):
-                        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(output['inletPipeSize'])).first()
+                        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(a['inletPipeSize'][0])).first()
                         port_area_ = db.session.query(portArea).filter_by(v_size=a['vSize'][0], trim_type="contour",
                                                       flow_char="equal").first()
                         valvearea_element = db.session.query(valveArea).filter_by(rating=valve_element.rating.name[5:],
