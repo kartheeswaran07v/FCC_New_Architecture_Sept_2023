@@ -3266,19 +3266,23 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     try:
         i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
                                                                     schedule=iSch).first()
-    except:
-        i_pipearea_elements = pipeArea.query.all()
-        i_pipearea_element = i_pipearea_elements[0]
-    area_in2 = float(i_pipearea_element.area)
-    a_i = 0.00064516 * area_in2
-    iVelocity = flowrate_v / (3600 * a_i)
+        area_in2 = float(i_pipearea_element.area)
+        a_i = 0.00064516 * area_in2
+        iVelocity = flowrate_v / (3600 * a_i)
 
-    o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
-                                                            schedule=oSch).first()
-    print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
-    area_in22 = float(o_pipearea_element.area)
-    a_o = 0.00064516 * area_in22
-    oVelocity = flowrate_v / (3600 * a_o)
+        o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
+                                                                schedule=oSch).first()
+        print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
+        area_in22 = float(o_pipearea_element.area)
+        a_o = 0.00064516 * area_in22
+        oVelocity = flowrate_v / (3600 * a_o)
+    except:
+        a_i = 0.00064516 * 0.074
+        iVelocity = flowrate_v / (3600 * a_i)
+        a_o = 0.00064516 * 0.074
+        oVelocity = flowrate_v / (3600 * a_o)
+
+   
     
 
     valve_element_current = valve_element
@@ -3659,10 +3663,13 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
 
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
+    try:
 
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                            schedule=iSch).first()
-    thickness_pipe = float(i_pipearea_element.thickness)
+        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                                schedule=iSch).first()
+        thickness_pipe = float(i_pipearea_element.thickness)
+    except:
+        thickness_pipe = 1.24
 
     thickness_in = meta_convert_P_T_FR_L('L', thickness_pipe, 'mm', 'inch', 1000)
 
@@ -4127,9 +4134,13 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
     
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                            schedule=iSch).first()
-    thickness_pipe = float(i_pipearea_element.thickness)
+    try:
+
+        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                                schedule=iSch).first()
+        thickness_pipe = float(i_pipearea_element.thickness)
+    except:
+        thickness_pipe = 1.24
     print(f"thickness: {thickness_pipe}")
     
     # 1. flowrate
@@ -4271,11 +4282,16 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
     
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                            schedule=iSch).first()
+    try:
+
+        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                                schedule=iSch).first()
+        thickness_pipe = float(i_pipearea_element.thickness)
+    except:
+        thickness_pipe = 1.24
 # print(f"pipe dia: {inletPipeDia_v}, sch: {iSch}")
 
-    iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(i_pipearea_element.thickness),
+    iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(thickness_pipe),
                                             'mm', 'm', 1000)
     
     flowrate_lnoise = meta_convert_P_T_FR_L('FR', flowrate_form, fl_unit_form, 'kg/hr',
@@ -4393,18 +4409,24 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     #       (outletPipeDia_v - opipeSch_v),
     #       vSize_v)
     
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                schedule=iSch).first()
-    area_in2 = float(i_pipearea_element.area)
-    a_i = 0.00064516 * area_in2
-    iVelocity = flowrate_v / (3600 * a_i)
+    try:
+        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                                    schedule=iSch).first()
+        area_in2 = float(i_pipearea_element.area)
+        a_i = 0.00064516 * area_in2
+        iVelocity = flowrate_v / (3600 * a_i)
 
-    o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
-                                                            schedule=oSch).first()
-    print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
-    area_in22 = float(o_pipearea_element.area)
-    a_o = 0.00064516 * area_in22
-    oVelocity = flowrate_v / (3600 * a_o)
+        o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
+                                                                schedule=oSch).first()
+        print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
+        area_in22 = float(o_pipearea_element.area)
+        a_o = 0.00064516 * area_in22
+        oVelocity = flowrate_v / (3600 * a_o)
+    except:
+        a_i = 0.00064516 * 0.074
+        iVelocity = flowrate_v / (3600 * a_i)
+        a_o = 0.00064516 * 0.074
+        oVelocity = flowrate_v / (3600 * a_o)
     valve_element_current = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     rating_current = valve_element_current.rating
     valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
@@ -4521,7 +4543,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
                         chokedDrop=output['chokedDrop'],
                         fl=output['fl'], tex=output['tex'], powerLevel=output['powerLevel'],
                         criticalPressure=output['criticalPressure'], inletPipeSize=output['inletPipeSize'],
-                        outletPipeSize=output['outletPipeSize'], item=item_selected, cv=cv_table, iPipe=i_pipearea_element)
+                        outletPipeSize=output['outletPipeSize'], item=item_selected, cv=cv_table, iPipe=None)
 
     db.session.add(new_case)
     db.session.commit()
@@ -4546,9 +4568,13 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
 
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                            schedule=iSch).first()
-    thickness_pipe = float(i_pipearea_element.thickness)
+    try:
+
+        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                                schedule=iSch).first()
+        thickness_pipe = float(i_pipearea_element.thickness)
+    except:
+        thickness_pipe = 1.24
     thickness_in = meta_convert_P_T_FR_L('L', thickness_pipe, 'mm', 'inch', 1000)
     fl_unit = fl_unit_form
     if fl_unit in ['m3/hr', 'scfh', 'gpm']:
@@ -5011,7 +5037,7 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
                          machNoUp=result_dict['machNoUp'], machNoDown=result_dict['machNoDown'], machNoValve=result_dict['machNoVel'],
                          sonicVelUp=result_dict['sonicVelUp'], sonicVelDown=result_dict['sonicVelDown'],
                          sonicVelValve=result_dict['sonicVelValve'], outletDensity=result_dict['outletDensity'],x_delp=result_dict['x_delp'],
-                         cv=cv_table, iPipe=i_pipearea_element)
+                         cv=cv_table, iPipe=None)
     db.session.add(new_case)
     db.session.commit()
 
@@ -5337,7 +5363,7 @@ def valveSizing(proj_id, item_id):
                                                 chokedDrop=output['chokedDrop'],
                                                 fl=output['fl'], tex=output['tex'], powerLevel=output['powerLevel'],
                                                 criticalPressure=output['criticalPressure'], inletPipeSize=output['inletPipeSize'],
-                                                outletPipeSize=output['outletPipeSize'], item=item_selected, iPipe=sch_element
+                                                outletPipeSize=output['outletPipeSize'], item=item_selected, iPipe=None
                                                 )
                         
                         
@@ -5395,7 +5421,7 @@ def valveSizing(proj_id, item_id):
                                                 seatDia=output['seatDia'], machNoUp=output['machNoUp'], machNoDown=output['machNoDown'], machNoValve=output['machNoVel'],
                                                 sonicVelUp=output['sonicVelUp'], sonicVelDown=output['sonicVelDown'],
                                                 sonicVelValve=output['sonicVelValve'], outletDensity=output['outletDensity'],
-                                                item=item_selected, specificHeatRatio=a['specificHeatRatio'][0], compressibility=a['compressibility'][0], iPipe=sch_element)
+                                                item=item_selected, specificHeatRatio=a['specificHeatRatio'][0], compressibility=a['compressibility'][0], iPipe=None)
 
                         db.session.add(new_case)
                         db.session.commit()
