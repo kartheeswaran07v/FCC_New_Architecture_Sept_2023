@@ -17,12 +17,14 @@ from flask import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import *
 import random
-from functions import FR, N1, N2, N4, N5_in, N6_lbhr_psi_lbft3, N7_60_scfh_psi_F, N8_kghr_bar_K, N9_O_m3hr_kPa_C, REv, conver_FR_noise, full_format, getFlowCharacter, getValveType, meta_convert_P_T_FR_L, project_status_list, notes_dict_reorder, purpose_list, units_dict, actuator_data_dict
+from functions import FR, N1, N2, N4, N5_in, N6_lbhr_psi_lbft3, N7_60_scfh_psi_F, N8_kghr_bar_K, N9_O_m3hr_kPa_C, REv, conver_FR_noise, full_format, getFlowCharacter, getValveType, meta_convert_P_T_FR_L, project_status_list, notes_dict_reorder, purpose_list, units_dict, actuator_data_dict, valve_force_dict
 from gas_noise_formulae import lpae_1m
 from gas_velocity_iec import getGasVelocities
 from liquid_noise_formulae import Lpe1m
 from sqlalchemy.sql.sqltypes import String, VARCHAR, FLOAT, INTEGER
 from jinja2 import Environment, FileSystemLoader
+
+from specsheet import createSpecSheet
 
 # -----------^^^^^^^^^^^^^^----------------- IMPORT STATEMENTS -----------------^^^^^^^^^^^^^------------ #
 
@@ -1232,6 +1234,19 @@ class actuatorCaseData(db.Model):
     rotaryActuatorId = Column(Integer, ForeignKey("rotaryActuatorData.id"))
     rotaryActuator = relationship('rotaryActuatorData', back_populates='actuatorCase')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = actuatorCaseData.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class packingFriction(db.Model):
     __tablename__ = "packingFriction"
@@ -1653,6 +1668,112 @@ table_data_render = [
     {'name': 'HW Thrust', 'db': hwThrust, 'id': 53},
     {'name': 'Solenoid', 'db': solenoid, 'id': 54},
 ]
+
+
+### ----------------------------------------- Actuator Functions --------------------------------#
+def valveForces(p1_, p2_, d1, d2, d3, ua, rating, material, leakageClass, trimtype, balance, flow,
+                case, shutoffDelP):
+    print('Valve forces inputs:')
+    print(p1_, p2_, d1, d2, d3, ua, rating, material, leakageClass, trimtype, balance, flow,
+          case, shutoffDelP)
+    num = 0
+    if trimtype == 'contour':
+        flow = 'under'
+        balance = 'unbalanced'
+    if d1 in [1, 3, 8, 11, 4]:
+        d1 = round(d1)
+    p1 = p1_
+    p2 = p2_
+    a1 = 0.785 * d1 * d1  # seat bore - seat dia
+    a2 = 0.785 * d2 * d2  # plug dia
+    a3 = 0.785 * d3 * d3  # stem dia
+    shutoffDelP = shutoffDelP
+    with app.app_context():
+        friction_element = db.session.query(packingFriction).filter_by(stemDia=d3, pressure=rating).first()
+        print(trimtype, d1)
+        a_ = {'ptfe1': friction_element.ptfe1, 'ptfe2': friction_element.ptfe2, 'ptfer': friction_element.ptfer,
+              'graphite': friction_element.graphite}
+        print(trimtype, d1)
+        sf_element = db.session.query(seatLoadForce).filter_by(trimtype=trimtype, seatBore=d1).first()
+        # print(trimtype, d1)
+        try:
+            b_ = {'six': sf_element.six, 'two': sf_element.two, 'three': sf_element.three, 'four': sf_element.four,
+                'five': sf_element.five}
+            B = float(a_[material])
+            C = math.pi * d1 * float(b_[leakageClass])
+        except AttributeError:
+            b_ = {'six': None, 'two': None, 'three': None, 'four': None,
+                'five': None}
+            B = 0
+            C = 0
+        # print(f"Packing friction: {B}, Seat Load Force: {C}")
+    print((trimtype, balance, flow, case))
+    for i in valve_force_dict:
+        if i['key'] == (trimtype, balance, flow.lower(), case):
+            num = int(i['formula'])
+    print(f'num: {num}')
+    if num == 1:
+        a_ = shutoffDelP * a1
+        UA = a1
+    elif num == 2:
+        a_ = shutoffDelP * a1
+        UA = a1
+    elif num == 3:
+        a_ = shutoffDelP * (a3 - a1)
+        UA = a3 - a1
+    elif num == 4:
+        a_ = shutoffDelP * (a3 - ua)
+        UA = ua
+    elif num == 5:
+        a_ = shutoffDelP * ua
+        UA = ua
+    elif num == 6:
+        a_ = (shutoffDelP * a1) + B + C
+        UA = a1
+        # print(a_, p1, a1)
+    elif num == 7:
+        a_ = (shutoffDelP * a1) + B + C
+        UA = a1
+        # print(a_, p1, a1)
+    elif num == 8:
+        a_ = (shutoffDelP * (a3 - a1)) + B + C
+        UA = a3 - a1
+    elif num == 9:
+        a_ = shutoffDelP * (a3 - ua) + B + C
+        UA = ua
+        print(f"inputs for equation 9: {a3, ua, shutoffDelP, B, C}")
+    elif num == 10:
+        a_ = (shutoffDelP * ua) + B + C
+        UA = ua
+    elif num in [11, 12]:
+        a_ = (p1 * a1) + (p2 * (a2 - a1)) - (p2 * (a2 - a3))
+        print(f"eq 11 or 12 inputs: {p1}, {p2}, {a1}, {a2}, {a3}")
+        UA = a2 - a1
+    elif num == 13:
+        a_ = p1 * (a2 - a1) + p2 * a1 - p1 * (a2 - a3)
+        UA = a2 - a1
+    elif num == 14:
+        a_ = p1 * a1 + p2 * (a2 - a1) - p1 * (a2 - a3)
+        UA = a2 - a1
+    elif num == 15:
+        a_ = p1 * (a2 - a1) + p2 * a1 - p2 * (a2 - a3)
+        UA = a2 - a1
+    elif num in [16, 17, 19]:
+        a_ = (p1 * a2) - (p2 * (a2 - a3))
+        print(f"eq 16 inputs: {p1}, {p2}, {a2}, {a3}")
+        UA = a2 - a1
+    elif num in [18, 20]:
+        a_ = p2 * a2 - p1 * (a2 - a3)
+        UA = a2 - a1
+    else:
+        a_ = 1
+        UA = a2 - a1
+
+    return_list = [round(a_, 3), UA, B, b_[leakageClass]]
+
+    return return_list
+
+
 
 
 ### --------------------------------- Major Functions -----------------------------------------------------###
@@ -2887,14 +3008,10 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     # 1. flowrate
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v)).first()
-    except:
-        i_pipearea_element = None
-    try:
-        thickness_pipe = float(i_pipearea_element.thickness)
-    except:
-        thickness_pipe = None
+    
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v)).first()
+
+    thickness_pipe = float(i_pipearea_element.thickness)
     print(f"thickness: {thickness_pipe}")
     if fl_unit_form not in ['m3/hr', 'gpm']:
         flowrate_liq = meta_convert_P_T_FR_L('FR', flowrate_form, fl_unit_form,
@@ -3028,16 +3145,13 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
                                             1000)
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                schedule=iSch).first()
-    except:
-        i_pipearea_element = None
-    if i_pipearea_element:
-        iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(i_pipearea_element.thickness),
-                                        'mm', 'm', 1000)
-    else:
-        iPipeSch_lnoise = 0.001
+    
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                            schedule=iSch).first()
+
+    iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(i_pipearea_element.thickness),
+                                    'mm', 'm', 1000)
+    
 
 
     
@@ -3148,23 +3262,18 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     # print(flowrate_v, (inletPipeDia_v - ipipeSch_v),
     #       (outletPipeDia_v - opipeSch_v),
     #       vSize_v)
-    try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                    schedule=iSch).first()
-        area_in2 = float(i_pipearea_element.area)
-        a_i = 0.00064516 * area_in2
-        iVelocity = flowrate_v / (3600 * a_i)
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                                schedule=iSch).first()
+    area_in2 = float(i_pipearea_element.area)
+    a_i = 0.00064516 * area_in2
+    iVelocity = flowrate_v / (3600 * a_i)
 
-        o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
-                                                                schedule=oSch).first()
-        print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
-        area_in22 = float(o_pipearea_element.area)
-        a_o = 0.00064516 * area_in22
-        oVelocity = flowrate_v / (3600 * a_o)
-    except:
-        i_pipearea_element = None
-        iVelocity = 1
-        oVelocity = 1
+    o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
+                                                            schedule=oSch).first()
+    print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
+    area_in22 = float(o_pipearea_element.area)
+    a_o = 0.00064516 * area_in22
+    oVelocity = flowrate_v / (3600 * a_o)
     
 
     valve_element_current = valve_element
@@ -3545,12 +3654,11 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
 
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                schedule=iSch).first()
-        thickness_pipe = float(i_pipearea_element.thickness)
-    except:
-        thickness_pipe = 1
+
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                            schedule=iSch).first()
+    thickness_pipe = float(i_pipearea_element.thickness)
+
     thickness_in = meta_convert_P_T_FR_L('L', thickness_pipe, 'mm', 'inch', 1000)
 
     if sg__ == 1:
@@ -4013,13 +4121,12 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     # check whether flowrate, pres and l are in correct units
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                schedule=iSch).first()
-        thickness_pipe = float(i_pipearea_element.thickness)
-        print(f"thickness: {thickness_pipe}")
-    except:
-        thickness_pipe = 1
+    
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                            schedule=iSch).first()
+    thickness_pipe = float(i_pipearea_element.thickness)
+    print(f"thickness: {thickness_pipe}")
+    
     # 1. flowrate
     if fl_unit_form not in ['m3/hr', 'gpm']:
         flowrate_liq = meta_convert_P_T_FR_L('FR', flowrate_form, fl_unit_form,
@@ -4158,15 +4265,14 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
 
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                schedule=iSch).first()
-    # print(f"pipe dia: {inletPipeDia_v}, sch: {iSch}")
+    
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                            schedule=iSch).first()
+# print(f"pipe dia: {inletPipeDia_v}, sch: {iSch}")
 
-        iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(i_pipearea_element.thickness),
-                                                'mm', 'm', 1000)
-    except:
-        iPipeSch_lnoise = 0.001
+    iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(i_pipearea_element.thickness),
+                                            'mm', 'm', 1000)
+    
     flowrate_lnoise = meta_convert_P_T_FR_L('FR', flowrate_form, fl_unit_form, 'kg/hr',
                                             specificGravity * 1000) / 3600
     outletPressure_lnoise = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form,
@@ -4281,24 +4387,19 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     # print(flowrate_v, (inletPipeDia_v - ipipeSch_v),
     #       (outletPipeDia_v - opipeSch_v),
     #       vSize_v)
-    try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                    schedule=iSch).first()
-        area_in2 = float(i_pipearea_element.area)
-        a_i = 0.00064516 * area_in2
-        iVelocity = flowrate_v / (3600 * a_i)
+    
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                                schedule=iSch).first()
+    area_in2 = float(i_pipearea_element.area)
+    a_i = 0.00064516 * area_in2
+    iVelocity = flowrate_v / (3600 * a_i)
 
-        o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
-                                                                schedule=oSch).first()
-        print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
-        area_in22 = float(o_pipearea_element.area)
-        a_o = 0.00064516 * area_in22
-        oVelocity = flowrate_v / (3600 * a_o)
-    except:
-        i_pipearea_element = None
-        iVelocity = 1
-        oVelocity = 1
-
+    o_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(outletPipeDia_v),
+                                                            schedule=oSch).first()
+    print(f"oPipedia: {outletPipeDia_v}, sch: {oSch}")
+    area_in22 = float(o_pipearea_element.area)
+    a_o = 0.00064516 * area_in22
+    oVelocity = flowrate_v / (3600 * a_o)
     valve_element_current = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     rating_current = valve_element_current.rating
     valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
@@ -4415,7 +4516,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
                         chokedDrop=output['chokedDrop'],
                         fl=output['fl'], tex=output['tex'], powerLevel=output['powerLevel'],
                         criticalPressure=output['criticalPressure'], inletPipeSize=output['inletPipeSize'],
-                        outletPipeSize=output['outletPipeSize'], item=item_selected, cv=cv_table)
+                        outletPipeSize=output['outletPipeSize'], item=item_selected, cv=cv_table, iPipe=i_pipearea_element)
 
     db.session.add(new_case)
     db.session.commit()
@@ -4439,12 +4540,10 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     # logic to choose which formula to use - using units of flowrate and sg
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                schedule=iSch).first()
-        thickness_pipe = float(i_pipearea_element.thickness)
-    except:
-        thickness_pip = 1.24
+
+    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                            schedule=iSch).first()
+    thickness_pipe = float(i_pipearea_element.thickness)
     thickness_in = meta_convert_P_T_FR_L('L', thickness_pipe, 'mm', 'inch', 1000)
     fl_unit = fl_unit_form
     if fl_unit in ['m3/hr', 'scfh', 'gpm']:
@@ -4907,7 +5006,7 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
                          machNoUp=result_dict['machNoUp'], machNoDown=result_dict['machNoDown'], machNoValve=result_dict['machNoVel'],
                          sonicVelUp=result_dict['sonicVelUp'], sonicVelDown=result_dict['sonicVelDown'],
                          sonicVelValve=result_dict['sonicVelValve'], outletDensity=result_dict['outletDensity'],x_delp=result_dict['x_delp'],
-                         cv=cv_table)
+                         cv=cv_table, iPipe=i_pipearea_element)
     db.session.add(new_case)
     db.session.commit()
 
@@ -5220,7 +5319,7 @@ def valveSizing(proj_id, item_id):
                                             item_selected.project.lengthUnit, a['vSize'][0], item_selected.project.lengthUnit, a['ratedCV'][0],
                                             rw_noise, item_selected, fluid_element.fluidName, valve_element)
                         
-
+                        sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(output['inletPipeSize'])).first()
                         new_case = caseMaster(flowrate=output['flowrate'], inletPressure=output['inletPressure'],
                                                 outletPressure=output['outletPressure'],
                                                 inletTemp=output['inletTemp'], specificGravity=output['specificGravity'],
@@ -5233,7 +5332,7 @@ def valveSizing(proj_id, item_id):
                                                 chokedDrop=output['chokedDrop'],
                                                 fl=output['fl'], tex=output['tex'], powerLevel=output['powerLevel'],
                                                 criticalPressure=output['criticalPressure'], inletPipeSize=output['inletPipeSize'],
-                                                outletPipeSize=output['outletPipeSize'], item=item_selected
+                                                outletPipeSize=output['outletPipeSize'], item=item_selected, iPipe=sch_element
                                                 )
                         
                         
@@ -5272,7 +5371,7 @@ def valveSizing(proj_id, item_id):
                                                 5000, a['vSize'][0],
                                                 item_selected.project.lengthUnit, a['vSize'][0], item_selected.project.lengthUnit, a['ratedCV'][0],
                                                 rw_noise, item_selected, a['mw_sg'][0], a['compressibility'][k], a['molecularWeight'][k], fluid_element.fluidName)
-                    
+                        sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(output['inletPipeSize'])).first()
                         new_case = caseMaster(flowrate=output['flowrate'], inletPressure=output['inletPressure'],
                                                 outletPressure=output['outletPressure'],
                                                 inletTemp=output['inletTemp'], specificGravity=output['specificGravity'],
@@ -5291,7 +5390,7 @@ def valveSizing(proj_id, item_id):
                                                 seatDia=output['seatDia'], machNoUp=output['machNoUp'], machNoDown=output['machNoDown'], machNoValve=output['machNoVel'],
                                                 sonicVelUp=output['sonicVelUp'], sonicVelDown=output['sonicVelDown'],
                                                 sonicVelValve=output['sonicVelValve'], outletDensity=output['outletDensity'],
-                                                item=item_selected, specificHeatRatio=a['specificHeatRatio'][0], compressibility=a['compressibility'][0])
+                                                item=item_selected, specificHeatRatio=a['specificHeatRatio'][0], compressibility=a['compressibility'][0], iPipe=sch_element)
 
                         db.session.add(new_case)
                         db.session.commit()
@@ -5605,7 +5704,7 @@ def selectValve(proj_id, item_id):
                                   last_case.kinematicViscosity, seat_bore, 'inch', sosPipe, densityPipe, rw_noise,
                                   item_selected,
                                   fl_unit, iPresUnit, oPresUnit, vPresUnit, cPresUnit, iPipeUnit, oPipeUnit, 'inch',
-                                  'std', iPipeSchUnit, 'std', oPipeSchUnit, iTempUnit,
+                                  last_case.iPipe.schedule, iPipeSchUnit, last_case.iPipe.schedule, oPipeSchUnit, iTempUnit,
                                   o_percent, fd, travel, rated_cv_tex, fluidName_, valve_d_id.cv)
                         db.session.delete(last_case)
                         db.session.commit()
@@ -5619,8 +5718,8 @@ def selectValve(proj_id, item_id):
                                   fl_unit,
                                   iPresUnit,
                                   oPresUnit, vPresUnit, iPipeUnit, oPipeUnit, 'inch',
-                                  'std',
-                                  iPipeSchUnit, 'std', oPipeSchUnit, iTempUnit, xt, last_case.molecularWeight,
+                                  last_case.iPipe.schedule,
+                                  iPipeSchUnit, last_case.iPipe.schedule, oPipeSchUnit, iTempUnit, xt, last_case.molecularWeight,
                                   sg_choice, o_percent, fd, travel, rated_cv_tex,fluidName_, valve_d_id.cv)
 
                         db.session.delete(last_case)
@@ -5646,10 +5745,10 @@ def actuatorSizing(proj_id, item_id):
         actuator_input_dict['actuatorType'] = [request.form.get('actType')]
         actuator_input_dict['springAction'] = [request.form.get('failAction')]
         actuator_input_dict['handWheel'] = [request.form.get('mount')]
-        actuator_input_dict['adjustabeTravelStop'] = [request.form.get('travel')]
+        actuator_input_dict['adjustableTravelStop'] = [request.form.get('travel')]
         actuator_input_dict['orientation'] = [request.form.get('orientation')]
         actuator_input_dict['availableAirSupplyMin'] = [request.form.get('availableAirSupplyMin')]
-        actuator_input_dict['availableAirSupplyMax'] = [request.form.get('availableAirSupplyMin')]
+        actuator_input_dict['availableAirSupplyMax'] = [request.form.get('availableAirSupplyMax')]
         # print(actuator_input_dict)
         if request.form.get('sliding'):
             print('working')
@@ -5670,36 +5769,148 @@ def actuatorSizing(proj_id, item_id):
 def slidingStem(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, int(item_id))
     cases = db.session.query(caseMaster).filter_by(item=item_element).all()
+    cv_element = db.session.query(cvValues).filter_by(cv=cases[0].cv).first() 
+
+    print(cv_element.seatBore)
+    act_element = db.session.query(actuatorMaster).filter_by(item=item_element).first()
     print(len(cases))
     selected_sized_valve_element = cases[0].cv
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
     metadata_ = metadata()
     print(selected_sized_valve_element.balancing_.name)
-    return render_template('slidingstem.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                           metadata=metadata_, page='slidingStem', valve=valve_element, cv=selected_sized_valve_element)
+    if request.method == 'POST':
+        actuator_input_dict = {}
+        actuator_input_dict['actuatorType'] = [request.form.get('actType')]
+        actuator_input_dict['springAction'] = [request.form.get('failAction')]
+        actuator_input_dict['handWheel'] = [request.form.get('mount')]
+        actuator_input_dict['adjustableTravelStop'] = [request.form.get('travel')]
+        actuator_input_dict['orientation'] = [request.form.get('orientation')]
+        actuator_input_dict['availableAirSupplyMin'] = [request.form.get('availableAirSupplyMin')]
+        actuator_input_dict['availableAirSupplyMax'] = [request.form.get('availableAirSupplyMax')]
+        # print(actuator_input_dict)
+        if request.form.get('sliding'):
+            print('working')
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('slidingStem', item_id=item_id, proj_id=proj_id))
+        elif request.form.get('rotary'):
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('rotaryActuator', item_id=item_id, proj_id=proj_id))
+        elif request.form.get('stroketime'):
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('strokeTime', item_id=item_id, proj_id=proj_id))
+        elif request.form.get('submit1'):
+            plugDia = float(request.form.get('plugDia'))
+            stemDia = float(request.form.get('stemDia'))
+            ua = float(request.form.get('ua'))
+            seatDia = float(request.form.get('seatDia'))
+            balance = request.form.get('balance')
+            stroke = request.form.get('stroke')
+            iPressure = float(request.form.get('iPressure'))
+            oPressure = float(request.form.get('oPressure'))
+            shutOffDelP = float(request.form.get('shutOffDelP'))
+            valve_forces = valveForces(iPressure, oPressure, seatDia, plugDia, stemDia, ua, valve_element.rating.name, 'ptfe1',
+                                        valve_element.seatLeakageClass__.name, valve_element.trimType__.name, balance, valve_element.flowDirection__.name, 'shutoff+', shutOffDelP)
+            vf_shutoff = valveForces(iPressure, oPressure, seatDia, plugDia, stemDia, ua, valve_element.rating.name, 'ptfe1',
+                                        valve_element.seatLeakageClass__.name, valve_element.trimType__.name, balance, valve_element.flowDirection__.name, 'shutoff', shutOffDelP)
+            vf_open = valveForces(iPressure, oPressure, seatDia, plugDia, stemDia, ua, valve_element.rating.name, 'ptfe1',
+                                        valve_element.seatLeakageClass__.name, valve_element.trimType__.name, balance, valve_element.flowDirection__.name, 'open', shutOffDelP)
+            vf_close = valveForces(iPressure, oPressure, seatDia, plugDia, stemDia, ua, valve_element.rating.name, 'ptfe1',
+                                        valve_element.seatLeakageClass__.name, valve_element.trimType__.name, balance, valve_element.flowDirection__.name, 'close', shutOffDelP)
+            v_shutoff, v_shutoff_plus, v_open, v_close = round(vf_shutoff[0]), round(valve_forces[0]), round(
+                vf_open[0]), round(vf_close[0])
+
+            packing_fric = valve_forces[2]
+            seatload_fact = valve_forces[3]
+            # store data in v_details
+            valve_element.valve_size = f"{balance}#{stroke}#{round(seatDia, 3)}#{plugDia}#{stemDia}#{ua}#{v_shutoff}#{v_shutoff_plus}#{v_open}#{v_close}#{packing_fric}#{seatload_fact}"
+            db.session.commit()
+            v_data = [v_shutoff, v_shutoff_plus, v_open, v_close]
+            act_case_data = db.session.query(actuatorCaseData).filter_by(actuator_=act_element).all()
+            if len(act_case_data) == 0:
+                new_act = actuatorCaseData(actuator_=act_element)
+                db.session.add(new_act)
+                db.session.commit()
+            
+            act_case_data_ = db.session.query(actuatorCaseData).filter_by(actuator_=act_element).first()
+            
+            # get data again
+            data__ = [valve_element.trimType__.name, valve_element.flowDirection__.name, cases[0].valveSize, cv_element.seatBore, iPressure, oPressure, shutOffDelP,
+                        iPressure - oPressure]
+        else:
+            pass
+    return render_template('slidingstem.html', item=getDBElementWithId(itemMaster, int(item_id)), 
+                           user=current_user, metadata=metadata_, page='slidingStem', 
+                           valve=valve_element, cv=selected_sized_valve_element, act=act_element, 
+                           cases=cases, cv_element=cv_element)
 
 
 @app.route('/rotary-actuator/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def rotaryActuator(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, int(item_id))
+    act_element = db.session.query(actuatorMaster).filter_by(item=item_element).first()
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
     metadata_ = metadata()
+    if request.method == 'POST':
+        actuator_input_dict = {}
+        actuator_input_dict['actuatorType'] = [request.form.get('actType')]
+        actuator_input_dict['springAction'] = [request.form.get('failAction')]
+        actuator_input_dict['handWheel'] = [request.form.get('mount')]
+        actuator_input_dict['adjustableTravelStop'] = [request.form.get('travel')]
+        actuator_input_dict['orientation'] = [request.form.get('orientation')]
+        actuator_input_dict['availableAirSupplyMin'] = [request.form.get('availableAirSupplyMin')]
+        actuator_input_dict['availableAirSupplyMax'] = [request.form.get('availableAirSupplyMax')]
+        # print(actuator_input_dict)
+        if request.form.get('sliding'):
+            print('working')
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('slidingStem', item_id=item_id, proj_id=proj_id))
+        elif request.form.get('rotary'):
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('rotaryActuator', item_id=item_id, proj_id=proj_id))
+        elif request.form.get('stroketime'):
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('strokeTime', item_id=item_id, proj_id=proj_id))
+        else:
+            pass
     return render_template('RotaryActuatorSizing.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                           metadata=metadata_, page='rotaryActuator', valve=valve_element)
+                           metadata=metadata_, page='rotaryActuator', valve=valve_element, act=act_element)
 
 
 @app.route('/stroke-time/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def strokeTime(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, int(item_id))
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    act_element = db.session.query(actuatorMaster).filter_by(item=item_element).first()
     actuator_element = db.session.query(actuatorMaster).filter_by(item=item_element).first()
     metadata_ = metadata()
     if actuator_element.actuatorType == 'Piston without Spring':
         html_page = 'stroke_time_piston.html'
     else:
         html_page = 'stroke_time_spring.html'
+    if request.method == 'POST':
+        actuator_input_dict = {}
+        actuator_input_dict['actuatorType'] = [request.form.get('actType')]
+        actuator_input_dict['springAction'] = [request.form.get('failAction')]
+        actuator_input_dict['handWheel'] = [request.form.get('mount')]
+        actuator_input_dict['adjustableTravelStop'] = [request.form.get('travel')]
+        actuator_input_dict['orientation'] = [request.form.get('orientation')]
+        actuator_input_dict['availableAirSupplyMin'] = [request.form.get('availableAirSupplyMin')]
+        actuator_input_dict['availableAirSupplyMax'] = [request.form.get('availableAirSupplyMax')]
+        # print(actuator_input_dict)
+        if request.form.get('sliding'):
+            print('working')
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('slidingStem', item_id=item_id, proj_id=proj_id))
+        elif request.form.get('rotary'):
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('rotaryActuator', item_id=item_id, proj_id=proj_id))
+        elif request.form.get('stroketime'):
+            act_element.update(actuator_input_dict, act_element.id)
+            return redirect(url_for('strokeTime', item_id=item_id, proj_id=proj_id))
+        else:
+            pass
     return render_template(html_page, item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                           metadata=metadata_, page='strokeTime', valve=valve_element)
+                           metadata=metadata_, page='strokeTime', valve=valve_element, act=act_element)
 
 
 # Accessories
@@ -6038,8 +6249,8 @@ def nextItem(control, page, item_id, proj_id):
 
 
 
-@app.route('/generate-csv/proj-<proj_id>/item-<item_id>/<page>', methods=['GET', 'POST'])
-def generate_csv(page, item_id, proj_id):
+@app.route('/generate-csv/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def generate_csv(item_id, proj_id):
     with app.app_context():
         item_selected = getDBElementWithId(itemMaster, item_id)
         project_ = item_selected.project
@@ -6050,7 +6261,6 @@ def generate_csv(page, item_id, proj_id):
         others__ = []
 
         for item in all_items:
-
             v_details = db.session.query(valveDetailsMaster).filter_by(item=item).first()
             acc_details = db.session.query(accessoriesData).filter_by(item=item).first()
             acc_list = [acc_details.manufacturer, acc_details.model, acc_details.action, acc_details.afr,
@@ -6062,99 +6272,18 @@ def generate_csv(page, item_id, proj_id):
                         '3/2 Way', acc_details.volume_tank]
             # Act data
             # Act data
-            act_data = v_details.rating_v
-            print(f'act-data: {act_data}')
-            if act_data:
-                act_data_string = act_data.split('#')
-            else:
-                act_data_string = []
-
-            act_valve_data = v_details.valve_size
-            if act_valve_data:
-                if type(act_valve_data) == str:
-                    act_valve_data_string = act_valve_data.split('#')
-                else:
-                    act_valve_data_string = []
-            else:
-                act_valve_data_string = []
-
-            act_other_ = v_details.serial_no
-            if act_other_:
-                if type(act_valve_data) == str:
-                    act_other = act_other_.split('#')
-                else:
-                    act_other = []
-            else:
-                act_other = []
-
-            # Get actuator model
-            if (len(act_other) > 0) and (len(act_data_string) > 0):
-                act_model = getActuatorModel(act_other[0], act_data_string[17], act_other[1], act_other[3], act_other[8])
-                print("Actuator Model input")
-                print(act_other[0], act_data_string[17], act_other[1], act_other[3], act_other[8])
-            else:
-                act_model = None
-            # VAlve type
-
-            model_str = getModelNo(v_details)
-            print(f"v_type: {v_details.ratedCV}")
-            if v_details:
-                v_model = v_details.ratedCV
-                if v_model:
-                    v_model_lower = v_model.lower()
-                else:
-                    v_model_lower = 'globe'
-            else:
-                v_model_lower = 'globe'
-            # serial, quantity and project ID, material
-            serial_ = db.session.query(valveSeries).filter_by(id=item.serialID).first()
-            material_updated = db.session.query(materialMaster).filter_by(id=v_details.body_material).first()
-            packing_material_updated = db.session.query(valveTypeMaterial).filter_by(id=v_details.packing).first()
-            stem_material_updated = db.session.query(valveTypeMaterial).filter_by(id=v_details.stem).first()
-            # print(material_updated.name)
-            serial___ = serial_.name
-            item_d_element = db.session.query(itemDummy).filter_by(item_id=item.id).first()
-            if item_d_element:
-                serial__ = item_d_element.other_4
-                valve_id = item_d_element.valve_id
-            else:
-                serial__ = 'N/A'
-                valve_id = None
-
-            if valve_id:
-                globe_valve_element = globeTable.query.get(int(valve_id))
-                details_ = globe_valve_element.charac
-                details_list = details_.split('#')
-                seat_bore = details_list[-1]
-                travel_ = details_list[-2]
-                flow_dir_ = details_list[-5]
-                flow_charc = details_list[-6]
-                trim_type_ = details_list[-7]
-                flow_dir_dict = {"over": "Over", "under": "Under", "down": "Flow To Close"}
-                flow_charc_dict = {"linear": "Linear", "equal": "Equal %", "mod_equal": "Mod Eq %"}
-                trim_type_dict = {"ported": "Ported Cage", "contour": "Contoured", "do": "Double Offset", "to": "Triple Offset", "microspline": "Microspline", "ac_trim": "Anti Cavitation Trim", "an_trim": "Low Noise Trim"}
-
-                final_flow_dir = flow_dir_dict[flow_dir_]
-                final_flow_charc = flow_charc_dict[flow_charc]
-                final_trim_type = trim_type_dict[trim_type_]
-            else:
-                seat_bore = None
-                travel_ = None
-                final_flow_dir = None
-                final_flow_charc = None
-                final_trim_type = None
-
-                
-            
+            act_data_string = []
+            # else:
+            act_valve_data_string = []
+            act_other = []
+            act_model = None
+            model_str = None
+            v_model_lower = getValveType(v_details.style.name)
             
 
-            material_ = material_updated.name
-            itemCases_1 = db.session.query(itemCases).filter_by(itemID=item.id).all()
+            # material_ = material_updated.name
+            itemCases_1 = db.session.query(caseMaster).filter_by(item=item).all()
             date = datetime.date.today().strftime("%d-%m-%Y -- %H-%M-%S")
-            size__ = db.session.query(valveSize).filter_by(id=item.sizeID).first().size
-            rating__ = db.session.query(rating).filter_by(id=item.ratingID).first().size
-            project__ = db.session.query(projectMaster).filter_by(id=item.projectID).first()
-            customer__ = db.session.query(customerMaster).filter_by(id=project__.customerID).first().name
 
             fields___ = ['Flow Rate', 'Inlet Pressure', 'Outlet Pressure', 'Inlet Temperature', 'Specific Gravity',
                          'Viscosity', 'Vapor Pressure', 'Xt', 'Calculated Cv', 'Open %', 'Valve SPL', 'Inlet Velocity',
@@ -6163,128 +6292,49 @@ def generate_csv(page, item_id, proj_id):
                          'Inlet Pipe Size', 'Outlet Pipe Size', 'Valve Size', 'Rating', 'Quote No.', 'Work Order No.',
                          'Customer']
 
-            # other_fields_row = [item_selected.tag_no, item_selected.id, itemCases_1[0].fState,
-            #                     itemCases_1[0].criticalPressure,
-            #                     itemCases_1.iPipeSize, itemCases_1.oPipeSize, size__, rating__, project__.quote,
-            #                     project__.work_order,
-            #                     customer__]
-
-            # data rows of csv file
             rows___ = []
 
             # get units
-            cases = db.session.query(itemCases).filter_by(itemID=item.id).all()
+            cases = db.session.query(caseMaster).filter_by(item=item).all()
             if len(cases) == 0:
                 pass
             else:
                 last_case = cases[len(cases) - 1]
-                # cpressure, valveSize
-                cPressure = last_case.criticalPressure
-                vSize = last_case.vaporInlet
-
-                # shutoffDelp, rating, endconnection, endfinish, bonnettype, nde1, nde2, gasketmaterial, trimtype, flowdirection, seat material, discMaterial, seatleakage class
-                shutoffDelp = float(v_details.shutOffDelP) * 14.5
-                rating_ = rating.query.get(v_details.rating).size
-                end_connection = endConnection.query.get(v_details.endConnection_v).name
-                end_finish = endFinish.query.get(v_details.endFinish_v).name
-                bonnet_type = bonnetType.query.get(v_details.bonnetType_v).name
-                bonnet_material = materialMaster.query.get(v_details.bonnet_v).name
-                bonnetExtDimen = v_details.bonnetExtDimension
-                balanceSeal = v_details.balanceScale
-                try:
-                    balanceSeal = balanceSeal.upper()
-                except AttributeError:
-                    balanceSeal = ""
-                print(f"stud nut id: {v_details.stud_nut}")
-                studnut = valveTypeMaterial.query.get(v_details.stud_nut).name
-
-                nde1 = bodyBonnet.query.get(v_details.nde1).name
-                nde2 = bodyBonnet.query.get(v_details.nde2).name
-                gasket_mat = valveTypeMaterial.query.get(v_details.gasket).name
-                trim_type = trimType.query.get(v_details.trimType_v).name
-                try:
-                    flow_dir = flowDirection.query.get(v_details.flowDirection_v).name
-                except:
-                    flow_dir = 'over'
-                seat_mat = valveTypeMaterial.query.get(v_details.seat).name
-                disc_mat = valveTypeMaterial.query.get(v_details.plug).name
-                seat_leak = seatLeakageClass.query.get(v_details.seatLeakageClass_v).name
-
-                # rated cv
-                cv_ = last_case.vaporOutlet.split('+')[-1]
-                # units
-                aaaaa = last_case.reqStage
-                aaaaa_list = aaaaa.split('+')
-                # print(aaaaa_list, len(aaaaa_list))
-                seatDia, seatDiaUnit, sosPipe, densityPipe, rw_noise, fl_unit, iPresUnit, oPresUnit, vPresUnit, cPresUnit, iPipeUnit, oPipeUnit, vSizeUnit, iPipeSchUnit, oPipeSchUnit, iTempUnit, sg_choice = \
-                    float(aaaaa_list[0]), aaaaa_list[1], float(aaaaa_list[2]), float(aaaaa_list[3]), float(
-                        aaaaa_list[4]), aaaaa_list[5], \
-                    aaaaa_list[6], \
-                    aaaaa_list[7], aaaaa_list[8], aaaaa_list[9], aaaaa_list[10], aaaaa_list[11], aaaaa_list[12], \
-                    aaaaa_list[13], aaaaa_list[14], aaaaa_list[15], aaaaa_list[16]
-
+                
                 if v_model_lower == 'globe':
                     percent__, i_pipe_vel, o_pipe_vel, t_vel = '%', 'm/s', 'm/s', 'm/s'
                 else:
                     percent__, i_pipe_vel, o_pipe_vel, t_vel = 'degree', 'mach', 'mach', 'mach'
-                unit_list = [fl_unit, iPresUnit, oPresUnit, iTempUnit, '', 'centipose', vPresUnit, '', '', percent__,
+                unit_list = [item.project.flowrateUnit, item.project.pressureUnit, item.project.pressureUnit, item.project.temperatureUnit, '', 'centipose', item.project.pressureUnit, '', '', percent__,
                              'dB',
                              i_pipe_vel,
-                             o_pipe_vel, t_vel, iPipeUnit, oPipeUnit]
+                             o_pipe_vel, t_vel, item.project.lengthUnit, item.project.lengthUnit]
                 
-                # unit_list_dict = {
-                #     "flUnit": fl_unit,
-                #     "iPresUnit": iPresUnit,
-                #     "oPresUnit": oPresUnit,
-                #     "iTempUnit": iTempUnit,
-                #     "sGravityUnit": None,
-                #     "viscosityUnit": 'centipose',
-                #     "vPresUnit": vPresUnit,
-                #     "flUnit": None,
-                #     "cvUnit": None,
-                #     "percentageOpening": percent__,
-                #     "splUnit": 'dBA',
-                #     "i_pipe_vel": i_pipe_vel,
-                #     "o_pipe_vel": o_pipe_vel,
-                #     "t_vel": t_vel,
-                #     "iPipeUnit": iPipeUnit,
-                #     "oPipeUnit": oPipeUnit
-                # }
+               
 
-                application_ = v_details.application
-                fluidName_id = itemCases_1[0].fluidName
-                maxPressure_, maxTemp_, minTemp_ = v_details.maxPressure, v_details.maxTemp, v_details.minTemp
-                iPipeSch, oPipeSch = itemCases_1[0].iPipeSizeSch, itemCases_1[0].oPipeSizeSch
-                print(fluidName_id)
-                if fluidName_id:
-                    fluidName__ = db.session.query(fluidName).filter_by(id=int(fluidName_id)).first().name
-                else:
-                    fluidName__ = ""
+                item_notes_list = db.session.query(itemNotesData).filter_by(item=item).order_by('notesNumber').all()
 
+                cv_value_element = db.session.query(cvValues).filter_by(cv=cases[0].cv).first()
 
-                item_notes_list = db.session.query(itemNotesData).filter_by(itemID=item.id).order_by('notesNumber').all()
-
-                other_val_list = [serial__, 1, project_, cPressure, cPresUnit, shutoffDelp, vSize, vSizeUnit, rating_,
-                                  material_, bonnet_type, nde1, nde2, gasket_mat, final_trim_type, flow_dir, seat_mat,
-                                  disc_mat,
-                                  seat_leak, end_connection, end_finish, v_model_lower, model_str, bonnet_material,
-                                  bonnetExtDimen, studnut, cv_, balanceSeal, acc_list, application_, fluidName__, 
-                                  maxPressure_, maxTemp_, minTemp_, iPipeSch, oPipeSch, packing_material_updated.name,
-                                  seat_bore, travel_, final_flow_dir, final_flow_charc, stem_material_updated.name, item_notes_list]
+                other_val_list = [v_details.serialNumber, 1, item.project.projectRef, cases[0].criticalPressure, item.project.pressureUnit, v_details.shutOffDelP, cases[0].valveSize, item.project.lengthUnit, v_details.rating.name,
+                                  v_details.material.name, v_details.bonnetType__.name, "See Note 1", "See Note 1", v_details.gasket__.name, v_details.trimType__.name, v_details.flowDirection__.name, v_details.seat__.name,
+                                  v_details.disc__.name,
+                                  v_details.seatLeakageClass__.name, v_details.endConnection__.name, v_details.endFinish__.name, v_model_lower, model_str, v_details.bonnet__.name,
+                                  v_details.bonnetExtDimension, v_details.studNut__.name, cases[0].ratedCv, v_details.balanceSeal__.name, acc_list, v_details.application, cases[0].fluid.fluidName, 
+                                  v_details.maxPressure, v_details.maxTemp, v_details.minTemp, None, None, v_details.packing__.name,
+                                  cv_value_element.seatBore, cv_value_element.travel, v_details.flowDirection__.name, v_details.flowCharacter__.name, v_details.shaft__.name, item_notes_list]
                 
-                # other_val_list_dict = {
-
-                # }
+                customer__ = db.session.query(addressProject).filter_by(isCompany=True, project=item.project).first()
                 
                 for i in itemCases_1[:6]:
-                    case_list = [i.flowrate, i.iPressure, i.oPressure, i.iTemp, i.sGravity, i.viscosity, i.vPressure,
-                                 i.Xt,
-                                 i.CV, i.openPercent, i.valveSPL,
-                                 i.iVelocity, i.oVelocity, i.trimExVelocity, item.tag_no, item.id,
-                                 itemCases_1[0].fluidState, itemCases_1[0].criticalPressure,
-                                 itemCases_1[0].iPipeSize, itemCases_1[0].oPipeSize, size__, rating__, project__.quote,
-                                 project__.work_order,
-                                 customer__]
+                    case_list = [i.flowrate, i.inletPressure, i.outletPressure, i.inletTemp, i.specificGravity, i.kinematicViscosity, i.vaporPressure,
+                                 i.xt,
+                                 i.calculatedCv, i.openingPercentage, i.spl,
+                                 i.pipeInVel, i.pipeOutVel, i.tex, v_details.tagNumber, item.id,
+                                 v_details.state.name, itemCases_1[0].criticalPressure,
+                                 itemCases_1[0].inletPipeSize, itemCases_1[0].outletPipeSize, i.valveSize, v_details.rating.name, item.project.projectId,
+                                 item.project.workOderNo,
+                                 f"{customer__.address.company.name} {customer__.address.address}"]
                     
                     # case_list_dict = {
                     #                     "flowrate": i.flowrate, "iPressure": i.iPressure, "oPressure": i.oPressure,
@@ -6301,11 +6351,11 @@ def generate_csv(page, item_id, proj_id):
                 units__.append(unit_list)
                 others__.append(other_val_list)
                 try:
-                    act_dict_ = {'v_type': v_details.ratedCV, 'trim_type': trim_type, 'Balancing': v_details.balanceScale,
-                                'fl_direction': flow_dir, 'v_size': vSize,
-                                'v_size_unit': vSizeUnit,
-                                'Seat_Dia': seatDia,
-                                'seat_dia_unit': seatDiaUnit, 'unbalance_area': act_valve_data_string[5],
+                    act_dict_ = {'v_type': cases[0].ratedCv, 'trim_type': v_details.trimType__.name, 'Balancing': v_details.balanceSeal__.name,
+                                'fl_direction': v_details.flowDirection__.name, 'v_size': cases[0].valveSize,
+                                'v_size_unit': item.project.lengthUnit,
+                                'Seat_Dia': i.seatDia,
+                                'seat_dia_unit': item.project.lengthUnit, 'unbalance_area': act_valve_data_string[5],
                                 'unbalance_area_unit': 'inch^2',
                                 'Stem_size': act_valve_data_string[4], 'Stem_size_unit': 'inch',
                                 'Travel': act_valve_data_string[1],
@@ -6313,8 +6363,8 @@ def generate_csv(page, item_id, proj_id):
                                 'packing_friction_unit': 'mm', 'Seat_Load_Factor': act_data_string[24],
                                 'Additional_Factor': 0,
                                 'P1': itemCases_1[-1].iPressure,
-                                'p1_unit': iPresUnit,
-                                'P2': itemCases_1[-1].oPressure, 'p2_unit': oPresUnit,
+                                'p1_unit': item.project.pressureUnit,
+                                'P2': itemCases_1[-1].oPressure, 'p2_unit': item.project.pressureUnit,
                                 'delP_Shutoff': v_details.shutOffDelP, 'delP_Shutoff_unit': 'bar', 'unbal_force': 0,
                                 'Kn': act_data_string[15], 'delP_flowing': 0,
                                 'act_type': act_other[0],
@@ -6333,20 +6383,20 @@ def generate_csv(page, item_id, proj_id):
                                 'orientation': act_other[3], 'act_model': act_model, 'travel_stops': act_other[8]
                                 }
                 except IndexError:
-                    act_dict_ = {'v_type': v_details.ratedCV, 'trim_type': trim_type, 'Balancing': v_details.balanceScale,
-                                'fl_direction': flow_dir, 'v_size': vSize,
-                                'v_size_unit': vSizeUnit,
-                                'Seat_Dia': seatDia,
-                                'seat_dia_unit': seatDiaUnit, 'unbalance_area': None,
+                    act_dict_ = {'v_type': cases[0].ratedCv, 'trim_type': v_details.trimType__.name, 'Balancing': v_details.balanceSeal__.name,
+                                'fl_direction':  v_details.flowDirection__.name, 'v_size': cases[0].valveSize,
+                                'v_size_unit': item.project.lengthUnit,
+                                'Seat_Dia': i.seatDia,
+                                'seat_dia_unit': item.project.lengthUnit, 'unbalance_area': None,
                                 'unbalance_area_unit': 'inch^2',
                                 'Stem_size': None, 'Stem_size_unit': 'inch',
                                 'Travel': None,
                                 'travel_unit': 'inch', 'Packing_Friction': None,
                                 'packing_friction_unit': 'mm', 'Seat_Load_Factor': None,
                                 'Additional_Factor': 0,
-                                'P1': itemCases_1[-1].iPressure,
-                                'p1_unit': iPresUnit,
-                                'P2': itemCases_1[-1].oPressure, 'p2_unit': oPresUnit,
+                                'P1': itemCases_1[-1].inletPressure,
+                                'p1_unit': item.project.pressureUnit,
+                                'P2': itemCases_1[-1].outletPressure, 'p2_unit': item.project.pressureUnit,
                                 'delP_Shutoff': v_details.shutOffDelP, 'delP_Shutoff_unit': 'bar', 'unbal_force': 0,
                                 'Kn': None, 'delP_flowing': 0,
                                 'act_type': None,
@@ -6369,7 +6419,7 @@ def generate_csv(page, item_id, proj_id):
         print(act_dict)
         createSpecSheet(cases__, units__, others__, act_dict)
         path = "specsheet.xlsx"
-        project_number = project__.id
+        project_number = item.project.id
         current_datetime = datetime.datetime.today().date().timetuple()
 
         str_current_datetime = str(current_datetime)
@@ -6540,11 +6590,11 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/rotaryActuatorData.csv"), rotaryActuatorData)
         # add_many(getRowsFromCsvFile("csv/notesMaster.csv"), notesMaster)
         # add_many(getRowsFromCsvFile("csv/positioner.csv"), positioner)
-        add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
+        # add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-DATA_UPLOAD_BULK()
+# DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 

@@ -260,3 +260,26 @@ actuator_data_dict = {'actType': actuator_type_dict,
                       'travel': adjustable_travel_stops_dict
                       }
 
+
+
+valve_force_dict = [{'key': ('contour', 'unbalanced', 'under', 'shutoff'), 'formula': 1},
+                    {'key': ('cage', 'unbalanced', 'under', 'shutoff'), 'formula': 2},
+                    {'key': ('cage', 'unbalanced', 'over', 'shutoff'), 'formula': 3},
+                    {'key': ('cage', 'balanced', 'under', 'shutoff'), 'formula': 4},
+                    {'key': ('cage', 'balanced', 'over', 'shutoff'), 'formula': 5},
+                    {'key': ('contour', 'unbalanced', 'under', 'shutoff+'), 'formula': 6},
+                    {'key': ('cage', 'unbalanced', 'under', 'shutoff+'), 'formula': 7},
+                    {'key': ('cage', 'unbalanced', 'over', 'shutoff+'), 'formula': 8},
+                    {'key': ('cage', 'balanced', 'under', 'shutoff+'), 'formula': 9},
+                    {'key': ('cage', 'balanced', 'over', 'shutoff+'), 'formula': 10},
+                    {'key': ('contour', 'unbalanced', 'under', 'close'), 'formula': 11},
+                    {'key': ('cage', 'unbalanced', 'under', 'close'), 'formula': 12},
+                    {'key': ('cage', 'unbalanced', 'over', 'close'), 'formula': 13},
+                    {'key': ('cage', 'balanced', 'under', 'close'), 'formula': 14},
+                    {'key': ('cage', 'balanced', 'over', 'close'), 'formula': 15},
+                    {'key': ('contour', 'unbalanced', 'under', 'open'), 'formula': 16},
+                    {'key': ('cage', 'unbalanced', 'under', 'open'), 'formula': 17},
+                    {'key': ('cage', 'unbalanced', 'over', 'open'), 'formula': 18},
+                    {'key': ('cage', 'balanced', 'under', 'open'), 'formula': 19},
+                    {'key': ('cage', 'balanced', 'over', 'open'), 'formula': 20},
+                    ]

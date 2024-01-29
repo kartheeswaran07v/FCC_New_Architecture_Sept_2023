@@ -453,9 +453,13 @@
                                         </div>
                                         <div class="col-4">
                                                 <select id="#"
-                                                        class="form-control-sm-sm valvesizing_select" name="iSch">
+                                                        class="form-control-sm-sm valvesizing_select" name="iSch"       >
                                                         {% for pipe_schedule in metadata['units_dict']['pipe_schedule'] %}
+                                                        {% if cases[0].iPipe.schedule == pipe_schedule %}
+                                                                <option value="{{pipe_schedule.id}}" selected>{{pipe_schedule.name}}</option>
+                                                        {% else %}
                                                                 <option value="{{pipe_schedule.id}}">{{pipe_schedule.name}}</option>
+                                                        {% endif %}
                                                         {% endfor %}
                                                 </select>
                                         </div>
@@ -501,7 +505,11 @@
                                                         class="form-control-sm-sm valvesizing_select" name="oSch">
 
                                                         {% for pipe_schedule in metadata['units_dict']['pipe_schedule'] %}
+                                                        {% if cases[0].iPipe.schedule == pipe_schedule %}
+                                                                <option value="{{pipe_schedule.id}}" selected>{{pipe_schedule.name}}</option>
+                                                        {% else %}
                                                                 <option value="{{pipe_schedule.id}}">{{pipe_schedule.name}}</option>
+                                                        {% endif %}
                                                         {% endfor %}
                                                 </select>
                                         </div>

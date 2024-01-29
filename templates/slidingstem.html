@@ -2,7 +2,7 @@
 {% include "header.html" %}
 <br><br>
 
-
+        <form action="{{url_for('slidingStem', item_id=item.id, proj_id=item.project.id, page=page)}}" method="post">
                 <div class="row mt-0">
                     <div class="col-3">
                         <div class="actuator shadow p-2">
@@ -15,7 +15,11 @@
                                 <div class="col-6">
                                     <select class="actuator_select"  name="actType" >
                                         {% for act_type in metadata['actuatorData']['actType'] %}
+                                        {% if act.actuatorType == act_type.name %}
+                                        <option value="{{act_type.id}}" selected>{{act_type.name}}</option>
+                                        {% else %}
                                         <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                        {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -30,7 +34,11 @@
                                     <select class="Spring Action actuator_select"  name="failAction"
                                     >
                                     {% for act_type in metadata['actuatorData']['failAction'] %}
+                                    {% if act.springAction == act_type.id%}
+                                    <option value="{{act_type.id}}" selected>{{act_type.name}}</option>
+                                    {% else %}
                                     <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                     </select>
                                 </div>
@@ -43,7 +51,11 @@
                                 <div class="col-6">
                                     <select class=" actuator_select" name="mount">
                                         {% for act_type in metadata['actuatorData']['handwheel'] %}
+                                        {% if act.handWheel == act_type.name %}
+                                        <option value="{{act_type.id}}" selected>{{act_type.name}}</option>
+                                        {% else %}
                                         <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                        {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -56,8 +68,12 @@
                                 <div class="col-6">
                                     <select class=" actuator_select" name="travel">
                                         {% for act_type in metadata['actuatorData']['travel'] %}
-                                    <option value="{{act_type.id}}">{{act_type.name}}</option>
-                                    {% endfor %}
+                                        {% if act.adjustableTravelStop == act_type.name %}
+                                            <option value="{{act_type.id}}" selected>{{act_type.name}}</option>
+                                        {% else %}
+                                            <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                        {% endif %}
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -67,10 +83,14 @@
                                     <label for="orientation">Orientation</label>
                                 </div>
                                 <div class="col-6">
-                                    <select class=" Orientation actuator_select" name="  orientation "
+                                    <select class=" Orientation actuator_select" name="orientation"
                                         id=" orientation">
                                         {% for act_type in metadata['actuatorData']['orientation'] %}
+                                        {% if act.orientation == act_type.name %}
+                                        <option value="{{act_type.id}}" selected>{{act_type.name}}</option>
+                                        {% else %}
                                         <option value="{{act_type.id}}">{{act_type.name}}</option>
+                                        {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -82,7 +102,7 @@
 
                                 </div>
                                 <div class="col-3">
-                                    <input type="number" class="form-control-sm-sm actuator_input1" name="airUnit">
+                                    <input type="number" value="{{act.availableAirSupplyMin}}" class="form-control-sm-sm actuator_input1" required name="availableAirSupplyMin">
                                 </div>
                                 <div class="col-3">
                                     <select class="form-control-sm-sm actuator_select1" name="airUnit">
@@ -90,7 +110,7 @@
                                                 {% if presunit.name == item.project.pressureUnit %}
                                                 <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
                                                 {% else %}
-                                                <option value="{{presunit.name}}">{{presunit.name}}</option>
+                                                <option value="{{presunit.name}}" >{{presunit.name}}</option>
                                                 {% endif %}
                                         {% endfor %}
                                     </select>
@@ -104,7 +124,7 @@
 
                                 </div>
                                 <div class="col-3">
-                                    <input type="number" class="form-control-sm-sm actuator_input1" name="setpressure">
+                                    <input type="number" value="{{act.availableAirSupplyMax}}" class="form-control-sm-sm actuator_input1" required name="availableAirSupplyMax">
                                 </div>
                                 <div class="col-3">
                                     <select class="actuator_select1 form-control-sm-sm" name="set pressure">
@@ -112,7 +132,7 @@
                                                 {% if presunit.name == item.project.pressureUnit %}
                                                 <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
                                                 {% else %}
-                                                <option value="{{presunit.name}}">{{presunit.name}}</option>
+                                                <option value="{{presunit.name}}" >{{presunit.name}}</option>
                                                 {% endif %}
                                         {% endfor %}
                                     </select>
@@ -133,9 +153,9 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <a href="{{url_for('slidingStem', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info active actuator_button1" name="sliding" value="sliding Stem Actuator Sizing">Sliding Stem Actuator Sizing</button></a><br>
-                            <a href="{{url_for('rotaryActuator', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn  btn-info actuator_button2 mt-2"  name="rotary" value="Rotary Actuator Sizing">Rotary Actuator Sizing</button></a>
-                            <a href="{{url_for('strokeTime', item_id=item.id, proj_id=item.project.id)}}"><button type="button" class="btn btn-info actuator_button3 mt-2"  name="stroketime" value="stroketime">Stroke Time Calculation</button></a>
+                            <input type="submit" class="btn btn-info active actuator_button1" name="sliding" value="Sliding Stem Actuator Sizing">
+                            <input type="submit" class="btn  btn-info actuator_button2 mt-2"  name="rotary" value="Rotary Actuator Sizing">
+                            <input type="submit" class="btn btn-info actuator_button3 mt-2"  name="stroketime" value="Stroketime">
                         </div>
                     </div>
 
@@ -233,43 +253,38 @@
                                         </div>
                                         <div class="row sizingtable">
                                             <select name="" class="sliding_select">
-                                                <option>inch</option>
-                                                <option>mm</option>
+                                                <option value="{{item.project.lengthUnit}}">{{item.project.lengthUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select name="" class="form-control-sm-sm sliding_select"
                                                 >
-                                                <option>inch</option>
-                                                <option>mm</option>
+                                                <option value="{{item.project.lengthUnit}}">{{item.project.lengthUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select name="" class="form-control-sm-sm sliding_select"
                                                 >
-                                                <option>inch</option>
+                                                <option value="{{item.project.lengthUnit}}²">{{item.project.lengthUnit}}²</option>
                                                 <option>inch²</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select name="" class="form-control-sm-sm sliding_select"
                                                 >
-                                                <option>inch</option>
-                                                <option>mm</option>
+                                                <option value="{{item.project.lengthUnit}}">{{item.project.lengthUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select name="" class="form-control-sm-sm sliding_select"
                                                 >
-                                                <option>inch</option>
-                                                <option>mm</option>
+                                                <option value="{{item.project.lengthUnit}}">{{item.project.lengthUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select name="" class="form-control-sm-sm sliding_select"
                                                 >
-                                                <option>inch</option>
-                                                <option>mm</option>
+                                                <option value="{{item.project.lengthUnit}}">{{item.project.lengthUnit}}</option>
                                             </select>
                                         </div>
                                        
@@ -285,43 +300,37 @@
                                         <div class="row sizingtable">
                                             <select id="" class="form-control-sm-sm sliding_select" name=""
                                                 >
-                                                <option>psig</option>
-                                                <option>psig</option>
+                                                <option value="{{item.project.pressureUnit}}">{{item.project.pressureUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select id="" class="form-control-sm-sm sliding_select" name=""
                                                 >
-                                                <option>psig</option>
-                                                <option>psig</option>
+                                                <option value="{{item.project.pressureUnit}}">{{item.project.pressureUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select id="" class="form-control-sm-sm sliding_select" name=""
                                                 >
-                                                <option>psig</option>
-                                                <option>psig</option>
+                                                <option value="{{item.project.pressureUnit}}">{{item.project.pressureUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select id="" class="form-control-sm-sm sliding_select" name=""
                                                 >
-                                                <option>psig</option>
-                                                <option>psig</option>
+                                                <option value="{{item.project.pressureUnit}}">{{item.project.pressureUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select id="" class="form-control-sm-sm sliding_select" name=""
                                                 >
-                                                <option></option>
-                                                <option>psig</option>
+                                                <option value="{{item.project.pressureUnit}}">{{item.project.pressureUnit}}</option>
                                             </select>
                                         </div>
                                         <div class="row sizingtable">
                                             <select id="" class="form-control-sm-sm sliding_select" name=""
                                                >
-                                                <option>psig</option>
-                                                <option>psig</option>
+                                               <option value="{{item.project.pressureUnit}}">{{item.project.pressureUnit}}</option>
                                             </select>
                                         </div>
 
@@ -330,17 +339,17 @@
                                         <div class="row sizingtableleft">
                                             <p class="sizingp">Values</p>
                                         </div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
-                                        <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="valveSize" value="{{cases[0].valveSize}}" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="seatDia" value="{{cv_element.seatBore}}" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="travel" value="{{cv_element.travel}}" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="iPressure" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="oPressure" class="form-control-sm-sm sliding_input"></div>
+                                        <div class="row sizingtable"><input type="text" required name="shutOffDelP" value="{{valve.shutOffDelP}}" class="form-control-sm-sm sliding_input"></div>
                                         <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
                                         <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
                                         <div class="row sizingtable"><input type="text" name="" class="form-control-sm-sm sliding_input"></div>
@@ -348,7 +357,8 @@
                                 </div>
                                 <div class="button mt-3 ml-3">
                                     <div class="row">
-                                        <button type="button" class="btn btn-info input_btn1">Calculate</button>
+                                        <input type="submit" class="btn btn-info input_btn1" name="submit" value="Calculate">
+                                        <!-- <button type="button" class="btn btn-info input_btn1">Calculate</button> -->
                                         <a href="Selectacuator(rotary).html"><button type="button" class="btn btn-info ml-3 input_btn2">Select Actuator</button></a>
                                     </div>
                                 </div>
@@ -563,5 +573,6 @@
                         <button type="button" class="btn btn-info mt-1 savebtn">Save Next</button>
                     </div>
                 </div>
+        </form>
 {% include "footer.html" %}
 {% endblock %}
