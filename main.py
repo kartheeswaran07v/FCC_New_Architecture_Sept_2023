@@ -2995,7 +2995,7 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
                cPresUnit_form,
                inletPipeDia_form, iPipeUnit_form, iSch, outletPipeDia_form, oPipeUnit_form, oSch, densityPipe, sosPipe,
                valveSize_form, vSizeUnit_form,
-               seatDia, seatDiaUnit, ratedCV, rw_noise, item_selected, fluidName, valve_element):
+               seatDia, seatDiaUnit, ratedCV, rw_noise, item_selected, fluidName, valve_element, i_pipearea_element, port_area_, valvearea_element):
     # change into float/ num
     flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, outletPressure_form, oPresUnit_form, inletTemp_form, iTempUnit_form, vaporPressure, vPresUnit_form, specificGravity, viscosity, xt_fl, criticalPressure_form, cPresUnit_form, inletPipeDia_form, iPipeUnit_form, iSch, outletPipeDia_form, oPipeUnit_form, oSch, densityPipe, sosPipe, valveSize_form, vSizeUnit_form, seatDia, seatDiaUnit, ratedCV, rw_noise, item_selected = float(
         flowrate_form), fl_unit_form, float(inletPressure_form), iPresUnit_form, float(
@@ -3010,7 +3010,7 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
     
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v)).first()
+    i_pipearea_element = i_pipearea_element
 
     thickness_pipe = float(i_pipearea_element.thickness)
     print(f"thickness: {thickness_pipe}")
@@ -3146,9 +3146,6 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
                                             1000)
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                            schedule=iSch).first()
 
     iPipeSch_lnoise = meta_convert_P_T_FR_L('L', float(i_pipearea_element.thickness),
                                     'mm', 'm', 1000)
@@ -3220,7 +3217,7 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
                                             1000)
     outletPressure_v = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form, 'psia',
                                              1000)
-    v_det_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
+    v_det_element = valve_element
     trimtype = v_det_element.trimType__.name
     if trimtype == 'contour':
         t_caps = 'Contoured'
@@ -3238,11 +3235,8 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     flow_character = v_det_element.flowCharacter__.name.lower()
     # new trim exit velocity
     # for port area, travel filter not implemented
-    try:
-        port_area_ = db.session.query(portArea).filter_by(v_size=vSize_v, seat_bore=seatDia, trim_type=trimtype,
-                                                      flow_char=flow_character).first()
-    except:
-        port_area_ = None
+    port_area_ = port_area_
+   
 
     if port_area_:
         port_area = float(port_area_.area)
@@ -3264,8 +3258,7 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     #       (outletPipeDia_v - opipeSch_v),
     #       vSize_v)
     try:
-        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                    schedule=iSch).first()
+        i_pipearea_element = i_pipearea_element
         area_in2 = float(i_pipearea_element.area)
         a_i = 0.00064516 * area_in2
         iVelocity = flowrate_v / (3600 * a_i)
@@ -3287,17 +3280,14 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
 
     valve_element_current = valve_element
     rating_current = valve_element_current.rating
-    try:
-        valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
-                                                                nominalPipeSize=vSize_v).first()
-        if valvearea_element:
-            v_area_in = float(valvearea_element.area)
-            v_area = 0.00064516 * v_area_in
-        else:
-            v_area = 0.00064516 * 1
-        pVelocity = flowrate_v / (3600 * v_area)
-    except:
-        pVelocity = 1
+    valvearea_element = valvearea_element
+    if valvearea_element:
+        v_area_in = float(valvearea_element.area)
+        v_area = 0.00064516 * v_area_in
+    else:
+        v_area = 0.00064516 * 1
+    pVelocity = flowrate_v / (3600 * v_area)
+
     data = {'cv': round(result, 3),
             'percent': 80,
             'spl': round(summation, 3),
@@ -3308,12 +3298,9 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     units_string = f"{seatDia}+{seatDiaUnit}+{sosPipe}+{densityPipe}+{rw_noise}+{fl_unit_form}+{iPresUnit_form}+{oPresUnit_form}+{vPresUnit_form}+{cPresUnit_form}+{iPipeUnit_form}+{oPipeUnit_form}+{vSizeUnit_form}+mm+mm+{iTempUnit_form}+sg"
     # update valve size in item
     size_in_in = int(round(meta_convert_P_T_FR_L('L', valveSize_form, vSizeUnit_form, 'inch', 1000)))
-    # size_id = db.session.query(cvTable).filter_by(valveSize=size_in_in).first()
-    # print(size_id)
-    # item_selected.size = size_id
     # load case data with item ID
     # get valvetype - kc requirements
-    v_det_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
+    v_det_element = valve_element
     valve_type_ = v_det_element.style.name
     trimtype = v_det_element.trimType__.name
     outletPressure_psia = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form,
@@ -3995,9 +3982,9 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
     units_string = f"{seatDia}+{seatDiaUnit}+{sosPipe}+{densityPipe}+{z_factor}+{fl_unit_form}+{iPresUnit_form}+{oPresUnit_form}+{oPresUnit_form}+{oPresUnit_form}+{iPipeUnit_form}+{oPipeUnit_form}+{vSizeUnit_form}+mm+mm+{iTempUnit_form}+{sg_choice}"
     # update valve size in item
     size_in_in = int(round(meta_convert_P_T_FR_L('L', valveSize_form, vSizeUnit_form, 'inch', 1000)))
-    # size_id = db.session.query(cvTable).filter_by(valveSize=size_in_in).first()
+    size_id = db.session.query(cvTable).filter_by(valveSize=size_in_in).first()
     # print(size_id)
-    # item_selected.size = size_id
+    item_selected.size = size_id
     # load case data with item ID
     # get valvetype - kc requirements
     v_det_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
@@ -4431,17 +4418,14 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
         oVelocity = flowrate_v / (3600 * a_o)
     valve_element_current = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     rating_current = valve_element_current.rating
-    try:
-        valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
-                                                                nominalPipeSize=vSize_v).first()
-        if valvearea_element:
-            v_area_in = float(valvearea_element.area)
-            v_area = 0.00064516 * v_area_in
-        else:
-            v_area = 0.00064516 * 1
-        pVelocity = flowrate_v / (3600 * v_area)
-    except:
-        pVelocity = 1
+    valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
+                                                              nominalPipeSize=vSize_v).first()
+    if valvearea_element:
+        v_area_in = float(valvearea_element.area)
+        v_area = 0.00064516 * v_area_in
+    else:
+        v_area = 0.00064516 * 1
+    pVelocity = flowrate_v / (3600 * v_area)
 
     data = {'cv': round(result, 3),
             'percent': 80,
@@ -5327,6 +5311,7 @@ def valveSizing(proj_id, item_id):
         f_state = valve_element.state.name
         data = request.form.to_dict(flat=False)
         a = jsonify(data).json
+        
 
         fluid_element = getDBElementWithId(fluidProperties, a['fluid_name'][0])
         # RW Noise
@@ -5342,6 +5327,12 @@ def valveSizing(proj_id, item_id):
                     db.session.commit()
                 try:
                     for k in range(len_cases_input):
+                        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(output['inletPipeSize'])).first()
+                        port_area_ = db.session.query(portArea).filter_by(v_size=a['vSize'][0], trim_type="contour",
+                                                      flow_char="equal").first()
+                        valvearea_element = db.session.query(valveArea).filter_by(rating=valve_element.rating.name[5:],
+                                                              nominalPipeSize=a['vSize'][0]).first()
+                        sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(output['inletPipeSize'])).first()
                         output = getOutputs(a['flowrate'][k], item_selected.project.flowrateUnit, a['inletPressure'][k],
                                             item_selected.project.pressureUnit,
                                             a['outletPressure'][k], item_selected.project.pressureUnit,
@@ -5353,9 +5344,9 @@ def valveSizing(proj_id, item_id):
                                             a['outletPipeSize'][0], item_selected.project.lengthUnit, a['oSch'][0], 7800,
                                             5000, a['vSize'][0],
                                             item_selected.project.lengthUnit, a['vSize'][0], item_selected.project.lengthUnit, a['ratedCV'][0],
-                                            rw_noise, item_selected, fluid_element.fluidName, valve_element)
+                                            rw_noise, item_selected, fluid_element.fluidName, valve_element, i_pipearea_element, port_area_,valvearea_element)
                         
-                        sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(output['inletPipeSize'])).first()
+                        
                         new_case = caseMaster(flowrate=output['flowrate'], inletPressure=output['inletPressure'],
                                                 outletPressure=output['outletPressure'],
                                                 inletTemp=output['inletTemp'], specificGravity=output['specificGravity'],
