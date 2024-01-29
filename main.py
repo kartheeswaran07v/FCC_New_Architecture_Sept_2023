@@ -5332,7 +5332,7 @@ def valveSizing(proj_id, item_id):
                                                       flow_char="equal").first()
                         valvearea_element = db.session.query(valveArea).filter_by(rating=valve_element.rating.name[5:],
                                                               nominalPipeSize=a['vSize'][0]).first()
-                        sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(output['inletPipeSize'])).first()
+                        sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(a['inletPipeSize'][0])).first()
                         output = getOutputs(a['flowrate'][k], item_selected.project.flowrateUnit, a['inletPressure'][k],
                                             item_selected.project.pressureUnit,
                                             a['outletPressure'][k], item_selected.project.pressureUnit,
