@@ -3263,8 +3263,12 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     # print(flowrate_v, (inletPipeDia_v - ipipeSch_v),
     #       (outletPipeDia_v - opipeSch_v),
     #       vSize_v)
-    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
-                                                                schedule=iSch).first()
+    try:
+        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(inletPipeDia_v),
+                                                                    schedule=iSch).first()
+    except:
+        i_pipearea_elements = pipeArea.query.all()
+        i_pipearea_element = i_pipearea_elements[0]
     area_in2 = float(i_pipearea_element.area)
     a_i = 0.00064516 * area_in2
     iVelocity = flowrate_v / (3600 * a_i)
