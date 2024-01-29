@@ -3287,15 +3287,17 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
 
     valve_element_current = valve_element
     rating_current = valve_element_current.rating
-    valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
-                                                              nominalPipeSize=vSize_v).first()
-    if valvearea_element:
-        v_area_in = float(valvearea_element.area)
-        v_area = 0.00064516 * v_area_in
-    else:
-        v_area = 0.00064516 * 1
-    pVelocity = flowrate_v / (3600 * v_area)
-
+    try:
+        valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
+                                                                nominalPipeSize=vSize_v).first()
+        if valvearea_element:
+            v_area_in = float(valvearea_element.area)
+            v_area = 0.00064516 * v_area_in
+        else:
+            v_area = 0.00064516 * 1
+        pVelocity = flowrate_v / (3600 * v_area)
+    except:
+        pVelocity = 1
     data = {'cv': round(result, 3),
             'percent': 80,
             'spl': round(summation, 3),
@@ -4429,14 +4431,17 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
         oVelocity = flowrate_v / (3600 * a_o)
     valve_element_current = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     rating_current = valve_element_current.rating
-    valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
-                                                              nominalPipeSize=vSize_v).first()
-    if valvearea_element:
-        v_area_in = float(valvearea_element.area)
-        v_area = 0.00064516 * v_area_in
-    else:
-        v_area = 0.00064516 * 1
-    pVelocity = flowrate_v / (3600 * v_area)
+    try:
+        valvearea_element = db.session.query(valveArea).filter_by(rating=rating_current.name[5:],
+                                                                nominalPipeSize=vSize_v).first()
+        if valvearea_element:
+            v_area_in = float(valvearea_element.area)
+            v_area = 0.00064516 * v_area_in
+        else:
+            v_area = 0.00064516 * 1
+        pVelocity = flowrate_v / (3600 * v_area)
+    except:
+        pVelocity = 1
 
     data = {'cv': round(result, 3),
             'percent': 80,
