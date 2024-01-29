@@ -452,8 +452,10 @@
                                               <label>In. Pipe Sch.</label>  
                                         </div>
                                         <div class="col-4">
+                                                {% if cases[0] %}
                                                 <select id="#"
-                                                        class="form-control-sm-sm valvesizing_select" name="iSch"       >
+                                                        class="form-control-sm-sm valvesizing_select" name="iSch">
+
                                                         {% for pipe_schedule in metadata['units_dict']['pipe_schedule'] %}
                                                         {% if cases[0].iPipe.schedule == pipe_schedule %}
                                                                 <option value="{{pipe_schedule.id}}" selected>{{pipe_schedule.name}}</option>
@@ -462,6 +464,17 @@
                                                         {% endif %}
                                                         {% endfor %}
                                                 </select>
+                                                {% else %}
+                                                <select id="#"
+                                                        class="form-control-sm-sm valvesizing_select" name="iSch">
+
+                                                        {% for pipe_schedule in metadata['units_dict']['pipe_schedule'] %}
+                                                                <option value="{{pipe_schedule.id}}">{{pipe_schedule.name}}</option>
+                                                        
+                                                        {% endfor %}
+                                                </select>
+
+                                                {% endif %}
                                         </div>
                                         <div class="col-3">
                                                 <input type="text" class="form-control-sm-sm valvesizing_inputbox">
@@ -501,6 +514,7 @@
                                               <label>Out. Pipe Sch.</label>  
                                         </div>
                                         <div class="col-4">
+                                                {% if cases[0] %}
                                                 <select id="#"
                                                         class="form-control-sm-sm valvesizing_select" name="oSch">
 
@@ -512,6 +526,17 @@
                                                         {% endif %}
                                                         {% endfor %}
                                                 </select>
+                                                {% else %}
+                                                <select id="#"
+                                                        class="form-control-sm-sm valvesizing_select" name="oSch">
+
+                                                        {% for pipe_schedule in metadata['units_dict']['pipe_schedule'] %}
+                                                                <option value="{{pipe_schedule.id}}">{{pipe_schedule.name}}</option>
+                                                        
+                                                        {% endfor %}
+                                                </select>
+
+                                                {% endif %}
                                         </div>
                                         <div class="col-3">
                                                 <input type="text" class="form-control-sm-sm valvesizing_inputbox">

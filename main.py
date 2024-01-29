@@ -6553,7 +6553,7 @@ def DATA_UPLOAD_BULK():
         # v_style_list = [butterfly_element_1, butterfly_element_2, globe_element_1, globe_element_2]   
         # data_upload(industry_list, industryMaster)
         # data_upload(region_list, regionMaster)
-        data_upload(f_state_list, fluidState)
+        # data_upload(f_state_list, fluidState)
         # data_upload(design_std_list, designStandard)
         # data_upload(application_list, applicationMaster)
         # data_upload(rating_list, ratingMaster)
@@ -6595,7 +6595,7 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-DATA_UPLOAD_BULK()
+# DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
