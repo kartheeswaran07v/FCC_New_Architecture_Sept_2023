@@ -6540,11 +6540,11 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/rotaryActuatorData.csv"), rotaryActuatorData)
         # add_many(getRowsFromCsvFile("csv/notesMaster.csv"), notesMaster)
         # add_many(getRowsFromCsvFile("csv/positioner.csv"), positioner)
-        # add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
+        add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-# DATA_UPLOAD_BULK()
+DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     
 
