@@ -26,8 +26,8 @@ from jinja2 import Environment, FileSystemLoader
 
 # -----------^^^^^^^^^^^^^^----------------- IMPORT STATEMENTS -----------------^^^^^^^^^^^^^------------ #
 
-env = Environment(loader=FileSystemLoader('templates\\render_data.html'))
-env.globals['getattr'] = getattr
+# env = Environment(loader=FileSystemLoader('templates\\render_data.html'))
+# env.globals['getattr'] = getattr
 
 
 def getRowsFromCsvFile(file_path):
@@ -6500,8 +6500,8 @@ def DATA_UPLOAD_BULK():
         # globe_element_1 = db.session.query(valveStyle).filter_by(name="Globe Straight").first()
         # globe_element_2 = db.session.query(valveStyle).filter_by(name="Globe Angle").first()
         # v_style_list = [butterfly_element_1, butterfly_element_2, globe_element_1, globe_element_2]   
-        data_upload(industry_list, industryMaster)
-        data_upload(region_list, regionMaster)
+        # data_upload(industry_list, industryMaster)
+        # data_upload(region_list, regionMaster)
         # data_upload(f_state_list, fluidState)
         # data_upload(design_std_list, designStandard)
         # data_upload(application_list, applicationMaster)
@@ -6525,8 +6525,8 @@ def DATA_UPLOAD_BULK():
         # data_upload_disc_seat_packing([disc_material_list_butterfly, disc_material_list_butterfly, plug_material_list_globe, plug_material_list_globe], v_style_list, disc)
         # data_upload_disc_seat_packing([seat_material_list_butterfly, seat_material_list_butterfly, seat_material_list_globe, seat_material_list_globe], v_style_list, seat)
         # data_upload_disc_seat_packing([trim_type_list_butterfly, trim_type_list_butterfly, trim_type_list_globe, trim_type_list_globe], v_style_list, trimType)
-        data_upload(department_list, departmentMaster)
-        data_upload(designation_list, designationMaster)
+        # data_upload(department_list, departmentMaster)
+        # data_upload(designation_list, designationMaster)
         # data_upload_shaft(getRowsFromCsvFile("csv/shaft.csv"), v_style_list)
         # data_upload(end_connection_list, endConnection)
         # data_upload(end_finish_list, endFinish)
