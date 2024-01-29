@@ -5555,6 +5555,9 @@ def selectValve(proj_id, item_id):
         if len(cases) > 0:
             if request.form.get('getv'):
                 print('post')
+                cv_all = cvValues.query.all()
+                db.session.commit()
+                print(len(cv_all))
                 data = request.form.to_dict(flat=False)
                 a = jsonify(data).json
                 print(a)
