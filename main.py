@@ -1874,7 +1874,7 @@ def cv_upload(data_list):
             valve_size = float(new_data_list[data_index]['valveSize'])
             series = new_data_list[data_index]['series']
             
-            cv__lists = db.session.query(cvTable).filter_by(trimType_=trim_type_element, flowCharacter_=flow_charac_element, flowDirection_=flow_direction_element, rating_c=rating_element, style=v_style_element, balancing=balancing_element, valveSize=valve_size).all()
+            cv__lists = db.session.query(cvTable).filter_by(trimType_=trim_type_element, flowCharacter_=flow_charac_element, flowDirection_=flow_direction_element, rating_c=rating_element, style=v_style_element, balancing_=balancing_element, valveSize=valve_size).all()
                 
 
             # Add CV Table Data
