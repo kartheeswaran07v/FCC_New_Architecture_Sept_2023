@@ -1782,6 +1782,7 @@ def valveForces(p1_, p2_, d1, d2, d3, ua, rating, material, leakageClass, trimty
 def data_delete(table_name):
     # with app.app_context():
     data_list = table_name.query.all()
+    db.session.commit()
     for data_ in data_list:
         db.session.delete(data_)
         db.session.commit()
@@ -1890,6 +1891,7 @@ def cv_upload(data_list):
 
         # Once data added, input all cv values
         all_cvs = cvTable.query.all()
+        db.session.commit()
         for cv_index in range(len(all_cvs)):
             # CV value from excel
             new_cv_values_cv = cvValues(
