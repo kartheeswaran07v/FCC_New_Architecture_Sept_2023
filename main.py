@@ -6226,6 +6226,7 @@ def uploadData(topic, item_id, proj_id):
             b_list = request.files.get('file').stream.read().decode().strip().split('\n')
             if len(b_list[1].split(',')) < 3:
                 b_list_2 = [abc.split(',')[1].split('\r')[0] for abc in b_list[1:]]
+                print(b_list_2)
                 data_upload(b_list_2, table_)
             if topic == '25':
                 pt_list = []
@@ -6243,7 +6244,6 @@ def uploadData(topic, item_id, proj_id):
                 all_keys = table_data_render[int(topic) - 1]['db'].__table__.columns.keys()
                 table__ = table_data_render[int(topic) - 1]['db']
                 others_list = []
-                pass
                 data_delete(table__)
                 for i in b_list[1:]:
                     i_dict = {}
