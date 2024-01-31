@@ -1819,7 +1819,7 @@ def data_upload(data_list, table_name):
             for data__ in data_element[1:]:
                 db.session.delete(data__)
                 db.session.commit()
-                print(f"Deleted: {data__}, {data_element.index(data_)}")
+                print(f"Deleted: {data__}, {data_element.index(data__)}")
     
     print(new_count, old_del_count)
     print('data upload ends')
