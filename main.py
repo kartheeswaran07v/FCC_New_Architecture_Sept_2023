@@ -1815,6 +1815,11 @@ def data_upload(data_list, table_name):
             db.session.add(new_data)
             db.session.commit()
             new_count += 1
+        if len(data_element) > 1:
+            for data__ in data_element[1:]:
+                db.session.delete(data__)
+                db.session.commit()
+                print(f"Deleted: {data__}, {data_element.index(data_)}")
     
     print(new_count, old_del_count)
     print('data upload ends')
