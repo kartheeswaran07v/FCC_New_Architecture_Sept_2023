@@ -6647,7 +6647,7 @@ def DATA_UPLOAD_BULK():
 
 # DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
-data_upload(region_list, regionMaster)
+# data_upload(region_list, regionMaster)
     
 
 if __name__ == "__main__":
