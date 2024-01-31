@@ -1800,12 +1800,12 @@ def data_upload(data_list, table_name):
     # print("data delete ends")
     print('dataupload starts')
     all_data = table_name.query.all()
-    old_del_count = 0
-    for dd in all_data:
-        if dd.name not in data_list:
-            db.session.delete(dd)
-            db.session.commit()
-            old_del_count += 1
+    # old_del_count = 0
+    # for dd in all_data:
+    #     if dd.name not in data_list:
+    #         db.session.delete(dd)
+    #         db.session.commit()
+    #         old_del_count += 1
             
     new_count = 0
     for data_ in data_list:
@@ -1815,13 +1815,13 @@ def data_upload(data_list, table_name):
             db.session.add(new_data)
             db.session.commit()
             new_count += 1
-        if len(data_element) > 1:
+        elif len(data_element) > 1:
             for data__ in data_element[1:]:
                 db.session.delete(data__)
                 db.session.commit()
                 print(f"Deleted: {data__}, {data_element.index(data__)}")
     
-    print(new_count, old_del_count)
+    print(new_count)
     print('data upload ends')
 
 
