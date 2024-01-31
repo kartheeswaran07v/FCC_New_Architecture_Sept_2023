@@ -44,7 +44,7 @@
                                                         <div class="row sizingtableleft"><p class="sizingp">Outlet Pressure</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Inlet Temperature</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Specific Heat Ratio</p></div>
-                                                        <div class="row sizingtableleft"><p class="sizingp">Specific Gravity</p></div>
+                                                        <!-- <div class="row sizingtableleft"><p class="sizingp">Specific Gravity</p></div> -->
                                                         <div class="row sizingtableleft"><p class="sizingp">MW/SG</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Compressibility Factor</p></div>
                                                         <div class="row sizingtableleft"><p class="sizingp">Fl</p></div>
@@ -105,7 +105,7 @@
                                                         </div>
                                                         <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
                                                         
-                                                        <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div>
+                                                        <!-- <div class="row sizingtable"><input type="text" class="sizingtable_inputs"></div> -->
                                                         <div class="row sizingtable">
                                                             
                                                             <select name="mw_sg" id="" class="sizingtable_inputs">
@@ -132,7 +132,7 @@
                                                         <div class="row sizingtable"><input type="text" name="outletPressure" class="sizingtable_inputs" value="{{cases[i].outletPressure}}"></div>
                                                         <div class="row sizingtable"><input type="text" name="inletTemp" class="sizingtable_inputs" value="{{cases[i].inletTemp}}"></div>
                                                         <div class="row sizingtable "><input type="text" name="specificHeatRatio" class="sizingtable_inputs" value="{{cases[i].specificHeatRatio}}"></div>
-                                                        <div class="row sizingtable "><input type="text" name="specificGravity" class="sizingtable_inputs" value="{{cases[i].specificHeatRatio}}"></div>
+                                                        <!-- <div class="row sizingtable "><input type="text" name="specificGravity" class="sizingtable_inputs" value="{{cases[i].specificHeatRatio}}"></div> -->
                                                         <div class="row sizingtable"><input type="text" name="molecularWeight" class="sizingtable_inputs" value="{{cases[i].molecularWeight}}"></div>
                                                         <div class="row sizingtable"><input type="text" name="compressibility" class="sizingtable_inputs" value="{{cases[i].compressibility}}"></div>
                                                         <div class="row sizingtable"><input type="text" name="fl" class="sizingtable_inputs" value="{{cases[i].fl}}"></div>
@@ -148,7 +148,7 @@
                                                         <div class="row sizingtable"><input type="text" name="outletPressure" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" name="inletTemp" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable "><input type="text" name="specificHeatRatio" class="sizingtable_inputs"></div>
-                                                        <div class="row sizingtable "><input type="text" name="specificGravity" class="sizingtable_inputs"></div>
+                                                        <!-- <div class="row sizingtable "><input type="text" name="specificGravity" class="sizingtable_inputs"></div> -->
                                                         <div class="row sizingtable"><input type="text" name="molecularWeight" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" name="compressibility" class="sizingtable_inputs"></div>
                                                         <div class="row sizingtable"><input type="text" name="fl" class="sizingtable_inputs"></div>
@@ -667,71 +667,7 @@
                 
 
 
-                <script type="text/javascript">
-                        
-
-                        // window.onload = function() {
-                        //         console.log('start function')
-                                
-                        //         $('.clear-case').on('click', function() {
-                        //         var idBtn = $(this).data('id');
-                        //         alert(idBtn)
-                        //         $("." + idBtn).hide();
-                        //         });
-                        //         console.log('end function')    
-                        // };
-                        // $('.case1').hide();
-
-                        function resetAllValues(obj) {
-                                var class_hide = "." + obj.className;
-                                const boxes = document.getElementsByClassName(obj.className);
-                                for (const box of boxes) {
-                                // 👇️ hides element
-                                        box.style.visibility = 'none';
-                                };
-                        };
-                        
-                </script>
-                <script>
-                        // alert('js working')
-                        window.onload = function() {
-                          var notesSelect = document.getElementById("fluidState");
-                          var fluid_state_start = $("#fluidState :selected").val()
-
-                          if (fluid_state_start == 1){
-                                $("#vaporPressure").show();
-                                $(".").show();
-                          } else {
-                                $("#vaporPressure").hide();
-                                $(".").hide();
-                          }
-                          
-                          notesSelect.onchange = function() {
-                                var fluid_state = $("#fluidState :selected").val()
-                                alert('js working')
-                                if (fluid_state_start== 1){
-                                        $("#vaporPressure").show();
-                                        $(".").show();
-
-                                } else {
-                                        $("#vaporPressure").hide();
-                                        $(".").hide();
-                                };
-                          };
-                        };
-
-                        
-
-
-
-
-                          
-                </script>
-                <script>
-                    $('#fluidState').on('change', function(){
-                            window.location = $(this).val();
-                    });
-            </script>
+                
 
 {% include "footer.html" %}
 {% endblock %}
