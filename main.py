@@ -1799,13 +1799,13 @@ def data_upload(data_list, table_name):
     # data_delete(table_name)
     # print("data delete ends")
     print('dataupload starts')
-    # all_data = table_name.query.all()
-    # old_del_count = 0
-    # for dd in all_data:
-    #     if dd.name not in data_list:
-    #         db.session.delete(dd)
-    #         db.session.commit()
-    #         old_del_count += 1
+    all_data = table_name.query.all()
+    old_del_count = 0
+    for dd in all_data:
+        if dd.name not in data_list:
+            db.session.delete(dd)
+            db.session.commit()
+            old_del_count += 1
             
     new_count = 0
     for data_ in data_list:
@@ -1816,7 +1816,7 @@ def data_upload(data_list, table_name):
             db.session.commit()
             new_count += 1
     
-    print(new_count)
+    print(new_count, old_del_count)
     print('data upload ends')
 
 
@@ -6642,7 +6642,7 @@ def DATA_UPLOAD_BULK():
 
 # DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
-# data_upload(region_list, regionMaster)
+data_upload(region_list, regionMaster)
     
 
 if __name__ == "__main__":
