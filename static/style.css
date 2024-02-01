@@ -16,15 +16,7 @@ img {
     margin-left: 8%;
 }
 
-.adjust {
-    resize: horizontal;
-    overflow: auto;
-    display: block;
-    white-space: nowrap;
-    /* width: 10px; */
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+
 
 label {
     font-size: 11px;
@@ -33,16 +25,16 @@ label {
 .sidenav {
     background-color: #353a40;
     position: fixed;
-    /* left: 0; */
+   
     width: 15%;
-    /* margin-top: 67px; */
+  
 
     z-index: 1;
     line-height: 100%;
 }
 
 .nav-link {
-    /* text-align: center; */
+   
     color: white;
     font-size: 16px;
     padding-top: 2px;
@@ -53,49 +45,38 @@ label {
     background-color: white;
     color: black;
     border-radius: 0%;
-    /* border-radius: -20px; */
+  
 }
 
 .fa-circle-user {
     font-size: 25px;
 
-    /* background-color:white */
+   
 
 }
 
-/* .nav-link p{
-    font-size: 15px;
-} */
 .topicons {
-    /* margin-left: 25px; */
     margin-top: 2%;
     width: 97%;
     height: 30px;
 }
 
 .projectdetails {
-    /* margin-top: 20px; */
-    /* margin-right: 20px; */
-    /* margin-left: 10px; */
+   
     width: 97%;
-    /* height: 40px; */
+  
 }
 
-/* .Itemdetails
-{
-    margin-top: 40px;
-} */
+
 .project {
     border: 1px solid white;
     padding: 2px;
-    /* box-shadow: 2px 2px 2px 2px rgb(247, 241, 241); */
     border-radius: 5px;
     height: 50px;
 }
 
 .item {
     margin-top: 14%;
-    /* border: 1px solid white; */
     padding: 2px;
 
     border-radius: 5px;
@@ -112,7 +93,6 @@ label {
 }
 
 .fa-magnifying-glass {
-    /* background-color: #353a40; */
     color: white;
 }
 
@@ -125,20 +105,15 @@ label {
 
 /* ----------------------------------------------------project details page-------------------------------------------------------------- */
 .projectdetails-form {
-    /* background-color: white; */
     padding: 15px;
     width: 95%;
-    /* -webkit-box-shadow: 2px 7px 15px 1px rgba(148, 183, 212, 1);
-    -moz-box-shadow: 2px 7px 15px 1px rgba(148, 183, 212, 1);
-    box-shadow: 2px 7px 15px 1px #cbd0d7; */
+  
 }
 
 .orderinformation-form {
     margin-left: 3%;
     padding: 15px;
-    /* -webkit-box-shadow: 2px 7px 15px 1px rgba(148, 183, 212, 1);
-    -moz-box-shadow: 2px 7px 15px 1px rgba(148, 183, 212, 1);
-    box-shadow: 2px 7px 15px 1px #cbd0d7; */
+   
 }
 
 .projectdetail_heading {
@@ -167,7 +142,9 @@ label {
 }
 
 /* ---------------------------------------------------------------valve data page-------------------------------------------------------- */
-
+.pressure{
+    width: 105%;
+}
 .valvedata_heading {
     font-size: 15px;
 }
@@ -214,15 +191,15 @@ label {
 }
 
 .valveselection {
-    height: 98%;
+    height: 118%;
 }
 
 .materialselection {
-    height: 98%;
+    height: 118%;
 }
 
 .warnings {
-    height: 183%;
+    height: 100%;
 }
 
 .valvebutton {
@@ -230,6 +207,7 @@ label {
     font-size: 14px;
     color: black;
     border: none;
+    width: 100%;
 }
 
 /* -------------------------------------valvesizing page------------------------------------------------------------------------ */
@@ -303,14 +281,14 @@ label {
     margin-top: 13%;
     text-align: right;
     color: rgb(28, 28, 28);
-    font-size: 9px;
+    font-size: 11px;
 }
 
 
 
 .closeicon {
-    margin-left: 5%;
-    margin-top: 10%;
+    margin-left: 20%;
+    margin-top: 5%;
     text-align: right;
     color: rgb(95, 95, 95);
     font-size: 14px;
@@ -577,18 +555,7 @@ a:link {
     border: none;
 }
 
-/* .input_btn3
-{
-    width: 150px;
-    background-color: #04AA6D; 
-    color: white;
-    font-size: 14px;
-}
-.input_btn4
-{
-    width: 150px;
-    font-size: 14px;
-} */
+
 .Rotary_input {
     height: 100%;
     font-size: 12px;
@@ -1099,16 +1066,6 @@ a:link {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 /* ----------------------------------------Accessories Positioner Table ----------------------*/
 
 /* ------------------------------------------------------------ */
@@ -1134,27 +1091,119 @@ a:link {
 }
 
 
-
-/* .topinput {
-    width: 40%;
-    height: 90%;
-} */
-
-/* #topinput {
-    width: 40%;
-    height: 50%;
-} */
-
-
-
-
 /* --------------------Customer Master------------------------- */
-.itembody_table {
-    min-height: 200px;
-}
 
 .cus_input {
     width: 100%;
     height: 70%;
     font-size: 11px;
 }
+
+
+
+.table_sno {
+    width: 1%;
+    font-size: 11px;
+}
+
+.table_company {
+    width:3%;
+    font-size: 11px;
+}
+
+.table_desc {
+    width: 1%;
+    font-size: 11px;
+}
+
+.table_edit {
+    width: 1%;
+    font-size: 11px;
+    text-align: center;
+}
+
+.body_content_customer {
+    font-size: 11px;
+}
+
+
+
+
+
+
+
+
+/* --------------------------------------------Admin register Page-------------------------------------------------------------------------- */
+
+.admim_register_box {
+    padding: 10px;
+    width: 95%;
+}
+
+
+
+.admin_register_heading {
+    font-size: 15px;
+}
+
+.admin_register_input {
+    width: 100%;
+    height: 70%;
+    font-size: 11px;
+}
+
+
+
+.admin_register_btn {
+    background-color: #dedbdb;
+    color: black;
+    font-size: 14px;
+    border: none;
+    margin-left: 79%;
+}
+
+
+
+
+
+
+/* ---------------------------Admin  User Rights--------------------------------- */
+
+
+.admim_user_box {
+    padding: 10px;
+    width: 95%;
+}
+
+.adminUser_select {
+    width: 100%;
+    height: 70%;
+    font-size: 11px;
+    background-color: white;
+    border: 1px solid #607274;
+}
+
+
+
+.admin_user_btn {
+    background-color: #dedbdb;
+    color: black;
+    font-size: 14px;
+    border: none;
+    margin-left: 60%;
+    width: 40%;
+}
+  
+/* ------------------------------------------------Admin page---------------------------------------------------------------------------- */
+
+.adminpage_heading {
+    font-size: 15px;
+}
+
+.adminpage_btn {
+    background-color: #dedbdb;
+    color: black;
+    font-size: 12px;
+    border: none;
+}
+

@@ -1,21 +1,374 @@
-table, tr td {
-    border: 1px solid #333
+/* -------------------------------------------------table.css---------------------------------------------------------------------------- */
+
+/* ---------------------------------------Dashboard Table------------------------------------------------ */
+/* .fa-circle-user
+{
+    color: white;
+} */
+/* img {
+    width: 80%;
+    margin-top: 9%;
+    margin-left: 8%;
+} */
+body {
+    background-color: #fffefe;
 }
 
-  tbody {
-    display: block;
-    height: 170px;
+.image {
+    width: 80%;
+    margin-top: 9%;
+    margin-left: 8%;
+}
+
+.nav-pills .nav-link.active {
+    background-color: white;
+    color: black;
+    position: relative;
+    border-radius: 0%;
+}
+
+
+
+
+/* ---------------Dashboard Table 1----------------------------- */
+
+table {
+
+    table-layout: fixed;
+    font-size: 11px;
+
+
+}
+
+
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    position: relative;
     overflow: auto;
 }
-thead, tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;/* even columns width , fix width of table too*/
-}
-/* thead {
-    width: calc( 100% - 1em )/* scrollbar is average 1em/16px width, remove it from thead width 
-} */
+
 table {
-    width: 400px;
+
+    width: 100%;
 }
 
+#table-scroll {
+    height: 177px;
+    overflow: auto;
+    margin-top: 10px;
+}
+
+table td {
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden
+
+}
+
+table th {
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+thead {
+    background-color:white;
+
+    top: 0px;
+    z-index: 100;
+    color: #272727;
+}
+
+
+
+th,
+td {
+    height: 5px;
+    text-align: left;
+    vertical-align: top;
+    border-left: 1px solid #ccc;
+}
+
+.border_outline{
+    border: groove 1px rgb(196, 196, 196);
+}
+
+.dash_thead {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+}
+.table1_ratio {
+    text-align: center;
+    width: 4%;
+
+    color: white
+}
+
+.table1_quote {
+    text-align: center;
+
+}
+
+.table1_customer {
+    text-align: left;
+
+}
+
+.table1_enquiry {
+    text-align: left;
+
+}
+
+.table1_receipt {
+    text-align: left;
+
+}
+
+.table1_due {
+    text-align: left;
+   
+}
+
+.table1_region {
+    text-align: left;
+   
+}
+
+.table1_industry {
+    text-align: left;
+    
+   
+}
+
+.table1_engineer {
+    text-align: left;
+ 
+
+}
+
+.table1_status {
+    text-align: center;
+  
+
+}
+
+.table1_work{
+    text-align: center;
+}
+
+.table1_print {
+    text-align: center;
+    width: 4%;
+ 
+}
+ 
+
+/* Dashboard Table2 */
+
+.table-container2 {
+    max-height: 176px;
+    overflow-y: auto;
+    position: relative;
+    margin-top: 2%;
+
+}
+
+.table2_ratio {
+    text-align: center;
+    width: 4%;
+    
+}
+
+.table2_item {
+    text-align: left;
+    /* width: 5% */
+}
+
+.table2_alt {
+    text-align: center;
+    /* width: 4% */
+}
+
+.table2_tag {
+    text-align: left;
+    /* width: 6% */
+}
+
+.table2_series {
+    text-align: center;
+    /* width: 6% */
+}
+
+.table2_size {
+    text-align: left;
+    /* width: 5% */
+}
+
+.table2_model {
+    text-align: left;
+    /* width: 7% */
+}
+
+
+.table2_type {
+    text-align: left;
+    /* width: 6% */
+}
+
+
+.table2_rating {
+    text-align: left;
+    /* width: 7% */
+}
+
+.table2_material {
+    text-align: left;
+    /* width: 14% */
+}
+
+.table2_unit {
+    text-align: left;
+    /* width: 5%; */
+
+}
+
+.table2_qty {
+    text-align: center;
+    /* width: 6% */
+}
+
+.table2_total {
+    text-align: left;
+    /* width: 7%; */
+}
+
+.table2_print {
+    text-align: center;
+    width: 4%
+}
+
+
+.table2_align{
+    text-align: left;
+}
+.table2_align2{
+    text-align: right;
+}
+
+
+
+/* ---------------------------------------/--------dashboard----------/------------------------------------------ */
+
+.topicons {
+
+    margin-top: 2%;
+    width: 97%;
+    height: 30px;
+}
+
+.projectdetails {
+    margin-top: 2%;
+
+    width: 97%;
+
+}
+
+
+.project {
+    border: 1px solid white;
+    padding: 2px;
+
+    border-radius: 5px;
+    height: 50px;
+}
+
+.item {
+    margin-top: 1%;
+
+    padding: 2px;
+
+    border-radius: 5px;
+    height: 50px
+}
+
+
+/* .Itemdetails {
+    margin-top: 15px;
+} */
+
+.fa-solid {
+    color: black;
+}
+
+.fa-magnifying-glass {
+
+    color: white;
+}
+
+#btn {
+    background-color: #353a40;
+    outline: none;
+    border: none;
+}
+
+
+/* ----------------------------------Logo------------------------ */
+
+img {
+    width: 75%;
+    margin-top: 6%;
+    margin-left: 4%;
+}
+
+/* ------------------------------------------Sidenavbaar----------------------------------------------------------- */
+.sidenav {
+    background-color: #353a40;
+    position: fixed;
+
+    width: 15%;
+
+
+    z-index: 1;
+    line-height: 100%;
+}
+
+.nav-link {
+
+    color: white;
+    font-size: 16px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+}
+
+.nav-link:hover {
+    background-color: white;
+    color: black;
+    border-radius: 0%;
+
+}
+
+.nav-pills .nav-link.active {
+    background-color: white;
+    color: black;
+}
+
+
+.fa-circle-user {
+    font-size: 25px;
+    color: white;
+}
+
+/* .Itemdetails {
+    margin-top: 3%;
+} */
+.top_input {
+    width: 30%;
+    height: 90%;
+}

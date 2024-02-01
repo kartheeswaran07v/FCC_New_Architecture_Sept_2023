@@ -1,338 +1,359 @@
 {% block content %}
-{% include "header.html" %}
-<br><br>
+{% include "header_2.html" %}
 
-                        <div class="projectdetails">
-                            <div class="project shadow">
-                                <div class="row">
-                                    <div class="col-6 mt-2">
-                                        <div class="row" style="margin-left: 1px">
-                                            <div class="col-2">
-                                                <h6 style="font-size: 15px;"><b>Project</b></h6>
-                                            </div>
-                                            <div class="col-1">
-                                                <a
-                                                    href="{{url_for('addProject', proj_id=item.project.id, item_id=item.id)}}"
-                                                    data-toggle="tooltip"
-                                                    title="Create"
-                                                    data-placement="bottom"
-                                                >
-                                                    <i class="fa-solid fa-plus"></i
-                                                ></a>
-                                            </div>
-                                            <div class="col-1">
-                                                <a
-                                                    href="#"
-                                                    data-toggle="tooltip"
-                                                    title="Delete"
-                                                    data-placement="bottom"
-                                                >
-                                                    <i class="fa-solid fa-xmark"></i
-                                                ></a>
-                                            </div>
-                                            <div class="col-1">
-                                                <a
-                                                    href="#"
-                                                    data-toggle="tooltip"
-                                                    title="Download"
-                                                    data-placement="bottom"
-                                                >
-                                                    <i class="fa-solid fa-download"></i
-                                                ></a>
-                                            </div>
-                                            <div class="col-1">
-                                                <a
-                                                    href="#"
-                                                    data-toggle="tooltip"
-                                                    title="Upload"
-                                                    data-placement="bottom"
-                                                >
-                                                    <i class="fa-solid fa-upload"></i
-                                                ></a>
-                                            </div>
-                                            <div class="col-1">
-                                                <a
-                                                    href="#"
-                                                    data-toggle="tooltip"
-                                                    title="Copy"
-                                                    data-placement="bottom"
-                                                >
-                                                    <i class="fa-solid fa-copy"></i
-                                                ></a>
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="projectdetails project shadow mt-5">
+        <!-- <div class="project shadow"> -->
+            <div class="row">
+                <div class="col-6 mt-2">
+                    <div class="row ml-1">
+                        <div class="col-2 mt-1">
+                            <h6><b>Project</b></h6>
+                        </div>
+                        <div class="col-1">
+                            <a
+                                href="{{url_for('addProject', proj_id=item.project.id, item_id=item.id)}}"
+                                data-toggle="tooltip"
+                                title="Create"
+                                data-placement="bottom"
+                            >
+                                <i class="fa-solid fa-plus"></i
+                            ></a>
+                        </div>
+                        <div class="col-1">
+                            <a
+                                href="#"
+                                data-toggle="tooltip"
+                                title="Delete"
+                                data-placement="bottom"
+                            >
+                                <i class="fa-solid fa-xmark"></i
+                            ></a>
+                        </div>
+                        <div class="col-1">
+                            <a
+                                href="#"
+                                data-toggle="tooltip"
+                                title="Download"
+                                data-placement="bottom"
+                            >
+                                <i class="fa-solid fa-download"></i
+                            ></a>
+                        </div>
+                        <div class="col-1">
+                            <a
+                                href="#"
+                                data-toggle="tooltip"
+                                title="Upload"
+                                data-placement="bottom"
+                            >
+                                <i class="fa-solid fa-upload"></i
+                            ></a>
+                        </div>
+                        <div class="col-1">
+                            <a
+                                href="#"
+                                data-toggle="tooltip"
+                                title="Copy"
+                                data-placement="bottom"
+                            >
+                                <i class="fa-solid fa-copy"></i
+                            ></a>
+                        </div>
+                    </div>
+                </div>
 
-                                    <div class="col-6 mt-1">
-                                        <div class="row justify-content-end">
-                                            <div class="col-8">
-                                                <div class="form-group">
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        placeholder="Search........."
-                                                        class="form-control"
-                                                        id="projectinput"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <button type="button" class="btn btn-primary" id="btn">
-                                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="container-fluid">
-                                    <div class="table-container1">
-                                        <table
-                                            class="table table-striped table-bordered table1">
-                                
-                                        
-                                            <thead class="table-sm" style="font-size: 11px;">
-                                                <tr class="table-sm">
-                                                    <th style="text-align: left;"></th>
-                                                    <th style="text-align: left;"><div class="adjust">Quote No</div></th>
-                                                    <th style="text-align: left; "><div class="adjust">Customer Name</div></th>
-                                                    <th style="text-align: left; "><div class="adjust">Enquiry Ref</div></th>
-                                                    <th style="text-align: left;"><div class="adjust">Receipt Date</div></th>
-                                                    <th style="text-align: left;"><div class="adjust">Due Date</div></th>
-                                                    <th style="text-align: left;"><div class="adjust">Region</div></th>
-                                                    <th style="text-align: left; "><div class="adjust">Industry</div></th>
-                                                    <th style="text-align: left;"><div class="adjust">Engineer</div></th>
-                                                    <th style="text-align: left;"><div class="adjust">Status</div></th>
-                                               
-                                                    <th style="text-align: left;"><div class="adjust">Work Order No</div></th>
-                                                    <th style="text-align: left;"><div class="adjust">Print</div></th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody class="table-sm" style="height: 90px; font-size: 11px;" id="projectlist">
-                                                {% for project in projects %}
-                                                <tr>
-                                                    {% if item.project.id == project.id %}
-                                                    <td style="text-align: left; width: 2%"><input type="radio" checked onclick="window.location='{{url_for('getItems', proj_id=project.id)}}'"></td>
-                                                    {% else %}
-                                                    <td style="text-align: left; width: 2%"><input type="radio" onclick="window.location='{{url_for('getItems', proj_id=project.id)}}'"></td>
-                                                    {%endif%}
-                                                    <td style="text-align: left; width: 6%">{{project.projectId}}</td>
-                                                    {% if address[projects.index(project)] %}
-                                                    <td style="text-align: left; width: 17%">{{address[projects.index(project)].address.address}}</td>
-                                                    {% else %}
-                                                    <td style="text-align: left; width: 17%"></td>
-                                                    {% endif %}
-                                                    <td style="text-align: left; width: 12%">{{project.enquiryRef}}</td>
-                                                    {% if eng[projects.index(project)] %}
-                                                    <td style="text-align: left; width: 6%">{{project.receiptDate.date()}}</td>
-                                                    <td style="text-align: left; width: 6%">{{project.bidDueDate.date()}}</td>
-                                                    <td style="text-align: left; width:8%" >{{project.region.name}}</td>
-                                                    <td style="text-align: left;width: 15%;">{{project.industry.name}}</td>
-                                                    <td style="text-align: left; width: 5%">{{eng[projects.index(project)].engineer.name}}</td>
-                                                    {% else %}
-                                                    
-                                                    <td style="text-align: left; width: 6%"></td>
-                                                    <td style="text-align: left; width: 6%"></td>
-                                                    <td style="text-align: left; width:8%" ></td>
-                                                    <td style="text-align: left;width: 15%;"></td>
-                                                    <td style="text-align: left; width: 5%"></td>
-
-                                                    {%endif%}
-                                                    <td style="text-align: left; width: 3%">{{project.status}}</td>
-                                                    <td style="text-align: left; width: 8%">{{project.workOderNo}}</td>
-                                                    
-                                                    <td style="text-align: center; width:2%" ;>
-                                                        <a href="{{url_for('generate_csv', proj_id=item.project.id, item_id=item.id)}}">
-                                                            <i class="fa-solid fa-print"></i>
-                                                        </a>
-                                                        
-                                                    </td>
-                                                </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                <div class="col-6 mt-1">
+                    <div class="row justify-content-end">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Search........."
+                                    class="form-control"
+                                    id="projectinput"
+                                />
                             </div>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary" id="btn">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+                <div class="border_outline" id="table-scroll">
+                    <table class="table table-striped table-bordered test">
+            
+                    
+                        <thead class="table-sm dash_thead" >
+                            <tr class="table-sm">
+                                <th class="table1_ratio"></th>
+                                <th class="table1_quote">
+                                    <div class="">Quote No</div>
+                                </th>
+                                <th class="table1_customer">
+                                    <div class="">Customer Name</div>
+                                </th>
+                                <th class="table1_enquiry">
+                                    <div class="">Enquiry Ref</div>
+                                </th>
+                                <th class="table1_receipt">
+                                    <div class="">Receipt Date</div>
+                                </th>
+                                <th class="table1_due">
+                                    <div class="">Due Date</div>
+                                </th>
+                                <th class="table1_region">
+                                    <div class="">Region</div>
+                                </th>
+                                <th class="table1_industry">
+                                    <div class="">Industry</div>
+                                </th>
+                                <th class="table1_engineer">
+                                    <div class="">Engineer</div>
+                                </th>
+                                <th class="table1_status">
+                                    <div class="">Status</div>
+                                </th>
 
-                            <!-- Item details -->
-                        <div class="container-fluid">
-                            <div class="Itemdetails">
-                                <div class="item shadow">
-                                    <div class="row">
-                                        <div class="col-6 mt-2">
-                                            <div class="row" style="margin-left: 1px">
-                                                <div class="col-2">
-                                                    <h6 style="font-size: 16px;"><b>Item</b></h6>
-                                                </div>
-                                                <div class="col-1">
-                                                    <a
-                                                        href="{{url_for('addItem', proj_id=item.project.id, item_id=item.id)}}"
-                                                        data-toggle="tooltip"
-                                                        title="Create"
-                                                        data-placement="bottom"
-                                                    >
-                                                        <i class="fa-solid fa-plus"></i
-                                                    ></a>
-                                                </div>
-                                                <div class="col-1">
-                                                    <a
-                                                        href="#"
-                                                        data-toggle="tooltip"
-                                                        title="Delete"
-                                                        data-placement="bottom"
-                                                    >
-                                                        <i class="fa-solid fa-xmark"></i
-                                                    ></a>
-                                                </div>
-                                                <div class="col-1">
-                                                    <a
-                                                        href="#"
-                                                        data-toggle="tooltip"
-                                                        title="Download"
-                                                        data-placement="bottom"
-                                                    >
-                                                        <i class="fa-solid fa-download"></i
-                                                    ></a>
-                                                </div>
-                                                <div class="col-1">
-                                                    <a
-                                                        href="#"
-                                                        data-toggle="tooltip"
-                                                        title="Upload"
-                                                        data-placement="bottom"
-                                                    >
-                                                        <i class="fa-solid fa-upload"></i
-                                                    ></a>
-                                                </div>
-                                                <div class="col-1">
-                                                    <a
-                                                        href="#"
-                                                        data-toggle="tooltip"
-                                                        title="Copy"
-                                                        data-placement="bottom"
-                                                    >
-                                                        <i class="fa-solid fa-copy"></i
-                                                    ></a>
-                                                </div>
-                                                <div class="col-1">
-                                                    <a
-                                                        href="{{url_for('addAlternate', proj_id=item.project.id, item_id=item.id)}}"
-                                                        data-toggle="tooltip"
-                                                        title="Alternate"
-                                                        data-placement="bottom"
-                                                    >
-                                                        <i
-                                                            class="fa-regular fa-object-ungroup fa-1x"
-                                                            style="color: black"
-                                                        ></i
-                                                    ></a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <th class="table1_work">
+                                    <div class="">Work Order No</div>
+                                </th>
+                                <th class="table1_print">
+                                    <div class="">Print</div>
+                                </th>
+                            </tr>
+                        </thead>
 
-                                        <div class="col-6 mt-1">
-                                            <div class="row justify-content-end">
-                                                <div class="col-8">
-                                                    <div class="form-group">
-                                                        <input
-                                                            type="text"
-                                                            name="name"
-                                                            placeholder="Search........."
-                                                            class="form-control"
-                                                            id="iteminput"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div class="col-2">
-                                                    <button type="button" class="btn btn-primary" id="btn">
-                                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <tbody class="table-sm"  id="projectlist">
+                            {% for project in projects %}
+                            <tr>
+                                {% if item.project.id == project.id %}
+                               <td class="table1_ratio"><input type="radio" checked onclick="window.location='{{url_for('getItems', proj_id=project.id)}}'"></td>
+                                {% else %}
+                                <td class="table1_ratio"><input type="radio" onclick="window.location='{{url_for('getItems', proj_id=project.id)}}'"></td>
+                                {%endif%}
+                                <td class="table1_quote">{{project.projectId}}</td>
+                                {% if address[projects.index(project)] %}
+                                <td class="table1_customer">{{address[projects.index(project)].address.address}}</td>
+                                {% else %}
+                                <td class="table1_customer"></td>
+                                {% endif %}
+                                <td class="table1_enquiry">{{project.enquiryRef}}</td>
+                                {% if eng[projects.index(project)] %}
+                                <td class="table1_receipt">{{project.receiptDate.date()}}</td>
+                                <td class="table1_due">{{project.bidDueDate.date()}}</td>
+                                <td class="table1_region">{{project.region.name}}</td>
+                                <td class="table1_industry">{{project.industry.name}}</td>
+                                <td class="table1_engineer">{{eng[projects.index(project)].engineer.name}}</td>
+                                {% else %}
+                                
+                                <td class="table1_engineer">
+                                <td class="table1_engineer">
+                                <td class="table1_engineer">
+                                <td class="table1_engineer">
+                                <td class="table1_engineer">
+                                {%endif%}
+                                <td class="table1_status">{{project.status}}</td>
+                                <td class="table1_work">{{project.workOderNo}}</td>
+                                
+                                <td class="table1_print">                                                        <a href="{{url_for('generate_csv', proj_id=item.project.id, item_id=item.id)}}">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                    
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            
+        <!-- </div> -->
 
-                                <!-- Item tables -->
-                                <table
-                                    class="table table-striped table-bordered table2">
-                            
-                                    <thead class="table-sm" style="font-size: 11px;">
-                                        <tr>
-                                            <th style="text-align: left; width: 2%"></th>
-                                            <th style="text-align: left; width: 5%">Item</th>
-                                            <th style="text-align: center; width: 4%">Alt</th>
-                                            <th style="text-align: left; width: 10%">Tag Number</th>
-                                            <th style="text-align: center; width: 6%">Series</th>
-                                            <th style="text-align: left; width: 5%">Size</th>
-                                            <th style="text-align: left; width: 7%">Model</th>
-                                            <th style="text-align: left; width: 6%">Type</th>
-                                            <th style="text-align: left; width: 7%">Rating</th>
-                                            <th style="text-align: left; width: 14%">Material</th>
-                                            <th style="text-align:left" ;>Unit price</th>
-                                            <th style="text-align: center; width: 6%">Qty</th>
-                                            <th style="text-align:left" ;>Total price</th>
-                                            <th style="text-align: center; width:2%">Print</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody class="table-sm" style="height: 230px; font-size: 11px;" id="itemlist">
-                                        {% for valve_ in items %}
-                                        <tr>
-                                            {% if item.id == valve_.item.id %}
-                                            <td style="text-align: left; width: 2%"><input type="radio" checked onclick="window.location='{{url_for('selectItem', item_id=valve_.item.id)}}'"></td>
-                                            {% else %}
-                                            <td style="text-align: left; width: 2%"><input type="radio" onclick="window.location='{{url_for('selectItem', item_id=valve_.item.id)}}'"></td>
-                                            {% endif %}
-                                            {% if valve_.material %}
-                                                <td style="text-align: left; width: 5%">{{valve_.item.itemNumber}}</td>
-                                                <td style="text-align: center; width: 4%">{{valve_.item.alternate}}</td>
-                                                <td style="text-align: left; width: 10%">{{valve_.tagNumber}}</td>
-                                                <td style="text-align: center; width: 6%">{{valve_.serialNumber}}</td>
-                                                <td style="text-align: left; width: 5%">{{valve_.id}}</td>
-                                                <td style="text-align: left; width: 7%">{{valve_.id}}</td>
-                                                <td style="text-align: left; width: 6%">{{valve_.style.name}}</td>
-                                                <td style="text-align: left; width: 7%">{{valve_.rating.name}}</td>
-                                                <td style="text-align: left; width: 14%">
-                                                    {{valve_.material.name}}
-                                                </td>
-                                                <td style="text-align:left">{{item.id}}</td>
-                                                <td style="text-align: center; width: 6%">{{valve_.quantity}}</td>
-                                                <td style="text-align: right">{{item.id}}</td>
-                                                <td style="text-align: center; width: 70px">
-                                                    <i class="fa-solid fa-print"></i>
-                                                </td>
-                                            {% else %}
-                                                <td style="text-align: left; width: 5%">{{valve_.item.itemNumber}}</td>
-                                                <td style="text-align: center; width: 4%">{{valve_.item.alternate}}</td>
-                                                <td style="text-align: left; width: 10%">{{valve_.item.id}}</td>
-                                                <td style="text-align: center; width: 6%">{{valve_.item.id}}</td>
-                                                <td style="text-align: left; width: 5%">{{valve_.item.id}}</td>
-                                                <td style="text-align: left; width: 7%">{{valve_.item.id}}</td>
-                                                <td style="text-align: left; width: 6%">{{valve_.item.id}}</td>
-                                                <td style="text-align: left; width: 7%">{{valve_.item.id}}</td>
-                                                <td style="text-align: left; width: 14%">
-                                                    {{valve_.item.id}}
-                                                </td>
-                                                <td style="text-align:left">{{valve_.item.id}}</td>
-                                                <td style="text-align: center; width: 6%">{{valve_.item.id}}</td>
-                                                <td style="text-align: right">{{valve_.item.id}}</td>
-                                                <td style="text-align: center; width: 70px">
-                                                    <i class="fa-solid fa-print"></i>
-                                                </td>
-                                            {%endif%}
-                                        </tr>
-                                        {% endfor %}
-
-
-                                        
-                                    </tbody>
-                                </table>
+        <!-- Item details -->
+    <!-- <div class="container-fluid"> -->
+        <div class="Itemdetails">
+            <div class="item shadow mt-3">
+                <div class="row">
+                    <div class="col-6 mt-2">
+                        <div class="row ml-1">
+                            <div class="col-2 mt-1">
+                                <h6><b>Item</b></h6>
+                            </div>
+                            <div class="col-1">
+                                <a
+                                    href="{{url_for('addItem', proj_id=item.project.id, item_id=item.id)}}"
+                                    data-toggle="tooltip"
+                                    title="Create"
+                                    data-placement="bottom"
+                                >
+                                    <i class="fa-solid fa-plus"></i
+                                ></a>
+                            </div>
+                            <div class="col-1">
+                                <a
+                                    href="#"
+                                    data-toggle="tooltip"
+                                    title="Delete"
+                                    data-placement="bottom"
+                                >
+                                    <i class="fa-solid fa-xmark"></i
+                                ></a>
+                            </div>
+                            <div class="col-1">
+                                <a
+                                    href="#"
+                                    data-toggle="tooltip"
+                                    title="Download"
+                                    data-placement="bottom"
+                                >
+                                    <i class="fa-solid fa-download"></i
+                                ></a>
+                            </div>
+                            <div class="col-1">
+                                <a
+                                    href="#"
+                                    data-toggle="tooltip"
+                                    title="Upload"
+                                    data-placement="bottom"
+                                >
+                                    <i class="fa-solid fa-upload"></i
+                                ></a>
+                            </div>
+                            <div class="col-1">
+                                <a
+                                    href="#"
+                                    data-toggle="tooltip"
+                                    title="Copy"
+                                    data-placement="bottom"
+                                >
+                                    <i class="fa-solid fa-copy"></i
+                                ></a>
+                            </div>
+                            <div class="col-1">
+                                <a
+                                    href="{{url_for('addAlternate', proj_id=item.project.id, item_id=item.id)}}"
+                                    data-toggle="tooltip"
+                                    title="Alternate"
+                                    data-placement="bottom"
+                                >
+                                    <i
+                                        class="fa-regular fa-object-ungroup fa-1x"
+                                        style="color: black"
+                                    ></i
+                                ></a>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-6 mt-1">
+                        <div class="row justify-content-end">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Search........."
+                                        class="form-control"
+                                        id="iteminput"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary" id="btn">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item tables -->
+            <div class="table-container2 border_outline ">
+                <table
+                class="table table-striped table-bordered test">
+                <thead class="table-sm dash_thead">
+                    <tr>
+                        <th class="table2_ratio"></th>
+                        <th class="table2_item">Item</th>
+                        <th class="table2_alt">Alt</th>
+                        <th class="table2_tag">Tag Number</th>
+                        <th class="table2_series">Series</th>
+                        <th class="table2_size">Size</th>
+                        <th class="table2_model">Model</th>
+                        <th class="table2_type">Type</th>
+                        <th class="table2_rating">Rating</th>
+                        <th class="table2_material">Material</th>
+                        <th class="table2_unit">Unit price</th>
+                        <th class="table2_qty">Qty</th>
+                        <th class="table2_total">Total price</th>
+                        <th class="table2_print">Print</th>
+                    </tr>
+                </thead>
+
+                <tbody class="table-sm" id="itemlist">
+                    {% for valve_ in items %}
+                    <tr>
+                        {% if item.id == valve_.item.id %}
+                        <td class="table2_ratio"><input type="radio" checked onclick="window.location='{{url_for('selectItem', item_id=valve_.item.id)}}'"></td>
+                        {% else %}
+                        <td class="table2_ratio"><input type="radio" onclick="window.location='{{url_for('selectItem', item_id=valve_.item.id)}}'"></td>
+                        {% endif %}
+                        {% if valve_.material %}
+                        <td class="table2_item">{{valve_.item.itemNumber}}</td>
+                        <td class="table2_alt">{{valve_.item.alternate}}</td>
+                        <td class="table2_tag">{{valve_.tagNumber}}</td>
+                        <td class="table2_series">{{valve_.serialNumber}}</td>
+                        <td class="table2_item">{{valve_.id}}</td>
+                        <td  class="table2_model">{{valve_.id}}</td>
+                        <td class="table2_type">{{valve_.style.name}}</td>
+                        <td class="table2_rating">{{valve_.rating.name}}</td>
+                        <td class="table2_material">
+                                {{valve_.material.name}}
+                            </td>
+                            <td class="table2_align">{{item.id}}</td>
+                            <td class="table2_series">{{valve_.quantity}}</td>
+                            <td class="table2_align2">{{item.id}}</td>
+                            <td class="table2_print">
+                                <i class="fa-solid fa-print"></i>
+                            </td>
+                        {% else %}
+                            <td class="table2_item">{{valve_.item.itemNumber}}</td>
+                            <td class="table2_alt">{{valve_.item.alternate}}</td>
+                            <td class="table2_tag">{{valve_.item.id}}</td>
+                            <td class="table2_series">{{valve_.item.id}}</td>
+                            <td class="table2_item">{{valve_.item.id}}</td>
+                            <td  class="table2_model">{{valve_.item.id}}</td>
+                            <td class="table2_type">{{valve_.item.id}}</td>
+                            <td class="table2_rating">{{valve_.item.id}}</td>
+                            <td class="table2_material">
+                                {{valve_.item.id}}
+                            </td>
+                            <td >{{valve_.item.id}}</td>
+                            <td class="table2_align">{{valve_.item.id}}</td>
+                            <td class="table2_align2">{{valve_.item.id}}</td>
+                            <td  class="table2_print">
+                                <i class="fa-solid fa-print"></i>
+                            </td>
+                        {%endif%}
+                    </tr>
+                    {% endfor %}
+
+
+                    
+                </tbody>
+            </table>
+            </div>
+        </div>
+    <!-- </div> -->
+</div>
+
+
+                   
                     </div>
                 </div>
 {% include "footer.html" %}
