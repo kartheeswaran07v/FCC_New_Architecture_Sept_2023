@@ -1,0 +1,15 @@
+{% block content %}
+{% include "header.html" %}
+
+<div class="row" style="display: flex; justify-content: center; align-items: center; height: 90vh;">
+    <form action="{{url_for('itemDelete', proj_id=item.project.id, item_id=item.id)}}" method="post">
+        <h4>The following data will be deleted, kindly confirm!</h4>
+        <p>Number of Cases: {{len_cases}}</p>
+        <p>Valve data, Actuator Sizing Data, Accessories Data and {{len_itn}} number of Item Notes</p>
+        <input type="submit" class="btn btn-success btn-sm valve_btn2 mt-2" value="OK">
+        <button class="btn btn-failure btn-sm valve_btn2 mt-2"><a href="{{url_for('home', proj_id=item.project.id, item_id=item.id)}}">Cancel</a></button>
+    </form>
+</div>
+
+{% include "footer.html" %}
+{% endblock %}

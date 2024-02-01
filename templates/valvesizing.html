@@ -8,6 +8,50 @@
                                 <div class="col-4 parameters-units">
                                         <div class="row">
                                                 <!--------------PARAMETER COLUMN-------------->
+                                                <div class="col-sm-8">
+                                                        <!-- <div class="row sizingtableleft"><p class="sizingp">Parameters</p></div> -->
+                                                </div>
+                                                <div class="col-4">
+                                                        <!-- <div class="row sizingtableleft"><p class="sizingp">Units</p></div> -->
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="col-8 input-fields">
+                                        <div class="row">
+                                                {% for i in case_length %}
+                                                {% if cases[i] %}
+                                                        <div class="col-2 colborder_bottom case{{i+1}}">
+                                                                <div class="row sizingtableleft">
+                                                                        <p class="case{{i+1}}"  onclick="copyPaste(this)" style="margin-right: 20px;margin-left: 5px;">
+                                                                                <i class="fa-solid fa-copy clear" data-toggle="tooltip" title="Copy"></i>
+                                                                        </p>
+                                                                        <p class="case{{i+1}}" onclick="paste(this)">
+                                                                                <i class="fa-solid fa-paste clear" data-toggle="tooltip" title="Paste"></i>
+                                                                        </p>
+                                                                        
+                                                                </div>
+                                                        </div>
+                                                {% else %}
+                                                        <div class="col-2 colborder_bottom case{{i+1}}">
+                                                                <div class="row sizingtableleft">
+                                                                        <p class="case{{i+1}}"  onclick="copyPaste(this)" style="margin-right: 20px;margin-left: 5px;">
+                                                                                <i class="fa-solid fa-copy clear" data-toggle="tooltip" title="Copy"></i>
+                                                                        </p>
+                                                                        <p class="case{{i+1}}" onclick="paste(this)">
+                                                                                <i class="fa-solid fa-paste clear" data-toggle="tooltip" title="Paste"></i>
+                                                                        </p>
+                                                                        
+                                                                </div>
+                                                        </div>
+                                                {% endif %}
+                                                {% endfor %}
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="row column-headers">
+                                <div class="col-4 parameters-units">
+                                        <div class="row">
+                                                <!--------------PARAMETER COLUMN-------------->
                                                 <div class="col-sm-8 colborder_bottom">
                                                         <div class="row sizingtableleft"><p class="sizingp">Parameters</p></div>
                                                 </div>
@@ -21,22 +65,25 @@
                                                 {% for i in case_length %}
                                                 {% if cases[i] %}
                                                         <div class="col-2 colborder_bottom case{{i+1}}">
-                                                                <div class="row sizingtableleft"><p class="sizingp ml-1">Case {{i+1}}</p>
+                                                                <div class="row sizingtableleft"><p class="sizingp ml-1" >Case {{i+1}}</p>
                                                                         <p class="case{{i+1}}" onclick="clearData(this)" >
                                                                                 <i class="fa-solid fa-rotate-right clear " data-toggle="tooltip" title="Clear Case {{i+1}}"></i>
                                                                         </p>
                                                                         <a href="{{url_for('itemCaseDelete', item_id=item.id, proj_id=item.project.id, case_id=cases[i].id)}}" data-id="case{{i+1}}" class="clear-case">
                                                                                 <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case {{i+1}}"></i>
                                                                         </a>
+                                                                        <!-- <p class="case{{i+1}}">
+                                                                                <i class="fa-regular fa-copy" data-toggle="tooltip" title="Copy Case {{i+1}}"></fa-regular>
+                                                                        </p> -->
                                                                         
                                                                 </div>
                                                         </div>
                                                 {% else %}
                                                         <div class="col-2 colborder_bottom case{{i+1}}">
                                                                 <div class="row sizingtableleft"><p class="sizingp ml-1">Case {{i+1}}</p>
-                                                                        <a href="" class="case{{i+1}}" onclick="resetAllValues(this)" >
+                                                                        <p class="case{{i+1}}" onclick="clearData(this)" >
                                                                                 <i class="fa-solid fa-rotate-right clear " data-toggle="tooltip" title="Clear Case {{i+1}}"></i>
-                                                                        </a>
+                                                                        </p>
                                                                         <a href="" data-id="case{{i+1}}" class="clear-case">
                                                                                 <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case {{i+1}}"></i>
                                                                         </a>
@@ -651,15 +698,37 @@
 
 
                 <script type="text/javascript">
+                        var copiedOuptput = {value: NaN}
                         function clearData(obj) {
                                 var class_hide = "." + obj.className;
-                                alert(class_hide)
+                                let res = $(class_hide + ' input').map(function(){
+                                        return $(this).val('');
+                                });
                         };
 
                         function handleSelect(elm) {
                                 // alert('js working for fstate')
                                 window.location = elm.value
-                        }
+                        };
+
+                        function copyPaste(obj) {
+                                var class_hide = "." + obj.className;
+                                let res = $(class_hide + ' input').map(function(){
+                                        return $(this).val();
+                                }).get();
+                                console.log(res);
+                                copiedOuptput.value = res
+                                alert('Values Copied from ' + obj.className)
+
+                        };
+
+                        function paste(obj) {
+                                var class_hide = "." + obj.className;
+                                let res2 = $(class_hide + ' input');
+                                copiedOuptput.value.map((value, index) => {
+                                        res2[index].value = value;
+                                }); 
+                        };
                         
                 </script>
 

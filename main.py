@@ -5412,6 +5412,7 @@ def valveSizing(proj_id, item_id):
     return render_template(html_page, item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
                            metadata=metadata_, page='valveSizing', valve=valve_element, case_length=range(6), cases=itemCases_1)
 
+
 @app.route('/item-case-delete/proj-<proj_id>/item-<item_id>/<case_id>', methods=['GET', 'POST'])
 def itemCaseDelete(proj_id, item_id, case_id):
     case_ = getDBElementWithId(caseMaster, case_id)
@@ -5420,6 +5421,35 @@ def itemCaseDelete(proj_id, item_id, case_id):
     return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
 
 
+@app.route('/item-delete/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def itemDelete(proj_id, item_id):
+    item_ = getDBElementWithId(itemMaster, item_id)
+    cases = db.session.query(caseMaster).filter_by(item=item_).all()
+    len_cases = len(cases)
+    item_nots = db.session.query(itemNotesData).filter_by(item=item_).all()
+    len_itn = len(item_nots)
+    # redirect to page showing number of cases that are deleted and ask for confirmation
+    # Valve details, valve sizing, accessories, actuator sizing, item notes
+    # If okay, check whether it is the last case and intimate that one new blank item will be added and redirected to that last item page
+    if request.method == 'POST':
+        all_items = db.session.query(itemMaster).filter_by(project=item_.project).all()
+        total_no_of_items = len(all_items)
+        if total_no_of_items == 1:
+            new_item = addNewItem(item_.project, 1, "A")
+            flash("Blank Item Added, and item deleted successfully")
+            
+            db.session.delete(item_)
+            db.session.commit()
+            return redirect(url_for('home', item_id=new_item.id, proj_id=new_item.project.id))
+        else:
+            db.session.delete(item_)
+            db.session.commit()
+            flash("Item deleted successfully")
+            return redirect(url_for('home', item_id=all_items[0].id, proj_id=all_items[0].project.id))
+        
+    return render_template('deleteConfirmation.html', item_id=item_id, proj_id=proj_id, 
+                           item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                           len_cases=len_cases, len_itn=len_itn)
 
 ###
 
