@@ -19,6 +19,19 @@
                                 <div class="col-8 input-fields">
                                         <div class="row">
                                                 {% for i in case_length %}
+                                                {% if cases[i] %}
+                                                        <div class="col-2 colborder_bottom case{{i+1}}">
+                                                                <div class="row sizingtableleft"><p class="sizingp ml-1">Case {{i+1}}</p>
+                                                                        <a href="" class="case{{i+1}}" onclick="resetAllValues(this)" >
+                                                                                <i class="fa-solid fa-rotate-right clear " data-toggle="tooltip" title="Clear Case {{i+1}}"></i>
+                                                                        </a>
+                                                                        <a href="{{url_for('itemCaseDelete', item_id=item.id, proj_id=item.project.id, case_id=cases[i].id)}}" data-id="case{{i+1}}" class="clear-case">
+                                                                                <i class="fa-solid fa-close fa-1x closeicon " data-toggle="tooltip" title="Delete Case {{i+1}}"></i>
+                                                                        </a>
+                                                                        
+                                                                </div>
+                                                        </div>
+                                                {% else %}
                                                         <div class="col-2 colborder_bottom case{{i+1}}">
                                                                 <div class="row sizingtableleft"><p class="sizingp ml-1">Case {{i+1}}</p>
                                                                         <a href="" class="case{{i+1}}" onclick="resetAllValues(this)" >
@@ -30,6 +43,7 @@
                                                                         
                                                                 </div>
                                                         </div>
+                                                {% endif %}
                                                 {% endfor %}
                                         </div>
                                 </div>
@@ -384,13 +398,13 @@
                                         </div>
                                         <div class="col-7">
                                                 <select id="fluidState"
-                                                        class="form-control-sm-sm valvesizing_select">
+                                                        class="form-control-sm-sm valvesizing_select" onchange="handleSelect(this)">
                                                         {% for f_state in metadata['fluidState'] %}
-                                                        {% if valve.state.name == f_state.name %}
-                                                                <option value="{{url_for('updateFluidState', fs_id=f_state.id, item_id=item.id, proj_id=item.project.id)}}" selected>{{f_state.name}}</option>
-                                                        {% else %}
-                                                                <option value="{{url_for('updateFluidState', fs_id=f_state.id, item_id=item.id, proj_id=item.project.id)}}">{{f_state.name}}</option>
-                                                        {% endif %}
+                                                                {% if valve.state.name == f_state.name %}
+                                                                        <option value="{{url_for('updateFluidState', fs_id=f_state.id, item_id=item.id, proj_id=item.project.id)}}" selected>{{f_state.name}}</option>
+                                                                {% else %}
+                                                                        <option value="{{url_for('updateFluidState', fs_id=f_state.id, item_id=item.id, proj_id=item.project.id)}}">{{f_state.name}}</option>
+                                                                {% endif %}
                                                         {% endfor %}
                                                         <!-- <option>inch</option> -->
                                                 </select>
@@ -664,6 +678,12 @@
 
         </div>
 </form>
+<script>
+        function handleSelect(elm) {
+                                // alert('js working for fstate')
+                                window.location = elm.value
+                        }
+</script>
                 
 
 

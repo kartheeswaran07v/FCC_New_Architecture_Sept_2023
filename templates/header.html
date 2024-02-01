@@ -116,7 +116,7 @@
                                         <a href="{{url_for('nextItem', control='prev', page=page, proj_id=item.project.id, item_id=item.id)}}">
                                             <i class="fa-solid fa-angle-left ml-3" data-toggle="tooltip" title="Previous"></i>
                                         </a>
-                                        <input type="text" style="text-align: center;" class="form-control-sm ml-3" name="name" readonly value="Q240000{{item.project.id}}-00{{item.itemNumber}}-{{item.alternate}}">
+                                        <input type="text" style="text-align: center;" class="form-control-sm ml-3" name="name" readonly value="{{item.project.projectId}}-00{{item.itemNumber}}-{{item.alternate}}">
                                         <a href="{{url_for('nextItem', control='next', page=page, proj_id=item.project.id, item_id=item.id)}}">
                                             <i class="fa-solid fa-angle-right ml-3" data-toggle="tooltip" title="next"></i>
                                         </a><a href="{{url_for('nextItem', control='last', page=page, proj_id=item.project.id, item_id=item.id)}}">

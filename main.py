@@ -1811,6 +1811,7 @@ def data_upload(data_list, table_name):
     for data_ in data_list:
         data_element = db.session.query(table_name).filter_by(name=data_).all()
         if len(data_element) == 0:
+            print(data_)
             new_data = table_name(name=data_)
             db.session.add(new_data)
             db.session.commit()
@@ -5411,6 +5412,15 @@ def valveSizing(proj_id, item_id):
     return render_template(html_page, item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
                            metadata=metadata_, page='valveSizing', valve=valve_element, case_length=range(6), cases=itemCases_1)
 
+@app.route('/item-case-delete/proj-<proj_id>/item-<item_id>/<case_id>', methods=['GET', 'POST'])
+def itemCaseDelete(proj_id, item_id, case_id):
+    case_ = getDBElementWithId(caseMaster, case_id)
+    db.session.delete(case_)
+    db.session.commit()
+    return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
+
+
+
 ###
 
 def interpolate(data, x_db, y_db, vtype):
@@ -6135,10 +6145,10 @@ def project_notes(proj_id, item_id):
         new_note = projectNotes(notesNumber=request.form.get('notesNumber'), notes=request.form.get('notes'), project=project_element)
         db.session.add(new_note)
         db.session.commit()
-        return redirect(url_for('project_notes', item_id=item_id, proj_id=proj_id))
+        return redirect(url_for('project_notes', item_id=item_id, proj_id=proj_id, page='project_notes'))
 
     return render_template("projectNotes.html", item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                            page='projectNotes', notes=notes_)
+                            page='project_notes', notes=notes_)
 
 
 
@@ -6651,4 +6661,4 @@ def DATA_UPLOAD_BULK():
     
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True, port=5055)
