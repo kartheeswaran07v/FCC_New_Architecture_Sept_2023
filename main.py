@@ -5444,6 +5444,7 @@ def itemDelete(proj_id, item_id):
         else:
             db.session.delete(item_)
             db.session.commit()
+            all_items = db.session.query(itemMaster).filter_by(project=item_.project).all()
             flash("Item deleted successfully")
             return redirect(url_for('home', item_id=all_items[0].id, proj_id=all_items[0].project.id))
         
