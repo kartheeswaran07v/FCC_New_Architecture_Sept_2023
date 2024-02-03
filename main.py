@@ -23,8 +23,10 @@ from gas_velocity_iec import getGasVelocities
 from liquid_noise_formulae import Lpe1m
 from sqlalchemy.sql.sqltypes import String, VARCHAR, FLOAT, INTEGER
 from jinja2 import Environment, FileSystemLoader
-
+import smtplib
 from specsheet import createSpecSheet
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 # -----------^^^^^^^^^^^^^^----------------- IMPORT STATEMENTS -----------------^^^^^^^^^^^^^------------ #
 
@@ -2128,10 +2130,47 @@ def sendOTP(username):
     # Generate Random INT
     random_decimal = random.random()
     random_int = round(random_decimal * 10 ** 6)
-    with app.app_context():
+    otp__ = db.session.query(OTP).filter_by(username=username).all()
+    if len(otp__) == 0:
         new_otp = OTP(otp=random_int, username=username, time=datetime.datetime.now())
         db.session.add(new_otp)
         db.session.commit()
+    else:
+        otp_1 = db.session.query(OTP).filter_by(username=username).first()
+        otp_1.otp = random_int
+        otp_1.time = datetime.datetime.now()
+        db.session.commit()
+    
+    # Send email
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    # s.ehlo()
+    s.starttls()
+    # s.ehlo()
+    sender_email = 'titofccvs@gmail.com'
+    sender_email_password = 'lvcf senp padh csyr'
+    # sender_email_password = 'titofccvs@2023'
+    reciever_email = ['kartheeswaran1707v@gmail.com', username]
+    s.login(sender_email, sender_email_password)
+    # message = f"The OTP for resetting password is: {random_int}"
+    message = "OTP for Reset Password is " + str(random_int)
+    print(message)
+    s.sendmail(sender_email, reciever_email, message)
+    s.quit()
+    # msg = MIMEMultipart()
+    # msg['From'] = sender_email
+    # msg['To'] = reciever_email
+    # msg['Subject'] = 'OTP for Reset Password'
+    # message = f"The OTP for resetting password is: {random_int}"
+    # msg.attach(MIMEText(message))
+
+    # with smtplib.SMTP('smtp-mail.outlook.com',587) as mail_server:
+    #     # identify ourselves to smtp gmail client
+    #     # secure our email with tls encryption
+    #     mail_server.starttls()
+    #     # re-identify ourselves as an encrypted connection
+    #     # mail_server.ehlo()
+    #     mail_server.login(sender_email, sender_email_password)
+    #     mail_server.sendmail(sender_email, reciever_email, message)
 
 
 def getEngAddrList(all_projects):
@@ -2499,6 +2538,32 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+@app.route('/reset-pw', methods=["GET", "POST"])
+def resetPassword():
+    if request.method == 'POST':
+        email_ = request.form.get('email')
+        sendOTP(email_)
+        return redirect(url_for('sendOTPEmail', email=email_))
+    return render_template('send-email-otp.html')
+
+@app.route('/send-otp/<email>', methods=["GET", "POST"])
+def sendOTPEmail(email):
+    if request.method == 'POST':
+        otp_ = request.form['otp']
+        username = email
+        otp_element = db.session.query(OTP).filter_by(username=username).first()
+        if int(otp_element.otp) == int(otp_):
+            user_element = db.session.query(userMaster).filter_by(email=username).first()
+            user_element.password = generate_password_hash(request.form['password'], method='pbkdf2:sha256',
+                                                                  salt_length=8)
+            db.session.commit()
+            flash('Password Reset Successfully')
+            return redirect(url_for('login'))
+        else:
+            flash('Incorrect OTP')
+    return render_template('reset-pw.html', email=email)
 
 
 # TODO Dashboard Module

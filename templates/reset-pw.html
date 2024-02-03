@@ -19,8 +19,8 @@
     <div class="container">
         <div class="form-container">
             <h2>Login</h2>
-            <form action="{{url_for('login')}}" method="POST">
-                <input type="email" name="email" placeholder="Email" required>
+            <form action="{{url_for('sendOTPEmail', email=email)}}" method="POST">
+                <input type="text" name="otp" placeholder="OTP" required>
                 <input type="password" name="password" placeholder="Password" required>
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -32,9 +32,7 @@
                     {% endif %}
                 {% endwith %}
                 {% block body %}{% endblock %}
-                <button type="submit">Login</button>
-                <label for="" style="color: rgb(133, 133, 133);"> <label for=""><a href="{{url_for('register')}}">New User</a><label for=""> / </label>
-                <a href="{{url_for('resetPassword')}}">Forgot Password</a></label>
+                <button type="submit">Reset Password</button>
             </form>
         </div>
     </div>
