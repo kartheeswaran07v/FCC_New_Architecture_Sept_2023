@@ -1,6 +1,6 @@
 {% block content %}
 {% include "header.html" %}
-<br>
+<br><br>
                         <form action="{{url_for('itemNotes', proj_id=item.project.id, item_id=item.id)}}" method="post">
                             <div class="container-fluid">
                                 <div class="row">
@@ -136,83 +136,82 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-12">
-                                        <h6 class="Itemnotes_heading"><b>Item Notes</b></h6>
-                                        <div class="row">
-                                            <div class="col-1 mt-1">
-                                                <select id="note" name="note" class="form-control-sm-sm item_select">
-                                                    <!-- <option>N1</option>
-                                                    <option>N2</option>
-                                                    <option>N3</option>
-                                                    <option>N4</option>
-                                                    <option>N5</option>
-                                                    <option>N6</option>
-                                                    <option>N7</option>
-                                                    <option>N8</option>
-                                                    <option>N9</option>
-                                                    <option>General</option> -->
-                                                </select>
-                                            </div>
-                                            <div class="col-6 mt-1">
-                                                <select id="nvalues" name="nvalues" class="form-control-sm-sm item_select">
-                                                    <!-- <option>Material inspections And Certifiction Requirement in accordance
-                                                        with EN 10204 3.1 for wetted parts</option>
-                                                    <option>Dimension Inspection On The Assembled Valve Shall be as per
-                                                        Approved General Assembly</option>
-                                                    <option> Material inspections And Certifiction Requirement in accordance
-                                                        with EN
-                                                        10204 3.1 for wetted parts</option> -->
-                                                </select>
-                                            </div>
-                                            <div class="col-2">
-                                                <button type="submit" class="btn btn-info btn-sm item_btn1">ADD</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-2 Item_notes">
-                                    <div class="col-8">
-                                       <table class="table table-striped table-bordered tableitem" style="height: 30vh; overflow-y: scroll;">
-                                            <thead class="table-sm itemhead">
-                                                <tr>
-                                                    <th class="table_notes">Notes</th>
-                                                    <th class="table_content">Content</th>
-                                                    <th class="table_remove">Remove</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-sm itembody_table">
-                                                {% for note in notes_list %}
-                                                <tr>
-                                                    <td class="body_content">{{note.notesNumber}}</td>
-                                                    <td class="body_content">{{note.content}}</td>
-                                                    <td class="body_content">
-                                                        <a href="{{url_for('delItemNotes', note_id=note.id, item_id=item.id, proj_id=item.project.id)}}">
-                                                            <i class="fa-solid fa-close fa-1x closeicon item_cancle_icon"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                {% endfor %}
-        
-                                            </tbody>
-                                       </table>
-                                       <!-- <button type="button" class="btn item_btn">Save Data</button> -->
-                                    </div>
-                                    <!-- <div class="col-4">
-                                        <button type="button" class="btn item_btn">Save Data</button>
-                                    </div> -->
-                                </div> 
-                                <div class="row">
-                                    <div class="col-12 fixed-bottom d-flex justify-content-end mb-3">
-                                        <input type="submit" name="accessories" class="btn item_btn btn-sm btn-info" value="Save Data">
-                                        <!-- <button type="submit" class="btn item_btn btn-sm btn-info">Save Data</button> -->
-                                    </div>
-                                </div>
                             </div>
     
     
     
-                         
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h6 class="Itemnotes_heading"><b>Item Notes</b></h6>
+                                    <div class="row">
+                                        <div class="col-1 mt-1">
+                                            <select id="note" name="note" class="form-control-sm-sm item_select">
+                                                <!-- <option>N1</option>
+                                                <option>N2</option>
+                                                <option>N3</option>
+                                                <option>N4</option>
+                                                <option>N5</option>
+                                                <option>N6</option>
+                                                <option>N7</option>
+                                                <option>N8</option>
+                                                <option>N9</option>
+                                                <option>General</option> -->
+                                            </select>
+                                        </div>
+                                        <div class="col-6 mt-1">
+                                            <select id="nvalues" name="nvalues" class="form-control-sm-sm item_select">
+                                                <!-- <option>Material inspections And Certifiction Requirement in accordance
+                                                    with EN 10204 3.1 for wetted parts</option>
+                                                <option>Dimension Inspection On The Assembled Valve Shall be as per
+                                                    Approved General Assembly</option>
+                                                <option> Material inspections And Certifiction Requirement in accordance
+                                                    with EN
+                                                    10204 3.1 for wetted parts</option> -->
+                                            </select>
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="submit" class="btn btn-info btn-sm item_btn1">ADD</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 Item_notes">
+                                <div class="col-8">
+                                   <table class="table table-striped table-bordered tableitem" style="height: 30vh; overflow-y: scroll;">
+                                        <thead class="table-sm itemhead">
+                                            <tr>
+                                                <th class="table_notes">Notes</th>
+                                                <th class="table_content">Content</th>
+                                                <th class="table_remove">Remove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-sm itembody_table">
+                                            {% for note in notes_list %}
+                                            <tr>
+                                                <td class="body_content">{{note.notesNumber}}</td>
+                                                <td class="body_content">{{note.content}}</td>
+                                                <td class="body_content">
+                                                    <a href="{{url_for('delItemNotes', note_id=note.id, item_id=item.id, proj_id=item.project.id)}}">
+                                                        <i class="fa-solid fa-close fa-1x closeicon item_cancle_icon"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+    
+                                        </tbody>
+                                   </table>
+                                   <!-- <button type="button" class="btn item_btn">Save Data</button> -->
+                                </div>
+                                <!-- <div class="col-4">
+                                    <button type="button" class="btn item_btn">Save Data</button>
+                                </div> -->
+                            </div> 
+                            <div class="row">
+                                <div class="col-12 fixed-bottom d-flex justify-content-end mb-3">
+                                    <input type="submit" name="accessories" class="btn item_btn btn-sm btn-info" value="Save Data">
+                                    <!-- <button type="submit" class="btn item_btn btn-sm btn-info">Save Data</button> -->
+                                </div>
+                            </div>  
                         </form>
                         <script>
                             // alert('js working')

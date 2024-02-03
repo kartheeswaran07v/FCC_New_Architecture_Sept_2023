@@ -2,97 +2,97 @@
 {% include "header.html" %}
 <form action="{{url_for('editProject', proj_id=item.project.id, item_id=item.id)}}" method="post">
     
-    <div class="container-fulid mt-4 ml-1">
+    <div class="container-fulid mt-5 ml-2">
         <div class="row">
             <!-- project details form -->
-            <div class="col-4 mt-4 mb-1">
+            <div class="col-4">
                 <div class="projectdetails-form shadow" >
-                    <h6 class="projectdetail_heading"><b>Project Details</b></h6>
+                    <h6 style="font-size: 15px;"><b>Project Details</b></h6>
                     <hr>
-                    <div class="row mt-2">
-                        <div class="col-6">
-                            <label for="cname">Customser Name</label>
+                    <div class="row mt-3">
+                        <div class="col-5">
+                            <label for="cname">Customer Name</label>
                         </div>
                         <div class="col-6">
-                            <select name="cname" class="form-control-sm-sm projectdetail_input" id="company"></select>
+                            <select name="cname" id="company"></select>
                         </div>
                     </div>
-                    <div class="row mt-1">
-                        <div class="col-6">
+                    <div class="row mt-3">
+                        <div class="col-5">
                             <label for="address">Address</label>
                         </div>
                         <div class="col-6">
-                            <select name="address" id="address" class="form-control-sm-sm projectdetail_input"></select>
+                            <select name="address" id="address"></select>
                         </div>
                     </div>
-                    <div class="row mt-1">
-                        <div class="col-6">
+                    <div class="row mt-3">
+                        <div class="col-5">
                             <label for="cname">End User</label>
                         </div>
                         <div class="col-6">
-                            <select name="cnameE" id="companyE" class="form-control-sm-sm projectdetail_input"></select>
+                            <select name="cnameE" id="companyE"></select>
                         </div>
                     </div>
-                    <div class="row mt-1">
-                        <div class="col-6">
+                    <div class="row mt-3">
+                        <div class="col-5">
                             <label for="address">End User Address</label>
                         </div>
                         <div class="col-6">
-                            <select name="addressE" id="addressE" class="form-control-sm-sm projectdetail_input"></select>
+                            <select name="addressE" id="addressE"></select>
                         </div>
                     </div>
                     
-                    <div class="row  mt-1">
-                        <div class="col-6">
+                    <div class="row  mt-2">
+                        <div class="col-5">
                             <label for="pro">Project Name</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control-sm-sm projectdetail_input" name="projectRef"
-                                 required value="{{project.projectRef}}">
+                            <input type="text" class="form-control-sm-sm" name="projectRef"
+                                style="width: 100%;" required value="{{project.projectRef}}">
                         </div>
                     </div>
-                    <div class="row  mt-1">
-                        <div class="col-6">
+                    <div class="row  mt-2">
+                        <div class="col-5">
                             <label for="pro">Enquiry Ref.</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control-sm-sm projectdetail_input" name="enquiryRef"
-                             required value="{{project.enquiryRef}}">
+                            <input type="text" class="form-control-sm-sm" name="enquiryRef"
+                                style="width: 100%;" required value="{{project.enquiryRef}}">
                         </div>
                     </div>
-                    <div class="row  mt-1">
-                        <div class="col-6">
+                    <div class="row  mt-2">
+                        <div class="col-5">
                             <label for="enquiry">Enquiry Date</label>
                         </div>
                         <div class="col-6">
-                            <input type="date" class="form-control-sm-sm projectdetail_input" name="enquiryReceivedDate"
-                                value="{{project.enquiryReceivedDate.date()}}">
+                            <input type="date" class="form-control-sm-sm" name="enquiryReceivedDate"
+                                style="width: 100%;" value="{{project.enquiryReceivedDate.date()}}">
                         </div>
                     </div>
-                    <div class="row  mt-1">
-                        <div class="col-6">
+                    <div class="row  mt-2">
+                        <div class="col-5">
                             <label for="received">Receipt Date</label>
                         </div>
                         <div class="col-6">
-                            <input type="date" class="form-control-sm-sm projectdetail_input" name="receiptDate"
-                             value="{{project.receiptDate.date()}}">
+                            <input type="date" class="form-control-sm-sm" name="receiptDate"
+                                style="width: 100%;" value="{{project.receiptDate.date()}}">
                         </div>
                     </div>
-                    <div class="row  mt-1">
-                        <div class="col-6">
+                    <div class="row  mt-2">
+                        <div class="col-5">
                             <label for="bid due">Bid Due Date</label>
                         </div>
                         <div class="col-6">
-                            <input type="date" class="form-control-sm-sm projectdetail_input" name="bidDueDate"
-                             value="{{project.bidDueDate.date()}}">
+                            <input type="date" class="form-control-sm-sm" name="bidDueDate"
+                                style="width: 100%;" value="{{project.bidDueDate.date()}}">
                         </div>
                     </div>
-                    <div class="row  mt-1 ">
-                        <div class="col-6 pr-0">
+                    <div class="row  mt-2 ">
+                        <div class="col-5">
                             <label for="application_eng">Application Engineer</label>
                         </div>
                         <div class="col-6">
-                            <select class="form-control-sm-sm projectdetail_select" name="aEng"
+                            <select class="form-control-sm-sm" name="aEng"
                                 id="application_eng" style="width: 100%;">
                                 {% for engineer in metadata['engineers'] %}
                                     {% if engineer.id == eng_a %}
@@ -104,13 +104,13 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row  mt-1 ">
-                        <div class="col-6">
+                    <div class="row  mt-2 ">
+                        <div class="col-5">
                             <label for="purpose">Purpose</label>
                         </div>
                         <div class="col-6">
-                            <select class="form-control-sm-sm projectdetail_select" name="purpose" id="purpose">
-                                
+                            <select class="form-control-sm-sm" name="purpose" id="purpose"
+                                style="width: 100%;">
                                 {% for purpose in metadata['purpose'] %}
                                     {% if project.purpose == purpose%}
                                         <option value="{{purpose}}" selected>{{purpose}}</option>
@@ -122,13 +122,13 @@
                         </div>
                     </div>
 
-                    <div class="row  mt-1 ">
-                        <div class="col-6">
+                    <div class="row  mt-2 ">
+                        <div class="col-5">
                             <label for="Industry">Industry</label>
                         </div>
                         <div class="col-6">
-                            <select class="form-control-sm-sm projectdetail_select" name="industry" id="Industry">
-                                
+                            <select class="form-control-sm-sm" name="industry" id="Industry"
+                                style="width: 100%;">
                                 {% for industry in metadata['industries'] %}
                                     {% if project.industry.name == industry.name %}
                                         <option value="{{industry.id}}" selected>{{industry.name}}</option>
@@ -142,13 +142,13 @@
                         </div>
                     </div>
 
-                    <div class="row mt-1">
-                        <div class="col-6">
+                    <div class="row mt-2">
+                        <div class="col-5">
                             <label for="project ">Region</label>
                         </div>
                         <div class="col-6">
-                            <select class="form-control-sm-sm projectdetail_select" name="region" id="region">
-                                
+                            <select class="form-control-sm-sm" name="region" id="region"
+                                style="width: 100%;">
                                 {% for region in metadata['regions'] %}
                                     {% if project.region.name == region.name %}
                                         <option value="{{region.id}}" selected>{{region.name}}</option>
@@ -159,21 +159,28 @@
                             </select>
                         </div>
                     </div>
-             
+                    <!-- <div class="row mt-2 mb-2">
+                        <div class="col-5">
+                            <label for="Project Revision">Project Revision</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control-sm-sm" name="Project Revision" style="width: 100%;">
+                        </div>
+                    </div> -->
 
                 </div>
             </div>
             <!-- order information form -->
-            <div class="col-4 mt-4">
+            <div class="col-4">
                 <div class="orderinformation-form shadow">
-                    <h6 ><b>Order Information</b></h6>
+                    <h6 style="font-size: 15px;"><b>Order Information</b></h6>
                     <hr>
-                    <div class="row  mt-1 ">
+                    <div class="row  mt-2 ">
                         <div class="col-6">
                             <label for="Contract Engineer">Contract Engineer</label>
                         </div>
                         <div class="col-6">
-                            <select class="form-control-sm-sm projectdetail_select" name="cEng"
+                            <select class="form-control-sm-sm" name="cEng"
                                 id="Contract Engineer">
                                 {% for engineer in metadata['engineers'] %}
                                     {% if engineer.id == eng_c %}
@@ -186,31 +193,31 @@
                         </div>
                     </div>
 
-                    <div class="row mt-1">
+                    <div class="row mt-2">
                         <div class="col-6">
                             <label for="Customer Po No">Customer PO No</label>
                         </div>
                         <div class="col-6">
-                            <input type="text"class="form-control-sm-sm projectdetail_input" name="custPoNo" value="{{project.custPoNo}}"
+                            <input type="text" class="form-control-sm-sm" name="custPoNo" value="{{project.custPoNo}}"
                                 style="width: 100%;">
                         </div>
                     </div>
 
-                    <div class="row mt-1">
+                    <div class="row mt-2">
                         <div class="col-6">
                             <label for="Work Order No">Work Order No</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control-sm-sm projectdetail_input"  name="workOderNo" value="{{project.workOderNo}}"
+                            <input type="text" class="form-control-sm-sm" name="workOderNo" value="{{project.workOderNo}}"
                                 style="width: 100%;">
                         </div>
                     </div>
-                    <div class="row mt-1">
+                    <div class="row mt-2">
                         <div class="col-6">
                             <label for="status">Status</label>
                         </div>
                         <div class="col-6">
-                            <select name="status"  id=""  class="form-control-sm-sm projectdetail_input">
+                            <select name="status" id="">
                                 {% for stat in metadata['status'] %}
                                     {% if project.status == stat %}
                                         <option value="{{stat}}" selected>{{stat}}</option>
@@ -236,9 +243,9 @@
     
 </div>
 </div>
-<div class="row ">
-    <div class="col-12 fixed-bottom d-flex justify-content-end mb-3">
-        <button type="submit" class="btn btn-info btn-sm projectdetail_btn">Update Project</button>
+<div class="row justify-content-end">
+    <div class="col-2">
+            <button type="submit" class="btn " style="background-color: #04AA6D; color: white;font-size: 11px;">Update Project</button>
     </div>
 </div>
 </form>

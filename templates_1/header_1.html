@@ -19,10 +19,6 @@
 		/>
 		<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
         <link rel="icon" type="image/x-icon" href="https://fccommune.com/assets/img/Icon-flow%20control%20commune.png">
-
-        <!-- Java Script Link Resize Table -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='js/resizetable.js')}}"></script>
         
         <script>
             $(document).ready(function() {
@@ -35,65 +31,73 @@
 </head>
 <body>
     <div class="container-fulid">
-        <div class="row mr-0">
+        <div class="row">
             <div class="col-2">
                 <div class="sidenav">
                     <img src="https://fccommune.com/assets/img/Logo-flow%20control%20commune.png"  alt="fcc">
                     <ul class="nav flex-column vh-100">
-                    
-                        <li  class="nav-item mt-4">
+                        <!-- <li class="nav-item mt-4">
+                            <p><a class="nav-link" href="#">Dashboard</a></p>
+                        </li> -->
+                        <li  class="nav-item mt-4" style="margin-top: 0;">
                             <p><a class="nav-link" href="{{url_for('home', proj_id=item.project.id, item_id=item.id)}}">
+                                <!-- <img src="icon/Dashboard.png" alt="dash" style="width: 15%;"> -->
                             Dashboard</a></p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('editProject', proj_id=item.project.id, item_id=item.id)}}">
+                                <!-- <img src="icon/Project Details.png" alt="projectdetail" style="width: 15%;"> -->
                                 Project Details</a></p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('valveData', proj_id=item.project.id, item_id=item.id)}}">	
+                                <!-- <i class="fa-solid fa-memo"></i> -->
                                 Valve Data</a></p>
                         </li>
                         <li class="nav-item">
                             <p>
                                 <a class="nav-link" href="{{url_for('valveSizing', proj_id=item.project.id, item_id=item.id)}}">
+                                    <!-- <img src="icon/Valve Sizing.png" alt="valve" style="width: 15%;"> -->
                                      Valve Sizing</a>
                             </p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('actuatorSizing', proj_id=item.project.id, item_id=item.id)}}">
+                                <!-- <img src="icon/Actuator Sizing.png" alt="valve" style="width: 15%;">  -->
                                 Actuator Sizing</a></p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('accessories', proj_id=item.project.id, item_id=item.id)}}">
+                                <!-- <img src="photo/Accessories.png" alt="valve" style="width: 10%; border-radius: 10px;">  -->
                                 Accessories</a></p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('itemNotes', proj_id=item.project.id, item_id=item.id)}}">
+                                <!-- <i class="fa-solid fa-ballot-check"></i>  -->
                                Orders, Item Notes</a></p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('project_notes', proj_id=item.project.id, item_id=item.id)}}">
+                                <!-- <i class="fa-solid fa-ballot-check" style="color: white;"> -->
                                 </i> Project Notes</a></p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('viewData', proj_id=item.project.id, item_id=item.id)}}">
+                                <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
                                 Reference Table
                             </a></p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('addCompany', proj_id=item.project.id, item_id=item.id)}}">
+                                <!-- <img src="icon/Actuator Sizing.png" alt="valve" style="width: 15%;">  -->
                                 Customer Master</a></p>
-                        </li>
-                        <li class="nav-item">
-                            <p><a class="nav-link" href="">
-                                Admin</a></p>
                         </li>
                         <li class="nav-item">
                             <p><a class="nav-link" href="{{url_for('logout')}}">
                                 <!-- <i class="fa-solid fa-arrow-right-from-bracket" style="color: white;"></i> -->
                                  Logout</a></p>
                         </li>
-                        <li class="nav-item mt-1">
+                        <li class="nav-item" style="margin-top: 10px;">
                             <p><a class="nav-link" href="#"> <i class="fa-solid fa-circle-user pr-2" style="color: white;"></i>  {{user.name}}</a></p>
                         </li>
                     </ul>
@@ -104,7 +108,7 @@
                 <div class="row">
                         <div class="col-12">
                             <div class="topicons">
-                                <div class="row "> 
+                                <div class="row" style="margin-left: 3px;"> 
                                     <div class="icon mt-2 ml-3">
                                         <a href="{{url_for('nextItem', control='first', page=page, proj_id=item.project.id, item_id=item.id)}}">
                                             <i class="fa-solid fa-backward-step" data-toggle="tooltip" title="first"></i>
@@ -112,7 +116,7 @@
                                         <a href="{{url_for('nextItem', control='prev', page=page, proj_id=item.project.id, item_id=item.id)}}">
                                             <i class="fa-solid fa-angle-left ml-3" data-toggle="tooltip" title="Previous"></i>
                                         </a>
-                                        <input type="text" style="text-align: center;" class="form-control-sm ml-3" name="name" readonly value="Q240000{{item.project.id}}-00{{item.itemNumber}}-{{item.alternate}}">
+                                        <input type="text" style="text-align: center;" class="form-control-sm ml-3" name="name" readonly value="{{item.project.projectId}}-00{{item.itemNumber}}-{{item.alternate}}">
                                         <a href="{{url_for('nextItem', control='next', page=page, proj_id=item.project.id, item_id=item.id)}}">
                                             <i class="fa-solid fa-angle-right ml-3" data-toggle="tooltip" title="next"></i>
                                         </a><a href="{{url_for('nextItem', control='last', page=page, proj_id=item.project.id, item_id=item.id)}}">

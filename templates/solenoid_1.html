@@ -1,0 +1,53 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+                <form action="{{url_for('selectSolenoid', proj_id=item.project.id, item_id=item.id)}}" method="post">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <table class="table table-striped table-bordered solenoid_table">
+                                <thead class="table-sm solenoidhead">
+                                    <tr>
+                                        <th></th>
+                                        <th class="table_afrmanu">Std/Spl</th>
+                                        <th>SOV Make</th>
+                                        <th>SOV Series</th>
+                                        <th>Size</th>
+                                        <th>SOV Type</th>
+                                        <th>SOV Orifice</th>
+                                        <th>SOV CV</th>
+                                        <th>Model No</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="table-sm">
+                                    {% for sol in metadata['solenoid_'] %}
+                                    <tr>
+                                        <td><input type="radio" value="{{sol.id}}" name="solenoid" class="form-control-sm-sm accesories_radio"></td>
+                                        <td>{{sol.standard}}</td>
+                                        <td>{{sol.make}}</td>
+                                        <td>{{sol.series}}</td>
+                                        <td>{{sol.size}}</td>
+                                        <td>{{sol.type}}</td>
+                                        <td>{{sol.orifice}}</td>
+                                        <td>{{sol.cv}}</td>
+                                        <td>{{sol.model}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                    
+                        <div class="col-6">
+                            <a href="{{url_for('accessories', proj_id=item.project.id, item_id=item.id)}}"><button type="button" class="btn btn-info back-btn">Back</button></a>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-info positioner_btn">Select Positioner</button>
+                        </div>
+                    </div>
+                </form>
+ 
+{% include "footer.html" %}
+{% endblock %}

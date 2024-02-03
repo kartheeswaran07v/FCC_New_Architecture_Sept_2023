@@ -749,22 +749,15 @@ a:link {
 
 /* -------------------------------------limit switch(accessories)------------------------------------------------------------- */
 
-
-#limit-scroll {
-    height: 350px;
-    overflow: auto;
-    margin-top: 10px;
-}
-
 .limitswitch_table {
     width: 100%;
-    /* overflow-y: scroll; */
-    /* display: block; */
-    height:70vh;
+    overflow-y: scroll;
+    display: block;
+    height: 80%;
     font-size: 11px;
 }
 
-.limithead{
+.limithead th {
     position: sticky;
     top: 0;
     background-color: #ffffff;
@@ -784,18 +777,13 @@ a:link {
 }
 
 /* ----------------------------------------------solenoid(accessories)------------------------------------------------------------ */
-#solenoid-scroll {
-    height: 350px;
-    overflow: auto;
-    margin-top: 10px;
-}
 
 .solenoid_table {
     width: 100%;
-    /* overflow-y: scroll; */
-    /* display: block; */
-    height: 70vh;
-    /* font-size: 11px; */
+    overflow-y: scroll;
+    display: block;
+    height: 80%;
+    font-size: 11px;
 }
 
 .solenoidhead {
@@ -807,18 +795,12 @@ a:link {
 
 /* -----------------------------------------------afr(accessories)----------------------------------------------------------------- */
 
-#afr-scroll {
-    height: 350px;
-    overflow: auto;
-    margin-top: 10px;
-}
-
 .afr_table {
     width: 100%;
-    /* overflow-y: scroll; */
-    /* display: block; */
-    height: 70vh;
-    /* font-size: 11px; */
+    overflow-y: scroll;
+    display: block;
+    height: 80%;
+    font-size: 11px;
 }
 
 .afr_btn {
@@ -830,34 +812,24 @@ a:link {
     border: none;
 }
 
-.afrhead  {
+.afrhead th {
     position: sticky;
     top: 0;
     background-color: #ffffff;
 }
 
-.table_afrradio {
-    width: 3%;
-    font-size: 11px;
-    text-align: left;
-}
-
 /* -----------------------------------------------positioner(accessories)---------------------------------------------------------- */
-#positioner-scroll {
-    height: 350px;
-    overflow: auto;
-    margin-top: 10px;
-}
+
 .tablepositioner {
     width: 100%;
-    /* overflow-y: scroll; */
-    /* display: block; */
-    height:70vh;
-    /* font-size: 11px; */
+    overflow-y: scroll;
+    display: block;
+    height: 78%;
+    font-size: 11px;
 
 }
 
-.positionerhead {
+.positionerhead th {
     position: sticky;
     top: 0;
     background-color: #ffffff;
@@ -866,20 +838,20 @@ a:link {
 
 /* ratio column  */
 .table_ratio {
-    width: 3%;
+    width: 1%;
     font-size: 11px;
     text-align: left;
 }
 
 /* manufactures,series,moc,enclosure,spool,type techno,action,haz columns */
 .table_manu {
-    /* width: 2%; */
+    width: 2%;
     font-size: 11px;
 }
 
 /* comm,cert/model */
 .table_comm {
-    /* width: 4%; */
+    width: 4%;
     font-size: 11px;
 }
 
@@ -908,77 +880,6 @@ a:link {
 }
 
 /* ----------------------------------------------order and item notes page css----------------------------------------------------- */
-
-
-
-
-table {
-
-    table-layout: fixed;
-    font-size: 11px;
-
-
-}
-
-
-
-table,
-th,
-td {
-    border: 1px solid #ddd;
-    border-collapse: collapse;
-    position: relative;
-    overflow: auto;
-}
-
-/* table {
-
-    width: 64%;
-} */
-
-#table-scroll {
-    height: 177px;
-    overflow: auto;
-    margin-top: 10px;
-}
-
-table td {
-    white-space: nowrap;
-    text-overflow:ellipsis;
-    overflow:hidden
-
-}
-
-table th {
-
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-thead {
-    background-color:white;
-
-    top: 0px;
-    z-index: 100;
-    color: #272727;
-}
-
-
-
-th,
-td {
-    height: 5px;
-    text-align: left;
-    vertical-align: top;
-    border-left: 1px solid #ccc;
-}
-
-.border_outline{
-    border: groove 1px rgb(196, 196, 196);
-}
-
-
 .Itemnotes_heading {
     font-size: 15px;
 }
@@ -1023,7 +924,7 @@ td {
     height: 35%;
 }
 
-.itemhead {
+.itemhead th {
     position: sticky;
     top: 0;
     background-color: #ffffff;
@@ -1035,7 +936,7 @@ td {
 }
 
 .table_content {
-    /* width: 50%; */
+    width: 50%;
     font-size: 11px;
 }
 
@@ -1057,9 +958,9 @@ td {
 
 .tableproject {
     width: 64%;
-    /* overflow-y: scroll;
+    overflow-y: scroll;
     display: block;
-    height: 73%; */
+    height: 73%;
 }
 
 /* ----------------------------------------------View Data CSS---------------------------------------------------------------------- */
@@ -1306,46 +1207,3 @@ td {
     border: none;
 }
 
-
-/* --------------------------------------project and item print--------------------------------------------------------- */
-.report_heading {
-    font-size: 17px;
-}
-.sub_heading {
-    font-size: 15px;
-}
-.project_lable {
-    margin-top: 10px;
-    font-size: 11px;
-}
-.project_download_btn
-{
-    margin-left: 45%;
-    background-color: #dedbdb;
-    color: black;
-    font-size: 12px;
-    border: none;
-}
-.project_print_table {
-    overflow-y: scroll;
-    display: block;
-    height: 242px;
-    font-size: 11px;
-    width: 92%;
-}
-.project_print_table_head th {
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-    width: 1%;
-}
-.project_print_radio {
-    text-align: center;
-}
-.item_print_table {
-    width: 92%;
-    font-size: 11px;
-}
-.item_select_table {
-    height: 98%;
-}

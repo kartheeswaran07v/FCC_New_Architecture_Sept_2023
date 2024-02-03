@@ -6265,40 +6265,27 @@ def uploadData(topic, item_id, proj_id):
     if request.method == 'POST':
         try:
             b_list = request.files.get('file').stream.read().decode().strip().split('\n')
-            if len(b_list[1].split(',')) < 3:
-                b_list_2 = [abc.split(',')[1].split('\r')[0] for abc in b_list[1:]]
-                print(b_list_2)
-                data_upload(b_list_2, table_)
-            if topic == '25':
-                pt_list = []
-                for i in b_list[1:]:
-                    try:
-                        i_dict = {'maxTemp': float(i.split(',')[1]), 'minTemp': float(i.split(',')[2]) * (-1),
-                                'pressure': float(i.split(',')[3]), 'material': i.split(',')[4],
-                                'rating': i.split(',')[5].split('\r')[0]}
-                        pt_list.append(i_dict)
-                    except ValueError:
-                        pass
-
-                pressure_temp_upload(pt_list)
-            else:
-                all_keys = table_data_render[int(topic) - 1]['db'].__table__.columns.keys()
-                table__ = table_data_render[int(topic) - 1]['db']
-                others_list = []
-                data_delete(table__)
-                for i in b_list[1:]:
-                    i_dict = {}
-                    for ind in range(len(all_keys[1:])):
-                        col_type = table__.__table__.columns[all_keys[1:][ind]].type
-                        if col_type == String or VARCHAR:
-                            i_dict[all_keys[ind]] = i.split(',')[ind]
-                        elif col_type == FLOAT:
-                            i_dict[all_keys[ind]] = float(i.split(',')[ind])
-                        elif col_type == INTEGER:
-                            i_dict[all_keys[ind]] = int(i.split(',')[ind])
-                    others_list.append(i_dict)
-                    db.session.add(table__(**i_dict))
-                    db.session.commit()
+            
+            all_keys = table_data_render[int(topic) - 1]['db'].__table__.columns.keys()
+            table__ = table_data_render[int(topic) - 1]['db']
+            others_list = []
+            data_delete(table__)
+            for i in b_list[1:]:
+                i_dict = {}
+                for ind in range(len(all_keys[1:])):
+                    col_type = table__.__table__.columns[all_keys[1:][ind]].type
+                    print(i.split(',')[ind+1])
+                    if col_type == String or VARCHAR:
+                        i_dict[all_keys[1:][ind]] = str(i.split(',')[ind+1])
+                    elif col_type == FLOAT:
+                        i_dict[all_keys[1:][ind]] = float(i.split(',')[ind+1])
+                    elif col_type == INTEGER:
+                        i_dict[all_keys[1:][ind]] = int(i.split(',')[ind+1])
+                    # else:
+                    #     i_dict[all_keys[ind]] = i.split(',')[ind+1]
+                others_list.append(i_dict)
+                db.session.add(table__(**i_dict))
+                db.session.commit()
         except Exception as e:
             # Write logic for headers mismatch later
             # flash(f'An Error Occured: {e}')

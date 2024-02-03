@@ -4,9 +4,8 @@
             <form action="{{url_for('selectPositioner', proj_id=item.project.id, item_id=item.id)}}" method="post">
                 <div class="row mt-3">
                     <div class="col-12">  
-                        <div class="border_outline tablepositioner" id="positioner-scroll">
-                                 <!-- <table class="table table-striped table-bordered tablepositioner" style="height: 70vh; overflow-y: scroll;"> -->
-                        <table class="table table-striped table-bordered test"  >
+
+                        <table class="table table-striped table-bordered tablepositioner" style="height: 70vh; overflow-y: scroll;">
                             <thead class="table-sm positionerhead active">
                                 <tr>
                                     <th class="table_ratio"></th>
@@ -41,13 +40,10 @@
 
                             </tbody>
                        </table>
-                            </div>
-
-                   
                     </div>
                     
                 </div>
-                <div class="row mt-3">
+                <div class="row">
                  
                     <div class="col-6">
                         <a href="{{url_for('accessories', proj_id=item.project.id, item_id=item.id)}}"><button type="button" class="btn btn-info back-btn">Back</button></a>
