@@ -25,7 +25,11 @@
                             <tbody class="table-sm ">
                                 {% for pos in metadata['positioner'] %}
                                 <tr>
+                                    {% if select_pos.id == pos.id %}
+                                    <td class=""><input type="radio" name='positioner' value="{{pos.id}}" checked class="ml-2"></td>
+                                    {% else %}
                                     <td class=""><input type="radio" name='positioner' value="{{pos.id}}" class="ml-2"></td>
+                                    {% endif %}
                                     <td class="">{{pos.manufacturer}}</td>
                                     <td class="">{{pos.series}}</td>
                                     <td class="">{{pos.moc}}</td>

@@ -1,55 +1,22 @@
-id,fluidState,fluidName,specificGravity,vaporPressure,viscosity,criticalPressure,molecularWeight,specificHeatRatio,compressibilityFactor
-1,Liquid / Gas,Acetic Acid,0.86,3.97,1.0,56.9,60.5,1.14,0.9
-2,Liquid / Gas,Acetic Anhydride,0.88,1.94,1.0,45.8,102.0,1.09,0.91
-3,Liquid / Gas,Acetone,0.62,18.8,1.0,46.0,58.1,1.13,0.94
-4,Liquid / Gas,Acetylene,0.24,383.0,1.0,60.4,26.0,1.23,0.99
-5,Liquid / Gas,Acrylic Acid,0.87,1.83,1.0,55.8,7.1,1.12,0.91
-6,Liquid / Gas,Air,0.0,1110.0,1.0,32.9,29.0,1.4,1.0
-7,Liquid / Gas,Ammonia,0.43,190.0,1.0,112.0,17.0,1.31,1.0
-8,Liquid / Gas,Argon,0.0,1150.0,1.0,47.8,39.9,1.67,1.0
-9,Liquid / Gas,Benzene,0.71,9.2,1.0,48.0,78.1,1.11,0.99
-10,Liquid / Gas,Bromine,2.55,15.3,1.0,102.0,160.0,1.3,0.96
-11,Liquid / Gas,"Butadiene 1,3",0.44,55.7,1.0,42.3,54.1,1.12,0.96
-12,Liquid / Gas,Butane,0.41,49.0,1.0,37.0,58.1,1.09,0.95
-13,Liquid / Gas,Butyl Alcohol,0.65,5.35,1.0,43.2,74.1,1.08,0.91
-14,Liquid / Gas,Carbon Dixide ,0.38,9130.0,1.0,72.8,44.0,1.29,0.99
-15,Liquid / Gas,Carbon monoxide,0.0,694.0,1.0,34.0,28.0,1.4,1.0
-16,Liquid / Gas,Carbon Tetrachloride,1.28,9.55,1.0,44.6,154.0,1.11,0.91
-17,Liquid / Gas,Chlorine Dry,1.0,109.0,1.0,76.0,70.9,1.33,0.98
-18,Liquid / Gas,chlorine Wet,1.0,109.0,1.0,76.0,70.9,1.33,0.38
-19,Liquid / Gas,Demin.Water,0.84,9.03,1.0,220.0,18.0,1.33,0.97
-20,Liquid / Gas,Dowtherm A,0.94,-0.88,1.0,94.6,166.0,1.05,0.9
-21,Liquid / Gas,Ethane,0.2,386.0,1.0,47.0,30.1,1.19,0.99
-22,Liquid / Gas,Ethyl Alcohol,0.62,20.0,1.0,62.9,46.1,1.15,0.95
-23,Liquid / Gas,Ethylene,0.16,336.0,1.0,49.4,28.1,1.24,0.99
-24,Liquid / Gas,Helium,0.0,258.0,1.0,1.26,4.0,1.66,1.0
-25,Liquid / Gas,n-Heptane,0.54,5.77,1.0,26.4,100.0,1.05,0.86
-26,Liquid / Gas,Hexane,0.51,11.7,1.0,28.7,86.2,1.06,0.9
-27,Liquid / Gas,hydrocarbon Gas,0.0,1430.0,1.0,45.0,16.0,1.31,1.0
-28,Liquid / Gas,Hydrocarbon Liquid,0.62,26.4,1.0,99.0,32.0,1.24,0.97
-29,Liquid / Gas,Hydrogen,0.0,773.0,1.0,12.0,2.02,1.4,1.0
-30,Liquid / Gas,hydrogen Chloride,0.51,393.0,1.0,82.1,36.5,1.4,0.99
-31,Liquid / Gas,Hydrogen Fluoride,0.72,43.9,1.0,63.0,20.0,1.4,0.97
-32,Liquid / Gas,Hydrogen Sulphide,0.55,208.0,1.0,88.4,34.1,1.35,0.99
-33,Liquid / Gas,Isopropyl Alcohol,0.61,18.4,1.0,46.6,60.1,1.1,0.94
-34,Liquid / Gas,Methane,0.0,4130.0,1.0,45.0,16.0,1.31,1.0
-35,Liquid / Gas,Methyle Alcohol,0.62,26.4,1.0,80.0,32.0,1.24,0.96
-36,Liquid / Gas,Methyle Chloride,0.64,96.5,1.0,65.8,50.5,1.26,0.98
-37,Liquid / Gas,Natural Gas,0.0,1430.0,1.0,45.0,16.0,1.31,1.0
-38,Liquid / Gas,Nitrogen,0.0,1110.0,1.0,32.9,28.0,1.4,1.0
-39,Liquid / Gas,Octane,0.57,2.7,1.0,23.8,114.0,1.05,0.82
-40,Liquid / Gas,Oxygen,0.0,1260.0,1.0,32.0,1.4,1.0,1.0
-41,Liquid / Gas,Pentance,0.47,24.0,1.0,32.7,72.2,1.08,0.93
-42,Liquid / Gas,Phenol,0.92,-0.05,1.0,60.3,94.1,1.09,0.88
-43,Liquid / Gas,Propene,0.33,112.0,1.0,41.5,44.1,1.13,0.97
-44,Liquid / Gas,Propyl Alchohol,0.64,10.4,1.0,50.7,60.1,1.11,0.93
-45,Liquid / Gas,Propyl Chloride,0.69,20.0,1.0,44.8,78.5,1.11,0.94
-46,Liquid / Gas,Propylene,0.33,127.0,1.0,45.2,42.1,1.15,0.98
-47,Liquid / Gas,Pyridine,0.82,3.82,1.0,55.4,79.1,1.06,0.91
-48,Liquid / Gas,Refrigerant 12,0.64,119.0,1.0,48.8,121.0,1.1,0.97
-49,Liquid / Gas,Refrigerant 22,0.75,119.0,1.0,48.8,86.5,1.18,0.98
-50,Liquid / Gas,Sea Water,0.86,8.79,1.0,220.0,18.0,1.33,0.97
-51,Liquid / Gas,Steam,0.84,9.03,1.0,220.0,18.0,1.33,0.97
-52,Liquid / Gas,Sulphur Dioxide,0.99,101.0,1.0,77.9,64.1,1.27,0.98
-53,Liquid / Gas,Toluene,0.71,4.15,1.0,40.1,92.1,1.09,0.88
-54,Liquid / Gas,Water,0.84,9.03,1.0,220.0,18.0,1.33,0.97
+id,make,explosion,moc,sensor,display,model,remark,pressure_range
+1,Sanyata,N/A,Al,Mechanical - SPDT,"""Green Open"," Red Close""",SB-WP-A-A-MHW1-2-2-S,IP 66 / IP 68
+2,Sanyata,N/A,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",SB-WP-A-A-FPF1-2-2-S,IP 66 / IP 68
+3,Sanyata,N/A,Al,Proximity-Inductive NBB3-V3-Z4,"""Green Open"," Red Close""",SB-WP-A-A-FPF2-2-2-S,IP 66 / IP 68
+4,Sanyata,Exd,Al,Mechanical - SPDT,"""Green Open"," Red Close""",SB-EX-A-A-MHW1-2-2-S,IP 66 / IP 68
+5,Sanyata,Exd,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",SB-EX-A-A-FPF1-2-2-S,IP 66 / IP 68
+6,Sanyata,Exd,Al,Proximity-Inductive NBB3-V3-Z4,"""Green Open"," Red Close""",SB-EX-A-A-FPF2-2-2-S,IP 66 / IP 68
+7,Topworx,Exia,Al,Mechanical,Flat Top,TVL-M20FLMM,IP 66 / IP 68,"0"
+8,Topworx,Exia,Al,Proximity-Inductive NJ2V3N,Flat Top,TVL-E20FLMM,IP 66 / IP 68,"0"
+9,Topworx,Exia,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",TVL-E20GLMM,IP 66 / IP 68
+10,Topworx,Exia,Al,Proximity-Switches,Flat Top,TVL-P20FLMM,IP 66 / IP 68,1
+11,Sanyata,N/A,Al,Mechanical - SPDT,"""Green Open"," Red Close""",SB-WP-A-A-MHW1-2-2-S,IP 66 / IP 68
+12,Sanyata,N/A,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",SB-WP-A-A-FPF1-2-2-S,IP 66 / IP 68
+13,Sanyata,N/A,Al,Proximity-Inductive NBB3-V3-Z4,"""Green Open"," Red Close""",SB-WP-A-A-FPF2-2-2-S,IP 66 / IP 68
+14,Sanyata,Exd,Al,Mechanical - SPDT,"""Green Open"," Red Close""",SB-EX-A-A-MHW1-2-2-S,IP 66 / IP 68
+15,Sanyata,Exd,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",SB-EX-A-A-FPF1-2-2-S,IP 66 / IP 68
+16,Sanyata,Exd,Al,Proximity-Inductive NBB3-V3-Z4,"""Green Open"," Red Close""",SB-EX-A-A-FPF2-2-2-S,IP 66 / IP 68
+17,Topworx,Exia,Al,Mechanical,Flat Top,TVL-M20FLMM,IP 66 / IP 68,"0"
+18,Topworx,Exia,Al,Proximity-Inductive NJ2V3N,Flat Top,TVL-E20FLMM,IP 66 / IP 68,"0"
+19,Topworx,Exia,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",TVL-E20GLMM,IP 66 / IP 68
+20,Topworx,Exia,Al,Proximity-Switches,Flat Top,TVL-P20FLMM,IP 66 / IP 68,"0"
+21,ABCS,ABCDS,AI,New,Flat Top,TVVV-22,IP 66 / IP 68,1

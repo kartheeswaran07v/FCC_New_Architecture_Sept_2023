@@ -6037,11 +6037,15 @@ def accessories(proj_id, item_id):
 def positionerRender(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, int(item_id))
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    accessories_element = db.session.query(accessoriesData).filter_by(item=item_element).first()
     positioner_ = positioner.query.all()
+    selected_positoner = db.session.query(positioner).filter_by(manufacturer=accessories_element.manufacturer, series=accessories_element.model, action=accessories_element.action).first()
+    # print(selected_positoner.id)
     metadata_ = metadata()
     metadata_['positioner'] = positioner_
     return render_template("positioner.html", item=getDBElementWithId(itemMaster, int(item_id)),
-                            page='positionerRender', valve=valve_element, metadata=metadata_, user=current_user)
+                            page='positionerRender', valve=valve_element, metadata=metadata_, 
+                            user=current_user, select_pos=selected_positoner)
 
 
 @app.route('/select-positioner/proj-<proj_id>/item-<item_id>', methods=["GET", "POST"])
