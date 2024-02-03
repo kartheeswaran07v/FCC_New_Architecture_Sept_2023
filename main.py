@@ -645,6 +645,19 @@ class bonnet(db.Model):
 
     bonnet_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='bonnet__')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = bonnet.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            # print(key)
+            # print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class nde1(db.Model):
     __tablename__ = "nde1"
@@ -6229,6 +6242,22 @@ def renderData(topic, item_id, proj_id):
     return render_template("render_data.html", data=table_data, topic=topic, page='renderData', name=name,
                            item=getDBElementWithId(itemMaster, int(item_id)), user=current_user, 
                            all_keys=all_keys, all_data=all_data, all_keys_=all_keys_)
+
+
+@app.route('/update-data/proj-<proj_id>/item-<item_id>/<topic>/<record_id>', methods=['POST'])
+def updateData(topic, item_id, proj_id, record_id):
+    table_ = table_data_render[int(topic) - 1]['db']
+    data = request.form.to_dict(flat=False)
+    a = jsonify(data).json
+    a.pop('id')
+    record_element = db.session.query(table_).filter_by(id=record_id).first()
+    try:
+        record_element.update(a, record_element.id)
+    except:
+        pass
+    return redirect(url_for('renderData', topic=topic, item_id=item_id, proj_id=proj_id))
+
+
 
 
 @app.route('/download-data/proj-<proj_id>/item-<item_id>/<topic>', methods=['GET'])

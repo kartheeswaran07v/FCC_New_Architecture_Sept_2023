@@ -71,12 +71,16 @@
                                             <tbody class="table-sm" id="projectlist">
 
                                                 {% for data_ in all_data %}
-                                                <tr>
-                                                    {% for key in all_keys %}
-                                                    <td >{{data_[key]}}</td>
-                                                    {% endfor %}
-                                                </tr>
+                                                <form action="{{url_for('updateData', proj_id=item.project.id, item_id=item.id, topic=topic, record_id=data_.id)}}" method="post">
+                                                    <tr>
+                                                        {% for key in all_keys %}
+                                                        <td><input type="text" name="{{key}}" value="{{data_[key]}}"></td>
+                                                        {% endfor %}
+                                                        <td><input type="submit" value="Update"></td>
+                                                    </tr>
+                                                </form>
                                                 {% endfor %}
+                                                
 
                                                 
                                             </tbody>
