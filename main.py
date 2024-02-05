@@ -190,6 +190,18 @@ class industryMaster(db.Model):
     # relationship as parent
     project = relationship("projectMaster", cascade="all,delete", back_populates="industry")
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = industryMaster.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 # data upload done
 class regionMaster(db.Model):
@@ -204,6 +216,19 @@ class regionMaster(db.Model):
 
     # relationship as parent
     project = relationship("projectMaster", cascade="all,delete", back_populates="region")
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = regionMaster.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class addressMaster(db.Model):
@@ -280,7 +305,18 @@ class engineerMaster(db.Model):
     engineer_project = relationship('engineerProject', cascade="all,delete", back_populates='engineer')
     # projectContract = relationship("projectMaster",uselist=False, backref="engineer_contract")
     # projectApplicaton = relationship("projectMaster",uselist=False, backref="engineer_application")
-
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = engineerMaster.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 class projectMaster(db.Model):
     __tablename__ = "projectMaster"
@@ -421,6 +457,19 @@ class fluidState(db.Model):
     # relationship as parent
     valve = relationship('valveDetailsMaster', cascade="all,delete", back_populates='state')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = fluidState.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 # data upload done
 class designStandard(db.Model):
@@ -434,6 +483,19 @@ class designStandard(db.Model):
 
     # relationship as parent
     valve = relationship('valveDetailsMaster', cascade="all,delete", back_populates='design')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = designStandard.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 # data upload done
@@ -455,6 +517,19 @@ class valveStyle(db.Model):
     packing_ = relationship('packing', cascade="all,delete", back_populates='style')
     trimtype_ = relationship('trimType', cascade="all,delete", back_populates='style')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = valveStyle.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 # data upload done
 class applicationMaster(db.Model):
@@ -465,6 +540,19 @@ class applicationMaster(db.Model):
     }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = applicationMaster.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 # data upload done
@@ -484,6 +572,19 @@ class ratingMaster(db.Model):
     packingF = relationship('packingFriction', cascade="all,delete", back_populates='rating')
     torque = relationship("packingTorque", cascade="all,delete", back_populates='rating')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = ratingMaster.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 # data upload done
 class materialMaster(db.Model):
@@ -498,6 +599,19 @@ class materialMaster(db.Model):
     # relationship as parent
     valve = relationship('valveDetailsMaster', cascade="all,delete", back_populates='material')
     pt = relationship('pressureTempRating', cascade="all,delete", back_populates='material')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = materialMaster.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 # data upload done
@@ -519,6 +633,19 @@ class pressureTempRating(db.Model):
     ratingId = Column(Integer, ForeignKey("ratingMaster.id"))
     rating = relationship("ratingMaster", back_populates="pt")
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = pressureTempRating.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 # Multiple static dropdown
 
@@ -534,6 +661,18 @@ class endConnection(db.Model):
 
     endConnection_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='endConnection__')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = endConnection.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 # 19
 class endFinish(db.Model):
@@ -546,6 +685,19 @@ class endFinish(db.Model):
     name = Column(String(300))
 
     endFinish_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='endFinish__')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = endFinish.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 # 20
@@ -560,6 +712,19 @@ class bonnetType(db.Model):
 
     bonnetType_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='bonnetType__')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = bonnetType.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 # 21
 class packingType(db.Model):
@@ -572,6 +737,19 @@ class packingType(db.Model):
     name = Column(String(300))
 
     packingType_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='packingType__')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = packingType.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class trimType(db.Model):
@@ -591,6 +769,18 @@ class trimType(db.Model):
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='trimtype_')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = trimType.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 class flowCharacter(db.Model):  # TODO - Paandi  ............Done
     __tablename__ = "flowCharacter"
@@ -604,6 +794,19 @@ class flowCharacter(db.Model):  # TODO - Paandi  ............Done
     flowCharacter_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='flowCharacter__')
     flowCharacter_c = relationship('cvTable', cascade="all,delete", back_populates='flowCharacter_')
     kn = relationship('knValue', cascade="all,delete", back_populates='flowCharacter_')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = flowCharacter.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 # 23
@@ -620,6 +823,19 @@ class flowDirection(db.Model):  # TODO - Paandi  ............Done
     flowDirection_c = relationship('cvTable', cascade="all,delete", back_populates='flowDirection_')
     kn = relationship('knValue', cascade="all,delete", back_populates='flowDirection_')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = flowDirection.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 # 24
 class seatLeakageClass(db.Model):  # TODO - Paandi    ..........Done
@@ -633,6 +849,19 @@ class seatLeakageClass(db.Model):  # TODO - Paandi    ..........Done
 
     seatLeakageClass_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='seatLeakageClass__')
     seatLoad = relationship('seatLoadForce', cascade="all,delete", back_populates='leakage')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = seatLeakageClass.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 # 25
@@ -696,6 +925,19 @@ class shaft(db.Model):  # Stem in globe
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='shaft_')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = shaft.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class disc(db.Model):  # plug in globe
     __tablename__ = "disc"
@@ -726,6 +968,19 @@ class seat(db.Model):  # both seat
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='seat_')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = seat.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class packing(db.Model):
     __tablename__ = "packing"
@@ -742,6 +997,19 @@ class packing(db.Model):
     valveStyleId = Column(Integer, ForeignKey("valveStyle.id"))
     style = relationship('valveStyle', back_populates='packing_')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = packing.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class balanceSeal(db.Model):  # NDE  # TODO - Paandi
     __tablename__ = "balanceSeal"
@@ -753,6 +1021,19 @@ class balanceSeal(db.Model):  # NDE  # TODO - Paandi
     name = Column(String(300))
 
     balanceSeal_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='balanceSeal__')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = balanceSeal.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class studNut(db.Model):  # NDE  # TODO - Paandi
@@ -778,6 +1059,19 @@ class gasket(db.Model):
 
     gasket_ = relationship('valveDetailsMaster', cascade="all,delete", back_populates='gasket__')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = gasket.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class cageClamp(db.Model):
     __tablename__ = "cageClamp"
@@ -802,6 +1096,19 @@ class balancing(db.Model):
     name = Column(String(300))
 
     balancing_c = relationship('cvTable', cascade="all,delete", back_populates='balancing_')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = balancing.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 # TODO dropdowns end
@@ -937,6 +1244,19 @@ class pipeArea(db.Model):
     caseI = relationship("caseMaster", cascade="all,delete", back_populates="iPipe")
     # caseO = relationship("caseMaster", back_populates="oPipe")
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = pipeArea.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class cvTable(db.Model):
     __tablename__ = "cvTable"
@@ -1021,6 +1341,19 @@ class fluidProperties(db.Model):
 
     # rel as parent
     case = relationship("caseMaster", cascade="all,delete", back_populates="fluid")
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = fluidProperties.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class caseMaster(db.Model):
@@ -1283,6 +1616,19 @@ class packingFriction(db.Model):
     # rel as parent
     actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='packingF')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = packingFriction.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class packingTorque(db.Model):
     __tablename__ = "packingTorque"
@@ -1302,6 +1648,19 @@ class packingTorque(db.Model):
 
     # rel as parent
     actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='packingT')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = packingTorque.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class seatLoadForce(db.Model):
@@ -1324,6 +1683,19 @@ class seatLoadForce(db.Model):
     leakageClassId = Column(Integer, ForeignKey('seatLeakageClass.id'))
     leakage = relationship('seatLeakageClass', back_populates='seatLoad')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = seatLoadForce.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class seatingTorque(db.Model):
     __tablename__ = "seatingTorque"
@@ -1338,6 +1710,19 @@ class seatingTorque(db.Model):
     cusp = Column(Float)
 
     actuatorCase = relationship('actuatorCaseData', cascade="all,delete", back_populates='seatT')
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = seatingTorque.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class positioner(db.Model):
@@ -1362,6 +1747,19 @@ class positioner(db.Model):
     model_no = Column(String(200))
     haz_class = Column(String(200))
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = positioner.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class afr(db.Model):
     __tablename__ = "afr"
@@ -1382,10 +1780,18 @@ class afr(db.Model):
     model = Column(String(200))
     remarks = Column(String(300))
 
-    def update(self, **kwargs):
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = afr.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 class limitSwitch(db.Model):
     __tablename__ = "limitSwitch"
@@ -1433,6 +1839,19 @@ class solenoid(db.Model):
     cv = Column(String(200))
     model = Column(String(200))
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = solenoid.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class cleaning(db.Model):
     __tablename__ = "cleaning"
@@ -1442,6 +1861,19 @@ class cleaning(db.Model):
     }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = cleaning.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class paintCerts(db.Model):
@@ -1453,6 +1885,19 @@ class paintCerts(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = paintCerts.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class paintFinish(db.Model):
     __tablename__ = "paintFinish"
@@ -1462,6 +1907,19 @@ class paintFinish(db.Model):
     }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = paintFinish.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class certification(db.Model):
@@ -1474,6 +1932,19 @@ class certification(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = certification.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class positionerSignal(db.Model):
     __tablename__ = "positionerSignal"
@@ -1483,6 +1954,19 @@ class positionerSignal(db.Model):
     }
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = positionerSignal.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class accessoriesData(db.Model):
@@ -1559,6 +2043,19 @@ class valveArea(db.Model):
     inInch = Column(String(300))
     area = Column(String(300))
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = valveArea.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class portArea(db.Model):
     __tablename__ = "portArea"
@@ -1575,6 +2072,19 @@ class portArea(db.Model):
     flow_char = Column(String(20))
     area = Column(String(20))
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = portArea.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
+
 
 class hwThrust(db.Model):
     __tablename__ = "hwThrust"
@@ -1588,6 +2098,19 @@ class hwThrust(db.Model):
     ac_size = Column(String(20))
     max_thrust = Column(String(20))
     dia = Column(String(20))
+
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = hwThrust.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}'][0]".format(key))
+        db.session.commit()
 
 
 class knValue(db.Model):
@@ -2141,21 +2664,25 @@ def sendOTP(username):
         otp_1.time = datetime.datetime.now()
         db.session.commit()
     
+    try:
     # Send email
-    s = smtplib.SMTP('smtp.gmail.com', 587)
-    # s.ehlo()
-    s.starttls()
-    # s.ehlo()
-    sender_email = 'titofccvs@gmail.com'
-    sender_email_password = 'lvcf senp padh csyr'
-    # sender_email_password = 'titofccvs@2023'
-    reciever_email = ['kartheeswaran1707v@gmail.com', username]
-    s.login(sender_email, sender_email_password)
-    # message = f"The OTP for resetting password is: {random_int}"
-    message = "OTP for Reset Password is " + str(random_int)
-    print(message)
-    s.sendmail(sender_email, reciever_email, message)
-    s.quit()
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        # s.ehlo()
+        s.starttls()
+        # s.ehlo()
+        sender_email = 'titofccvs@gmail.com'
+        sender_email_password = 'lvcf senp padh csyr'
+        # sender_email_password = 'titofccvs@2023'
+        reciever_email = ['kartheeswaran1707v@gmail.com', username]
+        s.login(sender_email, sender_email_password)
+        # message = f"The OTP for resetting password is: {random_int}"
+        message = "OTP for Reset Password is " + str(random_int)
+        print(message)
+        s.sendmail(sender_email, reciever_email, message)
+        s.quit()
+        mail_sent = True
+    except:
+        mail_sent = False
     # msg = MIMEMultipart()
     # msg['From'] = sender_email
     # msg['To'] = reciever_email
@@ -2171,7 +2698,7 @@ def sendOTP(username):
     #     # mail_server.ehlo()
     #     mail_server.login(sender_email, sender_email_password)
     #     mail_server.sendmail(sender_email, reciever_email, message)
-
+    return mail_sent
 
 def getEngAddrList(all_projects):
     address_ = []
@@ -2544,8 +3071,12 @@ def logout():
 def resetPassword():
     if request.method == 'POST':
         email_ = request.form.get('email')
-        sendOTP(email_)
-        return redirect(url_for('sendOTPEmail', email=email_))
+        is_mail_sent = sendOTP(email_)
+        if is_mail_sent:
+            return redirect(url_for('sendOTPEmail', email=email_))
+        else:
+            flash('Something went wrong')
+            return redirect(url_for('resetPassword'))
     return render_template('send-email-otp.html')
 
 @app.route('/send-otp/<email>', methods=["GET", "POST"])

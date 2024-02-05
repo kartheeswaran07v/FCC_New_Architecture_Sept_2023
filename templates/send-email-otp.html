@@ -22,6 +22,16 @@
             <form action="{{url_for('resetPassword')}}" method="POST">
                 <input type="email" name="email" placeholder="Email" required>
                 <button type="submit">Send OTP</button>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        
+                            {% for message in messages %}
+                                <p class="flashes">{{ message }}</p>
+                            {% endfor %}
+                        
+                    {% endif %}
+                {% endwith %}
+                {% block body %}{% endblock %}
                 <a href="{{url_for('login')}}" style="display: flex; align-items: center; justify-content: right;">Login</a>
             </form>
         </div>

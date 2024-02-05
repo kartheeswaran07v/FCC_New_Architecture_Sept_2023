@@ -1,3 +1,4 @@
+from datetime import datetime
 from main import cageClamp, data_upload_shaft, db, app, endConnection, endFinish, fluidProperties, gasket, industryMaster, limitSwitch, notesMaster, packing, packingType, pipeArea, positioner, \
     regionMaster, fluidState, designStandard, rotaryActuatorData, seat, seatLeakageClass, shaft, slidingActuatorData, solenoid, studNut, valveArea, valveStyle, applicationMaster, \
     ratingMaster, materialMaster, data_upload, add_many, afr, balanceSeal, bonnet, bonnetType, certification, \
@@ -168,7 +169,7 @@ with app.app_context():
     # data_upload(flow_charac_list, flowCharacter)
     # data_upload(balancing_list, balancing)
     # # cv_upload(getRowsFromCsvFile("csv/cvtable_small.csv"))
-    cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     # data_upload_disc_seat_packing([disc_material_list_butterfly, disc_material_list_butterfly, plug_material_list_globe, plug_material_list_globe], v_style_list, disc)
     # data_upload_disc_seat_packing([seat_material_list_butterfly, seat_material_list_butterfly, seat_material_list_globe, seat_material_list_globe], v_style_list, seat)
     # data_upload_disc_seat_packing([trim_type_list_butterfly, trim_type_list_butterfly, trim_type_list_globe, trim_type_list_globe], v_style_list, trimType)
@@ -192,4 +193,13 @@ with app.app_context():
     pass
 
 
+# region___list = ['North America', 'South America', 'European Union', 
+#                'Indian Subcontinent', 'South East Asia And Japan', 'Africa', 
+#                'Australia / New Zealand', 'China', 'Middle Asia']
+# region_dict = []
+# for region_ in region___list:
+#     abc_ = {'name': region_}
+#     region_dict.append(abc_)
+
+# print(region_dict)
 
