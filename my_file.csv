@@ -1,22 +1,8 @@
-id,make,explosion,moc,sensor,display,model,remark,pressure_range
-1,Sanyata,N/A,Al,Mechanical - SPDT,"""Green Open"," Red Close""",SB-WP-A-A-MHW1-2-2-S,IP 66 / IP 68
-2,Sanyata,N/A,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",SB-WP-A-A-FPF1-2-2-S,IP 66 / IP 68
-3,Sanyata,N/A,Al,Proximity-Inductive NBB3-V3-Z4,"""Green Open"," Red Close""",SB-WP-A-A-FPF2-2-2-S,IP 66 / IP 68
-4,Sanyata,Exd,Al,Mechanical - SPDT,"""Green Open"," Red Close""",SB-EX-A-A-MHW1-2-2-S,IP 66 / IP 68
-5,Sanyata,Exd,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",SB-EX-A-A-FPF1-2-2-S,IP 66 / IP 68
-6,Sanyata,Exd,Al,Proximity-Inductive NBB3-V3-Z4,"""Green Open"," Red Close""",SB-EX-A-A-FPF2-2-2-S,IP 66 / IP 68
-7,Topworx,Exia,Al,Mechanical,Flat Top,TVL-M20FLMM,IP 66 / IP 68,"0"
-8,Topworx,Exia,Al,Proximity-Inductive NJ2V3N,Flat Top,TVL-E20FLMM,IP 66 / IP 68,"0"
-9,Topworx,Exia,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",TVL-E20GLMM,IP 66 / IP 68
-10,Topworx,Exia,Al,Proximity-Switches,Flat Top,TVL-P20FLMM,IP 66 / IP 68,1
-11,Sanyata,N/A,Al,Mechanical - SPDT,"""Green Open"," Red Close""",SB-WP-A-A-MHW1-2-2-S,IP 66 / IP 68
-12,Sanyata,N/A,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",SB-WP-A-A-FPF1-2-2-S,IP 66 / IP 68
-13,Sanyata,N/A,Al,Proximity-Inductive NBB3-V3-Z4,"""Green Open"," Red Close""",SB-WP-A-A-FPF2-2-2-S,IP 66 / IP 68
-14,Sanyata,Exd,Al,Mechanical - SPDT,"""Green Open"," Red Close""",SB-EX-A-A-MHW1-2-2-S,IP 66 / IP 68
-15,Sanyata,Exd,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",SB-EX-A-A-FPF1-2-2-S,IP 66 / IP 68
-16,Sanyata,Exd,Al,Proximity-Inductive NBB3-V3-Z4,"""Green Open"," Red Close""",SB-EX-A-A-FPF2-2-2-S,IP 66 / IP 68
-17,Topworx,Exia,Al,Mechanical,Flat Top,TVL-M20FLMM,IP 66 / IP 68,"0"
-18,Topworx,Exia,Al,Proximity-Inductive NJ2V3N,Flat Top,TVL-E20FLMM,IP 66 / IP 68,"0"
-19,Topworx,Exia,Al,Proximity-Inductive NJ2V3N,"""Green Open"," Red Close""",TVL-E20GLMM,IP 66 / IP 68
-20,Topworx,Exia,Al,Proximity-Switches,Flat Top,TVL-P20FLMM,IP 66 / IP 68,"0"
-21,ABCS,ABCDS,AI,New,Flat Top,TVVV-22,IP 66 / IP 68,1
+id,projectId,projectRef,enquiryRef,enquiryReceivedDate,receiptDate,bidDueDate,purpose,custPoNo,workOderNo,revisionNo,status,pressureUnit,flowrateUnit,temperatureUnit,lengthUnit,IndustryId,regionID
+6,Q240000,None,None,2024-02-03 00:00:00,2024-02-03 00:00:00,2024-02-03 00:00:00,Bid On,None,None,,Dead,bar,kg/hr,C,inch,Oil & Gas - Onshore,Domestic
+id,itemNumber,alternate,projectID
+15,1,A,6
+16,2,A,6
+id,quantity,tagNumber,serialNumber,shutOffDelP,maxPressure,maxTemp,minTemp,shutOffDelPUnit,maxPressureUnit,maxTempUnit,minTempUnit,bonnetExtDimension,application,itemId,ratingId,materialId,designStandardId,valveStyleId,fluidStateId,endConnectionId,endFinishId,bonnetTypeId,packingTypeId,trimTypeId,flowCharacterId,flowDirectionId,seatLeakageClassId,bonnetId,nde1Id,nde2Id,shaftId,discId,seatId,packingId,balanceSealId,studNutId,gasketId,cageId
+13,1,1,1,1.0,1.0,1.0,1.0,bar,bar (a),°C,°C,1.0,1,15,1,1,1,1,2,1,1,1,1,5,1,1,1,1,,,1,29,13,1,1,1,1,1
+14,,,,,,,,,,,,,,16,,,,,1,,,,,,,,,,,,,,,,,,,

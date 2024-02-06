@@ -1,10 +1,12 @@
 from datetime import datetime
-from main import cageClamp, data_upload_shaft, db, app, endConnection, endFinish, fluidProperties, gasket, industryMaster, limitSwitch, notesMaster, packing, packingType, pipeArea, positioner, \
+from main import cageClamp, data_upload_shaft, db, app, endConnection, endFinish, fluidProperties, gasket, industryMaster, limitSwitch, notesMaster, packing, packingType, pipeArea, positioner, pressure_temp_upload, \
     regionMaster, fluidState, designStandard, rotaryActuatorData, seat, seatLeakageClass, shaft, slidingActuatorData, solenoid, studNut, valveArea, valveStyle, applicationMaster, \
     ratingMaster, materialMaster, data_upload, add_many, afr, balanceSeal, bonnet, bonnetType, certification, \
     cleaning, flowDirection, trimType, flowCharacter, balancing, cv_upload, data_upload_disc_seat_packing, disc, \
-    departmentMaster, designationMaster
+    departmentMaster, designationMaster, packing_friction_upload
 import csv
+
+
 
 
 
@@ -190,6 +192,8 @@ with app.app_context():
     # add_many(getRowsFromCsvFile("csv/positioner.csv"), positioner)
     # add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
     # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
+    # pressure_temp_upload(getRowsFromCsvFile("csv/pressureTemp.csv"))
+    # packing_friction_upload(getRowsFromCsvFile("csv/packing_friction.csv"))
     pass
 
 
@@ -203,3 +207,6 @@ with app.app_context():
 
 # print(region_dict)
 
+
+# abc = getRowsFromCsvFile("csv/packing_friction.csv")
+# print(getList(abc[0]))

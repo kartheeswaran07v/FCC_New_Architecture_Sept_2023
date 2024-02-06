@@ -2377,6 +2377,26 @@ def pressure_temp_upload(data_set):
         db.session.commit()
 
 
+
+def getList(dict_):
+    list = []
+    for key in dict_.keys():
+        list.append(key)
+         
+    return list
+
+def packing_friction_upload(data_set):
+    data_delete(packingFriction)
+    key_list = getList(data_set[0])
+    for data_ in data_set:
+        stem_dia = float(data_['stemDia'])
+        rating_element = db.session.query(ratingMaster).filter_by(name=data_['rating']).first()
+        for key_ in key_list[2:]:
+            packing_element = db.session.query(packing).filter_by(name=key_).first()
+            new_packing_friction = packingFriction(stemDia=stem_dia, rating=rating_element, packing_=packing_element, value=data_[key_])
+            db.session.add(new_packing_friction)
+            db.session.commit()
+
 def add_many(list_many, table_name):
 
     data_delete(table_name)
@@ -2728,6 +2748,21 @@ def getDBElementWithId(table_name, id):
 date_today = datetime.datetime.now().strftime("%Y-%m-%d")
 
 
+def fluid_properties_dict_vs():
+    with app.app_context():
+        fluids = fluidProperties.query.all()
+        keys_ = fluidProperties.__table__.columns.keys()
+        print(keys_)
+        fl_dict = {}
+        for fl_ in fluids:
+            fl_dict[fl_.fluidName] = {}
+            for key_ in keys_[3:]:
+                fl_dict[fl_.fluidName][key_] = getattr(fl_, key_)
+
+
+        return fl_dict
+
+
 def metadata():
     companies = companyMaster.query.all()
     industries = industryMaster.query.all()
@@ -2757,6 +2792,7 @@ def metadata():
     cageclamp = cageClamp.query.all()
     application_ = applicationMaster.query.all()
     fluids = fluidProperties.query.all()
+    fluids_dict = fluid_properties_dict_vs()
     fluid_state = fluidState.query.all()
     valveSeries = []
     for notes_ in db.session.query(cvTable.series).distinct():
@@ -2774,6 +2810,7 @@ def metadata():
         "regions": regions,
         "engineers": engineers,
         "notes_dict": json.dumps(notes_dict),
+        "fluids_dict": json.dumps(fluids_dict),
         "notes_dict_": notes_dict,
         "status": project_status_list,
         "date": date_today,
@@ -6031,7 +6068,7 @@ def valveSizing(proj_id, item_id):
     else:
         html_page = 'valvesizinggas.html'
     return render_template(html_page, item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                           metadata=metadata_, page='valveSizing', valve=valve_element, case_length=range(6), cases=itemCases_1)
+                           metadata=metadata_, page='valveSizing', valve=valve_element, case_length=range(6), cases=itemCases_1, total_length=len(itemCases_1))
 
 
 @app.route('/item-case-delete/proj-<proj_id>/item-<item_id>/<case_id>', methods=['GET', 'POST'])
@@ -7369,7 +7406,8 @@ def DATA_UPLOAD_BULK():
 # DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
+data_delete(cvValues)
     
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5055)
+    app.run(debug=False)

@@ -473,12 +473,12 @@
                                               <label> Fluid Properties</label> 
                                         </div>
                                         <div class="col-3 form-check form-check-inline ml-3">
-                                                <input type="radio" name="fluidOption" class="form-control-sm-sm valvesizing_radio">
+                                                <input type="radio" name="fluidOption" value="Standard" class="form-control-sm-sm valvesizing_radio">
                                                 <label class="ml-1 mt-2">Standard</label>
                                         </div>
 
                                         <div class="col-3 form-check form-check-inline">
-                                                <input type="radio" name="fluidOption2"
+                                                <input type="radio" name="fluidOption" value="Custom"
                                                         class="form-control-sm-sm valvesizing_radio">
                                                 <label class="ml-1 mt-2">Custom</label>
 
@@ -508,8 +508,7 @@
                                               <label>Fluid Name</label>
                                         </div>
                                         <div class="col-7">
-                                                <select id="#"
-                                                        class="form-control-sm-sm valvesizing_select" name="fluid_name">
+                                                <select class="form-control-sm-sm valvesizing_select" name="fluid_name"  id="fluid_name">
                                                         {% for fluid in metadata['fluids']%}
                                                                 <option value="{{fluid.id}}">{{fluid.fluidName}}</option>
                                                         {% endfor %}
@@ -750,6 +749,67 @@
                 copiedOuptput.value.map((value, index) => {
                         res2[index].value = value;
                 }); 
+        };
+</script>
+<script>
+                        
+        window.onload = function () {
+                var fluid_dict = JSON.parse({{metadata['fluids_dict']|tojson}});
+                var case_len = "{{total_length}}";
+                var fluidName_ = document.getElementById("fluid_name");
+                fluidName_.onchange = function () {
+                        var selected_fluid = $("#fluid_name :selected").text()
+                        var fluid_option = $("input[name='fluidOption']:checked").val()
+                        alert(fluid_option)
+                        var fluid_name_ = $("#fluid_name :selected").text();
+                        console.log(fluid_dict[selected_fluid].viscosity);
+                        if (fluid_option == 'Standard') {
+                                $("input[name='specificHeatRatio']").each(function(index) {
+                                        if (index > Number(case_len)-1) {
+                                                this.value = fluid_dict[selected_fluid].specificHeatRatio;
+                                        };
+                                });
+                                $("input[name='molecularWeight']").each(function(index) {
+                                        if (index > Number(case_len)-1) {
+                                                this.value = fluid_dict[selected_fluid].molecularWeight;
+                                        };
+                                });
+                                $("input[name='compressibility']").each(function(index) {
+                                        if (index > Number(case_len)-1) {
+                                                this.value = fluid_dict[selected_fluid].compressibilityFactor;
+                                        };
+                                });
+                                $("input[name='criticalPressure']").each(function(index) {
+                                        if (index > Number(case_len)-1) {
+                                                this.value = fluid_dict[selected_fluid].criticalPressure;
+                                        };
+                                });
+                                alert(fluid_name_);
+
+                        } else {
+                                $("input[name='specificHeatRatio']").each(function(index) {
+                                        if (index > Number(case_len)-1) {
+                                                this.value = "";
+                                        };
+                                });
+                                
+                                $("input[name='molecularWeight']").each(function(index) {
+                                        if (index > Number(case_len)-1) {
+                                                this.value = "";
+                                        };
+                                });
+                                $("input[name='compressibility']").each(function(index) {
+                                        if (index > Number(case_len)-1) {
+                                                this.value = "";
+                                        }
+                                });
+                                $("input[name='criticalPressure']").each(function(index) {
+                                        if (index > Number(case_len)-1) {
+                                                this.value = "";
+                                        }
+                                });
+                        };
+                };
         };
 </script>
                 
