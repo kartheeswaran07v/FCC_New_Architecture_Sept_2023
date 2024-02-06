@@ -2320,9 +2320,10 @@ def valveForces(p1_, p2_, d1, d2, d3, ua, rating, material, leakageClass, trimty
 def data_delete(table_name):
     # with app.app_context():
     data_list = table_name.query.all()
-    db.session.commit()
+    # db.session.commit()
     for data_ in data_list:
-        db.session.delete(data_)
+        data_element = db.session.query(table_name).filter_by(id=data_.id).first()
+        db.session.delete(data_element)
         db.session.commit()
 
 
