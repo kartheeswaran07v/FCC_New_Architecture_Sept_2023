@@ -2914,6 +2914,7 @@ def selectDelP(Fl, criticalPressure, inletPressure, vaporPressure, outletPressur
     Ff = FF(vaporPressure, criticalPressure)
     a_ = delPMax(Fl, Ff, inletPressure, vaporPressure)
     b_ = inletPressure - outletPressure
+    # print(f"delpmax: {a_} and delP: {b_}")
     return min(a_, b_)
 
 
@@ -2980,6 +2981,7 @@ def CV(flowrate, C, valveDia, inletDia, outletDia, N2_value, inletPressure, outl
     # print(Fr)
     fp_val = fP(C, valveDia, inletDia + 2 * thickness, outletDia + 2 * thickness, N2_value)
     a_ = N1_value * fp_val * Fr * math.sqrt(delP / sGravity)
+    print(N1_value, fp_val, Fr, delP)
     b_ = flowrate / a_
     # print(f"FR: {Fr}")
     return round(b_, 3)
@@ -3420,9 +3422,19 @@ def valveData(proj_id, item_id):
         update_dict = a
         valve_element.update(update_dict, valve_element.id)
 
-        return redirect(url_for('valveData', proj_id=proj_id, item_id=item_id))
+        # Logic for pressure Temp rating
+        minTemp_ = float(a['minTemp'][0])
+        maxTemp_ = float(a['maxTemp'][0])
+        presTempRatingElement = db.session.query(pressureTempRating).filter_by(material=a['material'][0], rating=a['rating'][0]).first()
+        if maxTemp_ > float(presTempRatingElement.maxTemp):
+            error_message = f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}"
+        else:
+            error_message = ""
+        # print(f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}")
+        return render_template('valvedata.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                           metadata=metadata_, valve=valve_element, page='valveData', msg=error_message)
     return render_template('valvedata.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                           metadata=metadata_, valve=valve_element, page='valveData')
+                           metadata=metadata_, valve=valve_element, page='valveData', msg='')
 
 
 
@@ -7135,11 +7147,63 @@ def generate_csv(item_id, proj_id):
 
         return send_file(path, as_attachment=True, download_name=spec_sheet_name)
 
+@app.route('/export-project/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def exportProject(item_id, proj_id):
+    project_element = getDBElementWithId(projectMaster, proj_id)
+    project_elements = db.session.query(projectMaster).filter_by(id=proj_id).all()
+    all_items = db.session.query(itemMaster).filter_by(project=project_element).all()
+    with open('my_file.csv', 'w', newline='') as csvfile:
+        # Create a CSV writer object
+        writer = csv.writer(csvfile)
 
+        # Write data to the CSV file
+        all_keys = projectMaster.__table__.columns.keys()
+        all_keys.remove('createdById')
+        writer.writerow(all_keys)
+        # Add Project Elements
+        for data_ in project_elements:
+            single_row_data = []
+            for key_ in all_keys:
+                if key_ != 'createdById':
+                    print(key_, projectMaster.__table__.columns[key_].type)
+                # all_data[0][all_keys[1]]
+                    abc = getattr(data_, key_)
+                    if key_ == 'IndustryId':
+                        abc_name = getDBElementWithId(industryMaster, int(abc))
+                        single_row_data.append(abc_name.name)
+                    elif key_ == 'regionID':
+                        abc_name = getDBElementWithId(regionMaster, int(abc))
+                        single_row_data.append(abc_name.name)
+                    else:
+                        single_row_data.append(abc)
+            writer.writerow(single_row_data)
+        # Add items Elements
+        all_keys_item = itemMaster.__table__.columns.keys()
+        all_keys_item_valve = valveDetailsMaster.__table__.columns.keys()
+        writer.writerow(all_keys_item)
+        for data_ in all_items:
+            single_row_data = []
+            for key_ in all_keys_item:
+                abc = getattr(data_, key_)
+                single_row_data.append(abc)
+            writer.writerow(single_row_data)
+
+        writer.writerow(all_keys_item_valve)
+        for data_ in all_items:
+            valve_item = db.session.query(valveDetailsMaster).filter_by(item=data_).first()
+            single_row_data_valve = []
+            for key_ in all_keys_item_valve:
+                abc = getattr(valve_item, key_)
+                single_row_data_valve.append(abc)
+            writer.writerow(single_row_data_valve)
+
+        csvfile.close()
+    path = 'my_file.csv'
+    return send_file(path, as_attachment=True, download_name=f"{projectMaster.__tablename__}.csv")
+    # return f"{len(all_items)}"
+    # pass
 
 ####################### DATA UPLOAD BULK
-region_list = ['Domestic', 'South East Asia', 'China', 'Australia', 'Europe', 'Middle East', 'Africa', 'Far East',
-            'Russia', 'North America', 'South America', 'Special Project']
 def DATA_UPLOAD_BULK():    
     industry_list = ['Oil & Gas - Onshore', 'Oil & Gas - Offshore', 'Refinery & Petrochemical',
                     'Oil & Gas - Transportation & Distribution', 'Chem & Pharma', 'Food & Beverages', 'OEM',

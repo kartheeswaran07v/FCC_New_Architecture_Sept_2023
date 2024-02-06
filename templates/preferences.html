@@ -13,7 +13,7 @@
                     <div class="col-6">
                         <select id="" class="form-control-sm-sm preference_select" name="pressureUnit">
                             {% for presunit in metadata['units_dict']['pressure'] %}
-                                {% if presunit.name == item.project.pressureUnit %}
+                                {% if presunit.id == item.project.pressureUnit %}
                                 <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
                                 {% else %}
                                 <option value="{{presunit.id}}">{{presunit.name}}</option>
