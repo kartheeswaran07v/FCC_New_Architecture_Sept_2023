@@ -7406,7 +7406,7 @@ def DATA_UPLOAD_BULK():
 # DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
-data_delete(cvValues)
+data_delete(cvTable)
     
 
 if __name__ == "__main__":
