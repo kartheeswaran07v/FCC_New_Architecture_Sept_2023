@@ -372,3 +372,23 @@ img {
     width: 30%;
     height: 90%;
 }
+
+.flash {
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: rgb(65, 24, 24);
+    /* background-color: #04AA6D; */
+    /* margin-top: 10px; */
+    /* z-index: 2000; */
+    /* position:absolute; */
+    /* margin: auto; */
+}
+
+.flash p {
+    color: red;
+    margin-top: 20px;
+    z-index: 2000;
+    font-family: Verdana sans-serif;
+}

@@ -102,7 +102,7 @@
 
             <div class="col-10 vh-100">
                 <div class="row">
-                        <div class="col-12">
+                        <div class="col-9">
                             <div class="topicons">
                                 <div class="row "> 
                                     <div class="icon mt-2 ml-3">
@@ -129,21 +129,21 @@
                             </div>
                                 
                         </div>
+                        <div class="col-3 flash">
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    
+                                        {% for message in messages %}
+                                            <p class="flashes">{{ message }}</p>
+                                        {% endfor %}
+                                    
+                                {% endif %}
+                            {% endwith %}
+                            {% block body %}{% endblock %}
+                            <!-- <p>Flash Check</p> -->
+                        </div>
                 
                 
-                </div>
-                <div class="row flash">
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            
-                                {% for message in messages %}
-                                    <p class="flashes">{{ message }}</p>
-                                {% endfor %}
-                            
-                        {% endif %}
-                    {% endwith %}
-                    {% block body %}{% endblock %}
-
                 </div>
                 
                 <!-- WRITE YOUR CODE HERE USING NEW ROW -->

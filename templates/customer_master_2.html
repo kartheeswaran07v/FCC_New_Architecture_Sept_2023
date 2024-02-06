@@ -1,0 +1,113 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+<form action="{{url_for('addCompany', proj_id=item.project.id, item_id=item.id)}}" method="post">
+
+    <div class="row mt-2 ml-0">
+        <div class="col-3 shadow p-3">
+            <h6 class="preference_heading"><b>Customer Details</b></h6>
+            <hr>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="customer_name">Customer Name</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control-sm-sm cus_input" name="name">
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="address">Industry Segment</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control-sm-sm cus_input" name="description">
+
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="address">Address</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control-sm-sm cus_input" name="description">
+
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-8 ml-5">
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Search........."
+                            class="form-control reference_input" id="input" >
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-primary " id="btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+            <div class=" customer_table" id="customer-scroll">
+                <table class="table table-striped  table-bordered test ">
+                    <thead class="table-sm customerhead">
+                        <tr>
+                            <th class="">S.No</th>
+                            <th class="">Customer Id</th>
+                            <th class="">Customer Name</th>
+                            <th class="">Industry Segment</th>
+                            <th class="">Address</th>
+                            <th class="">New Address</th>
+                            <th class="table_company ">Edit</th>
+                            <th class="">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-sm">
+
+                        {% for company in companies %}
+                        <tr>
+                            <td class="">1</td>
+                            <td class="">001</td>
+                            <td class="">FCC</td>
+                            <td class="">Oil&Gas</td>
+                            <td class="">Chennai</td>
+                            <td class="table_company "><a href="">
+                             <i class="fa-solid fa-circle-plus fa-xl "></i></a></td>
+                       
+                            <td class="table_company "><a
+                                    href="">Edit</a>
+                            </td>
+                            <td class=""><a
+                                href="">Active</a></td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+       
+    </div>
+    <div class="row ml-0">
+        <button type="submit" class="btn btn-info preference_btn">Create</button>
+    </div>
+
+
+
+</form>
+{% include "footer.html" %}
+{% endblock %}

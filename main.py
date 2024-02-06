@@ -3469,6 +3469,7 @@ def valveData(proj_id, item_id):
         else:
             error_message = ""
         # print(f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}")
+        flash('Data Updated Successfully')
         return render_template('valvedata.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
                            metadata=metadata_, valve=valve_element, page='valveData', msg=error_message)
     return render_template('valvedata.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
@@ -4086,7 +4087,7 @@ def sigmaEta_gas(valveDia, inletDia, outletDia):
 
 def fP_gas(C, valveDia, inletDia, outletDia, N2_value):
     a = (sigmaEta_gas(valveDia, inletDia, outletDia) / N2_value) * ((C / valveDia ** 2) ** 2)
-    # print(f"N2: {N2_value}, sigmaeta: {sigmaEta_gas(valveDia, inletDia, outletDia)}")
+    print(f"N2: {N2_value}, sigmaeta: {sigmaEta_gas(valveDia, inletDia, outletDia)}")
     result = 1 / math.sqrt(1 + a)
     # print(f"FP value is: {round(result, 2)}")
     return round(result, 2)
@@ -7004,186 +7005,209 @@ def nextItem(control, page, item_id, proj_id):
         return redirect(url_for(page, item_id=current_item.id, proj_id=current_item.project.id))
 
 
+@app.route('/generate-csv-item/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def generate_csv_item(item_id, proj_id):
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=getDBElementWithId(itemMaster, int(item_id))).first()
+    if request.method == "POST":
+        return redirect(url_for('generate_csv', item_id=item_id, proj_id=proj_id, page='generate_csv_item'))
+    return render_template('item_print.html', valve=valve_element, item=getDBElementWithId(itemMaster, int(item_id)), page='generate_csv_item', user=current_user)
 
-@app.route('/generate-csv/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
-def generate_csv(item_id, proj_id):
-    with app.app_context():
-        item_selected = getDBElementWithId(itemMaster, item_id)
-        project_ = item_selected.project
 
-        all_items = db.session.query(itemMaster).filter_by(project=getDBElementWithId(projectMaster, proj_id)).all()
-        cases__ = []
-        units__ = []
-        others__ = []
+@app.route('/generate-csv-project/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def generate_csv_project(item_id, proj_id):
+    items_list = db.session.query(itemMaster).filter_by(project=projectMaster.query.get(int(proj_id))).order_by(
+        itemMaster.itemNumber.asc()).all()
+    valve_list = [db.session.query(valveDetailsMaster).filter_by(item=item_).first() for item_ in items_list]
+    if request.method == "POST":
+        return redirect(url_for('generate_csv', item_id=item_id, proj_id=proj_id, page='generate_csv_project'))
+    return render_template('project_print.html', items=valve_list, item=getDBElementWithId(itemMaster, int(item_id)), page='generate_csv_project', user=current_user)
 
-        for item in all_items:
-            v_details = db.session.query(valveDetailsMaster).filter_by(item=item).first()
-            acc_details = db.session.query(accessoriesData).filter_by(item=item).first()
-            acc_list = [acc_details.manufacturer, acc_details.model, acc_details.action, acc_details.afr,
-                        acc_details.afr,
-                        acc_details.transmitter, acc_details.limit, acc_details.proximity, acc_details.booster,
-                        acc_details.pilot_valve,
-                        acc_details.air_lock, acc_details.ip_make, acc_details.ip_model, acc_details.solenoid_make,
-                        acc_details.solenoid_model,
-                        '3/2 Way', acc_details.volume_tank]
-            # Act data
-            # Act data
-            act_data_string = []
-            # else:
-            act_valve_data_string = []
-            act_other = []
-            act_model = None
-            model_str = None
-            v_model_lower = getValveType(v_details.style.name)
-            
 
-            # material_ = material_updated.name
-            itemCases_1 = db.session.query(caseMaster).filter_by(item=item).all()
-            date = datetime.date.today().strftime("%d-%m-%Y -- %H-%M-%S")
+@app.route('/generate-csv/proj-<proj_id>/item-<item_id>/<page>', methods=['GET', 'POST'])
+def generate_csv(item_id, proj_id, page):
+    try:
+        with app.app_context():
+            item_selected = getDBElementWithId(itemMaster, item_id)
+            project_ = item_selected.project
 
-            fields___ = ['Flow Rate', 'Inlet Pressure', 'Outlet Pressure', 'Inlet Temperature', 'Specific Gravity',
-                         'Viscosity', 'Vapor Pressure', 'Xt', 'Calculated Cv', 'Open %', 'Valve SPL', 'Inlet Velocity',
-                         'Outlet Velocity', 'Trim Exit Velocity', 'Tag Number', 'Item Number', 'Fluid State',
-                         'Critical Pressure',
-                         'Inlet Pipe Size', 'Outlet Pipe Size', 'Valve Size', 'Rating', 'Quote No.', 'Work Order No.',
-                         'Customer']
+            all_items = db.session.query(itemMaster).filter_by(project=getDBElementWithId(projectMaster, proj_id)).all()
+            cases__ = []
+            units__ = []
+            others__ = []
 
-            rows___ = []
-
-            # get units
-            cases = db.session.query(caseMaster).filter_by(item=item).all()
-            if len(cases) == 0:
-                pass
-            else:
-                last_case = cases[len(cases) - 1]
+            for item in all_items:
+                v_details = db.session.query(valveDetailsMaster).filter_by(item=item).first()
+                acc_details = db.session.query(accessoriesData).filter_by(item=item).first()
+                acc_list = [acc_details.manufacturer, acc_details.model, acc_details.action, acc_details.afr,
+                            acc_details.afr,
+                            acc_details.transmitter, acc_details.limit, acc_details.proximity, acc_details.booster,
+                            acc_details.pilot_valve,
+                            acc_details.air_lock, acc_details.ip_make, acc_details.ip_model, acc_details.solenoid_make,
+                            acc_details.solenoid_model,
+                            '3/2 Way', acc_details.volume_tank]
+                # Act data
+                # Act data
+                act_data_string = []
+                # else:
+                act_valve_data_string = []
+                act_other = []
+                act_model = None
+                model_str = None
+                v_model_lower = getValveType(v_details.style.name)
                 
-                if v_model_lower == 'globe':
-                    percent__, i_pipe_vel, o_pipe_vel, t_vel = '%', 'm/s', 'm/s', 'm/s'
+
+                # material_ = material_updated.name
+                itemCases_1 = db.session.query(caseMaster).filter_by(item=item).all()
+                date = datetime.date.today().strftime("%d-%m-%Y -- %H-%M-%S")
+
+                fields___ = ['Flow Rate', 'Inlet Pressure', 'Outlet Pressure', 'Inlet Temperature', 'Specific Gravity',
+                            'Viscosity', 'Vapor Pressure', 'Xt', 'Calculated Cv', 'Open %', 'Valve SPL', 'Inlet Velocity',
+                            'Outlet Velocity', 'Trim Exit Velocity', 'Tag Number', 'Item Number', 'Fluid State',
+                            'Critical Pressure',
+                            'Inlet Pipe Size', 'Outlet Pipe Size', 'Valve Size', 'Rating', 'Quote No.', 'Work Order No.',
+                            'Customer']
+
+                rows___ = []
+
+                # get units
+                cases = db.session.query(caseMaster).filter_by(item=item).all()
+                if len(cases) == 0:
+                    pass
                 else:
-                    percent__, i_pipe_vel, o_pipe_vel, t_vel = 'degree', 'mach', 'mach', 'mach'
-                unit_list = [item.project.flowrateUnit, item.project.pressureUnit, item.project.pressureUnit, item.project.temperatureUnit, '', 'centipose', item.project.pressureUnit, '', '', percent__,
-                             'dB',
-                             i_pipe_vel,
-                             o_pipe_vel, t_vel, item.project.lengthUnit, item.project.lengthUnit]
-                
-               
-
-                item_notes_list = db.session.query(itemNotesData).filter_by(item=item).order_by('notesNumber').all()
-
-                cv_value_element = db.session.query(cvValues).filter_by(cv=cases[0].cv).first()
-
-                other_val_list = [v_details.serialNumber, 1, item.project.projectRef, cases[0].criticalPressure, item.project.pressureUnit, v_details.shutOffDelP, cases[0].valveSize, item.project.lengthUnit, v_details.rating.name,
-                                  v_details.material.name, v_details.bonnetType__.name, "See Note 1", "See Note 1", v_details.gasket__.name, v_details.trimType__.name, v_details.flowDirection__.name, v_details.seat__.name,
-                                  v_details.disc__.name,
-                                  v_details.seatLeakageClass__.name, v_details.endConnection__.name, v_details.endFinish__.name, v_model_lower, model_str, v_details.bonnet__.name,
-                                  v_details.bonnetExtDimension, v_details.studNut__.name, cases[0].ratedCv, v_details.balanceSeal__.name, acc_list, v_details.application, cases[0].fluid.fluidName, 
-                                  v_details.maxPressure, v_details.maxTemp, v_details.minTemp, None, None, v_details.packing__.name,
-                                  cv_value_element.seatBore, cv_value_element.travel, v_details.flowDirection__.name, v_details.flowCharacter__.name, v_details.shaft__.name, item_notes_list]
-                
-                customer__ = db.session.query(addressProject).filter_by(isCompany=True, project=item.project).first()
-                
-                for i in itemCases_1[:6]:
-                    case_list = [i.flowrate, i.inletPressure, i.outletPressure, i.inletTemp, i.specificGravity, i.kinematicViscosity, i.vaporPressure,
-                                 i.xt,
-                                 i.calculatedCv, i.openingPercentage, i.spl,
-                                 i.pipeInVel, i.pipeOutVel, i.tex, v_details.tagNumber, item.id,
-                                 v_details.state.name, itemCases_1[0].criticalPressure,
-                                 itemCases_1[0].inletPipeSize, itemCases_1[0].outletPipeSize, i.valveSize, v_details.rating.name, item.project.projectId,
-                                 item.project.workOderNo,
-                                 f"{customer__.address.company.name} {customer__.address.address}"]
+                    last_case = cases[len(cases) - 1]
                     
-                    # case_list_dict = {
-                    #                     "flowrate": i.flowrate, "iPressure": i.iPressure, "oPressure": i.oPressure,
-                    #                     "iTemp": i.iTemp, "sGravity": i.sGravity, "viscosity": i.viscosity, "vPressure": i.vPressure,
-                    #                     "Xt": i.Xt, "CV": i.CV, "openPercent": i.openPercent, "valveSPL": i.valveSPL,
-                    #                     "iVelocity": i.iVelocity, "oVelocity": i.oVelocity, "trimExVelocity": i.trimExVelocity, "tagNo": item.tag_no,
-                    #                     "itemId": item.id, "fluidState": itemCases_1[0].fluidState, "criticalPressure": itemCases_1[0].criticalPressure,
-                    #                     "iPipeSize": itemCases_1[0].iPipeSize, "oPipeSize": itemCases_1[0].oPipeSize, "size_": size__, "rating": rating__,
-                    #                     "quote": project__.quote, "workOrder": project__.work_order, "customer": customer__
-                    #                 }
-                    rows___.append(case_list)
+                    if v_model_lower == 'globe':
+                        percent__, i_pipe_vel, o_pipe_vel, t_vel = '%', 'm/s', 'm/s', 'm/s'
+                    else:
+                        percent__, i_pipe_vel, o_pipe_vel, t_vel = 'degree', 'mach', 'mach', 'mach'
+                    unit_list = [item.project.flowrateUnit, item.project.pressureUnit, item.project.pressureUnit, item.project.temperatureUnit, '', 'centipose', item.project.pressureUnit, '', '', percent__,
+                                'dB',
+                                i_pipe_vel,
+                                o_pipe_vel, t_vel, item.project.lengthUnit, item.project.lengthUnit]
+                    
+                
 
-                cases__.append(rows___)
-                units__.append(unit_list)
-                others__.append(other_val_list)
-                try:
-                    act_dict_ = {'v_type': cases[0].ratedCv, 'trim_type': v_details.trimType__.name, 'Balancing': v_details.balanceSeal__.name,
-                                'fl_direction': v_details.flowDirection__.name, 'v_size': cases[0].valveSize,
-                                'v_size_unit': item.project.lengthUnit,
-                                'Seat_Dia': i.seatDia,
-                                'seat_dia_unit': item.project.lengthUnit, 'unbalance_area': act_valve_data_string[5],
-                                'unbalance_area_unit': 'inch^2',
-                                'Stem_size': act_valve_data_string[4], 'Stem_size_unit': 'inch',
-                                'Travel': act_valve_data_string[1],
-                                'travel_unit': 'inch', 'Packing_Friction': act_data_string[13],
-                                'packing_friction_unit': 'mm', 'Seat_Load_Factor': act_data_string[24],
-                                'Additional_Factor': 0,
-                                'P1': itemCases_1[-1].iPressure,
-                                'p1_unit': item.project.pressureUnit,
-                                'P2': itemCases_1[-1].oPressure, 'p2_unit': item.project.pressureUnit,
-                                'delP_Shutoff': v_details.shutOffDelP, 'delP_Shutoff_unit': 'bar', 'unbal_force': 0,
-                                'Kn': act_data_string[15], 'delP_flowing': 0,
-                                'act_type': act_other[0],
-                                'fail_action': act_data_string[4], 'act_size': act_data_string[0],
-                                'act_size_unit': 'inch',
-                                'act_travel': act_data_string[1], 'act_travel_unit': 'inch',
-                                'eff_area': act_data_string[0], 'eff_area_unit': 'inch^2',
-                                'sMin': act_data_string[2], 'sMax': act_data_string[3], 'spring_rate': act_data_string[18],
-                                'spring_windup': act_data_string[19], 'max_spring_load': act_data_string[20],
-                                'max_air_supply': act_other[6],
-                                'set_pressure': act_data_string[5], 'set_pressure_unit': 'bar', 'act_thrust_down': 0,
-                                'act_thrust_up': 0, 'handwheel': act_other[2],
-                                'friction_band': act_data_string[21],
-                                'req_handWheel_thrust': act_data_string[22], 'max_thrust': act_data_string[23],
-                                'v_thrust_close': 0, 'v_thrust_open': 0, 'seat_load': act_data_string[14],
-                                'orientation': act_other[3], 'act_model': act_model, 'travel_stops': act_other[8]
-                                }
-                except IndexError:
-                    act_dict_ = {'v_type': cases[0].ratedCv, 'trim_type': v_details.trimType__.name, 'Balancing': v_details.balanceSeal__.name,
-                                'fl_direction':  v_details.flowDirection__.name, 'v_size': cases[0].valveSize,
-                                'v_size_unit': item.project.lengthUnit,
-                                'Seat_Dia': i.seatDia,
-                                'seat_dia_unit': item.project.lengthUnit, 'unbalance_area': None,
-                                'unbalance_area_unit': 'inch^2',
-                                'Stem_size': None, 'Stem_size_unit': 'inch',
-                                'Travel': None,
-                                'travel_unit': 'inch', 'Packing_Friction': None,
-                                'packing_friction_unit': 'mm', 'Seat_Load_Factor': None,
-                                'Additional_Factor': 0,
-                                'P1': itemCases_1[-1].inletPressure,
-                                'p1_unit': item.project.pressureUnit,
-                                'P2': itemCases_1[-1].outletPressure, 'p2_unit': item.project.pressureUnit,
-                                'delP_Shutoff': v_details.shutOffDelP, 'delP_Shutoff_unit': 'bar', 'unbal_force': 0,
-                                'Kn': None, 'delP_flowing': 0,
-                                'act_type': None,
-                                'fail_action': None, 'act_size': None,
-                                'act_size_unit': 'inch',
-                                'act_travel': None, 'act_travel_unit': 'inch',
-                                'eff_area': None, 'eff_area_unit': 'inch^2',
-                                'sMin': None, 'sMax': None, 'spring_rate': None,
-                                'spring_windup': None, 'max_spring_load': None,
-                                'max_air_supply': None,
-                                'set_pressure': None, 'set_pressure_unit': 'bar', 'act_thrust_down': 0,
-                                'act_thrust_up': 0, 'handwheel': None,
-                                'friction_band': None,
-                                'req_handWheel_thrust': None, 'max_thrust': None,
-                                'v_thrust_close': 0, 'v_thrust_open': 0, 'seat_load': None,
-                                'orientation': None, 'act_model': act_model, 'travel_stops': None
-                                }
-                act_dict = act_dict_
+                    item_notes_list = db.session.query(itemNotesData).filter_by(item=item).order_by('notesNumber').all()
 
-        print(act_dict)
-        createSpecSheet(cases__, units__, others__, act_dict)
-        path = "specsheet.xlsx"
-        project_number = item.project.id
-        current_datetime = datetime.datetime.today().date().timetuple()
+                    cv_value_element = db.session.query(cvValues).filter_by(cv=cases[0].cv).first()
 
-        str_current_datetime = str(current_datetime)
-        a__ = datetime.datetime.now()
-        a_ = a__.strftime("%a, %d %b %Y %H-%M-%S")
-        spec_sheet_name = f'Specsheet_P{project_number}_{a_}.xlsx'
+                    other_val_list = [v_details.serialNumber, 1, item.project.projectRef, cases[0].criticalPressure, item.project.pressureUnit, v_details.shutOffDelP, cases[0].valveSize, item.project.lengthUnit, v_details.rating.name,
+                                    v_details.material.name, v_details.bonnetType__.name, "See Note 1", "See Note 1", v_details.gasket__.name, v_details.trimType__.name, v_details.flowDirection__.name, v_details.seat__.name,
+                                    v_details.disc__.name,
+                                    v_details.seatLeakageClass__.name, v_details.endConnection__.name, v_details.endFinish__.name, v_model_lower, model_str, v_details.bonnet__.name,
+                                    v_details.bonnetExtDimension, v_details.studNut__.name, cases[0].ratedCv, v_details.balanceSeal__.name, acc_list, v_details.application, cases[0].fluid.fluidName, 
+                                    v_details.maxPressure, v_details.maxTemp, v_details.minTemp, None, None, v_details.packing__.name,
+                                    cv_value_element.seatBore, cv_value_element.travel, v_details.flowDirection__.name, v_details.flowCharacter__.name, v_details.shaft__.name, item_notes_list]
+                    
+                    customer__ = db.session.query(addressProject).filter_by(isCompany=True, project=item.project).first()
+                    
+                    for i in itemCases_1[:6]:
+                        case_list = [i.flowrate, i.inletPressure, i.outletPressure, i.inletTemp, i.specificGravity, i.kinematicViscosity, i.vaporPressure,
+                                    i.xt,
+                                    i.calculatedCv, i.openingPercentage, i.spl,
+                                    i.pipeInVel, i.pipeOutVel, i.tex, v_details.tagNumber, item.id,
+                                    v_details.state.name, itemCases_1[0].criticalPressure,
+                                    itemCases_1[0].inletPipeSize, itemCases_1[0].outletPipeSize, i.valveSize, v_details.rating.name, item.project.projectId,
+                                    item.project.workOderNo,
+                                    f"{customer__.address.company.name} {customer__.address.address}"]
+                        
+                        # case_list_dict = {
+                        #                     "flowrate": i.flowrate, "iPressure": i.iPressure, "oPressure": i.oPressure,
+                        #                     "iTemp": i.iTemp, "sGravity": i.sGravity, "viscosity": i.viscosity, "vPressure": i.vPressure,
+                        #                     "Xt": i.Xt, "CV": i.CV, "openPercent": i.openPercent, "valveSPL": i.valveSPL,
+                        #                     "iVelocity": i.iVelocity, "oVelocity": i.oVelocity, "trimExVelocity": i.trimExVelocity, "tagNo": item.tag_no,
+                        #                     "itemId": item.id, "fluidState": itemCases_1[0].fluidState, "criticalPressure": itemCases_1[0].criticalPressure,
+                        #                     "iPipeSize": itemCases_1[0].iPipeSize, "oPipeSize": itemCases_1[0].oPipeSize, "size_": size__, "rating": rating__,
+                        #                     "quote": project__.quote, "workOrder": project__.work_order, "customer": customer__
+                        #                 }
+                        rows___.append(case_list)
 
-        return send_file(path, as_attachment=True, download_name=spec_sheet_name)
+                    cases__.append(rows___)
+                    units__.append(unit_list)
+                    others__.append(other_val_list)
+                    try:
+                        act_dict_ = {'v_type': cases[0].ratedCv, 'trim_type': v_details.trimType__.name, 'Balancing': v_details.balanceSeal__.name,
+                                    'fl_direction': v_details.flowDirection__.name, 'v_size': cases[0].valveSize,
+                                    'v_size_unit': item.project.lengthUnit,
+                                    'Seat_Dia': i.seatDia,
+                                    'seat_dia_unit': item.project.lengthUnit, 'unbalance_area': act_valve_data_string[5],
+                                    'unbalance_area_unit': 'inch^2',
+                                    'Stem_size': act_valve_data_string[4], 'Stem_size_unit': 'inch',
+                                    'Travel': act_valve_data_string[1],
+                                    'travel_unit': 'inch', 'Packing_Friction': act_data_string[13],
+                                    'packing_friction_unit': 'mm', 'Seat_Load_Factor': act_data_string[24],
+                                    'Additional_Factor': 0,
+                                    'P1': itemCases_1[-1].iPressure,
+                                    'p1_unit': item.project.pressureUnit,
+                                    'P2': itemCases_1[-1].oPressure, 'p2_unit': item.project.pressureUnit,
+                                    'delP_Shutoff': v_details.shutOffDelP, 'delP_Shutoff_unit': 'bar', 'unbal_force': 0,
+                                    'Kn': act_data_string[15], 'delP_flowing': 0,
+                                    'act_type': act_other[0],
+                                    'fail_action': act_data_string[4], 'act_size': act_data_string[0],
+                                    'act_size_unit': 'inch',
+                                    'act_travel': act_data_string[1], 'act_travel_unit': 'inch',
+                                    'eff_area': act_data_string[0], 'eff_area_unit': 'inch^2',
+                                    'sMin': act_data_string[2], 'sMax': act_data_string[3], 'spring_rate': act_data_string[18],
+                                    'spring_windup': act_data_string[19], 'max_spring_load': act_data_string[20],
+                                    'max_air_supply': act_other[6],
+                                    'set_pressure': act_data_string[5], 'set_pressure_unit': 'bar', 'act_thrust_down': 0,
+                                    'act_thrust_up': 0, 'handwheel': act_other[2],
+                                    'friction_band': act_data_string[21],
+                                    'req_handWheel_thrust': act_data_string[22], 'max_thrust': act_data_string[23],
+                                    'v_thrust_close': 0, 'v_thrust_open': 0, 'seat_load': act_data_string[14],
+                                    'orientation': act_other[3], 'act_model': act_model, 'travel_stops': act_other[8]
+                                    }
+                    except IndexError:
+                        act_dict_ = {'v_type': cases[0].ratedCv, 'trim_type': v_details.trimType__.name, 'Balancing': v_details.balanceSeal__.name,
+                                    'fl_direction':  v_details.flowDirection__.name, 'v_size': cases[0].valveSize,
+                                    'v_size_unit': item.project.lengthUnit,
+                                    'Seat_Dia': i.seatDia,
+                                    'seat_dia_unit': item.project.lengthUnit, 'unbalance_area': None,
+                                    'unbalance_area_unit': 'inch^2',
+                                    'Stem_size': None, 'Stem_size_unit': 'inch',
+                                    'Travel': None,
+                                    'travel_unit': 'inch', 'Packing_Friction': None,
+                                    'packing_friction_unit': 'mm', 'Seat_Load_Factor': None,
+                                    'Additional_Factor': 0,
+                                    'P1': itemCases_1[-1].inletPressure,
+                                    'p1_unit': item.project.pressureUnit,
+                                    'P2': itemCases_1[-1].outletPressure, 'p2_unit': item.project.pressureUnit,
+                                    'delP_Shutoff': v_details.shutOffDelP, 'delP_Shutoff_unit': 'bar', 'unbal_force': 0,
+                                    'Kn': None, 'delP_flowing': 0,
+                                    'act_type': None,
+                                    'fail_action': None, 'act_size': None,
+                                    'act_size_unit': 'inch',
+                                    'act_travel': None, 'act_travel_unit': 'inch',
+                                    'eff_area': None, 'eff_area_unit': 'inch^2',
+                                    'sMin': None, 'sMax': None, 'spring_rate': None,
+                                    'spring_windup': None, 'max_spring_load': None,
+                                    'max_air_supply': None,
+                                    'set_pressure': None, 'set_pressure_unit': 'bar', 'act_thrust_down': 0,
+                                    'act_thrust_up': 0, 'handwheel': None,
+                                    'friction_band': None,
+                                    'req_handWheel_thrust': None, 'max_thrust': None,
+                                    'v_thrust_close': 0, 'v_thrust_open': 0, 'seat_load': None,
+                                    'orientation': None, 'act_model': act_model, 'travel_stops': None
+                                    }
+                    act_dict = act_dict_
+
+            print(act_dict)
+            createSpecSheet(cases__, units__, others__, act_dict)
+            path = "specsheet.xlsx"
+            project_number = item.project.id
+            current_datetime = datetime.datetime.today().date().timetuple()
+
+            str_current_datetime = str(current_datetime)
+            a__ = datetime.datetime.now()
+            a_ = a__.strftime("%a, %d %b %Y %H-%M-%S")
+            spec_sheet_name = f'Specsheet_P{project_number}_{a_}.xlsx'
+
+            return send_file(path, as_attachment=True, download_name=spec_sheet_name)
+    except Exception as e:
+        # flash(f'some error occured: {e}')
+        flash('Data missing')
+        return redirect(url_for(page, item_id=item_id, proj_id=proj_id))
+
 
 @app.route('/export-project/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def exportProject(item_id, proj_id):
