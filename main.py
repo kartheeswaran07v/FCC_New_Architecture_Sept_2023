@@ -2448,6 +2448,7 @@ def cv_upload(data_list):
         # # data_delete(cvValues)
         # data_delete(cvTable)
         # print("delete done")
+    print("Data Upload CV Start")
     new_data_list = data_list[::4]  # Get every fourth element from the list
     len_data = len(new_data_list)
 
@@ -2568,7 +2569,9 @@ def cv_upload(data_list):
         db.session.add_all(objects_list)
         db.session.commit()
 
+    print("Data Upload CV End")
 
+    
 def data_upload_disc_seat_packing(data_list, valve_style, table_name):
    
     data_delete(table_name)
@@ -7899,8 +7902,8 @@ def DATA_UPLOAD_BULK():
 
 # DATA_UPLOAD_BULK()
 with app.app_context():
-    data_delete(cvTable)
-    # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    # data_delete(cvTable)
+    cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
     
 
