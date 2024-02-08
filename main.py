@@ -3469,31 +3469,37 @@ def valveData(proj_id, item_id):
         # Adding Data based on Valve style
         style = a['valvestyle'][0]
         a['style'] = [getDBElementWithId(valveStyle, style)]
-        if a['style'][0].name in ['Globe Straight', 'Globe Angle']:
-            # stem [Shaft], plug [Disc], seat [Seat], trimTypeG [trimType__]
-            shaft__ = a['shaft'][0]
-            a['shaft__'] = [getDBElementWithId(shaft, shaft__)]
-            disc__ = a['plug'][0]
-            a['disc__'] = [getDBElementWithId(disc, disc__)]
-            seat__ = a['seat'][0]
-            a['seat__'] = [getDBElementWithId(seat, seat__)]
-            trimType__ = a['trimtypeG'][0]
-            a['trimType__'] = [getDBElementWithId(trimType, trimType__)]
+        try:
+            if a['style'][0].name in ['Globe Straight', 'Globe Angle']:
+                # stem [Shaft], plug [Disc], seat [Seat], trimTypeG [trimType__]
+                shaft__ = a['shaft'][0]
+                a['shaft__'] = [getDBElementWithId(shaft, shaft__)]
+                disc__ = a['plug'][0]
+                a['disc__'] = [getDBElementWithId(disc, disc__)]
+                seat__ = a['seat'][0]
+                a['seat__'] = [getDBElementWithId(seat, seat__)]
+                trimType__ = a['trimtypeG'][0]
+                a['trimType__'] = [getDBElementWithId(trimType, trimType__)]
 
-            print(shaft__)
-        elif a['style'][0].name in ['Butterfly Lugged Wafer', 'Butterfly Double Flanged']:
-            # shaft [Shaft], disc [Disc], seal [Seat], trimTypeB [trimType__]
-            shaft__ = a['stem'][0]
-            a['shaft__'] = [getDBElementWithId(shaft, shaft__)]
-            disc__ = a['disc'][0]
-            a['disc__'] = [getDBElementWithId(disc, disc__)]
-            seat__ = a['seal'][0]
-            a['seat__'] = [getDBElementWithId(seat, seat__)]
-            trimType__ = a['trimtypeB'][0]
-            a['trimType__'] = [getDBElementWithId(trimType, trimType__)]
-            print(shaft__)
-        else:
-            pass
+                print(shaft__)
+            elif a['style'][0].name in ['Butterfly Lugged Wafer', 'Butterfly Double Flanged']:
+                # shaft [Shaft], disc [Disc], seal [Seat], trimTypeB [trimType__]
+                shaft__ = a['stem'][0]
+                a['shaft__'] = [getDBElementWithId(shaft, shaft__)]
+                disc__ = a['disc'][0]
+                a['disc__'] = [getDBElementWithId(disc, disc__)]
+                seat__ = a['seal'][0]
+                a['seat__'] = [getDBElementWithId(seat, seat__)]
+                trimType__ = a['trimtypeB'][0]
+                a['trimType__'] = [getDBElementWithId(trimType, trimType__)]
+                print(shaft__)
+            else:
+                pass
+        except:
+            a['shaft__'] = None
+            a['disc__'] = None
+            a['seat__'] = None
+            a['trimType__'] = None
 
         # remove unwanted keys from a dict
         a.pop('valvestyle')
