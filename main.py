@@ -2370,9 +2370,10 @@ def data_upload(data_list, table_name):
             new_count += 1
         elif len(data_element) > 1:
             for data__ in data_element[1:]:
-                db.session.delete(data__)
+                data_element = db.session.query(table_name).filter_by(id=data__.id).first()
+                db.session.delete(data_element)
                 db.session.commit()
-                print(f"Deleted: {data__}, {data_element.index(data__)}")
+                # print(f"Deleted: {data__}, {data_element.index(data__)}")
     
     print(new_count)
     print('data upload ends')
