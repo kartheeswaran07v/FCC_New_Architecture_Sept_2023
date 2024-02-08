@@ -428,7 +428,7 @@
 										<div class="col-6">
 											<select class="form-control-sm-sm valvedata_select" name="shaft">
 												{% for shaft in metadata['shaft'] %}
-												{% if shaft.style.id == 3 %}
+												{% if shaft.valveStyleId == 3 %}
 												{% if shaft.name == valve.shaft__.name %}
 												<option value="{{shaft.id}}" selected>{{shaft.name}}</option>
 												{% else %}
@@ -447,7 +447,7 @@
 										<div class="col-6">
 											<select class="form-control-sm-sm valvedata_select" name="stem">
 												{% for shaft in metadata['shaft'] %}
-												{%if shaft.style.id == 1%}
+												{%if shaft.valveStyleId == 1%}
 												{% if shaft.name == valve.shaft__.name %}
 												<option value="{{shaft.id}}" selected>{{shaft.name}}</option>
 												{% else %}
@@ -467,7 +467,7 @@
 										<div class="col-6">
 											<select class="form-control-sm-sm valvedata_select" name="disc">
 												{% for disc in metadata['disc'] %}
-												{% if disc.style.id == 3 %}
+												{% if disc.valveStyleId == 3 %}
 												<option value="{{disc.id}}">{{disc.name}}</option>
 												{% endif %}
 												{% endfor %}
@@ -483,7 +483,7 @@
 											<select class="form-control-sm-sm valvedata_select" name="plug">
 
 												{% for plug in metadata['disc'] %}
-												{% if plug.style.id == 1 %}
+												{% if plug.valveStyleId == 1 %}
 												<option value="{{plug.id}}">{{plug.name}}</option>
 												{% endif %}
 												{% endfor %}
@@ -500,7 +500,7 @@
 											<select class="form-control-sm-sm valvedata_select" name="seat">
 
 												{% for seat in metadata['seat'] %}
-												{% if seat.style.id == 1 %}
+												{% if seat.valveStyleId == 1 %}
 												<option value="{{seat.id}}">{{seat.name}}</option>
 												{% endif %}
 												{% endfor %}
@@ -516,7 +516,7 @@
 											<select class="form-control-sm-sm valvedata_select" name="seal">
 
 												{% for seat in metadata['seat'] %}
-												{% if seat.style.id == 3 %}
+												{% if seat.valveStyleId == 3 %}
 												<option value="{{seat.id}}">{{seat.name}}</option>
 												{% endif %}
 												{% endfor %}
