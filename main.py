@@ -2581,10 +2581,10 @@ def data_upload_shaft(data_list, v_style_list):
     for style_ in v_style_list:
         for data_ in data_list:
             new_shaft = shaft(name=data_['name'], yield_strength=data_['yield_strength'], style=style_)
-            all_elements.append(new_shaft)
+            # all_elements.append(new_shaft)
 
-    db.session.add_all(all_elements)
-    db.session.commit()
+            db.session.add(new_shaft)
+            db.session.commit()
 
 
 def addProjectRels(cname, cnameE, address, addressE, aEng, cEng, project, operation):
