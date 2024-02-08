@@ -7882,14 +7882,14 @@ def DATA_UPLOAD_BULK():
         # data_upload(packing_type_list, packingType)
         # add_many(getRowsFromCsvFile("csv/slidingActuatorData.csv"), slidingActuatorData)
         # add_many(getRowsFromCsvFile("csv/rotaryActuatorData.csv"), rotaryActuatorData)
-        add_many(getRowsFromCsvFile("csv/notesMaster.csv"), notesMaster)
-        add_many(getRowsFromCsvFile("csv/positioner.csv"), positioner)
-        add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
-        add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
+        # add_many(getRowsFromCsvFile("csv/notesMaster.csv"), notesMaster)
+        # add_many(getRowsFromCsvFile("csv/positioner.csv"), positioner)
+        # add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
+        # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
 DATA_UPLOAD_BULK()
-# cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
 # data_delete(cvTable)
     
