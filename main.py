@@ -2574,7 +2574,7 @@ def data_upload_disc_seat_packing(data_list, valve_style, table_name):
 
 
 def data_upload_shaft(data_list, v_style_list):
-
+    print('Shaft data add start')
     data_delete(shaft)
     all_elements = []
     for style_ in v_style_list:
