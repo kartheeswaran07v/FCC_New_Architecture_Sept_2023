@@ -383,7 +383,7 @@
                                                 <select id="fluidState"
                                                         class="form-control-sm-sm valvesizing_select" onchange="handleSelect(this)">
                                                         {% for f_state in metadata['fluidState'] %}
-                                                                {% if valve.state.name == f_state.name %}
+                                                                {% if valve.fluidStateId == f_state.id %}
                                                                         <option value="{{url_for('updateFluidState', fs_id=f_state.id, item_id=item.id, proj_id=item.project.id)}}" selected>{{f_state.name}}</option>
                                                                 {% else %}
                                                                         <option value="{{url_for('updateFluidState', fs_id=f_state.id, item_id=item.id, proj_id=item.project.id)}}">{{f_state.name}}</option>
