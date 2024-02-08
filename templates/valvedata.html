@@ -298,7 +298,7 @@
 											<select class="form-control-sm-sm valvedata_select" name="trimtypeG"
 												id="trimtype_onselect">
 												{% for trimtype in metadata['trimtype'] %}
-												{% if trimtype.style.id == 1%}
+												{% if trimtype.valveStyleId == 1 %}
 												{% if trimtype.name == valve.trimType__.name %}
 												<option value="{{trimtype.id}}" selected>{{trimtype.name}}</option>
 												{% else %}
@@ -317,7 +317,7 @@
 											<select class="form-control-sm-sm valvedata_select" name="trimtypeB"
 												style="width: 100%;">
 												{% for trimtype in metadata['trimtype'] %}
-												{%if trimtype.style.id == 3%}
+												{% if trimtype.valveStyleId == 3 %}
 												{% if trimtype.name == valve.trimType__.name %}
 												<option value="{{trimtype.id}}" selected>{{trimtype.name}}</option>
 												{% else %}
@@ -428,7 +428,7 @@
 										<div class="col-6">
 											<select class="form-control-sm-sm valvedata_select" name="shaft">
 												{% for shaft in metadata['shaft'] %}
-												{%if shaft.style.id == 3%}
+												{% if shaft.style.id == 3 %}
 												{% if shaft.name == valve.shaft__.name %}
 												<option value="{{shaft.id}}" selected>{{shaft.name}}</option>
 												{% else %}

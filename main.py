@@ -2806,127 +2806,128 @@ def fluid_properties_dict_vs():
 
 
 def metadata():
-    companies = companyMaster.query.all()
-    industries = industryMaster.query.all()
-    regions = regionMaster.query.all()
-    engineers = engineerMaster.query.all()
-    ratings = ratingMaster.query.all()
-    bodyMaterial = materialMaster.query.all()
-    standard_ = designStandard.query.all()
-    valveStyles = valveStyle.query.all()
-    endconnection = endConnection.query.all()
-    endfinish = endFinish.query.all()
-    bonnettype = bonnetType.query.all()
-    packingtype = packingType.query.all()
-    trimtype = trimType.query.all()
-    flowcharacter = flowCharacter.query.all()
-    flowdirection = flowDirection.query.all()
-    flowCharacter_ = flowCharacter.query.all()
-    seatleakageclass = seatLeakageClass.query.all()
-    bonnet_ = bonnet.query.all()
-    shaft_ = shaft.query.all()
-    disc_ = disc.query.all()
-    seat_ = seat.query.all()
-    packing_ = packing.query.all()
-    balanceseal = balanceSeal.query.all()
-    studnut = studNut.query.all()
-    gasket_ = gasket.query.all()
-    cageclamp = cageClamp.query.all()
-    application_ = applicationMaster.query.all()
-    fluids = fluidProperties.query.all()
-    fluids_dict = fluid_properties_dict_vs()
-    fluid_state = fluidState.query.all()
-    valveSeries = []
-    for notes_ in db.session.query(cvTable.series).distinct():
-        valveSeries.append(notes_.series)
+    with app.app_context():
+        companies = companyMaster.query.all()
+        industries = industryMaster.query.all()
+        regions = regionMaster.query.all()
+        engineers = engineerMaster.query.all()
+        ratings = ratingMaster.query.all()
+        bodyMaterial = materialMaster.query.all()
+        standard_ = designStandard.query.all()
+        valveStyles = valveStyle.query.all()
+        endconnection = endConnection.query.all()
+        endfinish = endFinish.query.all()
+        bonnettype = bonnetType.query.all()
+        packingtype = packingType.query.all()
+        trimtype = trimType.query.all()
+        flowcharacter = flowCharacter.query.all()
+        flowdirection = flowDirection.query.all()
+        flowCharacter_ = flowCharacter.query.all()
+        seatleakageclass = seatLeakageClass.query.all()
+        bonnet_ = bonnet.query.all()
+        shaft_ = shaft.query.all()
+        disc_ = disc.query.all()
+        seat_ = seat.query.all()
+        packing_ = packing.query.all()
+        balanceseal = balanceSeal.query.all()
+        studnut = studNut.query.all()
+        gasket_ = gasket.query.all()
+        cageclamp = cageClamp.query.all()
+        application_ = applicationMaster.query.all()
+        fluids = fluidProperties.query.all()
+        fluids_dict = fluid_properties_dict_vs()
+        fluid_state = fluidState.query.all()
+        valveSeries = []
+        for notes_ in db.session.query(cvTable.series).distinct():
+            valveSeries.append(notes_.series)
 
-    notes_dict = {}
-    for nnn in companies:
-        contents = db.session.query(addressMaster).filter_by(company=nnn).all()
-        content_list = [cont.address for cont in contents]
-        notes_dict[nnn.name] = content_list
+        notes_dict = {}
+        for nnn in companies:
+            contents = db.session.query(addressMaster).filter_by(company=nnn).all()
+            content_list = [cont.address for cont in contents]
+            notes_dict[nnn.name] = content_list
 
-    data_dict = {
-        "companies": companies,
-        "industries": industries,
-        "regions": regions,
-        "engineers": engineers,
-        "notes_dict": json.dumps(notes_dict),
-        "fluids_dict": json.dumps(fluids_dict),
-        "notes_dict_": notes_dict,
-        "status": project_status_list,
-        "date": date_today,
-        "purpose": purpose_list,
-        "ratings": ratings,
-        "bodyMaterial": bodyMaterial,
-        "standard": standard_,
-        "valveStyle": valveStyles,
-        "valveSeries": valveSeries,
-        "endconnection": endconnection,
-        "endfinish": endfinish,
-        "bonnettype": bonnettype,
-        "packingtype": packingtype,
-        "trimtype": trimtype,
-        "flowcharacter": flowcharacter,
-        "flowdirection": flowdirection,
-        "seatleakageclass": seatleakageclass,
-        "bonnet": bonnet_,
-        "shaft": shaft_,
-        "disc": disc_,
-        "seat": seat_,
-        "packing": packing_,
-        "balanceseal": balanceseal,
-        "studnut": studnut,
-        "gasket": gasket_,
-        "cageclamp": cageclamp,
-        "application": application_,
-        "units_dict": units_dict,
-        "fluids": fluids,
-        "fluidState": fluid_state,
-        "flowCharacter": flowCharacter_,
-        "actuatorData": actuator_data_dict
-    }
+        data_dict = {
+            "companies": companies,
+            "industries": industries,
+            "regions": regions,
+            "engineers": engineers,
+            "notes_dict": json.dumps(notes_dict),
+            "fluids_dict": json.dumps(fluids_dict),
+            "notes_dict_": notes_dict,
+            "status": project_status_list,
+            "date": date_today,
+            "purpose": purpose_list,
+            "ratings": ratings,
+            "bodyMaterial": bodyMaterial,
+            "standard": standard_,
+            "valveStyle": valveStyles,
+            "valveSeries": valveSeries,
+            "endconnection": endconnection,
+            "endfinish": endfinish,
+            "bonnettype": bonnettype,
+            "packingtype": packingtype,
+            "trimtype": trimtype,
+            "flowcharacter": flowcharacter,
+            "flowdirection": flowdirection,
+            "seatleakageclass": seatleakageclass,
+            "bonnet": bonnet_,
+            "shaft": shaft_,
+            "disc": disc_,
+            "seat": seat_,
+            "packing": packing_,
+            "balanceseal": balanceseal,
+            "studnut": studnut,
+            "gasket": gasket_,
+            "cageclamp": cageclamp,
+            "application": application_,
+            "units_dict": units_dict,
+            "fluids": fluids,
+            "fluidState": fluid_state,
+            "flowCharacter": flowCharacter_,
+            "actuatorData": actuator_data_dict
+        }
 
-    positioner_manufacturer = []
-    for notes_ in db.session.query(positioner.manufacturer).distinct():
-        positioner_manufacturer.append(notes_.manufacturer)
+        positioner_manufacturer = []
+        for notes_ in db.session.query(positioner.manufacturer).distinct():
+            positioner_manufacturer.append(notes_.manufacturer)
 
-    positioner_model = []
-    for notes_ in db.session.query(positioner.series).distinct():
-        positioner_model.append(notes_.series)
+        positioner_model = []
+        for notes_ in db.session.query(positioner.series).distinct():
+            positioner_model.append(notes_.series)
 
-    positioner_action = []
-    for notes_ in db.session.query(positioner.action).distinct():
-        positioner_action.append(notes_.action)
-    
-    solenoid_make = []
-    for notes_ in db.session.query(solenoid.make).distinct():
-        solenoid_make.append(notes_.make)
+        positioner_action = []
+        for notes_ in db.session.query(positioner.action).distinct():
+            positioner_action.append(notes_.action)
+        
+        solenoid_make = []
+        for notes_ in db.session.query(solenoid.make).distinct():
+            solenoid_make.append(notes_.make)
 
-    solenoid_model = []
-    for notes_ in db.session.query(solenoid.model).distinct():
-        solenoid_model.append(notes_.model)
+        solenoid_model = []
+        for notes_ in db.session.query(solenoid.model).distinct():
+            solenoid_model.append(notes_.model)
 
-    solenoid_type = []
-    for notes_ in db.session.query(solenoid.type).distinct():
-        solenoid_type.append(notes_.type)
+        solenoid_type = []
+        for notes_ in db.session.query(solenoid.type).distinct():
+            solenoid_type.append(notes_.type)
 
-    all_afr = afr.query.all()
-    afr_ = [f"{pos.manufacturer}/{pos.model}" for pos in all_afr]
+        all_afr = afr.query.all()
+        afr_ = [f"{pos.manufacturer}/{pos.model}" for pos in all_afr]
 
-    all_limit_switch = limitSwitch.query.all()
-    limit_switch_ = [l.model for l in all_limit_switch]
-    
-    data_dict['positioner_manufacturer'] = positioner_manufacturer
-    data_dict['positioner_model'] = positioner_model
-    data_dict['positioner_action'] = positioner_action
-    data_dict['afr_'] = afr_
-    data_dict['limit_switch_'] = limit_switch_
-    data_dict['solenoid_make'] = solenoid_make
-    data_dict['solenoid_model'] = solenoid_model
-    data_dict['solenoid_type'] = solenoid_type
-    data_dict['boosters'] = ['I-BP1A', 'W20359']
-    return data_dict
+        all_limit_switch = limitSwitch.query.all()
+        limit_switch_ = [l.model for l in all_limit_switch]
+        
+        data_dict['positioner_manufacturer'] = positioner_manufacturer
+        data_dict['positioner_model'] = positioner_model
+        data_dict['positioner_action'] = positioner_action
+        data_dict['afr_'] = afr_
+        data_dict['limit_switch_'] = limit_switch_
+        data_dict['solenoid_make'] = solenoid_make
+        data_dict['solenoid_model'] = solenoid_model
+        data_dict['solenoid_type'] = solenoid_type
+        data_dict['boosters'] = ['I-BP1A', 'W20359']
+        return data_dict
 
 
 # TODO ------------------------------------------ SIZING PYTHON CODE --------------------------------------- #
@@ -3403,119 +3404,118 @@ def editProject(proj_id, item_id):
 # Valve Details Module
 @app.route('/valve-data/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def valveData(proj_id, item_id):
-    with app.app_context():
-        metadata_ = metadata()
-        valve_element = db.session.query(valveDetailsMaster).filter_by(
-            item=getDBElementWithId(itemMaster, int(item_id))).first()
-        if request.method == "POST":
-            data = request.form.to_dict(flat=False)
-            a = jsonify(data).json
-            # Changing string to db element to input into update method into db table
-            balanceSeal_ = a['balanceseal'][0]
-            a['balanceSeal__'] = [getDBElementWithId(balanceSeal, balanceSeal_)]
-            bonnetType__ = a['bonnetType__'][0]
-            a['bonnetType__'] = [getDBElementWithId(bonnetType, bonnetType__)]
-            bonnet__ = a['bonnet__'][0]
-            a['bonnet__'] = [getDBElementWithId(bonnet, bonnet__)]
-            design = a['design'][0]
-            a['design'] = [getDBElementWithId(designStandard, design)]
-            endConnection__ = a['endConnection__'][0]
-            a['endConnection__'] = [getDBElementWithId(endConnection, endConnection__)]
-            endFinish__ = a['endFinish__'][0]
-            a['endFinish__'] = [getDBElementWithId(endFinish, endFinish__)]
-            flowCharacter__ = a['flowCharacter__'][0]
-            a['flowCharacter__'] = [getDBElementWithId(flowCharacter, flowCharacter__)]
-            flowDirection__ = a['flowDirection__'][0]
-            a['flowDirection__'] = [getDBElementWithId(flowDirection, flowDirection__)]
-            gasket__ = a['gasket__'][0]
-            a['gasket__'] = [getDBElementWithId(gasket, gasket__)]
-            packing__ = a['packing__'][0]
-            a['packing__'] = [getDBElementWithId(packing, packing__)]
-            studNut__ = a['studNut__'][0]
-            a['studNut__'] = [getDBElementWithId(studNut, studNut__)]
-            cage__ = a['cage__'][0]
-            a['cage__'] = [getDBElementWithId(cageClamp, cage__)]
-            packingType__ = a['packingType__'][0]
-            a['packingType__'] = [getDBElementWithId(packingType, packingType__)]
-            rating = a['rating'][0]
-            a['rating'] = [getDBElementWithId(ratingMaster, rating)]
-            seatLeakageClass__ = a['seatLeakageClass__'][0]
-            a['seatLeakageClass__'] = [getDBElementWithId(seatLeakageClass, seatLeakageClass__)]
-            material = a['material'][0]
-            a['material'] = [getDBElementWithId(materialMaster, material)]
-            a['state'] = [db.session.query(fluidState).filter_by(name='Liquid').first()]
+    metadata_ = metadata()
+    valve_element = db.session.query(valveDetailsMaster).filter_by(
+        item=getDBElementWithId(itemMaster, int(item_id))).first()
+    if request.method == "POST":
+        data = request.form.to_dict(flat=False)
+        a = jsonify(data).json
+        # Changing string to db element to input into update method into db table
+        balanceSeal_ = a['balanceseal'][0]
+        a['balanceSeal__'] = [getDBElementWithId(balanceSeal, balanceSeal_)]
+        bonnetType__ = a['bonnetType__'][0]
+        a['bonnetType__'] = [getDBElementWithId(bonnetType, bonnetType__)]
+        bonnet__ = a['bonnet__'][0]
+        a['bonnet__'] = [getDBElementWithId(bonnet, bonnet__)]
+        design = a['design'][0]
+        a['design'] = [getDBElementWithId(designStandard, design)]
+        endConnection__ = a['endConnection__'][0]
+        a['endConnection__'] = [getDBElementWithId(endConnection, endConnection__)]
+        endFinish__ = a['endFinish__'][0]
+        a['endFinish__'] = [getDBElementWithId(endFinish, endFinish__)]
+        flowCharacter__ = a['flowCharacter__'][0]
+        a['flowCharacter__'] = [getDBElementWithId(flowCharacter, flowCharacter__)]
+        flowDirection__ = a['flowDirection__'][0]
+        a['flowDirection__'] = [getDBElementWithId(flowDirection, flowDirection__)]
+        gasket__ = a['gasket__'][0]
+        a['gasket__'] = [getDBElementWithId(gasket, gasket__)]
+        packing__ = a['packing__'][0]
+        a['packing__'] = [getDBElementWithId(packing, packing__)]
+        studNut__ = a['studNut__'][0]
+        a['studNut__'] = [getDBElementWithId(studNut, studNut__)]
+        cage__ = a['cage__'][0]
+        a['cage__'] = [getDBElementWithId(cageClamp, cage__)]
+        packingType__ = a['packingType__'][0]
+        a['packingType__'] = [getDBElementWithId(packingType, packingType__)]
+        rating = a['rating'][0]
+        a['rating'] = [getDBElementWithId(ratingMaster, rating)]
+        seatLeakageClass__ = a['seatLeakageClass__'][0]
+        a['seatLeakageClass__'] = [getDBElementWithId(seatLeakageClass, seatLeakageClass__)]
+        material = a['material'][0]
+        a['material'] = [getDBElementWithId(materialMaster, material)]
+        a['state'] = [db.session.query(fluidState).filter_by(name='Liquid').first()]
 
-            # Data Type conversion
-            try:
-                a['maxPressure'][0] = float(a['maxPressure'][0])
-                a['maxTemp'][0] = float(a['maxTemp'][0])
-                a['minTemp'][0] = float(a['minTemp'][0])
-                a['shutOffDelP'][0] = float(a['shutOffDelP'][0])
-                a['bonnetExtDimension'][0] = float(a['bonnetExtDimension'][0])
-                a['quantity'][0] = int(a['quantity'][0])
-            except Exception as e:
-                flash(f'Error: {e}')
-                pass
+        # Data Type conversion
+        try:
+            a['maxPressure'][0] = float(a['maxPressure'][0])
+            a['maxTemp'][0] = float(a['maxTemp'][0])
+            a['minTemp'][0] = float(a['minTemp'][0])
+            a['shutOffDelP'][0] = float(a['shutOffDelP'][0])
+            a['bonnetExtDimension'][0] = float(a['bonnetExtDimension'][0])
+            a['quantity'][0] = int(a['quantity'][0])
+        except Exception as e:
+            flash(f'Error: {e}')
+            pass
 
-            # Adding Data based on Valve style
-            style = a['valvestyle'][0]
-            a['style'] = [getDBElementWithId(valveStyle, style)]
-            if a['style'][0].name in ['Globe Straight', 'Globe Angle']:
-                # stem [Shaft], plug [Disc], seat [Seat], trimTypeG [trimType__]
-                shaft__ = a['shaft'][0]
-                a['shaft__'] = [getDBElementWithId(shaft, shaft__)]
-                disc__ = a['plug'][0]
-                a['disc__'] = [getDBElementWithId(disc, disc__)]
-                seat__ = a['seat'][0]
-                a['seat__'] = [getDBElementWithId(seat, seat__)]
-                trimType__ = a['trimtypeG'][0]
-                a['trimType__'] = [getDBElementWithId(trimType, trimType__)]
+        # Adding Data based on Valve style
+        style = a['valvestyle'][0]
+        a['style'] = [getDBElementWithId(valveStyle, style)]
+        if a['style'][0].name in ['Globe Straight', 'Globe Angle']:
+            # stem [Shaft], plug [Disc], seat [Seat], trimTypeG [trimType__]
+            shaft__ = a['shaft'][0]
+            a['shaft__'] = [getDBElementWithId(shaft, shaft__)]
+            disc__ = a['plug'][0]
+            a['disc__'] = [getDBElementWithId(disc, disc__)]
+            seat__ = a['seat'][0]
+            a['seat__'] = [getDBElementWithId(seat, seat__)]
+            trimType__ = a['trimtypeG'][0]
+            a['trimType__'] = [getDBElementWithId(trimType, trimType__)]
 
-                print(shaft__)
-            elif a['style'][0].name in ['Butterfly Lugged Wafer', 'Butterfly Double Flanged']:
-                # shaft [Shaft], disc [Disc], seal [Seat], trimTypeB [trimType__]
-                shaft__ = a['stem'][0]
-                a['shaft__'] = [getDBElementWithId(shaft, shaft__)]
-                disc__ = a['disc'][0]
-                a['disc__'] = [getDBElementWithId(disc, disc__)]
-                seat__ = a['seal'][0]
-                a['seat__'] = [getDBElementWithId(seat, seat__)]
-                trimType__ = a['trimtypeB'][0]
-                a['trimType__'] = [getDBElementWithId(trimType, trimType__)]
-                print(shaft__)
-            else:
-                pass
+            print(shaft__)
+        elif a['style'][0].name in ['Butterfly Lugged Wafer', 'Butterfly Double Flanged']:
+            # shaft [Shaft], disc [Disc], seal [Seat], trimTypeB [trimType__]
+            shaft__ = a['stem'][0]
+            a['shaft__'] = [getDBElementWithId(shaft, shaft__)]
+            disc__ = a['disc'][0]
+            a['disc__'] = [getDBElementWithId(disc, disc__)]
+            seat__ = a['seal'][0]
+            a['seat__'] = [getDBElementWithId(seat, seat__)]
+            trimType__ = a['trimtypeB'][0]
+            a['trimType__'] = [getDBElementWithId(trimType, trimType__)]
+            print(shaft__)
+        else:
+            pass
 
-            # remove unwanted keys from a dict
-            a.pop('valvestyle')
-            a.pop('shaft')
-            a.pop('plug')
-            a.pop('seat')
-            a.pop('trimtypeG')
-            a.pop('stem')
-            a.pop('disc')
-            a.pop('seal')
-            a.pop('trimtypeB')
-            a.pop('balanceseal')
-            # a.pop('shaft')
-            print(a['shaft__'][0].name)
-            update_dict = a
-            valve_element.update(update_dict, valve_element.id)
+        # remove unwanted keys from a dict
+        a.pop('valvestyle')
+        a.pop('shaft')
+        a.pop('plug')
+        a.pop('seat')
+        a.pop('trimtypeG')
+        a.pop('stem')
+        a.pop('disc')
+        a.pop('seal')
+        a.pop('trimtypeB')
+        a.pop('balanceseal')
+        # a.pop('shaft')
+        print(a['shaft__'][0].name)
+        update_dict = a
+        valve_element.update(update_dict, valve_element.id)
 
-            # Logic for pressure Temp rating
-            minTemp_ = float(a['minTemp'][0])
-            maxTemp_ = float(a['maxTemp'][0])
-            presTempRatingElement = db.session.query(pressureTempRating).filter_by(material=a['material'][0], rating=a['rating'][0]).first()
-            if maxTemp_ > float(presTempRatingElement.maxTemp):
-                error_message = f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}"
-            else:
-                error_message = ""
-            # print(f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}")
-            flash('Data Updated Successfully')
-            return render_template('valvedata.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                            metadata=metadata_, valve=valve_element, page='valveData', msg=error_message)
+        # Logic for pressure Temp rating
+        minTemp_ = float(a['minTemp'][0])
+        maxTemp_ = float(a['maxTemp'][0])
+        presTempRatingElement = db.session.query(pressureTempRating).filter_by(material=a['material'][0], rating=a['rating'][0]).first()
+        if maxTemp_ > float(presTempRatingElement.maxTemp):
+            error_message = f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}"
+        else:
+            error_message = ""
+        # print(f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}")
+        flash('Data Updated Successfully')
         return render_template('valvedata.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                            metadata=metadata_, valve=valve_element, page='valveData', msg='')
+                           metadata=metadata_, valve=valve_element, page='valveData', msg=error_message)
+    return render_template('valvedata.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
+                           metadata=metadata_, valve=valve_element, page='valveData', msg='')
 
 
 
