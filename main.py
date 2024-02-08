@@ -2347,8 +2347,8 @@ def data_delete(table_name):
             # db.session.commit()
             db.session.delete(data_element)
             db.session.commit()
-        except:
-            print(' delete not happen')
+        except Exception as e:
+            print(f'delete not happen: {e}')
             pass
 
 
