@@ -2340,11 +2340,12 @@ def data_delete(table_name):
     # with app.app_context():
     data_list = table_name.query.all()
     # db.session.commit()
-    for data_ in data_list:
-        data_element = db.session.query(table_name).filter_by(id=data_.id).first()
-        # db.session.commit()
-        db.session.delete(data_element)
-        db.session.commit()
+    if len(data_list) > 0:
+        for data_ in data_list:
+            data_element = db.session.query(table_name).filter_by(id=data_.id).first()
+            # db.session.commit()
+            db.session.delete(data_element)
+            db.session.commit()
 
 
 def next_alpha(s):
