@@ -2436,130 +2436,130 @@ def add_many(list_many, table_name):
 
 
 def cv_upload(data_list):
-    with app.app_context():
+    # with app.app_context():
         # print("delete begin")
         # # data_delete(cvValues)
-        data_delete(cvTable)
+        # data_delete(cvTable)
         # print("delete done")
-        new_data_list = data_list[::4]  # Get every fourth element from the list
-        len_data = len(new_data_list)
+    new_data_list = data_list[::4]  # Get every fourth element from the list
+    len_data = len(new_data_list)
 
-        for data_index in range(len_data):
-            # Get DB Element
-            trim_type_element = db.session.query(trimType).filter_by(
-                name=new_data_list[data_index]['trimType_']).first()
-            flow_charac_element = db.session.query(flowCharacter).filter_by(
-                name=new_data_list[data_index]['flowCharacter_']).first()
-            flow_direction_element = db.session.query(flowDirection).filter_by(
-                name=new_data_list[data_index]['flowDirection_']).first()
-            balancing_element = db.session.query(balancing).filter_by(
-                name=new_data_list[data_index]['balancing_']).first()
-            rating_element = db.session.query(ratingMaster).filter_by(
-                name=new_data_list[data_index]['rating_c']).first()
-            v_style_element = db.session.query(valveStyle).filter_by(name=new_data_list[data_index]['style']).first()
-            valve_size = float(new_data_list[data_index]['valveSize'])
-            series = new_data_list[data_index]['series']
+    for data_index in range(len_data):
+        # Get DB Element
+        trim_type_element = db.session.query(trimType).filter_by(
+            name=new_data_list[data_index]['trimType_']).first()
+        flow_charac_element = db.session.query(flowCharacter).filter_by(
+            name=new_data_list[data_index]['flowCharacter_']).first()
+        flow_direction_element = db.session.query(flowDirection).filter_by(
+            name=new_data_list[data_index]['flowDirection_']).first()
+        balancing_element = db.session.query(balancing).filter_by(
+            name=new_data_list[data_index]['balancing_']).first()
+        rating_element = db.session.query(ratingMaster).filter_by(
+            name=new_data_list[data_index]['rating_c']).first()
+        v_style_element = db.session.query(valveStyle).filter_by(name=new_data_list[data_index]['style']).first()
+        valve_size = float(new_data_list[data_index]['valveSize'])
+        series = new_data_list[data_index]['series']
+        
+        cv__lists = db.session.query(cvTable).filter_by(trimType_=trim_type_element, flowCharacter_=flow_charac_element, flowDirection_=flow_direction_element, rating_c=rating_element, style=v_style_element, balancing_=balancing_element, valveSize=valve_size).all()
             
-            cv__lists = db.session.query(cvTable).filter_by(trimType_=trim_type_element, flowCharacter_=flow_charac_element, flowDirection_=flow_direction_element, rating_c=rating_element, style=v_style_element, balancing_=balancing_element, valveSize=valve_size).all()
-                
 
-            # Add CV Table Data
-            # print(new_data_list[data_index]['no'], trim_type_element.name, flow_charac_element.name, flow_direction_element.name, balancing_element.name, rating_element.name, v_style_element.name)
-            if len(cv__lists) == 0:
-                new_cv_table_entry = cvTable(
-                    valveSize=valve_size,
-                    series=series,
-                    trimType_=trim_type_element,
-                    flowCharacter_=flow_charac_element,
-                    flowDirection_=flow_direction_element,
-                    balancing_=balancing_element,
-                    rating_c=rating_element,
-                    style=v_style_element
-                )
-                db.session.add(new_cv_table_entry)
-                db.session.commit()
-
-        # Once data added, input all cv values
-        all_cvs = cvTable.query.all()
-        db.session.commit()
-        for cv_index in range(len(all_cvs)):
-            # CV value from excel
-            print(len(all_cvs))
-            new_cv_values_cv = cvValues(
-                coeff=data_list[cv_index * 4]['coeff'],
-                seatBore=float(data_list[cv_index * 4]['seatBore']),
-                travel=float(data_list[cv_index * 4]['travel']),
-                cv=all_cvs[cv_index],
-                one=float(data_list[cv_index * 4]['one']),
-                two=float(data_list[cv_index * 4]['two']),
-                three=float(data_list[cv_index * 4]['three']),
-                four=float(data_list[cv_index * 4]['four']),
-                five=float(data_list[cv_index * 4]['five']),
-                six=float(data_list[cv_index * 4]['six']),
-                seven=float(data_list[cv_index * 4]['seven']),
-                eight=float(data_list[cv_index * 4]['eight']),
-                nine=float(data_list[cv_index * 4]['nine']),
-                ten=float(data_list[cv_index * 4]['ten'])
+        # Add CV Table Data
+        # print(new_data_list[data_index]['no'], trim_type_element.name, flow_charac_element.name, flow_direction_element.name, balancing_element.name, rating_element.name, v_style_element.name)
+        if len(cv__lists) == 0:
+            new_cv_table_entry = cvTable(
+                valveSize=valve_size,
+                series=series,
+                trimType_=trim_type_element,
+                flowCharacter_=flow_charac_element,
+                flowDirection_=flow_direction_element,
+                balancing_=balancing_element,
+                rating_c=rating_element,
+                style=v_style_element
             )
-
-            # Fl Value from excel
-            new_cv_values_fl = cvValues(
-                coeff=data_list[cv_index * 4 + 1]['coeff'],
-                seatBore=float(data_list[cv_index * 4 + 1]['seatBore']),
-                travel=float(data_list[cv_index * 4 + 1]['travel']),
-                cv=all_cvs[cv_index],
-                one=float(data_list[cv_index * 4 + 1]['one']),
-                two=float(data_list[cv_index * 4 + 1]['two']),
-                three=float(data_list[cv_index * 4 + 1]['three']),
-                four=float(data_list[cv_index * 4 + 1]['four']),
-                five=float(data_list[cv_index * 4 + 1]['five']),
-                six=float(data_list[cv_index * 4 + 1]['six']),
-                seven=float(data_list[cv_index * 4 + 1]['seven']),
-                eight=float(data_list[cv_index * 4 + 1]['eight']),
-                nine=float(data_list[cv_index * 4 + 1]['nine']),
-                ten=float(data_list[cv_index * 4 + 1]['ten'])
-            )
-
-            # Xt value from excel
-            new_cv_values_xt = cvValues(
-                coeff=data_list[cv_index * 4 + 2]['coeff'],
-                seatBore=float(data_list[cv_index * 4 + 2]['seatBore']),
-                travel=float(data_list[cv_index * 4 + 2]['travel']),
-                cv=all_cvs[cv_index],
-                one=float(data_list[cv_index * 4 + 2]['one']),
-                two=float(data_list[cv_index * 4 + 2]['two']),
-                three=float(data_list[cv_index * 4 + 2]['three']),
-                four=float(data_list[cv_index * 4 + 2]['four']),
-                five=float(data_list[cv_index * 4 + 2]['five']),
-                six=float(data_list[cv_index * 4 + 2]['six']),
-                seven=float(data_list[cv_index * 4 + 2]['seven']),
-                eight=float(data_list[cv_index * 4 + 2]['eight']),
-                nine=float(data_list[cv_index * 4 + 2]['nine']),
-                ten=float(data_list[cv_index * 4 + 2]['ten'])
-            )
-
-            # Fd value from excel
-            new_cv_values_fd = cvValues(
-                coeff=data_list[cv_index * 4 + 3]['coeff'],
-                seatBore=float(data_list[cv_index * 4 + 3]['seatBore']),
-                travel=float(data_list[cv_index * 4 + 3]['travel']),
-                cv=all_cvs[cv_index],
-                one=float(data_list[cv_index * 4 + 3]['one']),
-                two=float(data_list[cv_index * 4 + 3]['two']),
-                three=float(data_list[cv_index * 4 + 3]['three']),
-                four=float(data_list[cv_index * 4 + 3]['four']),
-                five=float(data_list[cv_index * 4 + 3]['five']),
-                six=float(data_list[cv_index * 4 + 3]['six']),
-                seven=float(data_list[cv_index * 4 + 3]['seven']),
-                eight=float(data_list[cv_index * 4 + 3]['eight']),
-                nine=float(data_list[cv_index * 4 + 3]['nine']),
-                ten=float(data_list[cv_index * 4 + 3]['ten'])
-            )
-
-            # Add object in a single session
-            objects_list = [new_cv_values_cv, new_cv_values_fl, new_cv_values_xt, new_cv_values_fd]
-            db.session.add_all(objects_list)
+            db.session.add(new_cv_table_entry)
             db.session.commit()
+
+    # Once data added, input all cv values
+    all_cvs = cvTable.query.all()
+    db.session.commit()
+    for cv_index in range(len(all_cvs)):
+        # CV value from excel
+        print(len(all_cvs))
+        new_cv_values_cv = cvValues(
+            coeff=data_list[cv_index * 4]['coeff'],
+            seatBore=float(data_list[cv_index * 4]['seatBore']),
+            travel=float(data_list[cv_index * 4]['travel']),
+            cv=all_cvs[cv_index],
+            one=float(data_list[cv_index * 4]['one']),
+            two=float(data_list[cv_index * 4]['two']),
+            three=float(data_list[cv_index * 4]['three']),
+            four=float(data_list[cv_index * 4]['four']),
+            five=float(data_list[cv_index * 4]['five']),
+            six=float(data_list[cv_index * 4]['six']),
+            seven=float(data_list[cv_index * 4]['seven']),
+            eight=float(data_list[cv_index * 4]['eight']),
+            nine=float(data_list[cv_index * 4]['nine']),
+            ten=float(data_list[cv_index * 4]['ten'])
+        )
+
+        # Fl Value from excel
+        new_cv_values_fl = cvValues(
+            coeff=data_list[cv_index * 4 + 1]['coeff'],
+            seatBore=float(data_list[cv_index * 4 + 1]['seatBore']),
+            travel=float(data_list[cv_index * 4 + 1]['travel']),
+            cv=all_cvs[cv_index],
+            one=float(data_list[cv_index * 4 + 1]['one']),
+            two=float(data_list[cv_index * 4 + 1]['two']),
+            three=float(data_list[cv_index * 4 + 1]['three']),
+            four=float(data_list[cv_index * 4 + 1]['four']),
+            five=float(data_list[cv_index * 4 + 1]['five']),
+            six=float(data_list[cv_index * 4 + 1]['six']),
+            seven=float(data_list[cv_index * 4 + 1]['seven']),
+            eight=float(data_list[cv_index * 4 + 1]['eight']),
+            nine=float(data_list[cv_index * 4 + 1]['nine']),
+            ten=float(data_list[cv_index * 4 + 1]['ten'])
+        )
+
+        # Xt value from excel
+        new_cv_values_xt = cvValues(
+            coeff=data_list[cv_index * 4 + 2]['coeff'],
+            seatBore=float(data_list[cv_index * 4 + 2]['seatBore']),
+            travel=float(data_list[cv_index * 4 + 2]['travel']),
+            cv=all_cvs[cv_index],
+            one=float(data_list[cv_index * 4 + 2]['one']),
+            two=float(data_list[cv_index * 4 + 2]['two']),
+            three=float(data_list[cv_index * 4 + 2]['three']),
+            four=float(data_list[cv_index * 4 + 2]['four']),
+            five=float(data_list[cv_index * 4 + 2]['five']),
+            six=float(data_list[cv_index * 4 + 2]['six']),
+            seven=float(data_list[cv_index * 4 + 2]['seven']),
+            eight=float(data_list[cv_index * 4 + 2]['eight']),
+            nine=float(data_list[cv_index * 4 + 2]['nine']),
+            ten=float(data_list[cv_index * 4 + 2]['ten'])
+        )
+
+        # Fd value from excel
+        new_cv_values_fd = cvValues(
+            coeff=data_list[cv_index * 4 + 3]['coeff'],
+            seatBore=float(data_list[cv_index * 4 + 3]['seatBore']),
+            travel=float(data_list[cv_index * 4 + 3]['travel']),
+            cv=all_cvs[cv_index],
+            one=float(data_list[cv_index * 4 + 3]['one']),
+            two=float(data_list[cv_index * 4 + 3]['two']),
+            three=float(data_list[cv_index * 4 + 3]['three']),
+            four=float(data_list[cv_index * 4 + 3]['four']),
+            five=float(data_list[cv_index * 4 + 3]['five']),
+            six=float(data_list[cv_index * 4 + 3]['six']),
+            seven=float(data_list[cv_index * 4 + 3]['seven']),
+            eight=float(data_list[cv_index * 4 + 3]['eight']),
+            nine=float(data_list[cv_index * 4 + 3]['nine']),
+            ten=float(data_list[cv_index * 4 + 3]['ten'])
+        )
+
+        # Add object in a single session
+        objects_list = [new_cv_values_cv, new_cv_values_fl, new_cv_values_xt, new_cv_values_fd]
+        db.session.add_all(objects_list)
+        db.session.commit()
 
 
 def data_upload_disc_seat_packing(data_list, valve_style, table_name):
@@ -7889,10 +7889,10 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-DATA_UPLOAD_BULK()
+# DATA_UPLOAD_BULK()
+data_delete(cvTable)
 cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
-# data_delete(cvTable)
     
 
 if __name__ == "__main__":
