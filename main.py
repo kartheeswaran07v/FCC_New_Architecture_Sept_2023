@@ -2571,7 +2571,7 @@ def cv_upload(data_list):
 
     print("Data Upload CV End")
 
-    
+
 def data_upload_disc_seat_packing(data_list, valve_style, table_name):
    
     data_delete(table_name)
@@ -7903,7 +7903,7 @@ def DATA_UPLOAD_BULK():
 # DATA_UPLOAD_BULK()
 with app.app_context():
     # data_delete(cvTable)
-    cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
     
 
