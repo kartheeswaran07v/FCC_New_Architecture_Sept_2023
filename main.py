@@ -3496,10 +3496,10 @@ def valveData(proj_id, item_id):
             else:
                 pass
         except:
-            a['shaft__'] = None
-            a['disc__'] = None
-            a['seat__'] = None
-            a['trimType__'] = None
+            a['shaft__'] = [None]
+            a['disc__'] = [None]
+            a['seat__'] = [None]
+            a['trimType__'] = [None]
 
         # remove unwanted keys from a dict
         a.pop('valvestyle')
@@ -3516,7 +3516,7 @@ def valveData(proj_id, item_id):
             pass
         a.pop('balanceseal')
         # a.pop('shaft')
-        print(a['shaft__'][0].name)
+        # print(a['shaft__'][0].name)
         update_dict = a
         valve_element.update(update_dict, valve_element.id)
 
