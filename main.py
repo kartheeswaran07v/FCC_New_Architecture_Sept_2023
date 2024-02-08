@@ -2339,6 +2339,7 @@ valve_table_dict_two = {'ratingId': ratingMaster, 'materialId': materialMaster, 
 def data_delete(table_name):
     # with app.app_context():
     data_list = table_name.query.all()
+    print(f'len of all elements: {len(data_list)}')
     # db.session.commit()
     # if len(data_list) > 0:
     for data_ in data_list:
