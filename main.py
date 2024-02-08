@@ -2363,7 +2363,7 @@ def data_upload(data_list, table_name):
     for data_ in data_list:
         data_element = db.session.query(table_name).filter_by(name=data_).all()
         if len(data_element) == 0:
-            print(data_)
+            # print(data_)
             new_data = table_name(name=data_)
             db.session.add(new_data)
             db.session.commit()
@@ -2421,8 +2421,9 @@ def add_many(list_many, table_name):
         db.session.commit()
         # print(i)
         keys = i.keys()
+        last_object = table_name.query.all()
         for key in keys:
-            exec("new_object.{0} = i['{0}']".format(key))
+            exec("last_object[-1].{0} = i['{0}']".format(key))
         db.session.commit()
     # db.session.add_all(list_many)
     # db.session.commit()
@@ -7873,12 +7874,12 @@ def DATA_UPLOAD_BULK():
         data_upload(gasket_material_list, gasket)
         data_upload(cage_clamp_material_list, cageClamp)
         data_upload(packing_type_list, packingType)
-        add_many(getRowsFromCsvFile("csv/slidingActuatorData.csv"), slidingActuatorData)
-        add_many(getRowsFromCsvFile("csv/rotaryActuatorData.csv"), rotaryActuatorData)
-        add_many(getRowsFromCsvFile("csv/notesMaster.csv"), notesMaster)
-        add_many(getRowsFromCsvFile("csv/positioner.csv"), positioner)
-        add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
-        add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
+        # add_many(getRowsFromCsvFile("csv/slidingActuatorData.csv"), slidingActuatorData)
+        # add_many(getRowsFromCsvFile("csv/rotaryActuatorData.csv"), rotaryActuatorData)
+        # add_many(getRowsFromCsvFile("csv/notesMaster.csv"), notesMaster)
+        # add_many(getRowsFromCsvFile("csv/positioner.csv"), positioner)
+        # add_many(getRowsFromCsvFile("csv/limit_switch.csv"), limitSwitch)
+        # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
 DATA_UPLOAD_BULK()
