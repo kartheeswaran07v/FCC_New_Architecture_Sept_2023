@@ -298,7 +298,7 @@
 											<select class="form-control-sm-sm valvedata_select" name="trimtypeG"
 												id="trimtype_onselect">
 												{% for trimtype in metadata['trimtype'] %}
-												{%if trimtype.style.id == 1%}
+												{% if trimtype.style.id == 1%}
 												{% if trimtype.name == valve.trimType__.name %}
 												<option value="{{trimtype.id}}" selected>{{trimtype.name}}</option>
 												{% else %}
