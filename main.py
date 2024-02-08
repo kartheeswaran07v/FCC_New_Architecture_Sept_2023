@@ -2423,7 +2423,13 @@ def add_many(list_many, table_name):
         keys = i.keys()
         last_object = table_name.query.all()
         for key in keys:
-            exec("last_object[-1].{0} = i['{0}']".format(key))
+            key_type = table_name.__table__.columns[key].type
+            if key_type == String or VARCHAR:
+                exec("last_object[-1].{0} = i['{0}']".format(key))
+            elif key_type == FLOAT:
+                exec("last_object[-1].{0} = float(i['{0}'])".format(key))
+            elif key_type == INTEGER:
+                exec("last_object[-1].{0} = int(i['{0}'])".format(key))
         db.session.commit()
     # db.session.add_all(list_many)
     # db.session.commit()
@@ -7041,11 +7047,11 @@ def uploadData(topic, item_id, proj_id):
                 others_list.append(i_dict)
                 db.session.add(table__(**i_dict))
                 db.session.commit()
+            flash('Data Upload Success')
         except Exception as e:
             # Write logic for headers mismatch later
-            # flash(f'An Error Occured: {e}')
+            flash(f'An Error Occured: {e}')
             print(e)
-            pass
 
 
 
@@ -7882,7 +7888,7 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-DATA_UPLOAD_BULK()
+# DATA_UPLOAD_BULK()
 # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
 # data_delete(cvTable)
