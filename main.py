@@ -2342,6 +2342,7 @@ def data_delete(table_name):
     # db.session.commit()
     for data_ in data_list:
         data_element = db.session.query(table_name).filter_by(id=data_.id).first()
+        db.session.commit()
         db.session.delete(data_element)
         db.session.commit()
 
@@ -7890,8 +7891,9 @@ def DATA_UPLOAD_BULK():
         pass
 
 # DATA_UPLOAD_BULK()
-data_delete(cvTable)
-cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+with app.app_context():
+    data_delete(cvTable)
+    cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
     
 
