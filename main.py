@@ -2342,7 +2342,7 @@ def data_delete(table_name):
     # db.session.commit()
     for data_ in data_list:
         data_element = db.session.query(table_name).filter_by(id=data_.id).first()
-        db.session.commit()
+        # db.session.commit()
         db.session.delete(data_element)
         db.session.commit()
 
