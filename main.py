@@ -3503,14 +3503,17 @@ def valveData(proj_id, item_id):
 
         # remove unwanted keys from a dict
         a.pop('valvestyle')
-        a.pop('shaft')
-        a.pop('plug')
-        a.pop('seat')
-        a.pop('trimtypeG')
-        a.pop('stem')
-        a.pop('disc')
-        a.pop('seal')
-        a.pop('trimtypeB')
+        try:
+            a.pop('shaft')
+            a.pop('plug')
+            a.pop('seat')
+            a.pop('trimtypeG')
+            a.pop('stem')
+            a.pop('disc')
+            a.pop('seal')
+            a.pop('trimtypeB')
+        except:
+            pass
         a.pop('balanceseal')
         # a.pop('shaft')
         print(a['shaft__'][0].name)
