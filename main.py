@@ -27,12 +27,12 @@ import smtplib
 from specsheet import createSpecSheet
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from dateutil.parser import parse
 
 # -----------^^^^^^^^^^^^^^----------------- IMPORT STATEMENTS -----------------^^^^^^^^^^^^^------------ #
 
 # env = Environment(loader=FileSystemLoader('templates\\render_data.html'))
 # env.globals['getattr'] = getattr
-
 
 def getRowsFromCsvFile(file_path):
     filename = file_path
@@ -1427,6 +1427,19 @@ class caseMaster(db.Model):
     fluidId = Column(Integer, ForeignKey("fluidProperties.id"))
     fluid = relationship('fluidProperties', back_populates='case')
 
+    @staticmethod
+    def update(new_data, id):
+        # note that this method is static and
+        # you have to pass id of the object you want to update
+        keys = new_data.keys()  # new_data in your case is filenames
+        files = caseMaster.query.filter_by(id=id).first()  # files is the record
+        # you want to update
+        for key in keys:
+            print(key)
+            print(new_data[key])
+            exec("files.{0} = new_data['{0}']".format(key))
+        db.session.commit()
+
 
 class actuatorMaster(db.Model):
     __tablename__ = "actuatorMaster"
@@ -2316,6 +2329,12 @@ def valveForces(p1_, p2_, d1, d2, d3, ua, rating, material, leakageClass, trimty
 
 ### --------------------------------- Major Functions -----------------------------------------------------###
 
+
+
+valve_table_dict_two = {'ratingId': ratingMaster, 'materialId': materialMaster, 'designStandardId': designStandard, 'valveStyleId': valveStyle, 'fluidStateId': fluidState, 'endConnectionId': endConnection, 'endFinishId': endFinish, 'bonnetTypeId': bonnetType, 'packingTypeId': packingType, 'trimTypeId': trimType, 'flowCharacterId': flowCharacter, 'flowDirectionId': flowDirection, 'seatLeakageClassId': seatLeakageClass, 'bonnetId': bonnet, 'nde1Id': '', 'nde2Id': '', 'shaftId': shaft, 'discId': disc, 'seatId': seat, 'packingId': packing, 'balanceSealId': balanceSeal, 'studNutId': studNut, 'gasketId': gasket, 'cageId': cageClamp}
+
+
+
 # Delete completed data in db table
 def data_delete(table_name):
     # with app.app_context():
@@ -2742,8 +2761,26 @@ def getEngAddrProject(project):
 
 def getDBElementWithId(table_name, id):
     # with app.app_context():
-    output_element = db.session.query(table_name).filter_by(id=id).first()
-    return output_element
+    if id:
+        output_element = db.session.query(table_name).filter_by(id=id).first()
+        return output_element
+    else:
+        return None
+
+def getDBElementWithName(table_name, name):
+    if name:
+    # with app.app_context():
+        output_element = db.session.query(table_name).filter_by(name=name).first()
+        return output_element
+    else:
+        return None
+
+def float_convert(input_):
+    try:
+        output_ = float(input_)
+    except:
+        output_ = None
+    return output_
 
 
 date_today = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -7217,17 +7254,16 @@ def exportProject(item_id, proj_id):
     with open('my_file.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         writer = csv.writer(csvfile)
-
+        # Add Project Elements
         # Write data to the CSV file
         all_keys = projectMaster.__table__.columns.keys()
         all_keys.remove('createdById')
         writer.writerow(all_keys)
-        # Add Project Elements
         for data_ in project_elements:
             single_row_data = []
             for key_ in all_keys:
                 if key_ != 'createdById':
-                    print(key_, projectMaster.__table__.columns[key_].type)
+                    # print(key_, projectMaster.__table__.columns[key_].type)
                 # all_data[0][all_keys[1]]
                     abc = getattr(data_, key_)
                     if key_ == 'IndustryId':
@@ -7239,31 +7275,219 @@ def exportProject(item_id, proj_id):
                     else:
                         single_row_data.append(abc)
             writer.writerow(single_row_data)
+        
         # Add items Elements
         all_keys_item = itemMaster.__table__.columns.keys()
         all_keys_item_valve = valveDetailsMaster.__table__.columns.keys()
-        writer.writerow(all_keys_item)
+        allkeys_item = all_keys_item + all_keys_item_valve
+        print('valve item keys')
+        print(allkeys_item)
+        writer.writerow(allkeys_item)
         for data_ in all_items:
             single_row_data = []
             for key_ in all_keys_item:
                 abc = getattr(data_, key_)
                 single_row_data.append(abc)
-            writer.writerow(single_row_data)
 
-        writer.writerow(all_keys_item_valve)
-        for data_ in all_items:
             valve_item = db.session.query(valveDetailsMaster).filter_by(item=data_).first()
             single_row_data_valve = []
-            for key_ in all_keys_item_valve:
+            for key_ in all_keys_item_valve[:15]:
                 abc = getattr(valve_item, key_)
                 single_row_data_valve.append(abc)
-            writer.writerow(single_row_data_valve)
+            # writer.writerow(single_row_data_valve)
+            single_row_data_valve_name = []
+            for key_ in all_keys_item_valve[15:]:
+                if key_ not in ['nde1', 'nde2']:
+                    table_element = valve_table_dict_two[key_]
+                    abc = getattr(valve_item, key_) # get id of the table
+                    try:
+                        query_set = getDBElementWithId(table_element, int(abc))
+                        single_row_data_valve_name.append(query_set.name)
+                        print(table_element.__tablename__, abc, query_set.name)
+                    except:
+                        single_row_data_valve_name.append('')
+                    
+                else:
+                    single_row_data_valve_name.append('')
+            valve_data_all_list = single_row_data + single_row_data_valve + single_row_data_valve_name
+            writer.writerow(valve_data_all_list)
+        
+        # Add Case Elements
 
+        all_keys_cases = caseMaster.__table__.columns.keys()
+        writer.writerow(all_keys_cases)
+        for item_ in all_items:
+            cases_ = db.session.query(caseMaster).filter_by(item=item_).all()
+            all_row_data_case = []
+            for case_ in cases_:
+                single_row_data_case = []
+                for key_ in all_keys_cases:
+                    if key_ not in ['valveDiaId', 'fluidId']:
+                        abc = getattr(case_, key_)
+                        single_row_data_case.append(abc)
+                    elif key_ == 'valveDiaId':
+                        try:
+                            valve_element = getDBElementWithId(cvTable, int(key_))
+                            single_row_data_case.append(valve_element.valveSize)
+                        except:
+                            single_row_data_case.append("")
+                    elif key_ == 'fluidId':
+                        try:
+                            fluid_element = getDBElementWithId(fluidProperties, int(key_))
+                            single_row_data_case.append(fluid_element.fluidName)
+                        except:
+                            single_row_data_case.append("")               
+                writer.writerow(single_row_data_case)
         csvfile.close()
     path = 'my_file.csv'
     return send_file(path, as_attachment=True, download_name=f"{projectMaster.__tablename__}.csv")
     # return f"{len(all_items)}"
     # pass
+
+
+@app.route('/import-project/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def importProject(item_id, proj_id):
+    if request.method == 'POST':
+        try:
+            # Parse data from CSV Uploaded file, filestorage component
+            b_list = request.files.get('file').stream.read().decode('latin-1').strip().split('\n')
+            part_list = []
+            b_split_list = []
+            for data_ in b_list:
+                data_split = data_.split(',')
+                b_split_list.append(data_split)
+
+            for i in b_split_list:
+                if i[0] == 'id':
+                    index_id = b_split_list.index(i)
+                    part_list.append(index_id)
+            proj_list = b_split_list[1]
+            item_list = b_split_list[(part_list[1]+1):(part_list[2])]
+            print(item_list)
+            cases_list = b_split_list[(part_list[2] + 1):]
+
+            # add project
+            industry_element = industryMaster.query.filter(industryMaster.name.like(proj_list[16]))
+            try:
+                region_element = regionMaster.query.filter(regionMaster.name.ilike(str(proj_list[17])))
+                print(region_element[0].name)
+                region_ = region_element[0]
+            except IndexError:
+                region_element = regionMaster.query.filter(regionMaster.name.ilike(str(proj_list[17][:-2])))
+                region_ = None
+
+            new_project = projectMaster(
+                projectRef=proj_list[2],
+                enquiryRef=proj_list[3],
+                enquiryReceivedDate=datetime.datetime.strptime(parse(str(proj_list[4][:10])).strftime("%Y-%m-%d"), "%Y-%m-%d"),
+                receiptDate=datetime.datetime.strptime(parse(str(proj_list[5][:10])).strftime("%Y-%m-%d"), "%Y-%m-%d"),
+                bidDueDate=datetime.datetime.strptime(parse(str(proj_list[6][:10])).strftime("%Y-%m-%d"), "%Y-%m-%d"),
+                purpose=proj_list[7],
+                custPoNo=proj_list[8],
+                workOderNo=proj_list[9],
+                revisionNo=proj_list[10],
+                status=proj_list[11],
+                pressureUnit=proj_list[12],
+                flowrateUnit=proj_list[14],
+                temperatureUnit=proj_list[14],
+                lengthUnit=proj_list[15],
+                industry=industry_element[0],
+                region=region_,
+                user=current_user
+                )
+            db.session.add(new_project)
+            db.session.commit()
+
+            # add items
+            all_keys_cases = caseMaster.__table__.columns.keys()
+            for item_ in item_list:
+                print('Adding item')
+                new_item = itemMaster(
+                    itemNumber=item_[1],
+                    alternate=item_[2],
+                    project=new_project
+                    )
+                db.session.add(new_item)
+                db.session.commit()
+                new_valve = valveDetailsMaster(
+                    item=new_item,
+                    quantity=item_[5],
+                    tagNumber=item_[6],
+                    serialNumber=item_[7],
+                    shutOffDelP=float(item_[8]),
+                    maxPressure=float(item_[9]),
+                    maxTemp=float(item_[10]),
+                    minTemp=float(item_[11]),
+                    shutOffDelPUnit=item_[12],
+                    maxPressureUnit=item_[13],
+                    maxTempUnit=item_[14],
+                    minTempUnit=item_[15],
+                    bonnetExtDimension=item_[16],
+                    application=item_[17],
+                    rating=getDBElementWithName(ratingMaster, item_[19]),
+                    material=getDBElementWithName(materialMaster, item_[20]),
+                    design=getDBElementWithName(designStandard, item_[21]),
+                    style=getDBElementWithName(valveStyle, item_[22]),
+                    state=getDBElementWithName(fluidState, item_[23]),
+                    endConnection__=getDBElementWithName(endConnection, item_[24]),
+                    endFinish__=getDBElementWithName(endFinish, item_[25]),
+                    bonnetType__=getDBElementWithName(bonnetType, item_[26]),
+                    packingType__=getDBElementWithName(packingType, item_[27]),
+                    trimType__=getDBElementWithName(trimType, item_[28]),
+                    flowCharacter__=getDBElementWithName(flowCharacter, item_[29]),
+                    flowDirection__=getDBElementWithName(flowDirection, item_[30]),
+                    seatLeakageClass__=getDBElementWithName(seatLeakageClass, item_[31]),
+                    bonnet__=getDBElementWithName(bonnet, item_[32]),
+                    nde1__=None,
+                    nde2__=None,
+                    shaft__=getDBElementWithName(shaft, item_[35]),
+                    disc__=getDBElementWithName(disc, item_[36]),
+                    seat__=getDBElementWithName(seat, item_[37]),
+                    packing__=getDBElementWithName(packing, item_[38]),
+                    balanceSeal__=getDBElementWithName(balanceSeal, item_[39]),
+                    studNut__=getDBElementWithName(studNut, item_[40]),
+                    gasket__=getDBElementWithName(gasket, item_[41]),
+                    cage__=getDBElementWithName(cageClamp, item_[42]),
+                    )
+                db.session.add(new_valve)
+
+                new_actuator = actuatorMaster(item=new_item)
+                db.session.add(new_actuator)
+                db.session.commit()
+                new_accessories = accessoriesData(item=new_item)
+                db.session.add(new_accessories)
+                db.session.commit()
+                
+                # add cases
+                for case_ in cases_list:
+                    if int(case_[-2] ) == int(item_[0]):
+                        new_case = caseMaster(item=new_item)
+                        db.session.add(new_case)
+                        db.session.commit()
+
+                        all_cases = db.session.query(caseMaster).filter_by(item=new_item).all()
+                        case_update_dict = {}
+                        for index_ in range(len(all_keys_cases)):
+                            case_update_dict[all_keys_cases[index_]] = float_convert(case_[index_])
+
+                        case_id = case_update_dict.pop('id')
+                        iSch = case_update_dict.pop('inletPipeSchId')
+                        valveDiaId = case_update_dict.pop('valveDiaId')
+                        itemId = case_update_dict.pop('itemId')
+                        fluidId = case_update_dict.pop('fluidId')
+                        # case_update_dict['item'] = new_item
+                        case_update_dict['cv'] = getDBElementWithId(cvTable, valveDiaId)
+                        case_update_dict['fluid'] = getDBElementWithName(fluidProperties, fluidId)
+                        
+                        new_case.update(case_update_dict, all_cases[-1].id)
+               
+            
+            flash('Project Imported Successfully')
+        except:
+            flash('Something Went Wrong')
+        return redirect(url_for('home', item_id=item_id, proj_id=proj_id))
+
+    return render_template('projectImport.html', item=getDBElementWithId(itemMaster, int(item_id)), page='importProject', user=current_user)
 
 ####################### DATA UPLOAD BULK
 def DATA_UPLOAD_BULK():    
@@ -7435,4 +7659,4 @@ def DATA_UPLOAD_BULK():
     
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True, port=5055)

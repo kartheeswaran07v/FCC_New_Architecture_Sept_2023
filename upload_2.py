@@ -210,3 +210,52 @@ with app.app_context():
 
 # abc = getRowsFromCsvFile("csv/packing_friction.csv")
 # print(getList(abc[0]))
+valve_table_keys = [
+  'id',
+  'quantity',
+  'tagNumber',
+  'serialNumber',
+  'shutOffDelP',
+  'maxPressure',
+  'maxTemp',
+  'minTemp',
+  'shutOffDelPUnit',
+  'maxPressureUnit',
+  'maxTempUnit',
+  'minTempUnit',
+  'bonnetExtDimension',
+  'application',
+  'itemId',
+  'ratingId',
+  'materialId',
+  'designStandardId',
+  'valveStyleId',
+  'fluidStateId',
+  'endConnectionId',
+  'endFinishId',
+  'bonnetTypeId',
+  'packingTypeId',
+  'trimTypeId',
+  'flowCharacterId',
+  'flowDirectionId',
+  'seatLeakageClassId',
+  'bonnetId',
+  'nde1Id',
+  'nde2Id',
+  'shaftId',
+  'discId',
+  'seatId',
+  'packingId',
+  'balanceSealId',
+  'studNutId',
+  'gasketId',
+  'cageId'
+]
+
+valve_table_dict = {}
+for val_ in valve_table_keys[15:]:
+    valve_table_dict[val_] = ""
+print(valve_table_dict)
+
+# print(len(valve_table_keys))
+# print(valve_table_keys[:15])
