@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-1">
                             <a
-                                href="#"
+                                href="{{url_for('projectDelete', proj_id=item.project.id, item_id=item.id)}}"
                                 data-toggle="tooltip"
                                 title="Delete"
                                 data-placement="bottom"
@@ -206,7 +206,7 @@
                             </div>
                             <div class="col-1">
                                 <a
-                                    href="#"
+                                    href="{{url_for('exportItem', proj_id=item.project.id, item_id=item.id)}}"
                                     data-toggle="tooltip"
                                     title="Download"
                                     data-placement="bottom"

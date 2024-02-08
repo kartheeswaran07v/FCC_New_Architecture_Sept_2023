@@ -1,0 +1,12 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+<div class="row">
+    <form method = "POST" enctype="multipart/form-data" action = "{{url_for('importItem', item_id=item.id, proj_id=item.project.id)}}">
+        <input type="file" name="file" accept=".csv" required class="form-control-sm refernce_selectfile" style="height: 35px;width: auto">
+        <br><input type = "submit" class="btn btn-info btn-sm refernce_btns" value="Import" style="height: 35px;">
+    </form>
+</div>
+
+{% include "footer.html" %}
+{% endblock %}
