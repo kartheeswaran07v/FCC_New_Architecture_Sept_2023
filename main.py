@@ -2439,7 +2439,7 @@ def cv_upload(data_list):
     with app.app_context():
         # print("delete begin")
         # # data_delete(cvValues)
-        # data_delete(cvTable)
+        data_delete(cvTable)
         # print("delete done")
         new_data_list = data_list[::4]  # Get every fourth element from the list
         len_data = len(new_data_list)
@@ -2484,6 +2484,7 @@ def cv_upload(data_list):
         db.session.commit()
         for cv_index in range(len(all_cvs)):
             # CV value from excel
+            print(len(all_cvs))
             new_cv_values_cv = cvValues(
                 coeff=data_list[cv_index * 4]['coeff'],
                 seatBore=float(data_list[cv_index * 4]['seatBore']),
