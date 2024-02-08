@@ -3523,10 +3523,13 @@ def valveData(proj_id, item_id):
         # Logic for pressure Temp rating
         minTemp_ = float(a['minTemp'][0])
         maxTemp_ = float(a['maxTemp'][0])
-        presTempRatingElement = db.session.query(pressureTempRating).filter_by(material=a['material'][0], rating=a['rating'][0]).first()
-        if maxTemp_ > float(presTempRatingElement.maxTemp):
-            error_message = f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}"
-        else:
+        try:
+            presTempRatingElement = db.session.query(pressureTempRating).filter_by(material=a['material'][0], rating=a['rating'][0]).first()
+            if maxTemp_ > float(presTempRatingElement.maxTemp):
+                error_message = f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}"
+            else:
+                error_message = ""
+        except:
             error_message = ""
         # print(f"Temp {maxTemp_} is higher than {presTempRatingElement.maxTemp}")
         flash('Data Updated Successfully')
