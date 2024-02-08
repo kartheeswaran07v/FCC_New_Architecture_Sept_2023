@@ -6128,10 +6128,13 @@ def valveSizing(proj_id, item_id):
  
         
         # return f"<p>{a}</p>"
-    if valve_element.state.name == 'Liquid':
+    try:
+        if valve_element.state.name == 'Liquid':
+            html_page = 'valvesizing.html'
+        else:
+            html_page = 'valvesizinggas.html'
+    except:
         html_page = 'valvesizing.html'
-    else:
-        html_page = 'valvesizinggas.html'
     return render_template(html_page, item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
                            metadata=metadata_, page='valveSizing', valve=valve_element, case_length=range(6), cases=itemCases_1, total_length=len(itemCases_1))
 
@@ -7913,8 +7916,8 @@ def DATA_UPLOAD_BULK():
         pass
 
 # DATA_UPLOAD_BULK()
-# with app.app_context():
-    # data_delete(cvTable)
+with app.app_context():
+    data_delete(cvTable)
     # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
     
