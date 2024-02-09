@@ -7916,9 +7916,9 @@ def DATA_UPLOAD_BULK():
         # add_many(getRowsFromCsvFile("csv/solenoid.csv"), solenoid)
         pass
 
-# DATA_UPLOAD_BULK()
-with app.app_context():
-    data_delete(cvTable)
+DATA_UPLOAD_BULK()
+# with app.app_context():
+    # data_delete(cvTable)
     # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
 # data_upload(region_list, regionMaster)
     
