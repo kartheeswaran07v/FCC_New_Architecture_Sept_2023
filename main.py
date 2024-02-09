@@ -5136,8 +5136,9 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
                                              1000)
 
     v_det_element = valve_element
+    db.session.commit()
     trimtype = v_det_element.trimType__.name
-    
+    db.session.commit()
     t_caps = trimtype
 
     tEX = trimExitVelocity(inletPressure_v, outletPressure_v, specificGravity, t_caps, 'other')
