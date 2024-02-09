@@ -6704,7 +6704,10 @@ def slidingStem(proj_id, item_id):
     act_element = db.session.query(actuatorMaster).filter_by(item=item_element).first()
     print(len(cases))
     selected_sized_valve_element = db.session.query(cvTable).filter_by(id=cases[0].cv.id).first()
+    balancing_element = db.session.query(balancing).filter_by(id=selected_sized_valve_element.balancingId).first()
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
+    trimType_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
+    fl_d_element = db.session.query(flowDirection).filter_by(id=valve_element.flowDirectionId).first()
     metadata_ = metadata()
     # print(selected_sized_valve_element.balancing_.name)
     if request.method == 'POST':
@@ -6770,7 +6773,8 @@ def slidingStem(proj_id, item_id):
     return render_template('slidingstem.html', item=getDBElementWithId(itemMaster, int(item_id)), 
                            user=current_user, metadata=metadata_, page='slidingStem', 
                            valve=valve_element, cv=selected_sized_valve_element, act=act_element, 
-                           cases=cases, cv_element=cv_element)
+                           cases=cases,trimtType=trimType_element,fl_d_element=fl_d_element, 
+                           cv_element=cv_element, balancing=balancing_element)
 
 
 @app.route('/rotary-actuator/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
