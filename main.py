@@ -7422,6 +7422,8 @@ def exportProject(item_id, proj_id):
                     elif key_ == 'regionID':
                         abc_name = getDBElementWithId(regionMaster, int(abc))
                         single_row_data.append(abc_name.name)
+                    elif key_ == 'revisionNo':
+                        single_row_data.append(1)
                     else:
                         single_row_data.append(abc)
             writer.writerow(single_row_data)
