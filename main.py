@@ -2440,14 +2440,14 @@ def add_many(list_many, table_name):
 
 def cv_upload(data_list):
     # with app.app_context():
-        # print("delete begin")
-        # # data_delete(cvValues)
-        # data_delete(cvTable)
-        # print("delete done")
+    print("delete begin: CV")
+    # # data_delete(cvValues)
+    data_delete(cvTable)
+    print("delete done: CV")
     print("Data Upload CV Start")
     new_data_list = data_list[::4]  # Get every fourth element from the list
     len_data = len(new_data_list)
-
+    new_count = 0
     for data_index in range(len_data):
         # Get DB Element
         trim_type_element = db.session.query(trimType).filter_by(
@@ -2464,31 +2464,53 @@ def cv_upload(data_list):
         valve_size = float(new_data_list[data_index]['valveSize'])
         series = new_data_list[data_index]['series']
         
-        cv__lists = db.session.query(cvTable).filter_by(trimType_=trim_type_element, flowCharacter_=flow_charac_element, flowDirection_=flow_direction_element, rating_c=rating_element, style=v_style_element, balancing_=balancing_element, valveSize=valve_size).all()
-            
+        # cv__lists = db.session.query(cvTable).filter_by(trimType_=trim_type_element, flowCharacter_=flow_charac_element, flowDirection_=flow_direction_element, rating_c=rating_element, style=v_style_element, balancing_=balancing_element, valveSize=valve_size).all()
 
+        
+        # if len(cv__lists) == 0:
+            # print(data_)
+        new_cv_table_entry = cvTable(
+            valveSize=valve_size,
+            series=series,
+            trimType_=trim_type_element,
+            flowCharacter_=flow_charac_element,
+            flowDirection_=flow_direction_element,
+            balancing_=balancing_element,
+            rating_c=rating_element,
+            style=v_style_element
+        )
+        db.session.add(new_cv_table_entry)
+        db.session.commit()
+        new_count += 1
+        # elif len(cv__lists) > 1:
+        #     for data__ in cv__lists[1:]:
+        #         data_element = db.session.query(cvTable).filter_by(id=data__.id).first()
+        #         db.session.delete(data_element)
+        #         db.session.commit()
+    
         # Add CV Table Data
         # print(new_data_list[data_index]['no'], trim_type_element.name, flow_charac_element.name, flow_direction_element.name, balancing_element.name, rating_element.name, v_style_element.name)
-        if len(cv__lists) == 0:
-            new_cv_table_entry = cvTable(
-                valveSize=valve_size,
-                series=series,
-                trimType_=trim_type_element,
-                flowCharacter_=flow_charac_element,
-                flowDirection_=flow_direction_element,
-                balancing_=balancing_element,
-                rating_c=rating_element,
-                style=v_style_element
-            )
-            db.session.add(new_cv_table_entry)
-            db.session.commit()
+        # if len(cv__lists) == 0:
+        #     new_cv_table_entry = cvTable(
+        #         valveSize=valve_size,
+        #         series=series,
+        #         trimType_=trim_type_element,
+        #         flowCharacter_=flow_charac_element,
+        #         flowDirection_=flow_direction_element,
+        #         balancing_=balancing_element,
+        #         rating_c=rating_element,
+        #         style=v_style_element
+        #     )
+        #     db.session.add(new_cv_table_entry)
+        #     db.session.commit()
 
     # Once data added, input all cv values
     all_cvs = cvTable.query.all()
     db.session.commit()
+    
+    print(len(all_cvs))
     for cv_index in range(len(all_cvs)):
         # CV value from excel
-        print(len(all_cvs))
         new_cv_values_cv = cvValues(
             coeff=data_list[cv_index * 4]['coeff'],
             seatBore=float(data_list[cv_index * 4]['seatBore']),
@@ -2567,6 +2589,36 @@ def cv_upload(data_list):
 
     print("Data Upload CV End")
 
+
+def deleteCVDuplicates():
+    all_cvs = cvTable.query.all()
+    # for cv in all_cvs:
+    #     trim_type_element = db.session.query(trimType).filter_by(
+    #         name=cv.trimType_.name).first()
+    #     flow_charac_element = db.session.query(flowCharacter).filter_by(
+    #         name=cv.flowCharacter_.name).first()
+    #     flow_direction_element = db.session.query(flowDirection).filter_by(
+    #         name=cv.flowDirection_.name).first()
+    #     balancing_element = db.session.query(balancing).filter_by(
+    #         name=cv.balancing_.name).first()
+    #     rating_element = db.session.query(ratingMaster).filter_by(
+    #         name=cv.rating_c.name).first()
+    #     v_style_element = db.session.query(valveStyle).filter_by(name=cv.style.name).first()
+    #     valve_size = float(cv.valveSize)
+        
+        
+    #     cv__lists = db.session.query(cvTable).filter_by(trimType_=trim_type_element, flowCharacter_=flow_charac_element, flowDirection_=flow_direction_element, rating_c=rating_element, style=v_style_element, balancing_=balancing_element, valveSize=valve_size).all()
+    #     if len(cv__lists) > 1:
+    #         for data__ in cv__lists[1:]:
+    #             data_element = db.session.query(cvTable).filter_by(id=data__.id).first()
+    #             db.session.delete(data_element)
+    #             db.session.commit()
+
+    # print(len(all_cvs))
+    # print(all_cvs[985:])
+    if len(all_cvs) > 982:
+        for cv_ in all_cvs[982:]:
+            print(cv_.valveSize)
 
 def data_upload_disc_seat_packing(data_list, valve_style, table_name):
    
@@ -7917,11 +7969,12 @@ def DATA_UPLOAD_BULK():
         pass
 
 # DATA_UPLOAD_BULK()
-# with app.app_context():
+with app.app_context():
     # data_delete(cvTable)
-    # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    deleteCVDuplicates()
 # data_upload(region_list, regionMaster)
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
