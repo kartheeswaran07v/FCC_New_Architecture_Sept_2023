@@ -2343,14 +2343,10 @@ def data_delete(table_name):
     # db.session.commit()
     # if len(data_list) > 0:
     for data_ in data_list:
-        try:
-            data_element = db.session.query(table_name).filter_by(id=data_.id).first()
-            # db.session.commit()
-            db.session.delete(data_element)
-            db.session.commit()
-        except Exception as e:
-            print(f'delete not happen: {e}')
-            pass
+        data_element = db.session.query(table_name).filter_by(id=data_.id).first()
+        # db.session.commit()
+        db.session.delete(data_element)
+        db.session.commit()
 
 
 def next_alpha(s):
