@@ -6578,8 +6578,10 @@ def selectValve(proj_id, item_id):
                     except:
                         valvearea_element = None
                     if valve_element.state.name == 'Liquid':
-                        
-                        sch_element = db.session.query(pipeArea).filter_by(schedule='std', nominalPipeSize=float(last_case.inletPipeSize)).first()
+                        try:
+                            sch_element = db.session.query(pipeArea).filter_by(schedule='std', nominalPipeSize=float(last_case.inletPipeSize)).first()
+                        except:
+                            sch_element = None
                         output = liqSizing(last_case.flowrate, last_case.specificGravity, last_case.inletPressure, last_case.outletPressure,
                                   last_case.vaporPressure, last_case.criticalPressure, last_case.outletPipeSize,
                                   last_case.inletPipeSize,
