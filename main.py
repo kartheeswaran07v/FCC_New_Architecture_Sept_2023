@@ -7976,10 +7976,10 @@ def DATA_UPLOAD_BULK():
         pass
 
 # DATA_UPLOAD_BULK()
-with app.app_context():
-    # data_delete(cvTable)
-    cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
-    deleteCVDuplicates()
+# with app.app_context():
+#     # data_delete(cvTable)
+#     cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+#     deleteCVDuplicates()
 # data_upload(region_list, regionMaster)
     
 
