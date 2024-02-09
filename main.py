@@ -6605,7 +6605,7 @@ def selectValve(proj_id, item_id):
                         chokedDrop=output['chokedDrop'],
                         fl=output['fl'], tex=output['tex'], powerLevel=output['powerLevel'],
                         criticalPressure=output['criticalPressure'], inletPipeSize=output['inletPipeSize'],
-                        outletPipeSize=output['outletPipeSize'], item=item_selected, cv=valve_d_id.cv, iPipe=None)
+                        outletPipeSize=output['outletPipeSize'], item=item_selected, cv=cv_element, iPipe=None)
 
                         db.session.add(new_case)
                         db.session.commit()
