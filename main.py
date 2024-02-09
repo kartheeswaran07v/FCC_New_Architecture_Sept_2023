@@ -2813,6 +2813,8 @@ def fluid_properties_dict_vs():
 
 def metadata():
     with app.app_context():
+        globe_element_1 = db.session.query(valveStyle).filter_by(name="Globe Straight").first()
+        butterfly_element_1 = db.session.query(valveStyle).filter_by(name="Butterfly Lugged Wafer").first()
         companies = companyMaster.query.all()
         industries = industryMaster.query.all()
         regions = regionMaster.query.all()
@@ -2891,7 +2893,9 @@ def metadata():
             "fluids": fluids,
             "fluidState": fluid_state,
             "flowCharacter": flowCharacter_,
-            "actuatorData": actuator_data_dict
+            "actuatorData": actuator_data_dict,
+            "globeStyleId": int(globe_element_1.id),
+            "butterflyStyleId": int(butterfly_element_1.id)
         }
 
         positioner_manufacturer = []
