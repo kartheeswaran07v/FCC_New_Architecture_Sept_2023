@@ -6563,12 +6563,20 @@ def selectValve(proj_id, item_id):
                     travel = valve_d_id.travel
 
                     fluidName_ = ''
-                    i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(last_case.inletPipeSize)).first()
-                    port_area_ = db.session.query(portArea).filter_by(v_size=int(last_case.valveSize), trim_type="contour",
-                                                    flow_char="equal").first()
-                    valvearea_element = db.session.query(valveArea).filter_by(rating=valve_element.rating.name[5:],
-                                                            nominalPipeSize=float(last_case.inletPipeSize)).first()
-
+                    try:
+                        i_pipearea_element = db.session.query(pipeArea).filter_by(nominalPipeSize=float(last_case.inletPipeSize)).first()
+                    except:
+                        i_pipearea_element = None
+                    try:
+                        port_area_ = db.session.query(portArea).filter_by(v_size=int(last_case.valveSize), trim_type="contour",
+                                                        flow_char="equal").first()
+                    except:
+                        port_area_ = None
+                    try:
+                        valvearea_element = db.session.query(valveArea).filter_by(rating=valve_element.rating.name[5:],
+                                                                nominalPipeSize=float(last_case.inletPipeSize)).first()
+                    except:
+                        valvearea_element = None
                     if valve_element.state.name == 'Liquid':
                         
                         sch_element = db.session.query(pipeArea).filter_by(schedule='std', nominalPipeSize=float(last_case.inletPipeSize)).first()
