@@ -7640,8 +7640,9 @@ def importProject(item_id, proj_id):
                
             
             flash('Project Imported Successfully')
-        except:
+        except Exception as e:
             flash('Something Went Wrong')
+            print(f'This is what went wrong: {e}')
         return redirect(url_for('home', item_id=item_id, proj_id=proj_id))
 
     return render_template('projectImport.html', item=getDBElementWithId(itemMaster, int(item_id)), page='importProject', user=current_user)
