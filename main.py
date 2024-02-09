@@ -2616,11 +2616,16 @@ def deleteCVDuplicates():
 
     # print(len(all_cvs))
     # print(all_cvs[985:])
+    print('Delete extra CV')
     if len(all_cvs) > 982:
         for cv_ in all_cvs[982:]:
             data_element = db.session.query(cvTable).filter_by(id=cv_.id).first()
             db.session.delete(data_element)
             db.session.commit()
+    print('Delete Extra CV End')
+    all_cvs_new = cvTable.query.all()
+    print(f'{len(all_cvs_new)}')
+
 
 def data_upload_disc_seat_packing(data_list, valve_style, table_name):
    

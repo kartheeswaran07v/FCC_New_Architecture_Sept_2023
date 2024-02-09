@@ -1,5 +1,5 @@
 from datetime import datetime
-from main import cageClamp, data_upload_shaft, db, app, endConnection, endFinish, fluidProperties, gasket, industryMaster, limitSwitch, notesMaster, packing, packingType, pipeArea, positioner, pressure_temp_upload, \
+from main import cageClamp, data_upload_shaft, db, app, deleteCVDuplicates, endConnection, endFinish, fluidProperties, gasket, industryMaster, limitSwitch, notesMaster, packing, packingType, pipeArea, positioner, pressure_temp_upload, \
     regionMaster, fluidState, designStandard, rotaryActuatorData, seat, seatLeakageClass, shaft, slidingActuatorData, solenoid, studNut, valveArea, valveStyle, applicationMaster, \
     ratingMaster, materialMaster, data_upload, add_many, afr, balanceSeal, bonnet, bonnetType, certification, \
     cleaning, flowDirection, trimType, flowCharacter, balancing, cv_upload, data_upload_disc_seat_packing, disc, \
@@ -172,6 +172,7 @@ with app.app_context():
     # data_upload(balancing_list, balancing)
     # # cv_upload(getRowsFromCsvFile("csv/cvtable_small.csv"))
     # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    deleteCVDuplicates()
     # data_upload_disc_seat_packing([disc_material_list_butterfly, disc_material_list_butterfly, plug_material_list_globe, plug_material_list_globe], v_style_list, disc)
     # data_upload_disc_seat_packing([seat_material_list_butterfly, seat_material_list_butterfly, seat_material_list_globe, seat_material_list_globe], v_style_list, seat)
     # data_upload_disc_seat_packing([trim_type_list_butterfly, trim_type_list_butterfly, trim_type_list_globe, trim_type_list_globe], v_style_list, trimType)
@@ -255,7 +256,7 @@ valve_table_keys = [
 valve_table_dict = {}
 for val_ in valve_table_keys[15:]:
     valve_table_dict[val_] = ""
-print(valve_table_dict)
+# print(valve_table_dict)
 
 # print(len(valve_table_keys))
 # print(valve_table_keys[:15])
