@@ -2575,12 +2575,13 @@ def cv_upload(data_list):
 def data_upload_disc_seat_packing(data_list, valve_style, table_name):
    
     data_delete(table_name)
+    print("Data Upload Starts")
     for style_index in range(len(valve_style)):
         for data in data_list[style_index]:
             new_data = table_name(name=data, style=valve_style[style_index])
             db.session.add(new_data)
             db.session.commit()
-
+    print("Data Upload Ends")
 
 def data_upload_shaft(data_list, v_style_list):
     print('Shaft data add start')
