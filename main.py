@@ -5991,10 +5991,10 @@ def getCVGas(fl_unit_form, specificGravity, sg_choice, inletPressure_form, iPres
 
 @app.route('/valve-sizing/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def valveSizing(proj_id, item_id):
-    valve_element = db.session.query(valveDetailsMaster).filter_by(item=getDBElementWithId(itemMaster, int(item_id))).first()
     metadata_ = metadata()
     item_selected = getDBElementWithId(itemMaster, item_id)
     itemCases_1 = db.session.query(caseMaster).filter_by(item=item_selected).all()
+    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     print(len(itemCases_1))
     if request.method =='POST':
         valve_style = getValveType(valve_element.style.name)
@@ -7924,4 +7924,4 @@ def DATA_UPLOAD_BULK():
     
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

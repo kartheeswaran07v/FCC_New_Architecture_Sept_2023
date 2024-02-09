@@ -674,7 +674,7 @@
                                                 <select id="#"
                                                         class="form-control-sm-sm valvesizing_select">
                                                         {% for trimtype in metadata['trimtype'] %}
-                                                                {%if trimtype.style.id == 1 or trimtype.style.id == 3%}
+                                                                {%if trimtype.valveStyleId == metadata['globeStyleId'] or trimtype.valveStyleId == metadata['butterflyStyleId']%}
                                                                         {% if trimtype.name == valve.trimType__.name %}
                                                                                 <option value="{{trimtype.id}}" selected>{{trimtype.name}}</option>
                                                                         {% else %}
