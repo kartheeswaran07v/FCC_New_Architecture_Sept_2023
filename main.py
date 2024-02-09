@@ -6783,6 +6783,7 @@ def rotaryActuator(proj_id, item_id):
     act_element = db.session.query(actuatorMaster).filter_by(item=item_element).first()
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_element).first()
     trimType_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
+    fl_d_element = db.session.query(flowDirection).filter_by(id=valve_element.flowDirectionId).first()
     metadata_ = metadata()
     if request.method == 'POST':
         actuator_input_dict = {}
@@ -6806,8 +6807,10 @@ def rotaryActuator(proj_id, item_id):
             return redirect(url_for('strokeTime', item_id=item_id, proj_id=proj_id))
         else:
             pass
-    return render_template('RotaryActuatorSizing.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                           metadata=metadata_, page='rotaryActuator',trimtType=trimType_element, valve=valve_element, act=act_element)
+    return render_template('RotaryActuatorSizing.html', item=getDBElementWithId(itemMaster, int(item_id)), 
+                           user=current_user, metadata=metadata_, page='rotaryActuator',
+                           trimtType=trimType_element,
+                           fl_d_element=fl_d_element, valve=valve_element, act=act_element)
 
 
 @app.route('/stroke-time/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
