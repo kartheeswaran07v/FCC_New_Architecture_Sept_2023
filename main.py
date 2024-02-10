@@ -4817,7 +4817,7 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
     # print(other_factors_string)
     valve_det_element = valve_element
     # tex new
-    flow_character = getFlowCharacter(valve_det_element.flowCharacter__.name)
+    # flow_character = getFlowCharacter(valve_det_element.flowCharacter__.name)
         # new trim exit velocity
         # for port area, travel filter not implemented
     try:
