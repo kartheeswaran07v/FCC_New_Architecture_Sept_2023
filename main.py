@@ -6619,8 +6619,7 @@ def selectValve(proj_id, item_id):
                         return redirect(url_for('valveSizing', item_id=item_selected.id, proj_id=item_selected.project.id))
                         
                     else:
-                        trim_type_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
-                        trimtype = trim_type_element.name
+                        trimtype = valve_element.trimType__.name
                         result_dict = gasSizing(last_case.inletPressure, last_case.outletPressure, last_case.inletPipeSize, last_case.outletPipeSize,
                                   v_size,
                                   last_case.specificGravity, last_case.flowrate, last_case.inletTemp, final_cv1, rw_noise,
