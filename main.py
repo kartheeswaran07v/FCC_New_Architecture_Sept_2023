@@ -6388,6 +6388,8 @@ def selectValve(proj_id, item_id):
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     cases = db.session.query(caseMaster).filter_by(item=item_selected).all()
     if request.method == "POST":
+        data = request.form.to_dict(flat=False)
+        a = jsonify(data).json
         trimType_ = getDBElementWithId(trimType, a['trimType'][0])  
         if len(cases) > 0:
             if request.form.get('getv'):
