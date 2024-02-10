@@ -6388,9 +6388,6 @@ def selectValve(proj_id, item_id):
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     cases = db.session.query(caseMaster).filter_by(item=item_selected).all()
     if request.method == "POST":
-        data = request.form.to_dict(flat=False)
-        a = jsonify(data).json
-        trimType_ = getDBElementWithId(trimType, a['trimType'][0])  
         if len(cases) > 0:
             if request.form.get('getv'):
                 print('post')
@@ -6593,7 +6590,8 @@ def selectValve(proj_id, item_id):
                     #     trim_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
                     #     db.session.commit()
                     #     trimtype = trim_element.name
-                    trimtype = trimType_.name
+                    valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
+                    trimtype = valve_element.trimType__.name
                     if valve_element.state.name == 'Liquid':
                         try:
                             sch_element = db.session.query(pipeArea).filter_by(schedule='std', nominalPipeSize=float(last_case.inletPipeSize)).first()
