@@ -6583,6 +6583,13 @@ def selectValve(proj_id, item_id):
                                                                 nominalPipeSize=float(last_case.inletPipeSize)).first()
                     except:
                         valvearea_element = None
+
+                    try:
+                        trimtype = valve_element.trimType__.name
+                    except:
+                        trim_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
+                        db.session.commit()
+                        trimtype = trim_element.name
                     if valve_element.state.name == 'Liquid':
                         try:
                             sch_element = db.session.query(pipeArea).filter_by(schedule='std', nominalPipeSize=float(last_case.inletPipeSize)).first()
@@ -6619,7 +6626,7 @@ def selectValve(proj_id, item_id):
                         return redirect(url_for('valveSizing', item_id=item_selected.id, proj_id=item_selected.project.id))
                         
                     else:
-                        trimtype = valve_element.trimType__.name
+                        
                         result_dict = gasSizing(last_case.inletPressure, last_case.outletPressure, last_case.inletPipeSize, last_case.outletPipeSize,
                                   v_size,
                                   last_case.specificGravity, last_case.flowrate, last_case.inletTemp, final_cv1, rw_noise,
