@@ -6591,7 +6591,7 @@ def selectValve(proj_id, item_id):
                     #     trim_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
                     #     db.session.commit()
                     #     trimtype = trim_element.name
-                    trimtype = trim_element.name
+                    trimtype = 'Ported'
                     if valve_element.state.name == 'Liquid':
                         try:
                             sch_element = db.session.query(pipeArea).filter_by(schedule='std', nominalPipeSize=float(last_case.inletPipeSize)).first()
