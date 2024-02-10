@@ -5316,7 +5316,7 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
               oPresUnit_form, vPresUnit_form, iPipeUnit_form, oPipeUnit_form, vSizeUnit_form, iSch,
               iPipeSchUnit_form, oSch, oPipeSchUnit_form, iTempUnit_form, xt_fl, sg_vale, sg_choice,
               open_percent, fd, travel, rated_cv_tex, fluidName, cv_table, i_pipearea_element, 
-              valve_element, port_area_):
+              valve_element, port_area_, trimtype):
     # Unit Conversion
     # 1. Flowrate
 
@@ -5670,8 +5670,7 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     # get valvetype - kc requirements
     v_det_element = valve_element
     valve_type_ = v_det_element.style.name
-    trim_type_element = db.session.query(trimType).filter_by(id=v_det_element.trimTypeId).first()
-    trimtype = trim_type_element.name
+    trimtype = trimtype
     outletPressure_psia = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form,
                                                 'psia', 1000)
     inletPressure_psia = meta_convert_P_T_FR_L('P', inletPressure_form, iPresUnit_form,
@@ -6620,6 +6619,8 @@ def selectValve(proj_id, item_id):
                         return redirect(url_for('valveSizing', item_id=item_selected.id, proj_id=item_selected.project.id))
                         
                     else:
+                        trim_type_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
+                        trimtype = trim_type_element.name
                         result_dict = gasSizing(last_case.inletPressure, last_case.outletPressure, last_case.inletPipeSize, last_case.outletPipeSize,
                                   v_size,
                                   last_case.specificGravity, last_case.flowrate, last_case.inletTemp, final_cv1, rw_noise,
@@ -6632,7 +6633,7 @@ def selectValve(proj_id, item_id):
                                   'std',
                                   iPipeSchUnit, 'std', oPipeSchUnit, iTempUnit, xt, last_case.molecularWeight,
                                   sg_choice, o_percent, fd, travel, rated_cv_tex,fluidName_, valve_d_id.cv, i_pipearea_element, 
-                                  valve_element, port_area_)
+                                  valve_element, port_area_, trimtype)
                         new_case = caseMaster(flowrate=result_dict['flowrate'], inletPressure=result_dict['inletPressure'],
                          outletPressure=result_dict['outletPressure'],
                          inletTemp=result_dict['inletTemp'], specificGravity=result_dict['specificGravity'],
