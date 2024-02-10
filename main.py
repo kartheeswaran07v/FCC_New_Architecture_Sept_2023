@@ -6584,12 +6584,13 @@ def selectValve(proj_id, item_id):
                     except:
                         valvearea_element = None
 
-                    try:
-                        trimtype = valve_element.trimType__.name
-                    except:
-                        trim_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
-                        db.session.commit()
-                        trimtype = trim_element.name
+                    # try:
+                    #     trimtype = valve_element.trimType__.name
+                    # except:
+                    #     trim_element = db.session.query(trimType).filter_by(id=valve_element.trimTypeId).first()
+                    #     db.session.commit()
+                    #     trimtype = trim_element.name
+                    trimtype = trimType_.name
                     if valve_element.state.name == 'Liquid':
                         try:
                             sch_element = db.session.query(pipeArea).filter_by(schedule='std', nominalPipeSize=float(last_case.inletPipeSize)).first()
