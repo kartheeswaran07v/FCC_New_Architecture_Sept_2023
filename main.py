@@ -7293,12 +7293,16 @@ def generate_csv(item_id, proj_id, page):
                     item_notes_list = db.session.query(itemNotesData).filter_by(item=item).order_by('notesNumber').all()
 
                     cv_value_element = db.session.query(cvValues).filter_by(cv=cases[0].cv).first()
+                    try:
+                        spec_fluid_name = cases[0].fluid.fluidName
+                    except:
+                        spec_fluid_name = None
 
                     other_val_list = [v_details.serialNumber, 1, item.project.projectRef, cases[0].criticalPressure, item.project.pressureUnit, v_details.shutOffDelP, cases[0].valveSize, item.project.lengthUnit, v_details.rating.name,
                                     v_details.material.name, v_details.bonnetType__.name, "See Note 1", "See Note 1", v_details.gasket__.name, v_details.trimType__.name, v_details.flowDirection__.name, v_details.seat__.name,
                                     v_details.disc__.name,
                                     v_details.seatLeakageClass__.name, v_details.endConnection__.name, v_details.endFinish__.name, v_model_lower, model_str, v_details.bonnet__.name,
-                                    v_details.bonnetExtDimension, v_details.studNut__.name, cases[0].ratedCv, v_details.balanceSeal__.name, acc_list, v_details.application, cases[0].fluid.fluidName, 
+                                    v_details.bonnetExtDimension, v_details.studNut__.name, cases[0].ratedCv, v_details.balanceSeal__.name, acc_list, v_details.application, spec_fluid_name, 
                                     v_details.maxPressure, v_details.maxTemp, v_details.minTemp, None, None, v_details.packing__.name,
                                     cv_value_element.seatBore, cv_value_element.travel, v_details.flowDirection__.name, v_details.flowCharacter__.name, v_details.shaft__.name, item_notes_list]
                     
