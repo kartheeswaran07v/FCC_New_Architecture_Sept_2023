@@ -4013,7 +4013,8 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     outletPressure_v = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form, 'psia',
                                              1000)
     v_det_element = valve_element
-    trimtype = v_det_element.trimType__.name
+    trim_type_element = db.session.query(trimType).filter_by(id=v_det_element.trimTypeId).first()
+    trimtype = trim_type_element.name
     if trimtype == 'contour':
         t_caps = 'Contoured'
     elif trimtype == 'ported':
@@ -4097,7 +4098,8 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     # get valvetype - kc requirements
     v_det_element = valve_element
     valve_type_ = v_det_element.style.name
-    trimtype = v_det_element.trimType__.name
+    trim_type_element = db.session.query(trimType).filter_by(id=v_det_element.trimTypeId).first()
+    trimtype = trim_type_element.name
     outletPressure_psia = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form,
                                                 'psia', 1000)
     inletPressure_psia = meta_convert_P_T_FR_L('P', inletPressure_form, iPresUnit_form,
@@ -4776,7 +4778,8 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
     # get valvetype - kc requirements
     v_det_element = valve_element
     valve_type_ = v_det_element.style.name
-    trimtype = v_det_element.trimType__.name
+    trim_type_element = db.session.query(trimType).filter_by(id=v_det_element.trimTypeId).first()
+    trimtype = trim_type_element.name
     outletPressure_psia = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form,
                                                 'psia', 1000)
     inletPressure_psia = meta_convert_P_T_FR_L('P', inletPressure_form, iPresUnit_form,
@@ -5137,7 +5140,8 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
 
     v_det_element = valve_element
     db.session.commit()
-    trimtype = v_det_element.trimType__.name
+    trim_type_element = db.session.query(trimType).filter_by(id=v_det_element.trimTypeId).first()
+    trimtype = trim_type_element.name
     db.session.commit()
     t_caps = trimtype
 
@@ -5227,7 +5231,8 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     # get valvetype - kc requirements
     v_det_element = valve_element
     valve_type_ = v_det_element.style.name
-    trimtype = v_det_element.trimType__.name
+    trim_type_element = db.session.query(trimType).filter_by(id=v_det_element.trimTypeId).first()
+    trimtype = trim_type_element.name
     outletPressure_psia = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form,
                                                 'psia', 1000)
     inletPressure_psia = meta_convert_P_T_FR_L('P', inletPressure_form, iPresUnit_form,
@@ -5665,7 +5670,8 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     # get valvetype - kc requirements
     v_det_element = valve_element
     valve_type_ = v_det_element.style.name
-    trimtype = v_det_element.trimType__.name
+    trim_type_element = db.session.query(trimType).filter_by(id=v_det_element.trimTypeId).first()
+    trimtype = trim_type_element.name
     outletPressure_psia = meta_convert_P_T_FR_L('P', outletPressure_form, oPresUnit_form,
                                                 'psia', 1000)
     inletPressure_psia = meta_convert_P_T_FR_L('P', inletPressure_form, iPresUnit_form,
