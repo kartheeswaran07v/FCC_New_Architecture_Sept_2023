@@ -7409,6 +7409,7 @@ def generate_csv(item_id, proj_id, page):
     except Exception as e:
         # flash(f'some error occured: {e}')
         flash('Data missing')
+        print(f'Generate CSV Issue: {e}')
         return redirect(url_for(page, item_id=item_id, proj_id=proj_id))
 
 
