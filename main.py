@@ -5713,7 +5713,8 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     other_factors_string = f"{Cv__[1]}+{Cv__[2]}+{Cv__[3]}+{Cv__[4]}+{Cv__[5]}+{Cv__[6]}+{Cv__[7]}+{Fd_gas}+{RE_number}+{Kc}+{mac_sonic_list[0]}+{mac_sonic_list[1]}+{mac_sonic_list[2]}+{mac_sonic_list[3]}+{mac_sonic_list[4]}+{mac_sonic_list[5]}+{mac_sonic_list[6]}+{round(application_ratio, 3)}+{ratedCV}"
 
     # tex new
-    flow_character = getFlowCharacter(v_det_element.flowCharacter__.name)
+    flow_character_element = db.session.query(flowCharacter).filter_by(id=v_det_element.flowCharacterId).first()
+    flow_character = getFlowCharacter(flow_character_element.name)
         # new trim exit velocity
         # for port area, travel filter not implemented
 
