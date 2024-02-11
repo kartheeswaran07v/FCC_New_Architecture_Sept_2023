@@ -2384,13 +2384,13 @@ def data_upload(data_list, table_name):
 
 def pressure_temp_upload(data_set):
     # with app.app_context():
-    data_d_list = pressureTempRating.query.all()
+    # data_d_list = pressureTempRating.query.all()
     data_delete(pressureTempRating)
     for data_ in data_set:
         material_element = db.session.query(materialMaster).filter_by(name=data_['material']).first()
         rating_element = db.session.query(ratingMaster).filter_by(name=data_['rating']).first()
-        new_data = pressureTempRating(maxTemp=data_['maxTemp'], minTemp=data_['minTemp'],
-                                        pressure=data_['pressure'], material=material_element, rating=rating_element)
+        new_data = pressureTempRating(maxTemp=float(data_['maxTemp']), minTemp=float(data_['minTemp']),
+                                        pressure=float(data_['pressure']), material=material_element, rating=rating_element)
         db.session.add(new_data)
         db.session.commit()
 
@@ -3514,13 +3514,21 @@ def valveData(proj_id, item_id):
         a['material'] = [getDBElementWithId(materialMaster, material)]
         a['state'] = [db.session.query(fluidState).filter_by(name='Liquid').first()]
 
+        # bonnetExtDimension
+        try:
+            if a['bonnetExtDimension'][0] == '':
+                a['bonnetExtDimension'][0] = None
+            else:
+                a['bonnetExtDimension'][0] = float(a['bonnetExtDimension'][0])
+        except:
+            a['bonnetExtDimension'][0] = None
+
         # Data Type conversion
         try:
             a['maxPressure'][0] = float(a['maxPressure'][0])
             a['maxTemp'][0] = float(a['maxTemp'][0])
             a['minTemp'][0] = float(a['minTemp'][0])
             a['shutOffDelP'][0] = float(a['shutOffDelP'][0])
-            a['bonnetExtDimension'][0] = float(a['bonnetExtDimension'][0])
             a['quantity'][0] = int(a['quantity'][0])
         except Exception as e:
             flash(f'Error: {e}')
@@ -6061,6 +6069,15 @@ def valveSizing(proj_id, item_id):
     item_selected = getDBElementWithId(itemMaster, item_id)
     itemCases_1 = db.session.query(caseMaster).filter_by(item=item_selected).all()
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
+    try:
+        f_state = valve_element.state.name
+        valve_style = getValveType(valve_element.style.name)
+        if valve_style == 'globe':
+            constants = {'xt': 0.65, 'fl': 0.9}
+        else:
+            constants = {'xt': 0.2, 'fl': 0.55}
+    except:
+        constants = {'xt': 0.65, 'fl': 0.9}
     print(len(itemCases_1))
     if request.method =='POST':
         valve_style = getValveType(valve_element.style.name)
@@ -6202,8 +6219,10 @@ def valveSizing(proj_id, item_id):
             html_page = 'valvesizinggas.html'
     except:
         html_page = 'valvesizing.html'
+    
     return render_template(html_page, item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
-                           metadata=metadata_, page='valveSizing', valve=valve_element, case_length=range(6), cases=itemCases_1, total_length=len(itemCases_1))
+                           metadata=metadata_, page='valveSizing', valve=valve_element, case_length=range(6), 
+                           cases=itemCases_1, total_length=len(itemCases_1), constants=constants)
 
 
 @app.route('/item-case-delete/proj-<proj_id>/item-<item_id>/<case_id>', methods=['GET', 'POST'])
@@ -8019,10 +8038,11 @@ def DATA_UPLOAD_BULK():
         pass
 
 # DATA_UPLOAD_BULK()
-# with app.app_context():
-#     # data_delete(cvTable)
-#     cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
-#     deleteCVDuplicates()
+with app.app_context():
+    # data_delete(cvTable)
+    # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
+    # deleteCVDuplicates()
+    pressure_temp_upload(getRowsFromCsvFile("csv/pressureTemp.csv"))
 # data_upload(region_list, regionMaster)
     
 
