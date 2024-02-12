@@ -208,7 +208,7 @@ with app.app_context():
 
 # print(region_dict)
 
-
+# deploy 1
 # abc = getRowsFromCsvFile("csv/packing_friction.csv")
 # print(getList(abc[0]))
 valve_table_keys = [
