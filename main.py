@@ -8042,7 +8042,7 @@ with app.app_context():
     # data_delete(cvTable)
     # cv_upload(getRowsFromCsvFile("csv/cvtable.csv"))
     # deleteCVDuplicates()
-    pressure_temp_upload(getRowsFromCsvFile("csv/pressureTemp.csv"))
+    # pressure_temp_upload(getRowsFromCsvFile("csv/pressureTemp.csv"))
 # data_upload(region_list, regionMaster)
     
 
