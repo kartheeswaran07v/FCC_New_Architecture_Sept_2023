@@ -3130,6 +3130,7 @@ def CV(flowrate, C, valveDia, inletDia, outletDia, N2_value, inletPressure, outl
     # print(Fr)
     fp_val = fP(C, valveDia, inletDia + 2 * thickness, outletDia + 2 * thickness, N2_value)
     a_ = N1_value * fp_val * Fr * math.sqrt(delP / sGravity)
+    print(delP, sGravity)
     print(N1_value, fp_val, Fr, delP)
     b_ = flowrate / a_
     # print(f"FR: {Fr}")
@@ -3321,6 +3322,7 @@ def updatePreferences(proj_id, item_id, page):
 @app.route('/company-master/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def addCompany(proj_id, item_id):
     all_company = companyMaster.query.all()
+    addresses = addressMaster.query.all()
     company_names = [company.name for company in all_company]
     if request.method == "POST":
         name = request.form.get('name')
@@ -3336,7 +3338,7 @@ def addCompany(proj_id, item_id):
             flash(f"Company: {name} added successfully.")
             return redirect(url_for('companyEdit', company_id=new_company.id, item_id=item_id, proj_id=proj_id))
     return render_template('customer_master.html', companies=all_company, user=current_user,
-                           item=getDBElementWithId(itemMaster, item_id), page='addCompany')
+                           item=getDBElementWithId(itemMaster, item_id), page='addCompany', addresses=addresses)
 
 
 @app.route('/company-edit/proj-<proj_id>/item-<item_id>/<company_id>', methods=['GET', 'POST'])
@@ -3370,7 +3372,7 @@ def delAddress(address_id, item_id, proj_id):
     db.session.commit()
     # db.session.delete(addresss_element)
     # db.session.commit()
-    return redirect(url_for('companyEdit', company_id=company_id, item_id=item_id, proj_id=proj_id))
+    return redirect(url_for('addCompany', item_id=item_id, proj_id=proj_id))
 
 
 # TODO Project Module
@@ -8053,4 +8055,4 @@ def DATA_UPLOAD_BULK():
     
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
