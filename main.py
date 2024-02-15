@@ -3129,8 +3129,8 @@ def CV(flowrate, C, valveDia, inletDia, outletDia, N2_value, inletPressure, outl
                sGravity)
     # print(Fr)
     fp_val = fP(C, valveDia, inletDia + 2 * thickness, outletDia + 2 * thickness, N2_value)
-    a_ = N1_value * fp_val * Fr * math.sqrt(delP / sGravity)
     print(delP, sGravity)
+    a_ = N1_value * fp_val * Fr * math.sqrt(delP / sGravity)
     print(N1_value, fp_val, Fr, delP)
     b_ = flowrate / a_
     # print(f"FR: {Fr}")
