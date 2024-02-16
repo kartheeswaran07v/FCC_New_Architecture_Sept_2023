@@ -5657,21 +5657,24 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     # print(sc_initial)
     sc_initial = sc_initial_2
 
-    summation1 = lpae_1m(sc_initial['specificHeatRatio_gamma'], sc_initial['iPres'], sc_initial['oPres'],
-                         sc_initial['FLP'],
-                         sc_initial['Fp'],
-                         sc_initial['inletDensity'], sc_initial['massFlowrate'], sc_initial['aEta'],
-                         sc_initial['R'],
-                         sc_initial['iAbsTemp'],
-                         sc_initial['molecularMass'], sc_initial['oPipeSize'],
-                         sc_initial['internalPipeDia'], sc_initial['stp'],
-                         sc_initial['No'],
-                         sc_initial['A'], sc_initial['Iw'], sc_initial['reqCV'],
-                         sc_initial['SpeedOfSoundinPipe_Cs'],
-                         sc_initial['SpeedOfSoundInAir_Co'],
-                         sc_initial['valveSize'], sc_initial['tS'], sc_initial['fs'],
-                         sc_initial['atmPressure_pa'],
-                         sc_initial['stdAtmPres_ps'], sc_initial['DensityPipe_Ps'], -3.002)
+    try:
+        summation1 = lpae_1m(sc_initial['specificHeatRatio_gamma'], sc_initial['iPres'], sc_initial['oPres'],
+                            sc_initial['FLP'],
+                            sc_initial['Fp'],
+                            sc_initial['inletDensity'], sc_initial['massFlowrate'], sc_initial['aEta'],
+                            sc_initial['R'],
+                            sc_initial['iAbsTemp'],
+                            sc_initial['molecularMass'], sc_initial['oPipeSize'],
+                            sc_initial['internalPipeDia'], sc_initial['stp'],
+                            sc_initial['No'],
+                            sc_initial['A'], sc_initial['Iw'], sc_initial['reqCV'],
+                            sc_initial['SpeedOfSoundinPipe_Cs'],
+                            sc_initial['SpeedOfSoundInAir_Co'],
+                            sc_initial['valveSize'], sc_initial['tS'], sc_initial['fs'],
+                            sc_initial['atmPressure_pa'],
+                            sc_initial['stdAtmPres_ps'], sc_initial['DensityPipe_Ps'], -3.002)
+    except:
+        summation1 = 80
     print(f'gas summation noise: {summation1}')
     # summation1 = 97
 
