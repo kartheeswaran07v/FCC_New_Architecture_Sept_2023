@@ -2910,7 +2910,7 @@ def metadata():
 
         notes_dict = {}
         for nnn in companies:
-            contents = db.session.query(addressMaster).filter_by(company=nnn).all()
+            contents = db.session.query(addressMaster).filter_by(company=nnn, isActive=True).all()
             content_list = [cont.address for cont in contents]
             notes_dict[nnn.name] = content_list
 
@@ -3146,6 +3146,13 @@ def getUniqueValues(table_name):
 
 
 # TODO Login Module
+@app.route('/email-otp', methods=["GET", "POST"])
+def emailOTP():
+    if request.method == 'POST':
+        email_ = request.form.get('email')
+
+    return render_template("email-otp.html", default_email='')
+
 
 @app.route('/admin-register', methods=["GET", "POST"])
 def register():
@@ -3230,6 +3237,21 @@ def resetPassword():
             flash('Something went wrong')
             return redirect(url_for('resetPassword'))
     return render_template('send-email-otp.html')
+
+
+@app.route('/send_otp', methods=["GET", "POST"])
+def sendOTPAjax():
+    print('function is called for otp')
+    print('workkkkksssss')
+    emailID = request.args.get('emailID')
+    print(emailID)
+    # emailID = request.form['emailID']
+    result_ = sendOTP(emailID)
+    if result_:
+        json_ = {'message': 'OTP Sent'}
+    else:
+        json_ = {'message': 'Something Went Wrong'}
+    return jsonify(json_)
 
 @app.route('/send-otp/<email>', methods=["GET", "POST"])
 def sendOTPEmail(email):
@@ -3323,22 +3345,69 @@ def updatePreferences(proj_id, item_id, page):
 def addCompany(proj_id, item_id):
     all_company = companyMaster.query.all()
     addresses = addressMaster.query.all()
+    len_all_addr = len(addresses)
     company_names = [company.name for company in all_company]
     if request.method == "POST":
-        name = request.form.get('name')
-        description = request.form.get('description')
-        if name in company_names:
-            flash('Company already exists')
-            return redirect(url_for('addCompany'))
-        else:
-            new_company = companyMaster(name=name, description=description)
-            db.session.add(new_company)
-            db.session.commit()
+        if request.form.get('addCompany'):
+            name = request.form.get('name')
+            description = request.form.get('description')
+            if name in company_names:
+                flash('Company already exists')
+                return redirect(url_for('addCompany', item_id=item_id, proj_id=proj_id))
+            else:
+                new_company = companyMaster(name=name, description=description)
+                db.session.add(new_company)
+                db.session.commit()
+                # Add Address
+                new_address = addressMaster(address=request.form.get('address'), company=new_company,
+                                        customerCode=full_format(len_all_addr), isActive=True)
+                db.session.add(new_address)
+                db.session.commit()
 
-            flash(f"Company: {name} added successfully.")
-            return redirect(url_for('companyEdit', company_id=new_company.id, item_id=item_id, proj_id=proj_id))
+                flash(f"Company: {name} added successfully.")
+                return redirect(url_for('addCompany', item_id=item_id, proj_id=proj_id))
+            
+        elif request.form.get('newAddressFunction'):
+            print('route working')
+            company_id = request.form.get('company_id')
+            address = request.form.get('addressAdd')
+            company_element = db.session.query(companyMaster).filter_by(name=company_id).first()
+            new_address = addressMaster(address=address, company=company_element,
+                                            customerCode=full_format(len_all_addr), isActive=True)
+            db.session.add(new_address)
+            db.session.commit()
+            flash('Address added successfully')
+            return redirect(url_for('addCompany', item_id=item_id, proj_id=proj_id))
+        elif request.form.get('editAddress'):
+            company_id = request.form.get('name1')
+            address = request.form.get('address1')
+            address_id = request.form.get('address_id')
+            address_element = getDBElementWithId(addressMaster, int(address_id))
+            address_element.address = address
+            db.session.commit()
+            flash('Address Edited successfully')
+            return redirect(url_for('addCompany', item_id=item_id, proj_id=proj_id))
     return render_template('customer_master.html', companies=all_company, user=current_user,
                            item=getDBElementWithId(itemMaster, item_id), page='addCompany', addresses=addresses)
+
+
+@app.route('/check-company-exists', methods=['GET', 'POST'])
+def isCompanyExist(proj_id, item_id):
+    pass
+
+@app.route('/add-address/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def addAddress(proj_id, item_id):
+    addresses = addressMaster.query.all()
+    len_all_addr = len(addresses)
+    company_id = request.form.get('company_id')
+    address = request.form.get('addressAdd')
+    company_element = getDBElementWithId(companyMaster, int(company_id))
+    new_address = addressMaster(address=request.form.get('address'), company=company_element,
+                                    customerCode=full_format(len_all_addr), isActive=True)
+    db.session.add(new_address)
+    db.session.commit()
+    flash('Address added successfully')
+    return redirect(url_for('addCompany', item_id=item_id, proj_id=proj_id))
 
 
 @app.route('/company-edit/proj-<proj_id>/item-<item_id>/<company_id>', methods=['GET', 'POST'])
@@ -4686,22 +4755,24 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
 
     sc_initial = sc_initial_2
     # print(sc_initial)
-
-    summation1 = lpae_1m(sc_initial['specificHeatRatio_gamma'], sc_initial['iPres'], sc_initial['oPres'],
-                         sc_initial['FLP'],
-                         sc_initial['Fp'],
-                         sc_initial['inletDensity'], sc_initial['massFlowrate'], sc_initial['aEta'],
-                         sc_initial['R'],
-                         sc_initial['iAbsTemp'],
-                         sc_initial['molecularMass'], sc_initial['oPipeSize'],
-                         sc_initial['internalPipeDia'], sc_initial['stp'],
-                         sc_initial['No'],
-                         sc_initial['A'], sc_initial['Iw'], sc_initial['reqCV'],
-                         sc_initial['SpeedOfSoundinPipe_Cs'],
-                         sc_initial['SpeedOfSoundInAir_Co'],
-                         sc_initial['valveSize'], sc_initial['tS'], sc_initial['fs'],
-                         sc_initial['atmPressure_pa'],
-                         sc_initial['stdAtmPres_ps'], sc_initial['DensityPipe_Ps'], -3.002)
+    try:
+        summation1 = lpae_1m(sc_initial['specificHeatRatio_gamma'], sc_initial['iPres'], sc_initial['oPres'],
+                            sc_initial['FLP'],
+                            sc_initial['Fp'],
+                            sc_initial['inletDensity'], sc_initial['massFlowrate'], sc_initial['aEta'],
+                            sc_initial['R'],
+                            sc_initial['iAbsTemp'],
+                            sc_initial['molecularMass'], sc_initial['oPipeSize'],
+                            sc_initial['internalPipeDia'], sc_initial['stp'],
+                            sc_initial['No'],
+                            sc_initial['A'], sc_initial['Iw'], sc_initial['reqCV'],
+                            sc_initial['SpeedOfSoundinPipe_Cs'],
+                            sc_initial['SpeedOfSoundInAir_Co'],
+                            sc_initial['valveSize'], sc_initial['tS'], sc_initial['fs'],
+                            sc_initial['atmPressure_pa'],
+                            sc_initial['stdAtmPres_ps'], sc_initial['DensityPipe_Ps'], -3.002)
+    except:
+        summation1 = 80
 
     print(f"gas summation: {summation1}")
     # summation1 = 97
@@ -6103,9 +6174,7 @@ def valveSizing(proj_id, item_id):
 
         if f_state == 'Liquid':
                 len_cases_input = len(a['inletPressure'])
-                for i in itemCases_1:
-                    db.session.delete(i)
-                    db.session.commit()
+                
                 try:
                     for k in range(len_cases_input):
                         sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(a['inletPipeSize'][0])).first()
@@ -6141,6 +6210,9 @@ def valveSizing(proj_id, item_id):
                         
                         db.session.add(new_case)
                         db.session.commit()
+                        for i in itemCases_1:
+                            db.session.delete(i)
+                            db.session.commit()
 
                     flash_message = "Calculation Complete"
                     flash_category = "success"
@@ -6152,14 +6224,12 @@ def valveSizing(proj_id, item_id):
                 # print(data)
                 print(a)
                 # print(f"The calculated Cv is: {result}")
+                # print(a)
                 return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
         elif f_state == 'Gas':
                 # logic to choose which formula to use - using units of flowrate and sg
 
                 len_cases_input = len(a['inletPressure'])
-                for i in itemCases_1:
-                    db.session.delete(i)
-                    db.session.commit()
                 
                 try:
                     for k in range(len_cases_input):
@@ -6198,10 +6268,14 @@ def valveSizing(proj_id, item_id):
 
                         db.session.add(new_case)
                         db.session.commit()
+                                
+                        for i in itemCases_1:
+                            db.session.delete(i)
+                            db.session.commit()
                     flash_message = "Calculation Complete"
                     flash_category = "success"
-                except ValueError:
-                    flash_message = "Data Incomplete"
+                except Exception as e:
+                    flash_message = f"Data Incomplete"
                     flash_category = "error"
             
                 flash(flash_message, flash_category)
@@ -8055,4 +8129,4 @@ def DATA_UPLOAD_BULK():
     
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

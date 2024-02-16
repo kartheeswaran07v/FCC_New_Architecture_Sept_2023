@@ -4,89 +4,83 @@
 <form action="{{url_for('addCompany', proj_id=item.project.id, item_id=item.id)}}" method="post">
 
     <div class="row mt-2 ml-0">
-        <div class="col-3 shadow p-3">
-            <h6 class="preference_heading"><b>Add Customer</b></h6>
-            <hr>
-            <div class="row mt-2">
-                <div class="col-6">
-                    <label for="customer_name">Customer Name</label>
+            <div class="col-3 shadow p-3"  id="companyAdd">
+                <h6 class="preference_heading"><b>Add Customer</b></h6>
+                <hr>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label for="customer_name">Customer Name</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" required class="form-control-sm-sm cus_input" id="name" name="name">
+                    </div>
                 </div>
-                <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="name">
+    
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label for="address">Industry Segment</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" required class="form-control-sm-sm cus_input" id="description" name="description">
+    
+                    </div>
                 </div>
-            </div>
-
-            <div class="row mt-2">
-                <div class="col-6">
-                    <label for="address">Industry Segment</label>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label for="address">Address</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" required class="form-control-sm-sm cus_input" id="address" name="address">
+    
+                    </div>
                 </div>
-                <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="description">
-
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-6">
-                    <label for="address">Address</label>
-                </div>
-                <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="description">
-
-                </div>
-            </div>
-            <div class="row mt-2">
-         
-                <div class="col-6 ">
-                    <button type="submit" class="btn btn-info preference_btn">Create</button>
-
-
-                </div>
-            </div>
-
-
-
-
-        </div>
-        <div class="col-3 shadow p-3" style="display: none;">
-            <h6 class="preference_heading"><b>Address Add</b></h6>
-            <hr>
-            <div class="row mt-2">
-                <div class="col-6">
-                    <label for="customer_name">Customer Name</label>
-                </div>
-                <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="name">
+                <div class="row mt-2">
+             
+                    <div class="col-6 ">
+                        <input type="submit" class="btn btn-info preference_btn" value="Create" name="addCompany">
+                        <!-- <button type="submit" class="btn btn-info preference_btn">Create</button> -->
+                    </div>
                 </div>
             </div>
-
-            <div class="row mt-2">
-                <div class="col-6">
-                    <label for="address">Industry Segment</label>
+        
+            <div class="col-3 shadow p-3" id="addressAdd" style="display: none;">
+                <h6 class="preference_heading"><b>Address Add</b></h6>
+                <hr>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label for="customer_name">Customer Name</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="company_id" class="form-control-sm-sm cus_input" name="company_id" readonly>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="description">
-
+    
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label for="address">Industry Segment</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control-sm-sm cus_input" id="industry_segment" name="industry_segment" readonly>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label for="address">Address</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control-sm-sm cus_input" name="addressAdd">
+    
+                    </div>
+                </div>
+                <div class="row mt-2">
+             
+                    <div class="col-6 ">
+                        <input type="submit" class="btn btn-info preference_btn" value="Add" name="newAddressFunction">
+                    </div>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-6">
-                    <label for="address">Address</label>
-                </div>
-                <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="description">
-
-                </div>
-            </div>
-            <div class="row mt-2">
-         
-                <div class="col-6 ">
-                    <button type="submit" class="btn btn-info preference_btn">Create</button>
-
-
-                </div>
-            </div>
-        </div>
-        <div class="col-3 shadow p-3" style="display: none;">
+        
+        <div class="col-3 shadow p-3" id="addressEdit" style="display: none;">
             <h6 class="preference_heading"><b>Address Edit</b></h6>
             <hr>
             <div class="row mt-2">
@@ -94,7 +88,7 @@
                     <label for="customer_name">Customer Name</label>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="name">
+                    <input type="text" class="form-control-sm-sm cus_input" id="name1" name="name1" readonly>
                 </div>
             </div>
 
@@ -103,7 +97,7 @@
                     <label for="address">Industry Segment</label>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="description">
+                    <input type="text" class="form-control-sm-sm cus_input" id="description1" name="description1" readonly>
 
                 </div>
             </div>
@@ -112,16 +106,17 @@
                     <label for="address">Address</label>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control-sm-sm cus_input" name="description">
+                    <input type="text" class="form-control-sm-sm cus_input" id="address1" name="address1">
 
+                </div>
+                <div class="col-6" style="display:none;">
+                    <input type="text" class="form-control-sm-sm cus_input" id="address_id" name="address_id">
                 </div>
             </div>
             <div class="row mt-2">
          
                 <div class="col-6 ">
-                    <button type="submit" class="btn btn-info preference_btn">Create</button>
-
-
+                    <input type="submit" class="btn btn-info preference_btn" value="Edit" name="editAddress">
                 </div>
             </div>
         </div>
@@ -156,17 +151,22 @@
                     <tbody class="table-sm">
 
                         {% for address in addresses %}
-                        <tr>
+                        <tr class="company{{address.id}}">
                             <td class="">{{addresses.index(address) + 1}}</td>
                             <td class=""> {{address.customerCode}}</td>
-                            <td class="">{{address.company.name}}</td>
-                            <td class="">{{address.company.description}}</td>
-                            <td class="">{{address.address}}</td>
-                            <td class="table_company "><a href="">
-                             <i class="fa-solid fa-circle-plus fa-xl "></i></a></td>
+                            <td class="companyName">{{address.company.name}}</td>
+                            <td class="description">{{address.company.description}}</td>
+                            <td class="address">{{address.address}}</td>
+                            <td class="table_company ">
+                                <p class="{{address.id}}" onclick=handleAdd(this)>
+                                    <i class="fa-solid fa-circle-plus fa-xl "></i>
+                                </p>
+                            </td>
                        
-                            <td class="table_company "><a
-                                    href="">Edit</a>
+                            <td class="table_company ">
+                                <p class="{{address.id}}" onclick=handleEdit(this)>
+                                    Edit
+                                </p>
                             </td>
                             <td class="body_content_customer">
                                 {% if address.isActive %}
@@ -185,19 +185,51 @@
 
         </div>
 
-
-
-
-
-
-
-
-       
     </div>
-  
-
-
-
 </form>
+
+<script type="text/javascript">
+    function handleAdd(obj) {
+            $("#companyAdd").hide()
+            $("#addressEdit").hide()
+            $("#addressAdd").show()
+            $("#name").attr("required", false);
+            $("#description").attr("required", false);
+            $("#address").attr("required", false);
+            var address_add = 'company' + obj.className;
+            console.log(address_add);
+            var companyName = $("tbody").find("tr."+address_add).find('td.companyName').text();
+            var description = $("tbody").find("tr."+address_add).find('td.description').text();
+            console.log(companyName)
+            console.log(description)
+            $('#company_id').val(companyName);
+            $('#industry_segment').val(description);
+            // console.log(Something)
+    };
+
+    function handleEdit(obj) {
+            $("#companyAdd").hide()
+            $("#addressEdit").show()
+            $("#addressAdd").hide()
+            $("#name").attr("required", false);
+            $("#description").attr("required", false);
+            $("#address").attr("required", false);
+            var address_add = 'company' + obj.className;
+            var address_id = obj.className;
+            console.log(address_add);
+            var companyName = $("tbody").find("tr."+address_add).find('td.companyName').text();
+            var description = $("tbody").find("tr."+address_add).find('td.description').text();
+            var address = $("tbody").find("tr."+address_add).find('td.address').text();
+            console.log(companyName)
+            console.log(description)
+            console.log(address)
+            
+            $('#name1').val(companyName);
+            $('#description1').val(description);
+            $('#address1').val(address);
+            $('#address_id').val(address_id);
+            // console.log(Something)
+    };
+</script>
 {% include "footer.html" %}
 {% endblock %}

@@ -81,7 +81,7 @@ def createSpecSheet(case_data, units, other, act_):
         # worksheet.set_column('K1:K73', 6)
         # worksheet.set_column('L1:L73', 6)
 
-        worksheet.insert_image('A4', 'static\images\Logo.png', {'x_scale': 0.5, 'y_scale': 0.5})
+        worksheet.insert_image('A4', 'https://fccommune.com/FCC_Sizing_Sheet_Logo.png', {'x_scale': 0.5, 'y_scale': 0.5})
         worksheet.merge_range('A3:B7', "", cell_format)
 
         worksheet.write('A1', '', )

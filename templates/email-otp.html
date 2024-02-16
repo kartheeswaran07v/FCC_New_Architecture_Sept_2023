@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles_login.css')}}">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="company" style="margin-top: 50px;">
+        <img style="width: 15%;" alt="" src="{{ url_for('static', filename='/images/Fcc logo.png') }}">
+    </div>
+    <div class="" style="text-align: center;">
+        <p>Control Valve Sizing Software</p>
+    </div>
+  
+    <div class="container">
+        <div class="form-container">
+            <h2>Reset Password</h2>
+            <form action="{{url_for('emailOTP')}}" method="POST">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="text" name="email" value="{{default_email}}" id="email" placeholder="abc@test.com" required>
+                    </div>
+                    <div class="col-6">
+                        <button class="btnsubmit" type="button" onclick=handleChange()>Send OTP</button>
+                    </div>
+                </div>
+                <input type="text" name="otp" placeholder="OTP" required>
+                <button class="btnsubmit" type="submit" >Verify OTP</button>
+                <p id="output"></p>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        
+                            {% for message in messages %}
+                                <p class="flashes">{{ message }}</p>
+                            {% endfor %}
+                        
+                    {% endif %}
+                {% endwith %}
+                {% block body %}{% endblock %}
+                <button type="submit">Reset Password</button>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+
+<script type="text/javascript">
+    
+    alert('js working');
+    function handleChange() {
+
+    var emailID = $("#email").val();
+
+
+
+    $.ajax({
+
+        type: "GET",
+
+        url: "/send_otp",
+
+        data: {
+
+            emailID: emailID,
+
+        },
+
+        success: function(data) {
+
+            console.log(data);
+
+            $('#output').html(data.message);
+            // alert(data.message)
+
+        },
+
+        error: function(xhr, status, error) {
+
+            console.error("Error:", error);
+            $('#output').val(data.message);
+        }
+
+    });
+
+    }
+
+</script>
+
+</html>
