@@ -5,7 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='styles_login.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <title>Login</title>
+
 </head>
 
 <body>
@@ -18,19 +24,21 @@
   
     <div class="container">
         <div class="form-container">
-            <h2>Reset Password</h2>
+            <h2>OTP Verification</h2>
+            <br>
             <form action="{{url_for('emailOTP')}}" method="POST">
                 <div class="row">
                     <div class="col-6">
                         <input type="text" name="email" value="{{default_email}}" id="email" placeholder="abc@test.com" required>
                     </div>
                     <div class="col-6">
-                        <button class="btnsubmit" type="button" onclick=handleChange()>Send OTP</button>
+                        <button class="btnsubmit btnotp" type="button" onclick=handleChange()>Send OTP</button>
                     </div>
                 </div>
+                
+                <p id="output"></p>
                 <input type="text" name="otp" placeholder="OTP" required>
                 <button class="btnsubmit" type="submit" >Verify OTP</button>
-                <p id="output"></p>
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         
@@ -41,7 +49,6 @@
                     {% endif %}
                 {% endwith %}
                 {% block body %}{% endblock %}
-                <button type="submit">Reset Password</button>
             </form>
         </div>
     </div>
@@ -52,7 +59,7 @@
 
 <script type="text/javascript">
     
-    alert('js working');
+    // alert('js working');
     function handleChange() {
 
     var emailID = $("#email").val();

@@ -3150,12 +3150,20 @@ def getUniqueValues(table_name):
 def emailOTP():
     if request.method == 'POST':
         email_ = request.form.get('email')
+        otp_ = request.form['otp']
+        otp_element = db.session.query(OTP).filter_by(username=email_).first()
+        if int(otp_element.otp) == int(otp_):
+            flash('Correct OTP')
+            return redirect(url_for('register', email=email_))
+        else:
+            flash('Incorrect OTP')
+            return render_template("email-otp.html", default_email=email_)
 
     return render_template("email-otp.html", default_email='')
 
 
-@app.route('/admin-register', methods=["GET", "POST"])
-def register():
+@app.route('/admin-register/<email>', methods=["GET", "POST"])
+def register(email):
     designations_ = designationMaster.query.all()
     
     departments_ = departmentMaster.query.all()
@@ -3164,7 +3172,7 @@ def register():
         if userMaster.query.filter_by(email=request.form['email']).first():
             # user already exists
             flash("Email-ID already exists")
-            return redirect(url_for('register'))
+            return redirect(url_for('register', email=email))
         else:
             department_element = departmentMaster.query.get(int(request.form['department']))
             designation_element = designationMaster.query.get(int(request.form['designation']))
@@ -3172,7 +3180,7 @@ def register():
                                   password=generate_password_hash(request.form['password'], method='pbkdf2:sha256',
                                                                   salt_length=8),
                                   name=request.form['name'],
-                                  employeeId=request.form['employeeId'],
+                                  employeeId=None,
                                   mobile=request.form['mobile'],
                                   designation=designation_element,
                                   department=department_element,
@@ -3190,7 +3198,7 @@ def register():
             # flash('Logged in successfully.')
             return redirect(url_for('login'))
 
-    return render_template("admin-registration.html", designations=designations_, departments=departments_)
+    return render_template("admin-registration.html", email=email, designations=designations_, departments=departments_)
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -3242,15 +3250,17 @@ def resetPassword():
 @app.route('/send_otp', methods=["GET", "POST"])
 def sendOTPAjax():
     print('function is called for otp')
-    print('workkkkksssss')
     emailID = request.args.get('emailID')
     print(emailID)
     # emailID = request.form['emailID']
-    result_ = sendOTP(emailID)
-    if result_:
-        json_ = {'message': 'OTP Sent'}
+    if userMaster.query.filter_by(email=emailID).first():
+        json_ = {'message': 'User already exist'}
     else:
-        json_ = {'message': 'Something Went Wrong'}
+        result_ = sendOTP(emailID)
+        if result_:
+            json_ = {'message': 'OTP Sent'}
+        else:
+            json_ = {'message': 'Something Went Wrong'}
     return jsonify(json_)
 
 @app.route('/send-otp/<email>', methods=["GET", "POST"])
@@ -7956,6 +7966,11 @@ def importItem(item_id, proj_id):
 
     return render_template('projectImport.html', item=getDBElementWithId(itemMaster, int(item_id)), page='importProject', user=current_user)
 
+
+# Admin Panel
+
+
+
 ####################### DATA UPLOAD BULK
 def DATA_UPLOAD_BULK():    
     industry_list = ['Oil & Gas - Onshore', 'Oil & Gas - Offshore', 'Refinery & Petrochemical',
@@ -8129,4 +8144,4 @@ def DATA_UPLOAD_BULK():
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

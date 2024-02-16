@@ -131,3 +131,10 @@ label {
     text-align: center;
     font-size: 0.8rem;
 }
+
+.btnotp {
+    /* height: 40px; */
+    /* align-items: right; */
+    /* justify-content: center; */
+    font-size: 12px;
+}
