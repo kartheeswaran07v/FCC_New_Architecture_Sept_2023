@@ -1,0 +1,201 @@
+{% block content %}
+{% include "header.html" %}
+<br>
+
+<form action="" method="post">
+
+    <div class="container-fulid mt-4 ml-1">
+        <div class="row">
+            <!-- project details form -->
+            <div class="col-4">
+                <div class="admim_register_box shadow">
+                    <form>
+                        <h6 class="admin_register_heading"><b> Register</b></h6>
+                        <hr>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" value="{{user_select.name}}" class="form-control-sm-sm admin_register_input" name="name" required>
+
+                            </div>
+                        </div>
+                        <div class="row  mt-1">
+                            <div class="col-6">
+                                <label for="email">Email </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="email" id="email" value="{{user_select.email}}" class="form-control-sm-sm admin_register_input" onblur=handleChange() name="email"
+                                    required>
+
+                            </div>
+                            <!-- <p id="output"></p> -->
+                        </div>
+                        <div class="row  mt-1">
+                            <div class="col-6">
+                                <label for="Password">Password </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" value="{{user_select.password[:15]}}" class="form-control-sm-sm admin_register_input" name="password"
+                                    required>
+
+                            </div>
+                        </div>
+                        <div class="row  mt-1">
+                            <div class="col-6">
+                                <label for="employeeId">Employee Id</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" value="{{user_select.employeeId}}" class="form-control-sm-sm admin_register_input" name="employeeId"
+                                    required>
+
+                            </div>
+                        </div>
+                        <div class="row  mt-1">
+                            <div class="col-6">
+                                <label for="mobile">Mobile</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" value="{{user_select.mobile}}" class="form-control-sm-sm admin_register_input" name="mobile"
+                                    required>
+
+                            </div>
+                        </div>
+                        <div class="row  mt-1">
+                            
+                            <div class="col-6">
+                                <label for="designation">Department</label>
+                            </div>
+                            <div class="col-6">
+                                    <select name="department" class="form-control-sm-sm admin_register_input" required>
+                                        {% for department in departments %}
+                                            <option value="{{department.id}}" {% if user_select.department.id == department.id %} selected {% endif %}>{{department.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="row  mt-1">
+                            
+                            <div class="col-6">
+                                <label for="designation">Designation</label>
+                            </div>
+                            <div class="col-6">
+                                    <select name="designation" class="form-control-sm-sm admin_register_input" required>
+                                        {% for designation in designations %}
+                                            <option value="{{designation.id}}" {% if user_select.designation.id == designation.id %} selected {% endif %}>{{designation.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info btn-sm admin_register_btn mt-1">Edit</button>
+
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-7 ml-5">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Search........."
+                                class="form-control reference_input" id="input" >
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-primary " id="btn">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class=" customer_table" id="customer-scroll">
+                    <table class="table table-striped  table-bordered test ">
+                        <thead class="table-sm customerhead">
+                            <tr>
+                                <th>Select</th>
+                                <th class="">S.No</th>
+                                <th class="">Name</th>
+                                <th class="">Email ID</th>
+                                <th class="">Password</th>
+                                <th class="">Employee ID</th>
+                                <th class="">Mobile</th>
+                                <th class="">Department</th>
+                                <th class="">Designation</th>
+                                <th class="">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-sm">
+    
+                            {% for user in users %}
+                            <tr class="company{{user.id}}">
+                                {% if user.id == user_select.id %}
+                               <td class="table1_ratio"><input type="radio" checked onclick="window.location='{{url_for('adminEditUser', proj_id=item.project.id, item_id=item.id, user_id=user.id)}}'"></td>
+                                {% else %}
+                                <td class="table1_ratio"><input type="radio" onclick="window.location='{{url_for('adminEditUser', proj_id=item.project.id, item_id=item.id, user_id=user.id)}}'"></td>
+                                {%endif%}
+                                <td class="">{{users.index(user) + 1}}</td>
+                                <td class="name"> {{user.name}}</td>
+                                <td class="email">{{user.email}}</td>
+                                <td class="password">{{user.password[:15]}}...</td>
+                                <td class="employeeID">{{user.employeeId}}</td>
+                                <td class="mobile">{{user.mobile}}</td>
+                                <td class="department">{{user.department.name}}</td>
+                                <td class="designation">{{user.designation.name}}</td>
+                                <td><a href="">Edit</a></td>
+                            </tr>
+                            {% endfor %}
+    
+                        </tbody>
+                    </table>
+                </div>
+    
+            </div>
+
+
+        </div>
+
+    </div>
+</form>
+
+<script>
+     function handleChange() {
+
+        var emailID = $("#email").val();
+        // alert('blur working')
+
+
+        $.ajax({
+
+            type: "GET",
+
+            url: "/isUserExist",
+
+            data: {
+
+                emailID: emailID,
+
+            },
+
+            success: function(data) {
+
+                console.log(data);
+
+                // $('#output').html(data.message);
+                // alert(data.message)
+
+            },
+
+            error: function(xhr, status, error) {
+
+                // console.error("Error:", error);
+                // $('#output').val(data.message);
+                alert(data.message);
+            }
+
+        });
+
+    }
+</script>
+{% include "footer.html" %}
+{% endblock %}

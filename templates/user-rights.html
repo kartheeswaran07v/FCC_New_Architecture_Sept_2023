@@ -1,0 +1,59 @@
+{% block content %}
+{% include "header.html" %}
+
+
+<form action="" method="post">
+
+
+    <div class="container-fulid mt-4 ml-1">
+        <div class="row">
+            <!-- project details form -->
+            <div class="col-4">
+                <div class="admim_user_box shadow">
+
+                    <h6 class="admin_register_heading"><b>User Rights</b></h6>
+                    <hr>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <label for="select_user">Select User</label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control-sm-sm adminUser_select " name="select_user">
+
+                                <option value=""></option>
+                                <option value=""></option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="row  mt-1">
+                        <div class="col-6">
+                            <label for="set_rights">Set Rights</label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control-sm-sm adminUser_select " name="set_rights">
+                                <option value=" "></option>
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-info btn-sm admin_user_btn mt-1">update Rights</button>
+
+
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</form>
+
+{% include "footer.html" %}
+{% endblock %}

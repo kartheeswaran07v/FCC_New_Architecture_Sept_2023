@@ -5305,7 +5305,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     pVelocity = flowrate_v / (3600 * v_area)
 
     data = {'cv': round(result, 3),
-            'percent': 80,
+            'percent': open_percent,
             'spl': round(summation, 3),
             'iVelocity': iVelocity,
             'oVelocity': round(oVelocity, 3), 'pVelocity': round(pVelocity, 3), 'choked': round(chokedP, 3),
@@ -5748,7 +5748,7 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     pVelocity = gas_vels[8]
 
     data = {'cv': round(Cv1, 3),
-            'percent': 83,
+            'percent': open_percent,
             'spl': round(summation1, 3),
             'iVelocity': round(iVelocity, 3),
             'oVelocity': round(oVelocity, 3), 'pVelocity': round(pVelocity, 3), 'choked': round(xChoked, 4),
@@ -7971,6 +7971,76 @@ def importItem(item_id, proj_id):
 
 
 # Admin Panel
+@app.route('/admin-panel/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def adminPanel(item_id, proj_id):
+    users = userMaster.query.all()
+    first_user = users[0].id
+    return render_template('admin.html', item=getDBElementWithId(itemMaster, int(item_id)), 
+                           page='adminPanel', user=current_user, user_id=first_user)
+
+
+@app.route('/isUserExist', methods=['GET', 'POST'])
+def isUserExist():
+    emailID = request.args.get('emailID')
+    if userMaster.query.filter_by(email=emailID).first():
+        # user already exists
+        json_ = {'message': 'Email ID already exists'}
+        return jsonify(json_)
+    else:
+        json_ = {'message': 'New User'}
+        return jsonify(json_)
+
+
+@app.route('/admin-new-user/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def adminNewUser(item_id, proj_id):
+    designations_ = designationMaster.query.all()
+    departments_ = departmentMaster.query.all()
+    if request.method == 'POST':
+        if userMaster.query.filter_by(email=request.form['email']).first():
+            # user already exists
+            flash("Email-ID already exists")
+            return redirect(url_for('adminNewUser', item_id=item_id, proj_id=proj_id))
+        else:
+            department_element = departmentMaster.query.get(int(request.form['department']))
+            designation_element = designationMaster.query.get(int(request.form['designation']))
+            new_user = userMaster(email=request.form['email'],
+                                  password=generate_password_hash(request.form['password'], method='pbkdf2:sha256',
+                                                                  salt_length=8),
+                                  name=request.form['name'],
+                                  employeeId=request.form['employeeId'],
+                                  mobile=request.form['mobile'],
+                                  designation=designation_element,
+                                  department=department_element,
+                                  fccUser=True
+                                  )
+            db.session.add(new_user)
+            db.session.commit()
+
+            if department_element.name == "Application Engineering, Sales & Contracts":
+                addUserAsEng(request.form['name'], designation_element.name)
+
+            # Add Project and Item
+            flash('New User Added Successfully')
+            newUserProjectItem(user=new_user)
+    return render_template('admin-new-user.html', item=getDBElementWithId(itemMaster, int(item_id)), 
+                           page='adminNewUser', user=current_user, designations=designations_,
+                           departments=departments_)
+
+
+@app.route('/admin-edit-user/proj-<proj_id>/item-<item_id>/user-<user_id>', methods=['GET', 'POST'])
+def adminEditUser(item_id, proj_id, user_id):
+    user_element = getDBElementWithId(userMaster, int(user_id))
+    designations_ = designationMaster.query.all()
+    departments_ = departmentMaster.query.all()
+    allUsers = userMaster.query.all()
+    return render_template('admin-edit-user.html', item=getDBElementWithId(itemMaster, int(item_id)), 
+                           page='adminEditUser', user=current_user, designations=designations_,
+                           departments=departments_, users=allUsers, user_select=user_element)
+
+
+@app.route('/admin-user-rights/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
+def adminUserRights(item_id, proj_id):
+    return render_template('user-rights.html', item=getDBElementWithId(itemMaster, int(item_id)), page='adminUserRights', user=current_user)
 
 
 
@@ -8147,4 +8217,4 @@ def DATA_UPLOAD_BULK():
     
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

@@ -1,0 +1,80 @@
+{% block content %}
+{% include "header.html" %}
+<br><br>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <h6 class="adminpage_heading"><b>Users</b></h6>
+        <div class="row">
+            <div class="col-4 mt-2">
+                <div class="adminpanel">
+                    <a href="{{url_for('adminNewUser', proj_id=item.project.id, item_id=item.id)}}">
+                        <button type="button" class="btn btn-info btn-block adminpage_btn">Create
+                            User</button>
+
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4 mt-2">
+                <div class="adminpanel">
+                    <a href="{{url_for('adminEditUser', proj_id=item.project.id, item_id=item.id, user_id=user_id)}}">
+                        <button type="button" class="btn btn-info btn-block adminpage_btn">User
+                            Details</button>
+
+
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4 mt-2">
+                <div class="adminpanel">
+                    <a href="{{url_for('adminUserRights', proj_id=item.project.id, item_id=item.id)}}">
+                        <button type="button" class="btn btn-info btn-block adminpage_btn">User
+                            Rights</button>
+
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <h6 class="adminpage_heading"><b>Table</b></h6>
+        <div class="row">
+            <div class="col-4 mt-2">
+                <div class="adminpanel">
+                    <a href="">
+                        <button type="button" class="btn btn-info btn-block adminpage_btn">Update
+                            Table</button>
+
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4 mt-2">
+                <div class="adminpanel">
+                    <a href="">
+                        <button type="button" class="btn btn-info btn-block adminpage_btn">Export
+                            Table</button>
+
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4 mt-2">
+                <div class="adminpanel">
+                    <a href="">
+                        <button type="button" class="btn btn-info btn-block adminpage_btn">Table
+                            Views</button>
+
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+{% endblock %}
