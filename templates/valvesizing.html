@@ -155,7 +155,7 @@
                                                                 <select id="#"
                                                                         class="sizingtable_inputs">
                                                                         {% for temperature in metadata['units_dict']['temperature'] %}
-                                                                                {% if temperature.name == item.project.temperatureUnit %}
+                                                                                {% if temperature.id == item.project.temperatureUnit %}
                                                                                 <option value="{{temperature.id}}" selected>{{temperature.name}}</option>
                                                                                 {% else %}
                                                                                 <option value="{{temperature.id}}">{{temperature.name}}</option>
@@ -398,8 +398,7 @@
                                              <label>Solve For</label>
                                         </div>
                                         <div class="col-7">
-                                                <select id="#"
-                                                        class="form-control-sm-sm valvesizing_select">
+                                                <select id="#" class="form-control-sm-sm valvesizing_select">
 
                                                         <option>Cv</option>
                                                         <option>ΔP</option>
@@ -428,12 +427,12 @@
                                               <label>Pipe Data</label>  
                                         </div>
                                         <div class="col-3 form-check form-check-inline ml-3">
-                                                <input type="radio" name="standard"
+                                                <input type="radio" value="Standard" name="pipeData"
                                                         class="form-control-sm-sm valvesizing_radio">
                                                 <label class="ml-1 mt-2">Standard</label>
                                         </div>
                                         <div class="col-3 form-check form-check-inline">
-                                                <input type="radio" name="custom"
+                                                <input type="radio" value="Custom" name="pipeData"
                                                         class="form-control-sm-sm valvesizing_radio">
                                                 <label class="ml-1 mt-2">Custom</label>
 
@@ -611,7 +610,7 @@
                                         <div class="col-4">
                                                 {% if cases[0] %}
                                                 <input type="text"
-                                                name="vSize" value="{{cases[0].valveSize}}" required
+                                                name="vSize" value="{{cases[-1].valveSize}}" required
                                                 class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% else %}
                                                 <input type="text"
@@ -640,7 +639,7 @@
                                         <div class="col-4">
                                                 {% if cases[0] %}
                                                 <input type="text"
-                                                        name="ratedCV" value="{{cases[0].ratedCv}}" required
+                                                        name="ratedCV" value="{{cases[-1].ratedCv}}" required
                                                         class="form-control-sm-sm valvesizing_fluid_data valvesizing_inputbox">
                                                 {% else %}
                                                 <input type="text"

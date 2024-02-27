@@ -209,7 +209,8 @@ with app.app_context():
 # print(region_dict)
 
 # deploy 1
-# abc = getRowsFromCsvFile("csv/packing_friction.csv")
+abc = getRowsFromCsvFile("csv/hydrasave-country.csv")
+print(abc)
 # print(getList(abc[0]))
 valve_table_keys = [
   'id',
@@ -253,9 +254,9 @@ valve_table_keys = [
   'cageId'
 ]
 
-valve_table_dict = {}
-for val_ in valve_table_keys[15:]:
-    valve_table_dict[val_] = ""
+# valve_table_dict = {}
+# for val_ in valve_table_keys[15:]:
+#     valve_table_dict[val_] = ""
 # print(valve_table_dict)
 
 # print(len(valve_table_keys))
