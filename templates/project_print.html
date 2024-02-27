@@ -1,7 +1,7 @@
 {% block content %}
 {% include "header.html" %}
 <br>
-                        <form action="{{url_for('generate_csv_project', proj_id=item.project.id, item_id=item.id)}}" method="post">
+                        <form action="{{url_for('generate_csv_project', proj_id=item.project.id, item_id=item.id)}}" id="itemForm" method="post">
                             <div class="row mt-2">
                                 <div class="col-12">
                                     <h6 class="report_heading"><b>Reports</b></h6>
@@ -11,7 +11,7 @@
                                                 <h6 class="sub_heading"><b>Project</b></h6>
                                                 <div class="row ml-4">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" disabled type="checkbox" value="" name="" id="flexCheckDefault">
+                                                        <input class="form-check-input" disabled type="checkbox" value="" name="datasheet" >
                                                         <label for="" class="form-check-label project_lable" for="flexCheckDefault">
                                                           Data Sheet
                                                         </label>
@@ -20,7 +20,7 @@
             
                                                 <div class="row ml-4 mt-1">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" name="" id="flexCheckDefault">
+                                                        <input class="form-check-input" type="checkbox" value="" name="controlvalve" >
                                                         <label for="" class="form-check-label project_lable" for="flexCheckDefault">
                                                           Control Valve Sizing Sheet
                                                         </label>
@@ -29,7 +29,7 @@
             
                                                 <div class="row ml-4 mt-1">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" disabled type="checkbox" value="" name="" id="flexCheckDefault">
+                                                        <input class="form-check-input" disabled type="checkbox" value="" name="actuatorsizing" >
                                                         <label for="" class="form-check-label project_lable" for="flexCheckDefault">
                                                           Actuator Sizing Sheet
                                                         </label>
@@ -38,7 +38,7 @@
             
                                                 <div class="row ml-4 mt-1">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" disabled type="checkbox" value=""  name=""  id="flexCheckDefault">
+                                                        <input class="form-check-input" disabled type="checkbox" value=""  name="projectnotes"  >
                                                         <label for=""  class="form-check-label project_lable" for="flexCheckDefault">
                                                           Project Notes
                                                         </label>
@@ -47,7 +47,7 @@
             
                                                 <div class="row ml-4 mt-1">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" disabled type="checkbox" value=""  name=""  id="flexCheckDefault">
+                                                        <input class="form-check-input" type="checkbox" value="projectsummary"  name="projectsummary" >
                                                         <label for="" class="form-check-label project_lable" for="flexCheckDefault">
                                                           Project Summary
                                                         </label>
@@ -56,7 +56,7 @@
             
                                                 <div class="row ml-4 mt-1">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" disabled type="checkbox" value=""  name=""  id="flexCheckDefault">
+                                                        <input class="form-check-input" disabled type="checkbox" value=""  name="cvplot"  >
                                                         <label for="" class="form-check-label project_lable" for="flexCheckDefault">
                                                           CV Plot
                                                         </label>
@@ -65,7 +65,7 @@
             
                                                 <div class="row ml-4 mt-1">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" disabled type="checkbox" value=""  name=""  id="flexCheckDefault">
+                                                        <input class="form-check-input" disabled type="checkbox" value=""  name="gad"  >
                                                         <label for="" class="form-check-label project_lable" for="flexCheckDefault">
                                                           GA Drawing
                                                         </label>
@@ -74,12 +74,12 @@
             
                                                 <div class="row ml-4 mt-5">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" disabled type="checkbox" value=""  name=""  id="flexCheckDefault">
+                                                        <input class="form-check-input" disabled type="checkbox" value=""  name="collate"  >
                                                         <label for="" class="form-check-label project_lable" for="flexCheckDefault">
                                                           Collate
                                                         </label>
                                                     </div>
-                                                    <button type="submit" class="btn btn-info btn-sm project_download_btn">Download</button>
+                                                    <button type="submit" class="btn btn-info btn-sm project_download_btn" id="submitBtn">Download</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -89,7 +89,7 @@
                                                 <h6 class="sub_heading"><b>Items</b></h6>
                                                 <div class="row">
                                                     <div class="form-check ml-3">
-                                                        <input class="form-check-input" type="checkbox" value=""  name=""  id="flexCheckDefault">
+                                                        <input class="form-check-input" type="checkbox" value=""  name=""  id="selectAll">
                                                         <label for="" class="form-check-label project_lable" for="flexCheckDefault">
                                                           Select All
                                                         </label>
@@ -110,7 +110,7 @@
                                                         <tbody class="table-sm">
                                                             {% for valve_ in items %}
                                                             <tr>
-                                                                <td class="project_print_radio"><input type="radio"></td>
+                                                                <td class="project_print_radio"><input type="checkbox" class="checkbox_item" name="item" value="{{valve_.item.id}}"></td>
                                                                 <td>{{valve_.item.id}}</td>
                                                                 <td>{{valve_.tagNumber}}</td>
                                                                 <td>8</td>
@@ -118,6 +118,7 @@
                                                             {% endfor %}
                                                         </tbody>
                                                     </table>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -125,11 +126,37 @@
                                 </div>
                             </div>
                         </form>
+                        <script>
+                            $(document).ready(function() {
+                                $('#selectAll').on('click', function() {
+                                   
+                                    $('.checkbox_item').prop('checked', $(this).prop('checked'));
+                                });
+                                $('#submitBtn').on('click',function(){
+                                    event.preventDefault();
+                                    var selectedValues = [];
+                                  
+                                    $('.checkbox_item:checked').each(function() {
+                                        
+                                        selectedValues.push($(this).val());
+                                    });
+                                    console.log(selectedValues)
 
-                        <!-- <div class="container-fluid "> -->
-                            
-                        <!-- </div> -->
-                   
+                                    for (var i = 0; i < selectedValues.length; i++) {
+                                            $('<input>').attr({
+                                                type: 'hidden',
+                                                name: 'selectedValues[]', // Use array syntax for multiple values
+                                                value: selectedValues[i]
+                                            }).appendTo('#itemForm');
+                                    }
+                                        
+                                       
+                                    $('#itemForm').submit();
+                                })
 
+                            });
+                        </script>
 {% include "footer.html" %}
 {% endblock %}
+
+

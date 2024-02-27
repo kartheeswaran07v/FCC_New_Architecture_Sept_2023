@@ -112,9 +112,12 @@
                                 </thead>
                     
                                 <tbody class="table-sm">
+                                    
                                     {% for i in valve_data %}
+                                    
+                                
                                     <tr>
-                                        <td><input type="radio" id="valve" name="valve" value="{{i[13]}}" style="text-align:center"></td>
+                                        <td><input type="radio" id="valve" name="valve" value="{{i[13]}}_{{i}}"  style="text-align:center"></td>
                                         <td>{{i[14]}}</td>
                                         <td>{{i[12]}}</td>
                                         <td>{{i[11]}}</td>
@@ -143,3 +146,5 @@
                 </div> -->
 {% include "footer.html" %}
 {% endblock %}
+
+

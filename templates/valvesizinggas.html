@@ -3,6 +3,7 @@
 <br><br>
 <form action="{{url_for('valveSizing', item_id=item.id, proj_id=item.project.id, page=page)}}" method="post">
         <div class="row">
+                
                 <div class="col-7 ml-3">
                         <div class="row column-headers">
                                 <div class="col-4 parameters-units">
@@ -132,7 +133,7 @@
                                                                                 {% if presunit.id == item.project.pressureUnit %}
                                                                                 <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
                                                                                 {% else %}
-                                                                                <option value="{{presunit.name}}">{{presunit.name}}</option>
+                                                                                <option value="{{presunit.id}}">{{presunit.name}}</option>
                                                                                 {% endif %}
                                                                         {% endfor %}
                                                                 </select>
@@ -144,7 +145,7 @@
                                                                                 {% if presunit.id == item.project.pressureUnit %}
                                                                                 <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
                                                                                 {% else %}
-                                                                                <option value="{{presunit.name}}">{{presunit.name}}</option>
+                                                                                <option value="{{presunit.id}}">{{presunit.name}}</option>
                                                                                 {% endif %}
                                                                         {% endfor %}
                                                                 </select>
@@ -439,6 +440,7 @@
                                 <div class="row">
                                         <div class="col-4">
                                                 <label>Fluid State</label>
+                                                {{total_length}}
                                         </div>
                                         <div class="col-7">
                                                 <select id="fluidState"
@@ -721,6 +723,80 @@
 
         </div>
 </form>
+<script>
+       
+      
+                const inputs = $('.sizingtable input');
+                
+                inputs.each(function(index) {
+                        $(this).keydown(function(event) {
+                        if (event.key === 'ArrowUp') {
+                                event.preventDefault();
+                                const prevIndex = (index === 0) ? inputs.length - 1 : index - 1;
+                                inputs.eq(prevIndex).focus();
+                        } else if (event.key === 'ArrowDown') {
+                                event.preventDefault();
+                                const nextIndex = (index === inputs.length - 1) ? 0 : index + 1;
+                                inputs.eq(nextIndex).focus();
+                        }
+                        });
+                });
+                var outerarray = []
+                $('.colborder_bottom').each(function(index, outerElement) {
+                        
+                        var innerarray = []
+                        $(outerElement).find('.sizingtable input[type="text"]').each(function(innerIndex, inputElement) {
+                                innerarray.push($(inputElement));
+                                
+                        });
+                        if(innerarray.length >= 10){
+                        outerarray.push(innerarray)
+                        }
+                        
+                });
+
+
+
+        
+                $('.sizingtable input').focus(function() {
+                        const clickedInput = $(this)[0]; 
+                        let clickedI, clickedJ; 
+                        
+                        for (let i = 0; i < outerarray.length; i++) {
+                                for (let j = 0; j < outerarray[i].length; j++) {
+                                if (outerarray[i][j][0].isSameNode(clickedInput)) {
+                                        clickedI = i;
+                                        clickedJ = j;
+                                        
+                                        handleArrowKeys(clickedI, clickedJ);
+                                        return; 
+                                }
+                                }
+                        }
+                });
+
+                function handleArrowKeys(clickedI, clickedJ) {
+                
+                $(document).keydown(function(event) {
+                        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                        if (clickedI !== undefined && clickedJ !== undefined) {
+                                if (event.key === 'ArrowLeft') {
+                                const newI = clickedI === 0 ? outerarray.length - 1 : clickedI - 1;
+                                outerarray[newI][clickedJ][0].focus();
+                                
+                               
+                                } else if (event.key === 'ArrowRight') {
+                                const newI = (clickedI + 1) % outerarray.length;
+                                outerarray[newI][clickedJ][0].focus();
+                                
+                                
+                                }
+                        }
+                        }
+                });
+
+                }
+</script>
 <script>
         var copiedOuptput = {value: NaN}
         function handleSelect(elm) {

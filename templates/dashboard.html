@@ -186,20 +186,22 @@
                             </div>
                             <div class="col-1">
                                 <a
-                                    href="{{url_for('addItem', proj_id=item.project.id, item_id=item.id)}}"
+                                    
                                     data-toggle="tooltip"
                                     title="Create"
                                     data-placement="bottom"
+                                    onclick="addItemCreate('{{item.project.id}}', '{{item.id}}')"
                                 >
                                     <i class="fa-solid fa-plus"></i
                                 ></a>
                             </div>
                             <div class="col-1">
                                 <a
-                                    href="{{url_for('itemDelete', proj_id=item.project.id, item_id=item.id)}}"
+                                    
                                     data-toggle="tooltip"
                                     title="Delete"
                                     data-placement="bottom"
+                                    onclick="itemDelete('{{item.id}}')"
                                 >
                                     <i class="fa-solid fa-xmark"></i
                                 ></a>
@@ -297,56 +299,7 @@
                 </thead>
 
                 <tbody class="table-sm" id="itemlist">
-                    {% for valve_ in items %}
-                    <tr>
-                        {% if item.id == valve_.item.id %}
-                        <td class="table2_ratio"><input type="radio" checked onclick="window.location='{{url_for('selectItem', item_id=valve_.item.id)}}'"></td>
-                        {% else %}
-                        <td class="table2_ratio"><input type="radio" onclick="window.location='{{url_for('selectItem', item_id=valve_.item.id)}}'"></td>
-                        {% endif %}
-                        {% if valve_.material %}
-                        <td class="table2_item">{{valve_.item.itemNumber}}</td>
-                        <td class="table2_alt">{{valve_.item.alternate}}</td>
-                        <td class="table2_tag">{{valve_.tagNumber}}</td>
-                        <td class="table2_series">{{valve_.serialNumber}}</td>
-                        <td class="table2_item">{{valve_.id}}</td>
-                        <td  class="table2_model">{{valve_.id}}</td>
-                        <td class="table2_type">{{valve_.style.name}}</td>
-                        <td class="table2_rating">{{valve_.rating.name}}</td>
-                        <td class="table2_material">
-                                {{valve_.material.name}}
-                            </td>
-                            <td class="table2_align">{{item.id}}</td>
-                            <td class="table2_series">{{valve_.quantity}}</td>
-                            <td class="table2_align2">{{item.id}}</td>
-                            <td class="table2_print">
-                                <a href="{{url_for('generate_csv_item', proj_id=item.project.id, item_id=item.id)}}">
-                                    <i class="fa-solid fa-print"></i>
-                                </a>
-                            </td>
-                        {% else %}
-                            <td class="table2_item">{{valve_.item.itemNumber}}</td>
-                            <td class="table2_alt">{{valve_.item.alternate}}</td>
-                            <td class="table2_tag">{{valve_.item.id}}</td>
-                            <td class="table2_series">{{valve_.item.id}}</td>
-                            <td class="table2_item">{{valve_.item.id}}</td>
-                            <td  class="table2_model">{{valve_.item.id}}</td>
-                            <td class="table2_type">{{valve_.item.id}}</td>
-                            <td class="table2_rating">{{valve_.item.id}}</td>
-                            <td class="table2_material">
-                                {{valve_.item.id}}
-                            </td>
-                            <td >{{valve_.item.id}}</td>
-                            <td class="table2_align">{{valve_.item.id}}</td>
-                            <td class="table2_align2">{{valve_.item.id}}</td>
-                            <td  class="table2_print">
-                                <a href="{{url_for('generate_csv_item', proj_id=item.project.id, item_id=item.id)}}">
-                                    <i class="fa-solid fa-print"></i>
-                                </a>
-                            </td>
-                        {%endif%}
-                    </tr>
-                    {% endfor %}
+
 
 
                     
@@ -361,5 +314,138 @@
                    
                     </div>
                 </div>
+
+<script>
+
+var ItemsData = [];
+var projectId = '{{ item.project.id }}';
+var itemId = '{{ item.id }}';
+console.log(projectId,itemId)
+function populateTable(ItemsData) {
+    $('#itemlist').empty(); 
+    for (let i = 0; i < ItemsData.length; i++) {
+        var tr = $('<tr>');
+        tr.append('<td class="table2_ratio "><input type="radio" name="itemDetails" class="itemDet" value="' + ItemsData[i].tagNo + '"></td>')
+        tr.append('<td class="table2_item">' + ItemsData[i].Item + '</td>');
+        tr.append('<td class="table2_alt">' + ItemsData[i].alt + '</td>');
+        tr.append('<td class="table2_tag">' + ItemsData[i].tagNo + '</td>');
+        tr.append('<td class="table2_series">' + ItemsData[i].series + '</td>');
+        tr.append('<td class="table2_item">' + ItemsData[i].size + '</td>');
+        tr.append('<td class="table2_model">' + ItemsData[i].model + '</td>');
+        tr.append('<td class="table2_type">' + ItemsData[i].type + '</td>');
+        tr.append('<td class="table2_rating">' + ItemsData[i].rating + '</td>');
+        tr.append('<td class="table2_material">' + ItemsData[i].material + '</td>');
+        tr.append('<td class="table2_align">' + ItemsData[i].unitprice + '</td>');
+        tr.append('<td class="table2_series">' + ItemsData[i].qty + '</td>');
+        tr.append('<td class="table2_align2">' + ItemsData[i].total_price + '</td>');
+        tr.append('<td class="table1_print"><i class="fa-solid fa-print"></td>');
+        $('#itemlist').append(tr);
+    }
+}
+
+
+function addItem(projectId, itemId) {
+    $.ajax({
+        type: "GET",
+        url: "/addItemCopy",
+        data: {
+            projectId: projectId,
+            itemId: itemId
+        },
+        success: function(response) {
+            var data = $.parseJSON(response)
+            ItemsData.push(data);
+            populateTable(ItemsData);
+            console.log('ss',ItemsData);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+}
+
+function addItemAll(projectId) {
+    $.ajax({
+        type: "GET",
+        url: "/addItemAll",
+        data: {
+            projectId: projectId,
+        },
+        success: function(response) {
+            var data = $.parseJSON(response)
+            ItemsData = data;
+            console.log('ss',ItemsData);
+            populateTable(ItemsData);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+}
+
+$(document).ready(function() {
+    addItemAll(projectId);
+});
+
+
+function addItemCreate(projectId, itemId) {
+    addItem(projectId,itemId);
+}
+
+function itemDelete (itemId) {
+
+if ($('.itemDet').is(':checked')) {
+    var itemId = $('.itemDet:checked').val();  
+}
+if(itemId){
+Swal.fire({
+  title: "Do you want to delete the item?",
+  showDenyButton: true,
+  confirmButtonText: "Delete",
+  denyButtonText: "Cancel"
+}).then((result) => {
+  
+  if (result.isConfirmed) {
+                   
+    $.ajax({
+        type: 'POST',
+        url: '/item-delete',
+        data: {
+            item_id : itemId
+        },
+        success: function(response) {
+            Swal.fire('Deleted!', response.message, 'success');
+            var data = $.parseJSON(response)
+            ItemsData = data;
+            console.log('ss',ItemsData);
+            populateTable(ItemsData);
+        },
+        error: function(xhr, status, error) {
+            Swal.fire('Error!', 'An error occurred while deleting the item', 'error');
+        }
+    });
+            
+    Swal.fire("Deleted Successfully");
+  } 
+});
+}
+else{
+    Swal.fire({
+  title: "Select an item to delete",
+  
+  confirmButtonText: "Ok",
+  
+}).then((result) => {
+  
+
+});
+}
+
+
+
+}
+
+
+</script>
 {% include "footer.html" %}
 {% endblock %}

@@ -1,6 +1,7 @@
 {% block content %}
 {% include "header.html" %}
 <br><br>
+
 <form action="{{url_for('valveSizing', item_id=item.id, proj_id=item.project.id, page=page)}}" method="post">
         <div class="row">
                 <div class="col-7 ml-3">
@@ -16,6 +17,7 @@
                                                 </div>
                                         </div>
                                 </div>
+                                
                                 <div class="col-8 input-fields">
                                         <div class="row">
                                                 {% for i in case_length %}
@@ -134,7 +136,7 @@
                                                                                 {% if presunit.id == item.project.pressureUnit %}
                                                                                 <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
                                                                                 {% else %}
-                                                                                <option value="{{presunit.name}}">{{presunit.name}}</option>
+                                                                                <option value="{{presunit.id}}">{{presunit.name}}</option>
                                                                                 {% endif %}
                                                                         {% endfor %}
                                                                 </select>
@@ -146,7 +148,7 @@
                                                                                 {% if presunit.id == item.project.pressureUnit %}
                                                                                 <option value="{{presunit.id}}" selected>{{presunit.name}}</option>
                                                                                 {% else %}
-                                                                                <option value="{{presunit.name}}">{{presunit.name}}</option>
+                                                                                <option value="{{presunit.id}}">{{presunit.name}}</option>
                                                                                 {% endif %}
                                                                         {% endfor %}
                                                                 </select>
@@ -692,7 +694,7 @@
 
         </div>
 </form>
-                
+
 
 
                 <script type="text/javascript">

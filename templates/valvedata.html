@@ -118,15 +118,19 @@
 							<div class="row ">
 								<div class="col-5 pr-0">
 									<label>Max Pressure</label>
+									
 								</div>
 								<div class="col-3">
 									<input type="number" step="0.01" class="form-control-sm-sm valvedata_inputbox"
 										name="maxPressure" value="{{valve.maxPressure}}">
 								</div>
 								<div class="col-3">
+									
 									<select id="" class="form-control-sm-sm valvedata_selectbox" name="maxPressureUnit">
 										{% for presunit in metadata['units_dict']['pressure'] %}
+										
 										{% if presunit == valve.maxPressureUnit %}
+										
 										<option value="{{presunit.id}}" selected>{{presunit.name}}</option>
 										{% else %}
 										<option value="{{presunit.name}}">{{presunit.name}}</option>

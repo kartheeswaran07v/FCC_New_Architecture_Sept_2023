@@ -1,9 +1,10 @@
-import codecs
+# import codecsalve_data
 import datetime
+import traceback
 import json
 import os
 from flask_sqlalchemy import SQLAlchemy  # Create DB with Flask
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, send_file  # Package for Routing
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, send_file, session  # Package for Routing
 from sqlalchemy import Column, Integer, ForeignKey, String, Boolean, DateTime, Float, or_, \
     BigInteger  # DB Column Datatype
 from sqlalchemy.orm import relationship, backref  # Create DB Relationship
@@ -24,7 +25,7 @@ from liquid_noise_formulae import Lpe1m
 from sqlalchemy.sql.sqltypes import String, VARCHAR, FLOAT, INTEGER
 from jinja2 import Environment, FileSystemLoader
 import smtplib
-from specsheet import createSpecSheet
+from specsheet import createSpecSheet,createcvOpening
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from dateutil.parser import parse
@@ -2159,6 +2160,7 @@ class OTP(db.Model):
     time = Column(DateTime)
 
 
+
 # with app.app_context():
 #     db.create_all()
 
@@ -3033,10 +3035,10 @@ def FF(vaporPressure, criticalPressure):
 
 def fP(C, valveDia, inletDia, outletDia, N2_value):
     a = (sigmaEta(valveDia, inletDia, outletDia) / N2_value) * ((C / valveDia ** 2) ** 2)
-    print(
-        f"fp numerator: {a}, n2 value: {N2_value}, valveDia: {valveDia}, sigmaeta: {sigmaEta(valveDia, inletDia, outletDia)}, CV: {C}")
+    # print(
+    #     f"fp numerator: {a}, n2 value: {N2_value}, valveDia: {valveDia}, sigmaeta: {sigmaEta(valveDia, inletDia, outletDia)}, CV: {C}")
     print(f"Sigma eta: {sigmaEta(valveDia, inletDia, outletDia)}")
-    b_ = 1 / math.sqrt(1 + round(a,3))
+    b_ = 1 / math.sqrt(1 + a)
     # return 0.71
     return round(b_, 3)
     # return 0.98
@@ -3118,9 +3120,10 @@ def getFR(N4_value, Fd, flowrate, viscosity, Fl, N2_value, pipeDia, N1_value, in
 def CV(flowrate, C, valveDia, inletDia, outletDia, N2_value, inletPressure, outletPressure, sGravity, N1_value, Fd,
        vaporPressure, Fl, criticalPressure, N4_value, viscosity, thickness):
     if valveDia != inletDia:
-        FLP = flP(C, valveDia, inletDia + 2 * thickness, N2_value, Fl)
-        FP = fP(C, valveDia, inletDia + 2 * thickness, outletDia + 2 * thickness, N2_value)
-        # print(f"FP: {FP}")
+        FLP = flP(C, valveDia, inletDia, N2_value, Fl)
+        print(f'before FP: {C},{valveDia},{inletDia},{outletDia},{N2_value}')
+        FP = fP(C, valveDia, inletDia , outletDia , N2_value)
+        print(f"FP: {FP}")
         FL = FLP / FP
     else:
         FL = Fl
@@ -3129,11 +3132,14 @@ def CV(flowrate, C, valveDia, inletDia, outletDia, N2_value, inletPressure, outl
                outletPressure,
                sGravity)
     # print(Fr)
-    fp_val = fP(C, valveDia, inletDia + 2 * thickness, outletDia + 2 * thickness, N2_value)
+    fp_val = fP(C, valveDia, inletDia, outletDia, N2_value)
     print(delP, sGravity)
-    a_ = N1_value * fp_val * Fr * math.sqrt(delP / sGravity)
-    print(N1_value, fp_val, Fr, delP)
+    a_ = N1_value * round(fp_val,2) * math.sqrt(delP / sGravity)
+    print(f'a_3{a_}')
+    print('JSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
+    print(flowrate,N1_value, round(fp_val,2), Fr, delP,sGravity)
     b_ = flowrate / a_
+    print(f'b_{flowrate},{a_}')
     # print(f"FR: {Fr}")
     return round(b_, 3)
 
@@ -3309,6 +3315,90 @@ def selectItem(item_id):
     return redirect(url_for('home', proj_id=item_.project.id, item_id=item_.id))
 
 
+@app.route('/addItemAll')
+def addItemAll():
+    projId = request.args.get('projectId')
+    project_element = getDBElementWithId(projectMaster, projId)
+    all_items = db.session.query(itemMaster).filter_by(project=project_element).all()
+    item_ids = [item.id for item in all_items]
+    valve_data_list = db.session.query(valveDetailsMaster).filter(valveDetailsMaster.itemId.in_(item_ids)).all()
+    print(f'valve_datassss {valve_data_list}')
+    data_list = []
+    for valve_data in valve_data_list:
+        data = {
+                "Item": valve_data.item.itemNumber,
+                "alt": valve_data.item.alternate,
+                "tagNo": valve_data.item.id,
+                "series": valve_data.item.id,
+                "size": valve_data.item.id,
+                "model": valve_data.item.id,
+                "type": valve_data.item.id,
+                "rating": valve_data.item.id,
+                "material": valve_data.item.id,
+                "unitprice": valve_data.item.id,
+                "qty": valve_data.item.id,
+                "total_price": valve_data.item.id
+            }
+        data_list.append(data)
+    print(f'shshhs {data_list}')
+    return json.dumps(data_list)
+
+
+
+
+@app.route('/addItemCopy')
+def addItemCopy():
+    projId = request.args.get('projectId')
+    itemId = request.args.get('itemId')
+    try:
+        item_element = getDBElementWithId(itemMaster, itemId)
+        project_element = getDBElementWithId(projectMaster, item_element.project.id)
+        all_items = db.session.query(itemMaster).filter_by(project=project_element).all()
+        last_item = all_items[-1]
+        itemNumberCurrent = int(last_item.itemNumber) + 1
+        new_item = addNewItem(project=project_element, itemNumber=itemNumberCurrent, alternate='A')
+        
+        valve_data = db.session.query(valveDetailsMaster).filter_by(item=new_item).first()
+        print(f'vvv{valve_data.item.id}')
+
+        if valve_data.material:
+            data = {
+                "Item": valve_data.item.itemNumber,
+                "alt": valve_data.item.alternate,
+                "tagNo": valve_data.tagNumber,
+                "series": valve_data.serialNumber,
+                "size": valve_data.id,
+                "model": valve_data.id,
+                "type": valve_data.style.name,
+                "rating": valve_data.rating.name,
+                "material": valve_data.material.name,
+                "unitprice": valve_data.item.id,
+                "qty": valve_data.quantity,
+                "total_price": valve_data.item.id
+            }
+        else:
+            data = {
+                "Item": valve_data.item.itemNumber,
+                "alt": valve_data.item.alternate,
+                "tagNo": valve_data.item.id,
+                "series": valve_data.item.id,
+                "size": valve_data.item.id,
+                "model": valve_data.item.id,
+                "type": valve_data.item.id,
+                "rating": valve_data.item.id,
+                "material": valve_data.item.id,
+                "unitprice": valve_data.item.id,
+                "qty": valve_data.item.id,
+                "total_price": valve_data.item.id
+            }
+        print(f'sjsjjs {data}')
+
+        traceback.print_exc()
+        return json.dumps(data)
+    except:
+        return jsonify({'success': False, 'message': 'Item not added.'})
+
+
 @app.route('/add-item/proj-<proj_id>/item-<item_id>', methods=['GET'])
 def addItem(proj_id, item_id):
     item_element = getDBElementWithId(itemMaster, item_id)
@@ -3342,10 +3432,16 @@ def preferences(proj_id, item_id, page):
 def updatePreferences(proj_id, item_id, page):
     with app.app_context():
         project_element = getDBElementWithId(projectMaster, proj_id)
+        # item = getDBElementWithId(itemMaster, item_id)
+        # valve_element = db.session.query(valveDetailsMaster).filter_by(item=item)
+        # valve_element.shutOffDelPUnit = request.form['pressureUnit'] 
+        # valve_element.maxPressureUnit = request.form['pressureUnit']
+        # db.session.commit()
         project_element.pressureUnit = request.form['pressureUnit']
         project_element.temperatureUnit = request.form['temperatureUnit']
         project_element.flowrateUnit = request.form['flowrateUnit']
         project_element.lengthUnit = request.form['lengthUnit']
+        print(f'SSDD {project_element.pressureUnit},{project_element.temperatureUnit},{project_element.flowrateUnit},{project_element.lengthUnit}')
         db.session.commit()
         return redirect(url_for(page, proj_id=proj_id, item_id=item_id))
 
@@ -3553,6 +3649,7 @@ def editProject(proj_id, item_id):
 
 
 # Valve Details Module
+@login_required
 @app.route('/valve-data/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def valveData(proj_id, item_id):
     metadata_ = metadata()
@@ -3898,7 +3995,7 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
     # 1. flowrate
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
-    
+    print(f'necessaryDetails flow{flowrate_form},{fl_unit_form} p1{inletPressure_form},{iPresUnit_form} p2 {outletPressure_form},{oPresUnit_form} T1 {inletTemp_form},{iTempUnit_form} GF {specificGravity} Pv {vaporPressure},{vPresUnit_form} Pc {criticalPressure_form},{cPresUnit_form}, Inpipe {inletPipeDia_form} , {iPipeUnit_form}')
     i_pipearea_element = i_pipearea_element
 
     thickness_pipe = float(i_pipearea_element.thickness)
@@ -3996,16 +4093,18 @@ def getOutputs(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, 
                              'oPipeDia': outletPipeDia_liq,
                              'valveDia': vSize_liq, 'iPipeDiaUnit': iPipe_unit,
                              'oPipeDiaUnit': oPipe_unit, 'valveDiaUnit': vSize_unit,
-                             'C': 0.075 * v_size_for_initial_cv * v_size_for_initial_cv, 'FR': 1, 'vPres': vaporPressure, 'Fl': xt_fl,
+                             'C': ratedCV, 'FR': 1, 'vPres': vaporPressure, 'Fl': xt_fl,
                              'Ff': 0.90,
                              'cPres': criticalPressure_liq,
                              'FD': 1, 'viscosity': viscosity}
     print(service_conditions_sf)
-
     service_conditions_1 = service_conditions_sf
+    print(f'SSS {service_conditions_1['flowrate_unit']}, {service_conditions_1['valveDiaUnit']}')
+    
     N1_val = N1[(service_conditions_1['flowrate_unit'], service_conditions_1['iPresUnit'])]
     N2_val = N2[service_conditions_1['valveDiaUnit']]
-    N4_val = N4[(service_conditions_1['flowrate_unit'], service_conditions_1['valveDiaUnit'])]
+    # N4_val = N4[(service_conditions_1['flowrate_unit'], service_conditions_1['valveDiaUnit'])]
+    N4_val = 173000
 
     result_1 = CV(service_conditions_1['flowrate'], service_conditions_1['C'],
                   service_conditions_1['valveDia'],
@@ -4525,14 +4624,71 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
                   valveSize_form, vSizeUnit_form,
                   seatDia, seatDiaUnit, ratedCV, rw_noise, item_selected, sg_choice, z_factor, sg_vale, 
                   fluidName, i_pipearea_element, valve_element, port_area_):
-    flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_form, outletPressure_form, oPresUnit_form, inletTemp_form, iTempUnit_form, vaporPressure, vPresUnit_form, specificGravity, viscosity, xt_fl, criticalPressure_form, cPresUnit_form, inletPipeDia_form, iPipeUnit_form, iSch, outletPipeDia_form, oPipeUnit_form, oSch, densityPipe, sosPipe, valveSize_form, vSizeUnit_form, seatDia, seatDiaUnit, ratedCV, rw_noise, item_selected, z_factor, sg_vale = float(
-        flowrate_form), fl_unit_form, float(inletPressure_form), iPresUnit_form, float(
-        outletPressure_form), oPresUnit_form, float(inletTemp_form), iTempUnit_form, float(
-        vaporPressure), vPresUnit_form, float(specificGravity), float(viscosity), float(xt_fl), float(
-        criticalPressure_form), cPresUnit_form, float(inletPipeDia_form), iPipeUnit_form, iSch, float(
-        outletPipeDia_form), oPipeUnit_form, oSch, float(densityPipe), float(sosPipe), float(
-        valveSize_form), vSizeUnit_form, float(seatDia), seatDiaUnit, float(ratedCV), float(
-        rw_noise), item_selected, float(z_factor), float(sg_vale)
+   
+
+    print(f'FluidNamesss {fluidName}')
+    flowrate_form = float(flowrate_form)
+    inletPressure_form = float(inletPressure_form)
+    outletPressure_form = float(outletPressure_form)
+    inletTemp_form = float(inletTemp_form)
+    vaporPressure = float(vaporPressure)
+    specificGravity = float(specificGravity)
+    viscosity = float(viscosity)
+    xt_fl = float(xt_fl)
+    criticalPressure_form = float(criticalPressure_form)
+    inletPipeDia_form = float(inletPipeDia_form)
+    outletPipeDia_form = float(outletPipeDia_form)
+    densityPipe = float(densityPipe)
+    sosPipe = float(sosPipe)
+    valveSize_form = float(valveSize_form)
+    seatDia = float(seatDia)
+    ratedCV = float(ratedCV)
+    rw_noise = float(rw_noise)
+    z_factor = float(z_factor)
+    sg_vale = float(sg_vale)
+    
+    variables = {
+        "flowrate_form": flowrate_form,
+        "fl_unit_form": fl_unit_form,
+        "inletPressure_form": inletPressure_form,
+        "iPresUnit_form": iPresUnit_form,
+        "outletPressure_form": outletPressure_form,
+        "oPresUnit_form": oPresUnit_form,
+        "inletTemp_form": inletTemp_form,
+        "iTempUnit_form": iTempUnit_form,
+        "vaporPressure": vaporPressure,
+        "vPresUnit_form": vPresUnit_form,
+        "specificGravity": specificGravity,
+        "viscosity": viscosity,
+        "xt_fl": xt_fl,
+        "criticalPressure_form": criticalPressure_form,
+        "cPresUnit_form": cPresUnit_form,
+        "inletPipeDia_form": inletPipeDia_form,
+        "iPipeUnit_form": iPipeUnit_form,
+        "iSch": iSch,
+        "outletPipeDia_form": outletPipeDia_form,
+        "oPipeUnit_form": oPipeUnit_form,
+        "oSch": oSch,
+        "densityPipe": densityPipe,
+        "sosPipe": sosPipe,
+        "valveSize_form": valveSize_form,
+        "vSizeUnit_form": vSizeUnit_form,
+        "seatDia": seatDia,
+        "seatDiaUnit": seatDiaUnit,
+        "ratedCV": ratedCV,
+        "rw_noise": rw_noise,
+        "item_selected": item_selected,
+        "sg_choice": sg_choice,
+        "z_factor": z_factor,
+        "sg_vale": sg_vale,
+        "fluidName": fluidName,
+        "i_pipearea_element": i_pipearea_element,
+        "valve_element": valve_element,
+        "port_area_": port_area_
+    }
+
+    for name, value in variables.items():
+        print(f"gsgsggsgsgsgsgg{name}: {value}")
 
     fl_unit = fl_unit_form
     if fl_unit in ['m3/hr', 'scfh', 'gpm']:
@@ -4654,6 +4810,7 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
         # 2. Temperature
         inletTemp = meta_convert_P_T_FR_L('T', inletTemp_form, iTempUnit_form, 'K',
                                           1000)
+        print(f'JJJSKKSKSK {inletPressure} , {outletPressure} , {inletPipeDia} , {outletPipeDia} , {vSize} , {flowrate} , {inletTemp}')
 
     print(f"dia of pipe: {outletPipeDia}, {inletPipeDia}")
 
@@ -4680,6 +4837,7 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
                   compressibilityFactor=inputDict['compressibilityFactor'],
                   flowRate=inputDict['flowRate'], temp=inputDict['temp'], sg=inputDict['sg'],
                   sg_=inputDict['sg_'], N2_value=N2_val)
+    print(f'lkkskdkks1 {CV__}')
     Cv__ = Cv_gas(inletPressure=inputDict['inletPressure'], outletPressure=inputDict['outletPressure'],
                   gamma=inputDict['gamma'],
                   C=CV__[0], valveDia=inputDict['valveDia'], inletDia=inputDict['inletDia'],
@@ -4687,7 +4845,9 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
                   compressibilityFactor=inputDict['compressibilityFactor'],
                   flowRate=inputDict['flowRate'], temp=inputDict['temp'], sg=inputDict['sg'],
                   sg_=inputDict['sg_'], N2_value=N2_val)
+    print(f'lkkskdkks2 {CV__}')
     Cv1 = Cv__[0]
+    print(f'resultcalcv {Cv1}')
 
     xChoked = xChoked_gas(gamma=inputDict['gamma'], C=inputDict['C'], valveDia=inputDict['valveDia'],
                           inletDia=inputDict['inletDia'], outletDia=inputDict['outletDia'],
@@ -4993,7 +5153,7 @@ def getOutputsGas(flowrate_form, fl_unit_form, inletPressure_form, iPresUnit_for
         'outletDensity': mac_sonic_list[6],
         'valveSize': valveSize_form
         }
-
+  
     return result_dict
 
 
@@ -5015,6 +5175,9 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
               vSizeUnit_form,
               iSch, iPipeSchUnit_form, oSch, oPipeSchUnit_form, iTempUnit_form, open_percent, fd, travel, 
               rated_cv_tex, fluidName, cv_table, i_pipearea_element, valve_element, port_area_, valvearea_element):
+
+    
+    print(f'JJSHHSHSHHSHHHSHSHH {flowrate_form},{inletPressure_form},{outletPressure_form},{inletTemp_form},{inletPipeDia_form},{outletPipeDia_form},{valveSize_form},{rated_cv_tex}')
     # check whether flowrate, pres and l are in correct units
     inletPipeDia_v = round(meta_convert_P_T_FR_L('L', inletPipeDia_form, iPipeUnit_form, 'inch',
                                                  1000))
@@ -5120,7 +5283,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
                              'oPipeDia': outletPipeDia_liq,
                              'valveDia': vSize_liq, 'iPipeDiaUnit': iPipe_unit,
                              'oPipeDiaUnit': oPipe_unit, 'valveDiaUnit': vSize_unit,
-                             'C': 0.075 * v_size_for_initial_cv * v_size_for_initial_cv, 'FR': 1, 'vPres': vaporPressure, 'Fl': xt_fl,
+                             'C': rated_cv_tex, 'FR': 1, 'vPres': vaporPressure, 'Fl': xt_fl,
                              'Ff': 0.90,
                              'cPres': criticalPressure_liq,
                              'FD': fd, 'viscosity': viscosity}
@@ -5128,7 +5291,8 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
     service_conditions_1 = service_conditions_sf
     N1_val = N1[(service_conditions_1['flowrate_unit'], service_conditions_1['iPresUnit'])]
     N2_val = N2[service_conditions_1['valveDiaUnit']]
-    N4_val = N4[(service_conditions_1['flowrate_unit'], service_conditions_1['valveDiaUnit'])]
+    # N4_val = N4[(service_conditions_1['flowrate_unit'], service_conditions_1['valveDiaUnit'])]
+    N4_val = 17300
 
     result_1 = CV(service_conditions_1['flowrate'], service_conditions_1['C'],
                   service_conditions_1['valveDia'],
@@ -5140,7 +5304,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
                   service_conditions_1['Fl'], service_conditions_1['cPres'], N4_val,
                   service_conditions_1['viscosity'], thickness_pipe)
 
-    result = CV(service_conditions_1['flowrate'], result_1,
+    result = CV(service_conditions_1['flowrate'], rated_cv_tex,
                 service_conditions_1['valveDia'],
                 service_conditions_1['iPipeDia'],
                 service_conditions_1['oPipeDia'], N2_val, service_conditions_1['iPres'],
@@ -5338,7 +5502,7 @@ def liqSizing(flowrate_form, specificGravity, inletPressure_form, outletPressure
             'texVelocity': round(433.9764, 3)}
 
     units_string = f"{seatDia}+{seatDiaUnit}+{sosPipe}+{densityPipe}+{rw_noise}+{fl_unit_form}+{iPresUnit_form}+{oPresUnit_form}+{vPresUnit_form}+{cPresUnit_form}+{iPipeUnit_form}+{oPipeUnit_form}+{vSizeUnit_form}+{iPipeSchUnit_form}+{oPipeSchUnit_form}+{iTempUnit_form}+sg"
-
+    
     # update valve size in item
     size_in_in = int(round(meta_convert_P_T_FR_L('L', valveSize_form, vSizeUnit_form, 'inch', 1000)))
     size_id = valveSize_form
@@ -5433,7 +5597,7 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
               oPresUnit_form, vPresUnit_form, iPipeUnit_form, oPipeUnit_form, vSizeUnit_form, iSch,
               iPipeSchUnit_form, oSch, oPipeSchUnit_form, iTempUnit_form, xt_fl, sg_vale, sg_choice,
               open_percent, fd, travel, rated_cv_tex, fluidName, cv_table, i_pipearea_element, 
-              valve_element, port_area_, trimtype):
+              valve_element, port_area_, trimtype, valve_cv):
     # Unit Conversion
     # 1. Flowrate
 
@@ -5773,13 +5937,37 @@ def gasSizing(inletPressure_form, outletPressure_form, inletPipeDia_form, outlet
     oVelocity = gas_vels[7]
     pVelocity = gas_vels[8]
 
+
+    
+    exact_cv = float(round(Cv1, 3))
+    cvElement = db.session.query(cvValues).filter_by(id=int(valve_cv)).first()  
+    minIndex=0;maxIndex=0
+    arr1=[cvElement.one, cvElement.two, cvElement.three, cvElement.four, cvElement.five, cvElement.six, cvElement.seven, cvElement.eight, cvElement.nine, cvElement.ten]
+    arr = [float(i) for i in arr1]
+    print(f'cvElement {arr}')
+    for i in range(len(arr)-1):
+        if arr[i] < exact_cv and exact_cv < arr[i+1]:
+            minIndex,maxIndex = i+1,i+2
+            minIndexValue,maxIndexValue = arr[i],arr[i+1]
+    print(f'AHAHHAHAHHA')
+    val1 = (exact_cv-minIndexValue)*(maxIndex-minIndex) 
+    print(val1)
+    val2 = val1 / (maxIndexValue-minIndexValue)
+    print(val2)
+    val3 = minIndex + val2 
+    print(val3)
+    
+    percent = int(val3 * 10)
+    print(f'indexss {minIndex} , {maxIndex} , {exact_cv} , {valve_cv} , {percent}')
+
     data = {'cv': round(Cv1, 3),
-            'percent': open_percent,
+            'percent': percent,
             'spl': round(summation1, 3),
             'iVelocity': round(iVelocity, 3),
             'oVelocity': round(oVelocity, 3), 'pVelocity': round(pVelocity, 3), 'choked': round(xChoked, 4),
             'texVelocity': round(tEX, 3)}
-
+ 
+    # print(f'gasPercent {percent}')
     units_string = f"{seatDia}+{seatDiaUnit}+{sosPipe}+{densityPipe}+{z_factor}+{fl_unit_form}+{iPresUnit_form}+{oPresUnit_form}+{oPresUnit_form}+{oPresUnit_form}+{iPipeUnit_form}+{oPipeUnit_form}+{vSizeUnit_form}+{iPipeSchUnit_form}+{oPipeSchUnit_form}+{iTempUnit_form}+{sg_choice}"
     # change valve in item
     size_in_in = int(round(meta_convert_P_T_FR_L('L', valveSize_form, vSizeUnit_form, 'inch', 1000)))
@@ -6015,7 +6203,8 @@ def getCVresult(fl_unit_form, specificGravity, iPresUnit_form, inletPressure_for
     service_conditions_1 = service_conditions_sf
     N1_val = N1[(service_conditions_1['flowrate_unit'], service_conditions_1['iPresUnit'])]
     N2_val = N2[service_conditions_1['valveDiaUnit']]
-    N4_val = N4[(service_conditions_1['flowrate_unit'], service_conditions_1['valveDiaUnit'])]
+    # N4_val = N4[(service_conditions_1['flowrate_unit'], service_conditions_1['valveDiaUnit'])]
+    N4_val = 17300
 
     result_1 = CV(service_conditions_1['flowrate'], service_conditions_1['C'],
                   service_conditions_1['valveDia'],
@@ -6192,8 +6381,10 @@ def valveSizing(proj_id, item_id):
     item_selected = getDBElementWithId(itemMaster, item_id)
     itemCases_1 = db.session.query(caseMaster).filter_by(item=item_selected).all()
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
+    print(f'ValveElement',valve_element)
     try:
         f_state = valve_element.state.name
+        print(f'f_stateshshhs',f_state)
         valve_style = getValveType(valve_element.style.name)
         if valve_style == 'globe':
             constants = {'xt': 0.65, 'fl': 0.9}
@@ -6202,11 +6393,14 @@ def valveSizing(proj_id, item_id):
     except:
         constants = {'xt': 0.65, 'fl': 0.9}
     print(len(itemCases_1))
+    
     if request.method =='POST':
+        print(f'lllllPOST')
         valve_style = getValveType(valve_element.style.name)
         f_state = valve_element.state.name
         data = request.form.to_dict(flat=False)
         a = jsonify(data).json
+        print(f'dashhshhshh',a)
         
 
         fluid_element = getDBElementWithId(fluidProperties, a['fluid_name'][0])
@@ -6223,6 +6417,7 @@ def valveSizing(proj_id, item_id):
                                                 nominalPipeSize=a['vSize'][0]).first()
 
         if f_state == 'Liquid':
+                
                 len_cases_input = len(a['inletPressure'])
                 
                 try:
@@ -6266,23 +6461,26 @@ def valveSizing(proj_id, item_id):
 
                     flash_message = "Calculation Complete"
                     flash_category = "success"
+
                 except ValueError:
                     flash_message = "Data Incomplete"
                     flash_category = "error"
 
                 flash(flash_message, flash_category)
                 # print(data)
-                print(a)
+                print(f'jjjjsjs',a)
                 # print(f"The calculated Cv is: {result}")
                 # print(a)
                 return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
         elif f_state == 'Gas':
+                
                 # logic to choose which formula to use - using units of flowrate and sg
 
                 len_cases_input = len(a['inletPressure'])
                 
                 try:
                     for k in range(len_cases_input):
+                        print(f'ssssssshhh {k}')
                         output = getOutputsGas(a['flowrate'][k], item_selected.project.flowrateUnit, a['inletPressure'][k],
                                                 item_selected.project.pressureUnit,
                                                 a['outletPressure'][k], item_selected.project.pressureUnit,
@@ -6295,41 +6493,71 @@ def valveSizing(proj_id, item_id):
                                                 item_selected.project.lengthUnit, a['vSize'][0], item_selected.project.lengthUnit, a['ratedCV'][0],
                                                 rw_noise, item_selected, a['mw_sg'][0], a['compressibility'][k], a['molecularWeight'][k], 
                                                 fluid_element.fluidName, i_pipearea_element, valve_element, port_area_)
-                        sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(output['inletPipeSize'])).first()
-                        new_case = caseMaster(flowrate=output['flowrate'], inletPressure=output['inletPressure'],
-                                                outletPressure=output['outletPressure'],
-                                                inletTemp=output['inletTemp'], specificGravity=output['specificGravity'],
-                                                vaporPressure=output['vaporPressure'], kinematicViscosity=output['kinematicViscosity'], 
-                                                molecularWeight=output['molecularWeight'],
-                                                valveSize=output['valveSize'],
-                                                calculatedCv=output['calculatedCv'], openingPercentage=output['openingPercentage'],
-                                                spl=output['spl'],
-                                                chokedDrop=output['chokedDrop'], reNumber=output['reNumber'],
-                                                xt=output['xt'], tex=output['tex'],
-                                                criticalPressure=output['criticalPressure'], inletPipeSize=output['inletPipeSize'],
-                                                outletPipeSize=output['outletPipeSize'], powerLevel=output['powerLevel'],
-                                                Fp=output['Fp'], fk=output['fk'], y_expansion=output['y'], xtp=output['xtp'],
-                                                fd=output['fd'], ratedCv=output['ratedCv'], ar=output['ar'], kc=output['kc'],
-                                                pipeInVel=output['pipeInVel'], pipeOutVel=output['pipeOutVel'], valveVel=output['valveVel'],
-                                                seatDia=output['seatDia'], machNoUp=output['machNoUp'], machNoDown=output['machNoDown'], machNoValve=output['machNoVel'],
-                                                sonicVelUp=output['sonicVelUp'], sonicVelDown=output['sonicVelDown'],
-                                                sonicVelValve=output['sonicVelValve'], outletDensity=output['outletDensity'],
-                                                item=item_selected, specificHeatRatio=a['specificHeatRatio'][0], compressibility=a['compressibility'][0], iPipe=None)
-
-                        db.session.add(new_case)
-                        db.session.commit()
-                                
-                        for i in itemCases_1:
-                            db.session.delete(i)
+                        print(f'ssjjsjsj {output}')
+                        # sch_element = db.session.query(pipeArea).filter_by(schedule=a['iSch'][0], nominalPipeSize=float(output['inletPipeSize'])).first()
+                        try:
+                            new_case = caseMaster(flowrate=output['flowrate'], 
+                                                inletPressure=output['inletPressure'],
+                                                    outletPressure=output['outletPressure'],
+                                                    inletTemp=output['inletTemp'], 
+                                                    specificGravity=output['specificGravity'],
+                                                    vaporPressure=output['vaporPressure'], 
+                                                    kinematicViscosity=output['kinematicViscosity'], 
+                                                    molecularWeight=output['molecularWeight'],
+                                                    valveSize=output['valveSize'],
+                                                    calculatedCv=output['calculatedCv'], 
+                                                    openingPercentage=output['openingPercentage'],
+                                                    spl=output['spl'],
+                                                    chokedDrop=output['chokedDrop'], 
+                                                    reNumber=output['reNumber'],
+                                                    xt=output['xt'], 
+                                                    tex=output['tex'],
+                                                    criticalPressure=output['criticalPressure'], 
+                                                    inletPipeSize=output['inletPipeSize'],
+                                                    outletPipeSize=output['outletPipeSize'], 
+                                                    powerLevel=output['powerLevel'],
+                                                    Fp=output['Fp'], 
+                                                    fk=output['fk'], 
+                                                    y_expansion=output['y'], 
+                                                    xtp=output['xtp'],
+                                                    fd=output['fd'], 
+                                                    ratedCv=output['ratedCv'], 
+                                                    ar=output['ar'], 
+                                                    kc=output['kc'],
+                                                    pipeInVel=output['pipeInVel'], 
+                                                    pipeOutVel=output['pipeOutVel'], 
+                                                    valveVel=output['valveVel'],
+                                                    seatDia=output['seatDia'], 
+                                                    machNoUp=output['machNoUp'], 
+                                                    machNoDown=output['machNoDown'], 
+                                                    machNoValve=output['machNoVel'],
+                                                    sonicVelUp=output['sonicVelUp'], 
+                                                    sonicVelDown=output['sonicVelDown'],
+                                                    sonicVelValve=output['sonicVelValve'], 
+                                                    outletDensity=output['outletDensity'],
+                                                    item=item_selected, 
+                                                    specificHeatRatio=a['specificHeatRatio'][0], 
+                                                    compressibility=a['compressibility'][0], iPipe=None)
+                            
+                            db.session.add(new_case)
                             db.session.commit()
+                            
+                        except Exception as e:
+                            print(f'dbadderror {e}')
+                    print(f'SUCCESSSSSSSS')
                     flash_message = "Calculation Complete"
                     flash_category = "success"
                 except Exception as e:
-                    flash_message = f"Data Incomplete"
+                    flash_message = "Data Incomplete"
                     flash_category = "error"
-            
+                    traceback.print_exc()
+                    print(f'ERRORUUU {e}')
+                # except ValueError:
+                #     flash_message = "Data Incomplete"
+                #     flash_category = "error"
+                print(f'gggssssssssssssssss',a)
                 flash(flash_message, flash_category)
-                return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
+                # return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
 
         else:
             flash("No Computation for Two-Phase", "error")
@@ -6359,9 +6587,12 @@ def itemCaseDelete(proj_id, item_id, case_id):
     return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
 
 
-@app.route('/item-delete/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
-def itemDelete(proj_id, item_id):
+@app.route('/item-delete', methods=['GET', 'POST'])
+def itemDelete():
+    item_id = request.form['item_id']
+    print(f'ItemIdSSS {item_id}')
     item_ = getDBElementWithId(itemMaster, item_id)
+    project_id = item_.project.id
     cases = db.session.query(caseMaster).filter_by(item=item_).all()
     len_cases = len(cases)
     item_nots = db.session.query(itemNotesData).filter_by(item=item_).all()
@@ -6378,13 +6609,42 @@ def itemDelete(proj_id, item_id):
             
             db.session.delete(item_)
             db.session.commit()
-            return redirect(url_for('home', item_id=new_item.id, proj_id=new_item.project.id))
+            # return redirect(url_for('home', item_id=new_item.id, proj_id=new_item.project.id))
         else:
             db.session.delete(item_)
             db.session.commit()
             all_items = db.session.query(itemMaster).filter_by(project=item_.project).all()
             flash("Item deleted successfully")
-            return redirect(url_for('home', item_id=all_items[0].id, proj_id=all_items[0].project.id))
+            # return redirect(url_for('home', item_id=all_items[0].id, proj_id=all_items[0].project.id))
+        
+
+        projId = project_id
+        project_element = getDBElementWithId(projectMaster, projId)
+        all_items = db.session.query(itemMaster).filter_by(project=project_element).all()
+        item_ids = [item.id for item in all_items]
+        valve_data_list = db.session.query(valveDetailsMaster).filter(valveDetailsMaster.itemId.in_(item_ids)).all()
+        print(f'valve_datassss {valve_data_list}')
+        data_list = []
+        for valve_data in valve_data_list:
+            data = {
+                "Item": valve_data.item.itemNumber,
+                "alt": valve_data.item.alternate,
+                "tagNo": valve_data.item.id,
+                "series": valve_data.item.id,
+                "size": valve_data.item.id,
+                "model": valve_data.item.id,
+                "type": valve_data.item.id,
+                "rating": valve_data.item.id,
+                "material": valve_data.item.id,
+                "unitprice": valve_data.item.id,
+                "qty": valve_data.item.id,
+                "total_price": valve_data.item.id
+            }
+            data_list.append(data)
+        print(f'shshhs {data_list}')
+    return json.dumps(data_list)
+
+    return ""
         
     return render_template('deleteConfirmation.html', item_id=item_id, proj_id=proj_id, 
                            item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
@@ -6529,7 +6789,7 @@ def interpolate_percent(data, x_db, vtype):
 
 @app.route('/select-valve/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def selectValve(proj_id, item_id):
-    metadata_ = metadata()
+    metadata_ = metadata()          
     item_selected = getDBElementWithId(itemMaster, item_id)
     valve_element = db.session.query(valveDetailsMaster).filter_by(item=item_selected).first()
     cases = db.session.query(caseMaster).filter_by(item=item_selected).all()
@@ -6538,6 +6798,7 @@ def selectValve(proj_id, item_id):
     if request.method == "POST":
         if len(cases) > 0:
             if request.form.get('getv'):
+                print(f'ASDFGGGSSSSSSSSSSS')
                 print('post')
                 cv_all = cvValues.query.all()
                 db.session.commit()
@@ -6571,6 +6832,7 @@ def selectValve(proj_id, item_id):
                 
                 cv_id_lists = [cv_.id for cv_ in cv__lists]
                 cv_lists = cvValues.query.filter(cvValues.cvId.in_(cv_id_lists)).all()
+                print(f'cv_lists {cv_lists}')
                 for i in cv_lists:
                     seat_bore = i.seatBore
                     travel = i.travel
@@ -6628,10 +6890,19 @@ def selectValve(proj_id, item_id):
                                         page='selectValve',metadata=metadata_, user=current_user, valve=valve_element)
                 
             elif request.form.get('select'):
+                
+                valve_cv = request.form.get('valve').split('_')[0]
+                valve_data = request.form.get('valve').split('_')[1] 
+                valve_data_list = [float(x) for x in valve_data.strip('[]').split(',')]
+                
+                print(f'valve_DAYTATTSSDD {valve_cv}')
+                session['valve_cvOpening'] = valve_data_list
+                
+
+                print(f'ASDFGGGHH {valve_cv} , {valve_data_list}')
                 for last_case in cases:
-                    print('Printing id of last caseeeeeeeeeeeeeeeeeeeeeeeeeeeee')
-                    print(last_case.id)
-                    valve_d_id = getDBElementWithId(cvValues, request.form.get('valve'))
+                    valve_d_id = getDBElementWithId(cvValues, valve_cv)
+                    print(f'valve_d_id {valve_d_id.cv}')
                     cv_element = valve_d_id.cv
                     rated_cv_for_case = valve_d_id.ten
                     # Adding valve id in new table
@@ -6667,6 +6938,7 @@ def selectValve(proj_id, item_id):
                     xt = interpolate(last_case.calculatedCv, select_dict, select_dict_xt, valve_type_)
                     fd = interpolate_fd(last_case.calculatedCv, select_dict, select_dict_fd, valve_type_)
                     rated_cv_tex = select_dict.ten
+                    print(f'ratedCVLIQUIDNew {rated_cv_tex}')
                     if valve_element.state.name == 'Liquid':
                         final_cv = getCVresult(fl_unit, last_case.specificGravity, iPresUnit, last_case.inletPressure,
                                             last_case.flowrate,
@@ -6742,7 +7014,7 @@ def selectValve(proj_id, item_id):
                     #     db.session.commit()
                     #     trimtype = trim_element.name
                     trimtype = 'Ported'
-                    if valve_element.state.name == 'Liquid':
+                    if valve_element.state.name == 'Liquid':    
                         try:
                             sch_element = db.session.query(pipeArea).filter_by(schedule='std', nominalPipeSize=float(last_case.inletPipeSize)).first()
                         except:
@@ -6763,7 +7035,7 @@ def selectValve(proj_id, item_id):
                         vaporPressure=output['vaporPressure'], kinematicViscosity=output['kinematicViscosity'],
                         calculatedCv=output['calculatedCv'], openingPercentage=output['openingPercentage'],
                         valveSize=output['valveSize'], fd=output['fd'], Ff=output['Ff'],
-                        Fp=output['Fp'], Flp=output['Flp'], ratedCv=rated_cv_for_case, 
+                        Fp=output['Fp'], Flp=output['Flp'], ratedCv=rated_cv_tex, 
                         ar=output['ar'], kc=output['kc'], reNumber=output['reNumber'],
                         spl=output['spl'], pipeInVel=output['pipeInVel'],pipeOutVel=output['pipeOutVel'],
                         chokedDrop=output['chokedDrop'],
@@ -6778,37 +7050,37 @@ def selectValve(proj_id, item_id):
                     else:
                         
                         result_dict = gasSizing(last_case.inletPressure, last_case.outletPressure, last_case.inletPipeSize, last_case.outletPipeSize,
-                                v_size,
-                                last_case.specificGravity, last_case.flowrate, last_case.inletTemp, final_cv1, rw_noise,
-                                last_case.vaporPressure,
-                                seat_bore, 'inch',
-                                sosPipe, densityPipe, last_case.criticalPressure, last_case.kinematicViscosity, item_selected,
-                                fl_unit,
-                                iPresUnit,
-                                oPresUnit, vPresUnit, iPipeUnit, oPipeUnit, 'inch',
-                                'std',
-                                iPipeSchUnit, 'std', oPipeSchUnit, iTempUnit, xt, last_case.molecularWeight,
-                                sg_choice, o_percent, fd, travel, rated_cv_tex,fluidName_, valve_d_id.cv, i_pipearea_element, 
-                                valve_element, port_area_, trimtype)
+                                  v_size,
+                                  last_case.specificGravity, last_case.flowrate, last_case.inletTemp, final_cv1, rw_noise,
+                                  last_case.vaporPressure,
+                                  seat_bore, 'inch',
+                                  sosPipe, densityPipe, last_case.criticalPressure, last_case.kinematicViscosity, item_selected,
+                                  fl_unit,
+                                  iPresUnit,
+                                  oPresUnit, vPresUnit, iPipeUnit, oPipeUnit, 'inch',
+                                  'std',
+                                  iPipeSchUnit, 'std', oPipeSchUnit, iTempUnit, xt, last_case.molecularWeight,
+                                  sg_choice, o_percent, fd, travel, rated_cv_tex,fluidName_, valve_d_id.cv, i_pipearea_element, 
+                                  valve_element, port_area_, trimtype, valve_cv)
                         new_case = caseMaster(flowrate=result_dict['flowrate'], inletPressure=result_dict['inletPressure'],
-                        outletPressure=result_dict['outletPressure'],
-                        inletTemp=result_dict['inletTemp'], specificGravity=result_dict['specificGravity'],
-                        vaporPressure=result_dict['vaporPressure'], kinematicViscosity=result_dict['kinematicViscosity'],
-                        molecularWeight=last_case.molecularWeight, y_expansion=result_dict['y'],
-                        calculatedCv=result_dict['calculatedCv'], openingPercentage=result_dict['openingPercentage'],
-                        spl=result_dict['spl'], pipeInVel=result_dict['pipeInVel'], pipeOutVel=result_dict['pipeOutVel'],
-                        valveVel=result_dict['valveVel'], specificHeatRatio=last_case.specificHeatRatio,
-                        chokedDrop=result_dict['chokedDrop'],
-                        xt=result_dict['xt'],tex=result_dict['tex'],
-                        powerLevel=result_dict['powerLevel'],
-                        criticalPressure=result_dict['criticalPressure'], inletPipeSize=result_dict['inletPipeSize'],
-                        outletPipeSize=result_dict['outletPipeSize'],
-                        item=item_selected, fk=result_dict['fk'], xtp=result_dict['xtp'], ratedCv=rated_cv_for_case,
-                        fd=result_dict['fd'], Fp=result_dict['Fp'], ar=result_dict['ar'], kc=result_dict['kc'], reNumber=result_dict['reNumber'],
-                        machNoUp=result_dict['machNoUp'], machNoDown=result_dict['machNoDown'], machNoValve=result_dict['machNoVel'],
-                        sonicVelUp=result_dict['sonicVelUp'], sonicVelDown=result_dict['sonicVelDown'],
-                        sonicVelValve=result_dict['sonicVelValve'], outletDensity=result_dict['outletDensity'],x_delp=result_dict['x_delp'],
-                        cv=valve_d_id.cv, iPipe=None, valveSize=v_size)
+                         outletPressure=result_dict['outletPressure'],
+                         inletTemp=result_dict['inletTemp'], specificGravity=result_dict['specificGravity'],
+                         vaporPressure=result_dict['vaporPressure'], kinematicViscosity=result_dict['kinematicViscosity'],
+                         molecularWeight=last_case.molecularWeight, y_expansion=result_dict['y'],
+                         calculatedCv=result_dict['calculatedCv'], openingPercentage=result_dict['openingPercentage'],
+                         spl=result_dict['spl'], pipeInVel=result_dict['pipeInVel'], pipeOutVel=result_dict['pipeOutVel'],
+                         valveVel=result_dict['valveVel'], specificHeatRatio=last_case.specificHeatRatio,
+                         chokedDrop=result_dict['chokedDrop'],
+                         xt=result_dict['xt'],tex=result_dict['tex'],
+                         powerLevel=result_dict['powerLevel'],
+                         criticalPressure=result_dict['criticalPressure'], inletPipeSize=result_dict['inletPipeSize'],
+                         outletPipeSize=result_dict['outletPipeSize'],
+                         item=item_selected, fk=result_dict['fk'], xtp=result_dict['xtp'], ratedCv=rated_cv_tex,
+                         fd=result_dict['fd'], Fp=result_dict['Fp'], ar=result_dict['ar'], kc=result_dict['kc'], reNumber=result_dict['reNumber'],
+                         machNoUp=result_dict['machNoUp'], machNoDown=result_dict['machNoDown'], machNoValve=result_dict['machNoVel'],
+                         sonicVelUp=result_dict['sonicVelUp'], sonicVelDown=result_dict['sonicVelDown'],
+                         sonicVelValve=result_dict['sonicVelValve'], outletDensity=result_dict['outletDensity'],x_delp=result_dict['x_delp'],
+                         cv=valve_d_id.cv, iPipe=None, valveSize=v_size)
                         db.session.add(new_case)
                         db.session.commit()
                     # except:
@@ -6819,7 +7091,7 @@ def selectValve(proj_id, item_id):
                 #     print(case_.id)
                 return redirect(url_for('valveSizing', item_id=item_id, proj_id=proj_id))
         else:
-            flash('Add Case to select valve')
+            flash('Add Case to select valve')                                           
             return redirect(url_for('selectValve', item_id=item_id, proj_id=proj_id))
     return render_template('selectvalve.html', item=getDBElementWithId(itemMaster, int(item_id)), user=current_user,
                            metadata=metadata_, page='selectValve', valve=valve_element, valve_data=[])
@@ -7363,13 +7635,43 @@ def generate_csv_item(item_id, proj_id):
     return render_template('item_print.html', valve=valve_element, item=getDBElementWithId(itemMaster, int(item_id)), page='generate_csv_item', user=current_user)
 
 
+@app.route('/generate_openingcv/proj-<proj_id>/item-<item_ids>',methods=['GET','POST'])
+def generate_openingcv(item_ids,proj_id):
+
+
+    items_ids_list = [int(x) for x in item_ids.strip('[]').split(',')]
+    items = [getDBElementWithId(itemMaster, i) for i in items_ids_list]
+    print(f'generate_openingcvssss {items}')
+    #valveDetails = db.session.query(valveDetailsMaster).filter_by(item=item).first()
+    itemCase = [db.session.query(caseMaster).filter_by(item=item).all() for item in items]
+    
+
+
+    createcvOpening(itemCase)
+    path = "specsheet1.xlsx"
+    a__ = datetime.datetime.now()
+    a_ = a__.strftime("%a, %d %b %Y %H-%M-%S")
+    spec_sheet_name = f'Specsheet_{a_}.xlsx'
+
+    return send_file(path, as_attachment=True, download_name=spec_sheet_name)
+
+
+
+
 @app.route('/generate-csv-project/proj-<proj_id>/item-<item_id>', methods=['GET', 'POST'])
 def generate_csv_project(item_id, proj_id):
     items_list = db.session.query(itemMaster).filter_by(project=projectMaster.query.get(int(proj_id))).order_by(
         itemMaster.itemNumber.asc()).all()
     valve_list = [db.session.query(valveDetailsMaster).filter_by(item=item_).first() for item_ in items_list]
     if request.method == "POST":
-        return redirect(url_for('generate_csv', item_id=item_id, proj_id=proj_id, page='generate_csv_project'))
+        items = request.form.getlist('selectedValues[]')
+        items_list = [int(i) for i in items]
+        print(f'JJSHS {items_list}')
+        if 'controlvalve' in request.form:
+            return redirect(url_for('generate_csv', item_id=item_id, proj_id=proj_id, page='generate_csv_project'))
+        elif 'projectsummary' in request.form:
+            return redirect(url_for('generate_openingcv',item_ids=items_list, proj_id=proj_id))
+        
     return render_template('project_print.html', items=valve_list, item=getDBElementWithId(itemMaster, int(item_id)), page='generate_csv_project', user=current_user)
 
 
@@ -7387,6 +7689,7 @@ def generate_csv(item_id, proj_id, page):
 
             for item in all_items:
                 v_details = db.session.query(valveDetailsMaster).filter_by(item=item).first()
+                print(f'{v_details} VVDATA')
                 acc_details = db.session.query(accessoriesData).filter_by(item=item).first()
                 acc_list = [acc_details.manufacturer, acc_details.model, acc_details.action, acc_details.afr,
                             acc_details.afr,
@@ -7567,6 +7870,7 @@ def generate_csv(item_id, proj_id, page):
         # flash(f'some error occured: {e}')
         flash('Data missing')
         print(f'Generate CSV Issue: {e}')
+        traceback.print_exc()
         return redirect(url_for(page, item_id=item_id, proj_id=proj_id))
 
 
@@ -8257,3 +8561,4 @@ def DATA_UPLOAD_BULK():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
